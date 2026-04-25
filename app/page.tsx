@@ -10,7 +10,7 @@ import Comparison from "@/components/sections/Comparison";
 import Impact from "@/components/sections/Impact";
 import SubmitForm from "@/components/sections/SubmitForm";
 import CTA from "@/components/sections/CTA";
-import Footer from "@/components/Layout/Footer";
+import Footer from "@/components/layout/Footer";
 
 // ─────────────────────────────────────────────────────────────
 // SWAQAR Landing Page — PRODUCTION READY
