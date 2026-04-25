@@ -113,7 +113,7 @@ export default function Footer() {
                 {/* ═══════════ BOTTOM BAR ═══════════ */}
                 <div className="border-t border-swaqar-gold/20 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                     <p className="text-swaqar-muted text-xs">
-                        © {year} SWAQAR. All rights reserved.
+                        © {year} SWAQARrr. All rights reserved.
                     </p>
                     <p className="text-swaqar-muted text-xs">
                         Trade Coordination Infrastructure · swaqar.com
