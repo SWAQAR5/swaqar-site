@@ -1,5 +1,3 @@
-import SubmitForm from "@/components/SubmitForm";
-
 const NEXT_STEPS = [
     {
         label: "Submit",
@@ -40,7 +38,7 @@ export default function CTA() {
 
                 {/* FORM — one instance only */}
                 <div id="submit-opportunity">
-                    <SubmitForm />
+
                 </div>
 
                 {/* WHAT HAPPENS NEXT */}
