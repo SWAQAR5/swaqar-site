@@ -1,8 +1,8 @@
-import SubmitForm from "@/components/sections/SubmitForm";
+import SubmitForm from "@/components/SubmitForm";
 
 // ─────────────────────────────────────────────────────────────
 // SECTION 10 — CTA (FINAL ENTRY)
-// Updated: uses real form (SubmitForm) instead of mailto links
+// Single form only. No duplicate mailto blocks.
 // ─────────────────────────────────────────────────────────────
 
 const NEXT_STEPS = [
@@ -28,6 +28,7 @@ export default function CTA() {
             className="swaqar-section bg-swaqar-surface/30"
         >
             <div className="swaqar-container">
+
                 {/* ───── SECTION HEADER ───── */}
                 <div className="mb-14 max-w-3xl">
                     <span className="block text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold mb-3">
@@ -42,7 +43,7 @@ export default function CTA() {
                     </p>
                 </div>
 
-                {/* ═══════════ FORM ═══════════ */}
+                {/* ═══════════ SINGLE FORM — no duplicate ═══════════ */}
                 <div id="submit-opportunity">
                     <SubmitForm />
                 </div>
@@ -58,7 +59,10 @@ export default function CTA() {
                     {/* Desktop */}
                     <div className="hidden md:flex items-start justify-between gap-2">
                         {NEXT_STEPS.map((step, i) => (
-                            <div key={`step-${i}`} className="flex items-start flex-1 last:flex-none">
+                            <div
+                                key={`step-${i}`}
+                                className="flex items-start flex-1 last:flex-none"
+                            >
                                 <div className="flex flex-col items-center gap-3 px-4 flex-1">
                                     <div className="flex items-center justify-center w-9 h-9 border border-swaqar-gold bg-swaqar-bg">
                                         <span className="text-swaqar-gold text-xs font-bold tracking-wider">
@@ -75,7 +79,9 @@ export default function CTA() {
                                 {i < NEXT_STEPS.length - 1 && (
                                     <div className="flex items-center justify-center mt-4">
                                         <span className="block h-px w-8 bg-swaqar-gold" />
-                                        <span className="text-swaqar-gold text-xs leading-none -ml-1">▶</span>
+                                        <span className="text-swaqar-gold text-xs leading-none -ml-1">
+                                            ▶
+                                        </span>
                                     </div>
                                 )}
                             </div>
@@ -120,6 +126,7 @@ export default function CTA() {
                         </span>
                     </p>
                 </div>
+
             </div>
         </section>
     );
