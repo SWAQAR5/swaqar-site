@@ -9,6 +9,7 @@ import Boundaries from "@/components/sections/Boundaries";
 import Comparison from "@/components/sections/Comparison";
 import Impact from "@/components/sections/Impact";
 import CTA from "@/components/sections/CTA";
+import SubmitForm from "@/components/sections/SubmitForm";
 import Footer from "@/components/layout/Footer";
 
 export default function Page() {
@@ -26,6 +27,7 @@ export default function Page() {
         <Comparison />
         <Impact />
         <CTA />
+        <SubmitForm />
       </main>
       <Footer />
     </>
