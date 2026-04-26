@@ -9,7 +9,7 @@ import Boundaries from "@/components/sections/Boundaries";
 import Comparison from "@/components/sections/Comparison";
 import Impact from "@/components/sections/Impact";
 import CTA from "@/components/sections/CTA";
-import Footer from "@/components/Footer";
+import Footer from "@/components/layout/Footer";
 
 export default function Page() {
   return (
