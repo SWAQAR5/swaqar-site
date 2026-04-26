@@ -1,33 +1,32 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════
-   SWAQAR DESIGN SYSTEM — Tailwind v4 (CSS-based config)
-   Source: SWAQAR Website Blueprint + Brand Identity Guidelines
+   SWAQAR DESIGN SYSTEM — Tailwind v4
+   Background: Charcoal #1A1A1A (matches logo dark fill)
+   Surface:    Charcoal #2A2A2A (widened gap for section clarity)
    ═══════════════════════════════════════════════════════════ */
 
-/* ──────────────────────────────────────────────
-   @theme — registers Tailwind utilities like
-   bg-swaqar-bg, text-swaqar-gold, max-w-swaqar, etc.
-   This REPLACES tailwind.config.ts in v4.
-   ────────────────────────────────────────────── */
 @theme {
-  /* Colors — locked palette */
-  --color-swaqar-bg: #0B1220;
-  --color-swaqar-surface: #1F2937;
+  --color-swaqar-bg: #1A1A1A;
+  /* Charcoal — matches logo */
+  --color-swaqar-surface: #2A2A2A;
+  /* Wider contrast gap */
   --color-swaqar-gold: #C6A85B;
+  /* Primary gold — locked */
   --color-swaqar-text: #F8FAFC;
+  /* Primary text — locked */
   --color-swaqar-muted: #94A3B8;
+  /* Secondary text — locked */
   --color-swaqar-success: #22C55E;
+  /* Approval green — locked */
   --color-swaqar-error: #EF4444;
+  /* Rejection red — locked */
 
-  /* Max widths */
   --container-swaqar: 1200px;
 
-  /* Font family — bridges to next/font's --font-inter */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", Roboto, sans-serif;
 
-  /* SWAQAR rule: zero rounded corners by default */
   --radius-none: 0;
   --radius-sm: 0;
   --radius-md: 0;
@@ -35,16 +34,12 @@
   --radius-xl: 0;
   --radius-2xl: 0;
   --radius-3xl: 0;
-  /* 'full' kept for circles when needed */
   --radius-full: 9999px;
 }
 
-/* ──────────────────────────────────────────────
-   Plain CSS variables (used by .swaqar-* classes
-   below — these don't need to be in @theme)
-   ────────────────────────────────────────────── */
 :root {
-  --swaqar-bg: #0B1220;
+  --swaqar-bg: #1A1A1A;
+  --swaqar-surface: #2A2A2A;
   --swaqar-gold: #C6A85B;
   --swaqar-section-py: 80px;
   --swaqar-container-px: 20px;
@@ -53,9 +48,6 @@
   --swaqar-body: 17px;
 }
 
-/* ──────────────────────────────────────────────
-   Base layer — typography baseline
-   ────────────────────────────────────────────── */
 @layer base {
   html {
     -webkit-font-smoothing: antialiased;
@@ -102,21 +94,16 @@
     }
   }
 
-  /* Anchor scroll offset for sticky navbar */
   [id] {
-    scroll-margin-top: 80px;
+    scroll-margin-top: 96px;
   }
 
-  /* Focus states — gold outline */
   *:focus-visible {
     outline: 2px solid var(--swaqar-gold);
     outline-offset: 2px;
   }
 }
 
-/* ──────────────────────────────────────────────
-   Component layer — structural primitives
-   ────────────────────────────────────────────── */
 @layer components {
   .swaqar-container {
     width: 100%;
@@ -134,8 +121,8 @@
 
   @media (max-width: 768px) {
     .swaqar-section {
-      padding-top: 56px;
-      padding-bottom: 56px;
+      padding-top: 40px;
+      padding-bottom: 40px;
     }
   }
 
@@ -143,5 +130,11 @@
     height: 1px;
     background-color: var(--swaqar-gold);
     width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .text-swaqar-muted {
+      color: #B0BCC9 !important;
+    }
   }
 }

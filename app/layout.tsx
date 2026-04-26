@@ -33,13 +33,18 @@ export const metadata: Metadata = {
   creator: "SWAQAR",
   publisher: "SWAQAR",
   metadataBase: new URL("https://swaqar.com"),
-  alternates: {
-    canonical: "/",
-  },
+  alternates: { canonical: "/" },
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
+  },
+  // ── Favicon set ──────────────────────────────────────
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/favicon.svg",
   },
   openGraph: {
     title: "SWAQAR — Structured Trade Coordination System",
@@ -72,12 +77,10 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#0B1220",
+  themeColor: "#1A1A1A",
   colorScheme: "dark",
 };
 
-// JSON-LD structured data — helps Google understand SWAQAR
-// as an organization and improves rich search results.
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -85,6 +88,7 @@ const organizationSchema = {
   description:
     "Structured Trade Coordination System governing cross-border trade between Africa and the Middle East.",
   url: "https://swaqar.com",
+  logo: "https://swaqar.com/logo.svg",
   contactPoint: [
     {
       "@type": "ContactPoint",
@@ -113,7 +117,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* JSON-LD Organization schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -123,8 +126,6 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-swaqar-bg text-swaqar-text antialiased selection:bg-swaqar-gold selection:text-swaqar-bg">
         {children}
-        {/* Vercel Analytics — privacy-first, no cookie banner needed */}
-
       </body>
     </html>
   );

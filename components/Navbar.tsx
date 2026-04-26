@@ -1,13 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
-// ─────────────────────────────────────────────────────────────
-// NAVBAR
-// All anchors now point to existing section IDs.
-// "Execution" → Timeline section (also has #execution alias)
-// ─────────────────────────────────────────────────────────────
 
 const NAV_LINKS = [
     { label: "System", href: "#system-flow" },
@@ -30,25 +25,28 @@ export default function Navbar() {
 
     return (
         <header
-            className={`sticky top-0 z-50 w-full transition-colors duration-200 ${scrolled
-                    ? "bg-swaqar-bg/95 backdrop-blur-sm border-b border-swaqar-gold/30"
-                    : "bg-transparent border-b border-transparent"
+            className={`sticky top-0 z-50 w-full transition-colors duration-200 border-b ${scrolled
+                ? "bg-swaqar-bg/95 backdrop-blur-sm border-swaqar-gold/30"
+                : "bg-swaqar-bg/60 backdrop-blur-sm border-swaqar-gold/15"
                 }`}
         >
             <div className="swaqar-container">
                 <div className="flex items-center justify-between h-16">
-                    <Link
-                        href="/"
-                        className="text-swaqar-gold font-bold text-lg tracking-[0.2em]"
-                        aria-label="SWAQAR — home"
-                    >
-                        SWAQAR
+
+                    {/* ───── LOGO ───── */}
+                    <Link href="/" aria-label="SWAQAR — home">
+                        <Image
+                            src="/logo.png"
+                            alt="SWAQAR"
+                            width={120}
+                            height={48}
+                            priority
+                            className="h-12 w-auto object-contain"
+                        />
                     </Link>
 
-                    <nav
-                        aria-label="Primary"
-                        className="hidden md:flex items-center gap-7"
-                    >
+                    {/* ───── DESKTOP NAV ───── */}
+                    <nav aria-label="Primary" className="hidden md:flex items-center gap-7">
                         {NAV_LINKS.map((link) => (
                             <a
                                 key={link.label}
@@ -64,6 +62,7 @@ export default function Navbar() {
                         ))}
                     </nav>
 
+                    {/* ───── DESKTOP CTA ───── */}
                     <a
                         href="#submit-opportunity"
                         className="hidden md:inline-flex items-center justify-center bg-swaqar-gold text-swaqar-bg text-sm font-semibold px-5 py-2.5 transition-opacity hover:opacity-90 focus-visible:opacity-90"
@@ -71,6 +70,7 @@ export default function Navbar() {
                         Submit Opportunity
                     </a>
 
+                    {/* ───── MOBILE TOGGLE ───── */}
                     <button
                         type="button"
                         onClick={() => setMobileOpen((v) => !v)}
@@ -79,39 +79,24 @@ export default function Navbar() {
                         aria-expanded={mobileOpen}
                         aria-controls="mobile-menu"
                     >
-                        <span
-                            aria-hidden="true"
-                            className={`block w-5 h-px bg-swaqar-text transition-transform ${mobileOpen ? "translate-y-[6px] rotate-45" : ""
-                                }`}
-                        />
-                        <span
-                            aria-hidden="true"
-                            className={`block w-5 h-px bg-swaqar-text transition-opacity ${mobileOpen ? "opacity-0" : ""
-                                }`}
-                        />
-                        <span
-                            aria-hidden="true"
-                            className={`block w-5 h-px bg-swaqar-text transition-transform ${mobileOpen ? "-translate-y-[6px] -rotate-45" : ""
-                                }`}
-                        />
+                        <span className={`block w-5 h-px bg-swaqar-text transition-transform ${mobileOpen ? "translate-y-[6px] rotate-45" : ""}`} />
+                        <span className={`block w-5 h-px bg-swaqar-text transition-opacity ${mobileOpen ? "opacity-0" : ""}`} />
+                        <span className={`block w-5 h-px bg-swaqar-text transition-transform ${mobileOpen ? "-translate-y-[6px] -rotate-45" : ""}`} />
                     </button>
                 </div>
 
+                {/* ───── MOBILE MENU ───── */}
                 <div
                     id="mobile-menu"
-                    className={`md:hidden overflow-hidden transition-[max-height] duration-300 ${mobileOpen ? "max-h-96" : "max-h-0"
-                        }`}
+                    className={`md:hidden overflow-hidden transition-[max-height] duration-300 ${mobileOpen ? "max-h-96" : "max-h-0"}`}
                 >
-                    <nav
-                        aria-label="Mobile primary"
-                        className="flex flex-col gap-1 pb-4 pt-2 border-t border-swaqar-gold/20 mt-2"
-                    >
+                    <nav aria-label="Mobile primary" className="flex flex-col gap-1 pb-4 pt-2 border-t border-swaqar-gold/20 mt-2">
                         {NAV_LINKS.map((link) => (
                             <a
                                 key={link.label}
                                 href={link.href}
                                 onClick={() => setMobileOpen(false)}
-                                className="text-swaqar-text text-sm font-medium py-3 border-b border-swaqar-surface hover:text-swaqar-gold focus-visible:text-swaqar-gold transition-colors"
+                                className="text-swaqar-text text-sm font-medium py-3 border-b border-swaqar-surface hover:text-swaqar-gold transition-colors"
                             >
                                 {link.label}
                             </a>
