@@ -26,9 +26,11 @@ export default function Navbar() {
     return (
         <header
             className={`sticky top-0 z-50 w-full transition-colors duration-200 border-b ${scrolled
-                ? "bg-swaqar-bg/95 backdrop-blur-sm border-swaqar-gold/30"
-                : "bg-swaqar-bg/60 backdrop-blur-sm border-swaqar-gold/15"
+                ? "border-swaqar-gold/30"
+                : "border-swaqar-gold/15"
                 }`}
+            // Always solid black so logo dark elements are visible
+            style={{ backgroundColor: "#000000" }}
         >
             <div className="swaqar-container">
                 <div className="flex items-center justify-between h-16">
@@ -38,10 +40,11 @@ export default function Navbar() {
                         <Image
                             src="/logo.png"
                             alt="SWAQAR"
-                            width={120}
-                            height={48}
+                            width={160}
+                            height={52}
                             priority
-                            className="h-12 w-auto object-contain"
+                            className="h-13 w-auto object-contain"
+                            style={{ height: "52px", width: "auto" }}
                         />
                     </Link>
 
@@ -65,7 +68,7 @@ export default function Navbar() {
                     {/* ───── DESKTOP CTA ───── */}
                     <a
                         href="#submit-opportunity"
-                        className="hidden md:inline-flex items-center justify-center bg-swaqar-gold text-swaqar-bg text-sm font-semibold px-5 py-2.5 transition-opacity hover:opacity-90 focus-visible:opacity-90"
+                        className="hidden md:inline-flex items-center justify-center bg-swaqar-gold text-swaqar-bg text-sm font-semibold px-5 py-2.5 transition-opacity hover:opacity-90"
                     >
                         Submit Opportunity
                     </a>
