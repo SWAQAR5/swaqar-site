@@ -1,10 +1,5 @@
 import SubmitForm from "@/components/SubmitForm";
 
-// ─────────────────────────────────────────────────────────────
-// SECTION 10 — CTA (FINAL ENTRY)
-// Single form only. No duplicate mailto blocks.
-// ─────────────────────────────────────────────────────────────
-
 const NEXT_STEPS = [
     {
         label: "Submit",
@@ -29,7 +24,7 @@ export default function CTA() {
         >
             <div className="swaqar-container">
 
-                {/* ───── SECTION HEADER ───── */}
+                {/* HEADER */}
                 <div className="mb-14 max-w-3xl">
                     <span className="block text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold mb-3">
                         Entry Point
@@ -43,12 +38,12 @@ export default function CTA() {
                     </p>
                 </div>
 
-                {/* ═══════════ SINGLE FORM — no duplicate ═══════════ */}
+                {/* FORM — one instance only */}
                 <div id="submit-opportunity">
                     <SubmitForm />
                 </div>
 
-                {/* ═══════════ WHAT HAPPENS NEXT ═══════════ */}
+                {/* WHAT HAPPENS NEXT */}
                 <div className="mt-14 max-w-4xl mx-auto">
                     <div className="text-center mb-8">
                         <span className="text-[10px] tracking-[0.25em] text-swaqar-muted uppercase font-medium">
@@ -56,13 +51,9 @@ export default function CTA() {
                         </span>
                     </div>
 
-                    {/* Desktop */}
                     <div className="hidden md:flex items-start justify-between gap-2">
                         {NEXT_STEPS.map((step, i) => (
-                            <div
-                                key={`step-${i}`}
-                                className="flex items-start flex-1 last:flex-none"
-                            >
+                            <div key={`step-${i}`} className="flex items-start flex-1 last:flex-none">
                                 <div className="flex flex-col items-center gap-3 px-4 flex-1">
                                     <div className="flex items-center justify-center w-9 h-9 border border-swaqar-gold bg-swaqar-bg">
                                         <span className="text-swaqar-gold text-xs font-bold tracking-wider">
@@ -79,16 +70,13 @@ export default function CTA() {
                                 {i < NEXT_STEPS.length - 1 && (
                                     <div className="flex items-center justify-center mt-4">
                                         <span className="block h-px w-8 bg-swaqar-gold" />
-                                        <span className="text-swaqar-gold text-xs leading-none -ml-1">
-                                            ▶
-                                        </span>
+                                        <span className="text-swaqar-gold text-xs leading-none -ml-1">▶</span>
                                     </div>
                                 )}
                             </div>
                         ))}
                     </div>
 
-                    {/* Mobile */}
                     <div className="md:hidden flex flex-col gap-0">
                         {NEXT_STEPS.map((step, i) => (
                             <div key={`m-step-${i}`}>
@@ -117,7 +105,7 @@ export default function CTA() {
                     </div>
                 </div>
 
-                {/* ═══════════ FOOTER STATEMENT ═══════════ */}
+                {/* FOOTER STATEMENT */}
                 <div id="contact" className="mt-14 text-center">
                     <p className="text-swaqar-muted text-sm leading-relaxed max-w-2xl mx-auto">
                         SWAQAR is a controlled coordination layer for cross-border trade.
