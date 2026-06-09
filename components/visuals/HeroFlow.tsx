@@ -1,118 +1,232 @@
-const STAGES = [
-    { label: "Opportunity", gate: null },
-    { label: "Verification", gate: "Verified" },
-    { label: "Structuring", gate: "Approved" },
-    { label: "Execution", gate: "Cleared" },
-] as const;
+// ─────────────────────────────────────────────────────────────────────────────
+// components/sections/Hero.tsx
+// SWAQAR Group — Hero Section
+//
+// Purpose:
+//   First section the visitor sees. Establishes institutional identity,
+//   mission statement, geographic scope, and Phase 1 status signal.
+//   Two CTAs: institutional inquiry + phase 1 context anchor.
+//
+// Identity rules enforced:
+//   — No transaction language
+//   — No marketplace language
+//   — No operational claims
+//   — No partner names
+//   — No revenue or volume figures
+//   — Phase 1 status shown honestly
+// ─────────────────────────────────────────────────────────────────────────────
 
-export default function HeroFlow() {
+export default function Hero() {
     return (
-        <div
-            role="img"
-            aria-label="SWAQAR controlled coordination layer: Opportunity, Verification, Structuring, Execution. Each gate must approve before progression. Unverified transactions are blocked."
-            className="w-full max-w-[560px]"
+        <section
+            aria-label="SWAQAR Group — Institutional Identity"
+            className="bg-[#0B1F3A] text-white"
         >
-            <div className="border border-swaqar-gold bg-swaqar-surface">
-                {/* PATCH #6: Header label uses shorter text on mobile
-            ("CONTROL LAYER" vs "CONTROLLED COORDINATION LAYER")
-            to prevent awkward wrap on narrow screens. */}
-                <div className="flex items-center justify-between px-5 py-3 border-b border-swaqar-gold/40">
-                    <span className="text-[10px] tracking-[0.25em] text-swaqar-muted uppercase font-medium">
-                        <span className="hidden sm:inline">Controlled Coordination Layer</span>
-                        <span className="sm:hidden">Control Layer</span>
-                    </span>
-                    <span className="text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold">
-                        SWAQAR
+            {/* ── Outer container ─────────────────────────────────────────────── */}
+            <div className="max-w-[1100px] mx-auto px-6 py-24 md:py-32">
+
+                {/* ── Phase status badge ──────────────────────────────────────────
+            Honest, visible, non-promotional.
+            Tells a regulator or institutional visitor immediately:
+            this institution is in its foundation stage.
+        ─────────────────────────────────────────────────────────────────── */}
+                <div className="mb-10">
+                    <span className="inline-flex items-center gap-2 border border-[#B8923A]/40 text-[#B8923A] text-xs font-semibold tracking-[0.12em] uppercase px-4 py-2 rounded-sm">
+                        <span
+                            className="w-1.5 h-1.5 rounded-full bg-[#B8923A] opacity-80"
+                            aria-hidden="true"
+                        />
+                        Phase 1 — Foundation Stage
                     </span>
                 </div>
 
-                {/* DESKTOP: HORIZONTAL FLOW */}
-                <div className="hidden lg:block px-6 py-8">
-                    <div className="flex items-start justify-between">
-                        {STAGES.map((stage, i) => (
-                            <div
-                                key={`stage-${i}`}
-                                className="flex items-start flex-1 last:flex-none"
-                            >
-                                <div className="flex flex-col items-center gap-2.5 min-w-[72px]">
-                                    <span
-                                        aria-hidden="true"
-                                        className="block w-3 h-3 bg-swaqar-gold"
-                                    />
-                                    <span className="text-xs text-swaqar-text whitespace-nowrap text-center font-semibold">
-                                        {stage.label}
-                                    </span>
-                                </div>
+                {/* ── Primary headline ────────────────────────────────────────────
+            Playfair Display via the font stack in globals.css / layout.tsx.
+            If the project uses a font class on <html> or <body>, this
+            inherits. If not, the serif stack below provides the fallback.
+        ─────────────────────────────────────────────────────────────────── */}
+                <h1
+                    className="
+            font-serif font-black
+            text-4xl sm:text-5xl md:text-6xl
+            leading-[1.1] tracking-tight
+            text-white
+            mb-4
+          "
+                >
+                    SWAQAR Group
+                </h1>
 
-                                {i < STAGES.length - 1 && (
-                                    <div
-                                        aria-hidden="true"
-                                        className="flex flex-col items-center flex-1 mt-1.5 px-1"
-                                    >
-                                        <div className="flex items-center w-full">
-                                            <span className="block h-px w-full bg-swaqar-gold" />
-                                            <span className="text-swaqar-gold text-[10px] leading-none">
-                                                ▶
-                                            </span>
-                                        </div>
-                                        <span className="text-swaqar-success text-[9px] mt-1.5 font-bold tracking-wide whitespace-nowrap">
-                                            ✔ {STAGES[i + 1].gate}
-                                        </span>
-                                    </div>
-                                )}
-                            </div>
+                {/* ── Tagline ─────────────────────────────────────────────────────
+            Master brand tagline — always gold, always italic.
+            Never used as a marketing slogan. Used as a category statement.
+        ─────────────────────────────────────────────────────────────────── */}
+                <p
+                    className="
+            font-serif italic
+            text-2xl sm:text-3xl md:text-4xl
+            text-[#B8923A]
+            mb-10 leading-snug
+          "
+                >
+                    Corridors of Trust.
+                </p>
+
+                {/* ── Gold rule divider ───────────────────────────────────────────
+            Brand-compliant horizontal separator.
+        ─────────────────────────────────────────────────────────────────── */}
+                <div
+                    className="w-16 h-px bg-[#B8923A] mb-10"
+                    aria-hidden="true"
+                />
+
+                {/* ── Mission subheadline ─────────────────────────────────────────
+            The single most important sentence on the website.
+            Must define the category precisely and defensibly.
+            Max width constrained for readability per brand spacing rules.
+        ─────────────────────────────────────────────────────────────────── */}
+                <p
+                    className="
+            text-base sm:text-lg
+            text-[#A0AEC0]
+            leading-[1.75]
+            max-w-[680px]
+            mb-12
+          "
+                >
+                    A governance-led, asset-light, non-custodial Trade Coordination Layer
+                    coordinating verification, documentation alignment, stakeholder
+                    synchronization, and institutional trust across{" "}
+                    <span className="text-white font-medium">
+                        Africa ⇄ Middle East ⇄ Asia
+                    </span>
+                    .
+                </p>
+
+                {/* ── CTA buttons ─────────────────────────────────────────────────
+            Primary: Submit Institutional Inquiry — anchors to SubmitForm
+            Secondary: View Phase 1 Focus — anchors to Phase1Reality section
+            Both use institutional language. Neither implies a transaction.
+        ─────────────────────────────────────────────────────────────────── */}
+                <div className="flex flex-col sm:flex-row gap-4">
+
+                    {/* Primary CTA */}
+                    <a
+                        href="#institutional-inquiry"
+                        className="
+                    inline-block
+                    bg-[#B8923A] hover:bg-[#D4A843]
+                    text-[#0B1F3A]
+                    text-sm font-semibold tracking-[0.08em] uppercase
+                    px-8 py-4
+                    transition-colors duration-200
+                    text-center
+                    "
+                    >
+                        Submit Institutional Inquiry
+                    </a>
+
+                    {/* Secondary CTA */}
+                    <a
+                        href="#phase-1-focus"
+                        className="
+                inline-block
+                border border-white/30 hover:border-white/60
+                text-white hover:text-white
+                text-sm font-semibold tracking-[0.08em] uppercase
+                px-8 py-4
+                transition-colors duration-200
+                text-center
+                "
+                    >
+                        View Phase 1 Focus
+                    </a>
+
+                </div>
+
+                {/* ── Geographic scope strip ──────────────────────────────────────
+            Visual reinforcement of the three-region mandate.
+            Purely informational. No implied partnerships or approvals.
+        ─────────────────────────────────────────────────────────────────── */}
+                <div
+                    className="
+            mt-16 pt-10
+            border-t border-white/10
+            flex flex-col sm:flex-row
+            gap-6 sm:gap-0
+            items-start sm:items-center
+          "
+                >
+
+                    {/* Region: Africa */}
+                    <div className="flex-1">
+                        <p className="text-[10px] font-semibold tracking-[0.14em] uppercase text-[#718096] mb-1">
+                            Origin &amp; Supply
+                        </p>
+                        <p className="text-sm font-semibold text-white">Africa</p>
+                    </div>
+
+                    {/* Connector arrow */}
+                    <div
+                        className="hidden sm:block text-[#B8923A] text-xl px-4 select-none"
+                        aria-hidden="true"
+                    >
+                        ⇄
+                    </div>
+
+                    {/* Region: Middle East */}
+                    <div className="flex-1">
+                        <p className="text-[10px] font-semibold tracking-[0.14em] uppercase text-[#718096] mb-1">
+                            Trust &amp; Capital
+                        </p>
+                        <p className="text-sm font-semibold text-white">Middle East</p>
+                    </div>
+
+                    {/* Connector arrow */}
+                    <div
+                        className="hidden sm:block text-[#B8923A] text-xl px-4 select-none"
+                        aria-hidden="true"
+                    >
+                        ⇄
+                    </div>
+
+                    {/* Region: Asia */}
+                    <div className="flex-1">
+                        <p className="text-[10px] font-semibold tracking-[0.14em] uppercase text-[#718096] mb-1">
+                            Industrial Scale &amp; Demand
+                        </p>
+                        <p className="text-sm font-semibold text-white">Asia</p>
+                    </div>
+
+                    {/* Identity descriptors — right-aligned on desktop */}
+                    <div
+                        className="
+              sm:ml-auto
+              flex flex-wrap gap-2
+              sm:justify-end
+            "
+                    >
+                        {[
+                            "Governance-Led",
+                            "Asset-Light",
+                            "Non-Custodial",
+                        ].map((label) => (
+                            <span
+                                key={label}
+                                className="
+                  text-[10px] font-semibold tracking-[0.1em] uppercase
+                  border border-white/15
+                  text-[#A0AEC0]
+                  px-3 py-1.5
+                "
+                            >
+                                {label}
+                            </span>
                         ))}
                     </div>
-                </div>
 
-                {/* MOBILE / TABLET: VERTICAL FLOW */}
-                <div className="lg:hidden px-5 py-5">
-                    {STAGES.map((stage, i) => (
-                        <div key={`m-stage-${i}`}>
-                            <div className="flex items-center gap-3">
-                                <span
-                                    aria-hidden="true"
-                                    className="block w-3 h-3 bg-swaqar-gold"
-                                />
-                                <span className="text-sm text-swaqar-text font-semibold">
-                                    {stage.label}
-                                </span>
-                            </div>
-                            {i < STAGES.length - 1 && (
-                                <div
-                                    aria-hidden="true"
-                                    className="flex items-center gap-2 ml-1.5 py-1.5"
-                                >
-                                    <span className="block w-px h-4 bg-swaqar-gold" />
-                                    <span className="text-swaqar-success text-[10px] font-bold tracking-wide">
-                                        ✔ {STAGES[i + 1].gate}
-                                    </span>
-                                </div>
-                            )}
-                        </div>
-                    ))}
                 </div>
-
-                {/* REJECTION FOOTER */}
-                <div className="border-t border-swaqar-gold/40 px-5 py-3 bg-swaqar-bg/40">
-                    <div className="flex items-center gap-2.5 flex-wrap">
-                        <span aria-hidden="true" className="text-swaqar-error font-bold text-sm">
-                            ✖
-                        </span>
-                        <span className="text-swaqar-muted text-xs">Failed verification</span>
-                        <span aria-hidden="true" className="text-swaqar-muted text-xs">
-                            →
-                        </span>
-                        <span className="text-swaqar-error text-xs font-bold tracking-[0.15em]">
-                            BLOCKED
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <p className="text-swaqar-muted text-[11px] mt-3 tracking-wide text-center">
-                Each stage validated and approved before progression.
-            </p>
-        </div>
+            </div >
+        </section >
     );
 }

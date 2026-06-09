@@ -1,39 +1,40 @@
 const GOVERNANCE_LAYERS = [
     {
-        layer: "Verification Layer",
-        role: "Supply validation",
+        layer: "Verification Governance",
+        role: "Counterparty Qualification",
         functions: [
             "Identity & license verification",
             "Capacity & compliance checks",
             "Counterparty due diligence",
         ],
-        authority: "Verifies who enters",
+        authority: "Qualification standards established before any corridor participant proceeds",
     },
     {
-        layer: "Financial Control",
-        role: "Payment structure",
+        layer: "Governance Oversight",
+        role: "Financial Coordination",
         functions: [
-            "Bank/escrow framework design",
-            "Transaction integrity enforcement",
-            "Settlement structure validation",
+            "Financial Coordination Framework",
+            "SWAQAR does not provide, hold, or act as escrow. Financial flows move bank-to-bank between counterparties.",
+            "Documentation and compliance alignment with licensed institutions",
+            "Trade Finance Alignment",
         ],
-        authority: "Controls how value moves",
+        authority: "Controls how coordination moves — not how value moves",
     },
     {
-        layer: "System Governance",
+        layer: "Institutional Governance",
         role: "Final approval",
         functions: [
-            "Execution control & oversight",
+            "Execution readiness oversight",
             "Decision-gate enforcement",
-            "Transaction closure & audit",
+            "Governance Review and Evidence Recording",
         ],
         authority: "Approves what proceeds",
     },
 ] as const;
 
 const ENFORCEMENT_RULES = [
-    { condition: "No verification", consequence: "No transaction" },
-    { condition: "No compliance", consequence: "No execution" },
+    { condition: "No verification", consequence: "No corridor proceeds" },
+    { condition: "No compliance", consequence: "without passing all governance gates" },
     { condition: "No structure", consequence: "No financial movement" },
 ] as const;
 
@@ -49,11 +50,11 @@ export default function Governance() {
                     Authority & Control
                 </span>
                 <h2 id="governance-heading" className="text-swaqar-text">
-                    Three Layers Govern Every Transaction
+                    Three Governance Layers Active Before Any Corridor Proceeds
                 </h2>
                 <p className="text-swaqar-muted mt-3 text-base leading-relaxed">
-                    SWAQAR is not run by individual judgment. Every decision passes
-                    through a structured authority hierarchy with defined responsibility.
+                    Before any corridor moves toward pilot activation, it passes through
+                    three governance layers. No exceptions.
                 </p>
             </div>
 
@@ -105,10 +106,6 @@ export default function Governance() {
                 </div>
             </div>
 
-            {/* PATCH #3: AUTHORITY STATEMENT — no surface background.
-          Removed bg-swaqar-surface so it stops looking like an alert box.
-          Just clean gold left border + transparent background.
-          Typography carries the weight, not the box. */}
             <div className="mt-10 border-l-4 border-swaqar-gold pl-6 py-3">
                 <div className="flex flex-col gap-3">
                     <span className="text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold">
@@ -144,7 +141,6 @@ function GovernanceLayerCard({
     return (
         <div
             role="listitem"
-            // PATCH #10: Reduced internal padding/gaps for tighter mobile cards
             className="bg-swaqar-bg p-5 sm:p-7 flex flex-col gap-4"
         >
             <div className="flex items-center justify-between">

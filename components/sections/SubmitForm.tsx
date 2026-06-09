@@ -77,8 +77,8 @@ export default function SubmitForm() {
                     Submission Received
                 </h3>
                 <p className="text-swaqar-muted text-sm leading-relaxed">
-                    Your opportunity has entered SWAQAR's structured validation process.
-                    Qualified submissions are reviewed within 5 business days.
+                    Your inquiry has been received. SWAQAR Group will review and respond
+                    through the appropriate institutional channel.
                 </p>
                 <p className="text-swaqar-muted text-xs">
                     You will receive confirmation at the email provided.
@@ -93,7 +93,7 @@ export default function SubmitForm() {
             {/* Form header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-swaqar-gold/30">
                 <span className="text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold">
-                    Trade Opportunity Intake
+                    Institutional Inquiry
                 </span>
                 <span aria-hidden="true" className="block w-2 h-2 bg-swaqar-gold" />
             </div>
@@ -150,10 +150,13 @@ export default function SubmitForm() {
                             <option value="" disabled>
                                 Select type
                             </option>
-                            <option value="supplier">Verified Supplier</option>
-                            <option value="buyer">Qualified Buyer</option>
-                            <option value="investor">Strategic Investor</option>
-                            <option value="partner">Institutional Partner</option>
+                            <option value="government">Government & Regulatory Body</option>
+                            <option value="banking">Banking & Financial Institution</option>
+                            <option value="inspection">Inspection & Verification Firm</option>
+                            <option value="legal">Legal & Compliance Partner</option>
+                            <option value="corridor">Corridor & Trade Counterparty</option>
+                            <option value="investor">Investor & Capital Partner</option>
+                            <option value="general">General Institutional Inquiry</option>
                         </select>
                     </div>
                 </div>
@@ -164,7 +167,7 @@ export default function SubmitForm() {
                         htmlFor="description"
                         className="text-swaqar-muted text-xs tracking-[0.15em] uppercase font-medium"
                     >
-                        Trade Opportunity Description
+                        Nature of Inquiry
                     </label>
                     <textarea
                         id="description"
@@ -173,7 +176,7 @@ export default function SubmitForm() {
                         onChange={handleChange}
                         required
                         rows={4}
-                        placeholder="Briefly describe your trade opportunity, goods or services, volumes, and target markets."
+                        placeholder="Please describe the nature of your institutional inquiry and your organisation's area of interest."
                         className="bg-swaqar-bg border border-swaqar-gold/40 text-swaqar-text text-sm px-4 py-3 focus:outline-none focus:border-swaqar-gold transition-colors resize-none placeholder:text-swaqar-muted/50"
                     />
                 </div>
@@ -208,7 +211,7 @@ export default function SubmitForm() {
                         disabled={status === "submitting"}
                         className="inline-flex items-center justify-center bg-swaqar-gold text-swaqar-bg font-semibold px-7 py-3.5 transition-opacity hover:opacity-90 focus-visible:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        {status === "submitting" ? "Submitting..." : "Submit Opportunity"}
+                        {status === "submitting" ? "Submitting..." : "Submit Inquiry"}
                     </button>
                     <a
                         href="mailto:partnerships@swaqar.com?subject=Partnership%20Discussion%20Request"
@@ -220,8 +223,8 @@ export default function SubmitForm() {
 
                 {/* Expectation line */}
                 <p className="text-swaqar-muted text-xs leading-relaxed border-t border-swaqar-gold/20 pt-4">
-                    ▣ All submissions enter SWAQAR's structured validation process.
-                    Qualified opportunities proceed to verification within 5 business days.
+                    ▣ All inquiries are reviewed under SWAQAR's governance process.
+                    Response timelines vary by inquiry type.
                 </p>
             </div>
         </div>

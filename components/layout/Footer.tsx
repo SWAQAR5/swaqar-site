@@ -1,8 +1,10 @@
-// ─────────────────────────────────────────────────────────────
-// FOOTER
-// Institutional identity reaffirmation + legal + contact
-// Legal links are placeholders until docs are drafted.
-// ─────────────────────────────────────────────────────────────
+const NAV_LINKS = [
+    { label: "What We Do", href: "#why-swaqar-exists" },
+    { label: "Corridor Model", href: "#candidate-corridor-flow" },
+    { label: "Governance", href: "#governance" },
+    { label: "Strategic Architecture", href: "#strategic-arms" },
+    { label: "Institutional Inquiry", href: "#institutional-inquiry" },
+] as const;
 
 const LEGAL_LINKS = [
     { label: "Privacy Policy", href: "/legal/privacy" },
@@ -11,13 +13,11 @@ const LEGAL_LINKS = [
 ] as const;
 
 const CONTACT_LINKS = [
-    { label: "Trade Opportunities", href: "mailto:opportunities@swaqar.com" },
+    { label: "Institutional Inquiry", href: "mailto:opportunities@swaqar.com" },
     { label: "Partnerships", href: "mailto:partnerships@swaqar.com" },
 ] as const;
 
 export default function Footer() {
-    const year = new Date().getFullYear();
-
     return (
         <footer
             id="footer"
@@ -25,100 +25,125 @@ export default function Footer() {
             className="border-t border-swaqar-gold/30 bg-swaqar-bg"
         >
             <div className="swaqar-container">
+
                 {/* ═══════════ MAIN FOOTER GRID ═══════════ */}
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-10 py-14">
+
                     {/* ───── LEFT: Identity block (5 cols) ───── */}
                     <div className="md:col-span-5 flex flex-col gap-4">
-                        {/* Logo */}
                         <span className="text-swaqar-gold font-bold text-lg tracking-[0.2em]">
-                            SWAQAR
+                            SWAQAR Group
                         </span>
-
-                        {/* Tagline */}
                         <p className="text-swaqar-text text-sm font-medium leading-relaxed max-w-xs">
-                            Structured Trade Coordination System
+                            Governance-Led Trade Coordination Layer
                         </p>
                         <p className="text-swaqar-muted text-sm leading-relaxed max-w-xs">
-                            A controlled coordination layer governing cross-border trade
-                            between Africa and the Middle East.
+                            A governance-led, asset-light, non-custodial coordination
+                            infrastructure across Africa, the Middle East, and Asia.
                         </p>
 
                         {/* Region indicator */}
-                        <div className="flex items-center gap-3 mt-2">
+                        <div className="flex items-center gap-2 mt-2 flex-wrap">
                             <span className="text-swaqar-muted text-[10px] tracking-[0.2em] uppercase">
                                 Africa
                             </span>
-                            <span className="block h-px w-8 bg-swaqar-gold/50" />
-                            <span
-                                aria-hidden="true"
-                                className="block w-1.5 h-1.5 bg-swaqar-gold"
-                            />
-                            <span className="block h-px w-8 bg-swaqar-gold/50" />
+                            <span aria-hidden="true" className="text-swaqar-gold text-xs">⇄</span>
                             <span className="text-swaqar-muted text-[10px] tracking-[0.2em] uppercase">
                                 Middle East
                             </span>
+                            <span aria-hidden="true" className="text-swaqar-gold text-xs">⇄</span>
+                            <span className="text-swaqar-muted text-[10px] tracking-[0.2em] uppercase">
+                                Asia
+                            </span>
                         </div>
-                    </div>
 
-                    {/* ───── MIDDLE: Contact (3 cols) ───── */}
-                    <div className="md:col-span-3 flex flex-col gap-4">
-                        <span className="text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold">
-                            Contact
-                        </span>
-                        <ul className="flex flex-col gap-3">
-                            {CONTACT_LINKS.map((link) => (
-                                <li key={link.label}>
-                                    <a
-                                        href={link.href}
-                                        className="text-swaqar-muted text-sm hover:text-swaqar-gold focus-visible:text-swaqar-gold transition-colors"
-                                    >
-                                        {link.label}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    {/* ───── RIGHT: Legal (4 cols) ───── */}
-                    <div className="md:col-span-4 flex flex-col gap-4">
-                        <span className="text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold">
-                            Legal
-                        </span>
-                        <ul className="flex flex-col gap-3">
-                            {LEGAL_LINKS.map((link) => (
-                                <li key={link.label}>
-                                    <a
-                                        href={link.href}
-                                        className="text-swaqar-muted text-sm hover:text-swaqar-gold focus-visible:text-swaqar-gold transition-colors"
-                                    >
-                                        {link.label}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-
-                        {/* System status indicator */}
-                        <div className="mt-4 flex items-center gap-2">
-                            <span
-                                aria-hidden="true"
-                                className="block w-1.5 h-1.5 bg-swaqar-success"
-                            />
-                            <span className="text-swaqar-muted text-[10px] tracking-wider uppercase">
-                                System Operational
+                        {/* Phase indicator */}
+                        <div className="flex items-center gap-2 mt-1">
+                            <span aria-hidden="true" className="block w-1.5 h-1.5 bg-swaqar-gold" />
+                            <span className="text-swaqar-gold text-[10px] tracking-[0.12em] uppercase font-semibold">
+                                Phase 1 — Foundation Stage
                             </span>
                         </div>
                     </div>
+
+                    {/* ───── MIDDLE: Navigation (4 cols) ───── */}
+                    <div className="md:col-span-4 flex flex-col gap-4">
+                        <span className="text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold">
+                            Navigation
+                        </span>
+                        <ul className="flex flex-col gap-3">
+                            {NAV_LINKS.map((link) => (
+                                <li key={link.label}>
+                                    <a
+                                        href={link.href}
+                                        className="text-swaqar-muted text-sm hover:text-swaqar-gold focus-visible:text-swaqar-gold transition-colors"
+                                    >
+                                        {link.label}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* ───── RIGHT: Contact + Legal (3 cols) ───── */}
+                    <div className="md:col-span-3 flex flex-col gap-6">
+                        <div className="flex flex-col gap-4">
+                            <span className="text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold">
+                                Contact
+                            </span>
+                            <ul className="flex flex-col gap-3">
+                                {CONTACT_LINKS.map((link) => (
+                                    <li key={link.label}>
+                                        <a
+                                            href={link.href}
+                                            className="text-swaqar-muted text-sm hover:text-swaqar-gold focus-visible:text-swaqar-gold transition-colors"
+                                        >
+                                            {link.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        <div className="flex flex-col gap-4">
+                            <span className="text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold">
+                                Legal
+                            </span>
+                            <ul className="flex flex-col gap-3">
+                                {LEGAL_LINKS.map((link) => (
+                                    <li key={link.label}>
+                                        <a
+                                            href={link.href}
+                                            className="text-swaqar-muted text-sm hover:text-swaqar-gold focus-visible:text-swaqar-gold transition-colors"
+                                        >
+                                            {link.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                {/* ═══════════ DISCLAIMER ═══════════ */}
+                <div className="border-t border-swaqar-gold/20 py-6 border-l-2 border-l-swaqar-gold/40 pl-4">
+                    <p className="text-swaqar-muted text-xs leading-relaxed max-w-4xl">
+                        SWAQAR Group is not a commodity trader, broker, bank, escrow provider,
+                        logistics operator, or public marketplace. All institutional engagement
+                        is subject to counsel-validated legal, regulatory, and governance review.
+                    </p>
                 </div>
 
                 {/* ═══════════ BOTTOM BAR ═══════════ */}
                 <div className="border-t border-swaqar-gold/20 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                     <p className="text-swaqar-muted text-xs">
-                        © {year} SWAQARrr. All rights reserved.
+                        © 2025 SWAQAR Group. All rights reserved.
                     </p>
                     <p className="text-swaqar-muted text-xs">
                         Trade Coordination Infrastructure · swaqar.com
                     </p>
                 </div>
+
             </div>
         </footer>
     );
