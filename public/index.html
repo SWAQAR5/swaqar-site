@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0E1117" />
+<title>SWAQAR Group — Corridors of Trust</title>
+<meta name="description" content="SWAQAR Group is a governance-led, verification-first, asset-light, non-custodial Trade Coordination Layer coordinating verified cross-regional trade corridors across Africa, the Middle East, and Asia." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{--bg:#0E1117;--bg-soft:#12161D;--surface-1:#161B22;--surface-2:#1C232C;--border:#252D37;--border-accent:#3A4452;--text:#E8EAED;--text-muted:#9099A3;--text-faint:#6B737C;--gold:#C9A862;--gold-bright:#D4B576;--gold-soft:rgba(201,168,98,0.18);--gold-line:rgba(201,168,98,0.32);--navy:#1F3A5F;--display:'Cormorant Garamond',Georgia,serif;--sans:'IBM Plex Sans',-apple-system,system-ui,sans-serif;--mono:'IBM Plex Mono',Menlo,monospace;--maxw:1280px;--pad:clamp(20px,4vw,56px);--section-y:clamp(72px,10vw,140px);--ease:cubic-bezier(0.22,0.61,0.36,1);--ease-out:cubic-bezier(0.16,1,0.3,1)}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--white);color:var(--text-body);font-family:var(--sans);font-weight:300;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--gold-soft);color:var(--text)}
+a{color:inherit;text-decoration:none}
+.skip-link{position:absolute;left:-9999px;top:16px;background:var(--gold);color:var(--bg);padding:10px 18px;font-family:var(--mono);font-size:0.78rem;letter-spacing:0.14em;z-index:9999}
+.skip-link:focus{left:16px}
+.scroll-progress{position:fixed;top:0;left:0;height:2px;background:var(--gold);width:0%;z-index:200;transition:width 0.05s linear;box-shadow:0 0 12px var(--gold)}
+h1,h2,h3,h4{font-family:var(--display);font-weight:500;color:var(--text);margin:0;letter-spacing:-0.005em}
+h1{font-size:clamp(2.4rem,5.4vw,4.4rem);line-height:1.05}
+h2{font-size:clamp(1.85rem,3.6vw,2.8rem);line-height:1.12}
+h3{font-size:1.45rem;line-height:1.3}
+h4{font-size:1.05rem;line-height:1.4;font-weight:600}
+p{margin:0;color:var(--text-muted)}
+.eyebrow{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:24px;height:1px;background:var(--gold);opacity:0.7}
+.lede{font-family:var(--display);font-style:italic;font-size:clamp(1.1rem,1.7vw,1.4rem);color:var(--text);max-width:64ch;line-height:1.5;margin-top:22px}
+.container{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+section{padding-top:var(--section-y);padding-bottom:var(--section-y);position:relative}
+section+section{border-top:1px solid var(--border)}
+.btn{display:inline-flex;align-items:center;gap:12px;padding:14px 26px;font-family:var(--sans);font-weight:500;font-size:0.88rem;letter-spacing:0.04em;border:1px solid var(--gold);color:var(--text);background:transparent;cursor:pointer;transition:all 0.35s var(--ease);position:relative;overflow:hidden}
+.btn::after{content:'→';font-family:var(--mono);transform:translateX(0);transition:transform 0.35s var(--ease)}
+.btn:hover{background:var(--gold-soft)}
+.btn:hover::after{transform:translateX(4px)}
+.btn-solid{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+.btn-solid:hover{background:var(--gold-bright);color:var(--bg)}
+.btn-ghost{border-color:var(--border-accent);color:var(--text)}
+.btn-ghost:hover{border-color:var(--gold);background:transparent}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:var(--navy);border-bottom:1px solid transparent;transition:border-color 0.4s var(--ease),background 0.4s var(--ease)}
+.nav.scrolled{border-bottom-color:var(--border);background:rgba(14,17,23,0.94)}
+.nav-inner{max-width:var(--maxw);margin:0 auto;padding:18px var(--pad);display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{display:flex;align-items:center;gap:14px;line-height:1}
+.logo-stack{display:flex;flex-direction:column;gap:5px;line-height:1}
+.logo-name{font-family:var(--display);font-weight:500;font-size:1.18rem;letter-spacing:0.16em;color:var(--text);line-height:1}
+.logo-name em{font-style:normal;color:var(--gold);font-weight:600}
+.logo-tag{font-family:var(--mono);font-size:0.56rem;letter-spacing:0.28em;color:var(--text-faint);text-transform:uppercase;line-height:1}
+.logo-rule{width:1px;height:36px;background:var(--gold);opacity:0.65}
+.nav-cluster{display:flex;align-items:center;gap:28px}
+.nav-links{display:none;list-style:none;padding:0;margin:0;gap:32px;align-items:center}
+.nav-links a{font-size:0.82rem;letter-spacing:0.06em;color:var(--white);transition:color 0.3s var(--ease);position:relative}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a::after{content:'';position:absolute;left:0;right:0;bottom:-6px;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform 0.35s var(--ease)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-region{display:none;font-family:var(--mono);font-size:0.66rem;letter-spacing:0.18em;color:var(--text-faint);align-items:center;gap:10px}
+.nav-region .active{color:var(--gold)}
+.nav-region .divider{color:var(--border-accent)}
+.nav-cta{display:none}
+.nav-toggle{display:grid;place-items:center;width:40px;height:40px;background:transparent;border:1px solid var(--border-accent);color:var(--text);cursor:pointer}
+.nav-toggle svg{width:18px;height:18px}
+.mobile-menu{position:fixed;inset:0;background:var(--bg);z-index:99;padding:100px var(--pad) 40px;transform:translateX(100%);transition:transform 0.5s var(--ease);display:flex;flex-direction:column;overflow-y:auto}
+.mobile-menu.open{transform:translateX(0)}
+.mobile-menu ul{list-style:none;padding:0;margin:0}
+.mobile-menu li{border-bottom:1px solid var(--border)}
+.mobile-menu a{display:block;padding:22px 0;font-family:var(--display);font-size:1.4rem;color:var(--text)}
+.mobile-menu .btn{margin-top:32px;align-self:flex-start}
+.mobile-region{margin-top:36px;padding-top:28px;border-top:1px solid var(--border);font-family:var(--mono);font-size:0.7rem;letter-spacing:0.2em;color:var(--text-faint);display:flex;gap:14px}
+.mobile-region .active{color:var(--gold)}
+@media (min-width:1000px){.nav-links{display:flex}.nav-region{display:inline-flex}.nav-cta{display:inline-flex}.nav-toggle{display:none}}
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;padding-top:140px;padding-bottom:80px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;pointer-events:none;z-index:0}
+.hero-bg::before{content:'';position:absolute;top:-10%;left:-10%;width:60vw;height:60vw;max-width:800px;max-height:800px;background:radial-gradient(circle at center,var(--gold-soft) 0%,transparent 65%);filter:blur(40px);opacity:0.55;animation:gentlePulse 12s ease-in-out infinite}
+.hero-bg::after{content:'';position:absolute;bottom:-20%;right:-10%;width:50vw;height:50vw;max-width:700px;max-height:700px;background:radial-gradient(circle at center,rgba(31,58,95,0.32) 0%,transparent 65%);filter:blur(50px)}
+.hero-lines{position:absolute;inset:0;z-index:0;opacity:0.4}
+.hero-lines svg{width:100%;height:100%}
+.hero-lines path{fill:none;stroke:var(--gold);stroke-width:1;stroke-dasharray:8 14;opacity:0.4;animation:drift 60s linear infinite}
+.hero-lines path:nth-child(2){animation-duration:80s;opacity:0.25}
+.hero-lines path:nth-child(3){animation-duration:100s;opacity:0.18}
+.hero-inner{position:relative;z-index:2;width:100%}
+.hero-grid{display:grid;grid-template-columns:1fr;gap:60px;align-items:center}
+@media (min-width:1024px){.hero-grid{grid-template-columns:1.05fr 0.95fr;gap:80px}}
+.hero-content .hero-title{margin-bottom:28px}
+.hero-title .accent{color:var(--gold);font-style:italic;font-weight:500}
+.hero-title .divider{display:inline-block;width:18px;height:1px;background:var(--gold);vertical-align:middle;margin:0 0.4em 0.18em;opacity:0.7}
+.hero-sub{font-size:1.05rem;max-width:56ch;margin-bottom:40px;color:var(--text-muted);line-height:1.7}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.hero-meta{margin-top:56px;display:flex;flex-wrap:wrap;gap:28px;padding-top:28px;border-top:1px solid var(--border)}
+.hero-meta div{display:flex;flex-direction:column;gap:4px}
+.hero-meta .label{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-faint)}
+.hero-meta .value{font-family:var(--display);font-size:1.05rem;font-style:italic;color:var(--text)}
+.hero-visual{position:relative;aspect-ratio:4/5;border:1px solid var(--border);background:var(--bg-soft);overflow:hidden}
+.hero-visual::before{content:'CORRIDOR COORDINATION';position:absolute;top:24px;left:24px;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.22em;color:var(--text-faint);z-index:3}
+.hero-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,rgba(14,17,23,0.8) 100%),radial-gradient(ellipse at 30% 60%,var(--gold-soft) 0%,transparent 50%),radial-gradient(ellipse at 70% 30%,rgba(31,58,95,0.4) 0%,transparent 55%);pointer-events:none}
+.hero-visual svg{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.hero-visual .corridor-node{fill:var(--gold);filter:drop-shadow(0 0 8px var(--gold))}
+.hero-visual .corridor-line{fill:none;stroke:var(--gold-line);stroke-width:1;stroke-dasharray:2000;stroke-dashoffset:2000;animation:drawLine 8s var(--ease) forwards}
+.hero-visual .corridor-line.delay-1{animation-delay:0.5s}
+.hero-visual .corridor-line.delay-2{animation-delay:1s}
+.hero-visual .corridor-line.delay-3{animation-delay:1.5s}
+.hero-visual .pulse-dot{fill:var(--gold);filter:drop-shadow(0 0 6px var(--gold));animation:travel 8s linear infinite}
+@keyframes travel{0%{offset-distance:0%}100%{offset-distance:100%}}
+.hero-visual .visual-caption{position:absolute;bottom:24px;left:24px;right:24px;z-index:2;font-family:var(--display);font-style:italic;font-size:0.95rem;color:var(--text);line-height:1.45}
+.hero-visual .visual-caption::before{content:'';display:block;width:32px;height:1px;background:var(--gold);margin-bottom:12px}
+.scroll-hint{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.24em;color:var(--text-faint);z-index:2;opacity:0;animation:fadeIn 1s var(--ease) forwards 2s}
+.scroll-hint .line{width:1px;height:36px;background:linear-gradient(180deg,var(--gold) 0%,transparent 100%);animation:scrollHint 2.4s ease-in-out infinite}
+@keyframes scrollHint{0%{transform:scaleY(0);transform-origin:top;opacity:1}50%{transform:scaleY(1);transform-origin:top;opacity:1}50.1%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom;opacity:1}}
+@keyframes fadeIn{to{opacity:1}}
+@keyframes gentlePulse{0%,100%{opacity:0.45;transform:scale(1)}50%{opacity:0.65;transform:scale(1.05)}}
+@keyframes drift{from{stroke-dashoffset:0}to{stroke-dashoffset:-200}}
+@keyframes drawLine{to{stroke-dashoffset:0}}
+.trust-strip{padding:56px 0;background:var(--bg-soft);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.trust-strip+section{border-top:none}
+.trust-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px 40px}
+@media (min-width:700px){.trust-grid{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:1024px){.trust-grid{grid-template-columns:repeat(5,1fr)}}
+.trust-item{display:flex;flex-direction:column;gap:14px}
+.trust-item .trust-icon{width:36px;height:36px;color:var(--gold)}
+.trust-item h4{font-family:var(--sans);font-weight:500;font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--text)}
+.trust-item p{font-size:0.85rem;color:var(--text-muted);line-height:1.55}
+.section-head{max-width:760px;margin-bottom:64px}
+.section-head h2 .accent{color:var(--gold);font-style:italic;font-weight:500}
+.corridors{background:var(--bg)}
+.corridor-map-wrap{position:relative;border:1px solid var(--border);background:linear-gradient(180deg,var(--surface-1) 0%,var(--bg-soft) 100%);padding:clamp(28px,5vw,60px)}
+.corridor-map-wrap::before,.corridor-map-wrap::after,.engage-wrap::before,.engage-wrap::after{content:'';position:absolute;width:60px;height:60px;pointer-events:none}
+.corridor-map-wrap::before{top:-1px;left:-1px;border-top:1px solid var(--gold);border-left:1px solid var(--gold)}
+.corridor-map-wrap::after{bottom:-1px;right:-1px;border-bottom:1px solid var(--gold);border-right:1px solid var(--gold)}
+.corridor-map-svg{width:100%;height:auto;max-height:540px;display:block}
+.corridor-legend{display:grid;grid-template-columns:1fr;gap:24px;margin-top:48px}
+@media (min-width:700px){.corridor-legend{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1024px){.corridor-legend{grid-template-columns:repeat(4,1fr)}}
+.legend-item{padding:24px;background:var(--surface-1);border:1px solid var(--border);position:relative;transition:border-color 0.4s var(--ease)}
+.legend-item:hover{border-color:var(--gold)}
+.legend-item .legend-tag{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.legend-item h4{font-family:var(--display);font-size:1.25rem;font-weight:500;margin-bottom:8px}
+.legend-item p{font-size:0.85rem;color:var(--text-muted)}
+.legend-item.swaqar{background:linear-gradient(135deg,var(--surface-2) 0%,var(--surface-1) 100%);border-color:var(--gold)}
+.approach{background:var(--bg-soft)}
+.approach-grid{display:grid;grid-template-columns:1fr;gap:28px}
+@media (min-width:720px){.approach-grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1100px){.approach-grid{grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}}
+.function{background:var(--bg-soft);padding:36px 28px 32px;position:relative;display:flex;flex-direction:column;gap:20px;min-height:280px;transition:background 0.4s var(--ease)}
+@media (min-width:1100px){.function:hover{background:var(--surface-1)}}
+.function .function-mark{width:48px;height:48px;border:1px solid var(--gold);color:var(--gold);display:grid;place-items:center;font-family:var(--display);font-style:italic;font-size:1.1rem}
+.function .function-label{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.22em;color:var(--text-faint);text-transform:uppercase}
+.function h3{font-family:var(--display);font-weight:500;font-size:1.3rem;line-height:1.25}
+.function p{font-size:0.86rem;color:var(--text-muted);margin-top:auto}
+.approach-note{margin-top:40px;padding:22px 28px;background:var(--surface-1);border-left:2px solid var(--gold);font-family:var(--display);font-style:italic;color:var(--text);font-size:1rem;line-height:1.55}
+.audience-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);border:1px solid var(--border)}
+@media (min-width:600px){.audience-grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1024px){.audience-grid{grid-template-columns:repeat(3,1fr)}}
+.audience-card{background:var(--bg);padding:36px 30px;transition:background 0.4s var(--ease);display:flex;flex-direction:column;gap:16px;min-height:220px}
+.audience-card:hover{background:var(--surface-1)}
+.audience-card .num{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.18em;color:var(--gold)}
+.audience-card h3{font-family:var(--display);font-size:1.5rem;font-weight:500}
+.audience-card p{font-size:0.85rem;color:var(--text-muted);margin-top:auto}
+.boundaries{background:var(--bg-soft)}
+.boundaries-grid{display:grid;grid-template-columns:1fr;gap:32px}
+@media (min-width:900px){.boundaries-grid{grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}}
+.boundary-col{background:var(--bg-soft);padding:40px clamp(20px,3vw,44px)}
+.boundary-col h3{font-family:var(--display);font-size:1.5rem;margin-bottom:28px;padding-bottom:18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px}
+.boundary-col h3 .mark{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.18em}
+.boundary-col.does h3 .mark{color:var(--gold)}
+.boundary-col.does-not h3 .mark{color:var(--text-faint)}
+.boundary-col ul{list-style:none;padding:0;margin:0}
+.boundary-col li{padding:14px 0;border-bottom:1px solid var(--border);font-size:0.95rem;color:var(--text);display:flex;align-items:flex-start;gap:14px}
+.boundary-col li:last-child{border-bottom:none}
+.boundary-col li::before{content:'';flex-shrink:0;margin-top:9px;width:8px;height:1px;background:var(--gold)}
+.boundary-col.does-not li::before{background:var(--text-faint)}
+.boundary-col.does-not li{color:var(--text-muted)}
+.gates{background:radial-gradient(ellipse at top right,var(--gold-soft) 0%,transparent 35%),var(--bg)}
+.gates-flow{display:grid;grid-template-columns:1fr;gap:24px;position:relative}
+@media (min-width:1024px){.gates-flow{grid-template-columns:repeat(4,1fr);gap:20px}.gates-flow::before{content:'';position:absolute;top:50px;left:4%;right:4%;height:1px;background:linear-gradient(90deg,transparent 0%,var(--gold) 20%,var(--gold) 80%,transparent 100%);opacity:0.45;pointer-events:none}}
+.gate{background:var(--surface-1);border:1px solid var(--border);padding:32px 28px;position:relative;transition:border-color 0.4s var(--ease),transform 0.4s var(--ease)}
+.gate:hover{border-color:var(--gold);transform:translateY(-4px)}
+.gate .gate-num{width:60px;height:60px;border:1px solid var(--gold);color:var(--gold);font-family:var(--display);font-size:1.4rem;font-style:italic;display:grid;place-items:center;background:var(--bg);margin-bottom:24px}
+.gate .gate-label{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.gate h3{font-family:var(--display);font-size:1.4rem;margin-bottom:14px}
+.gate p{font-size:0.85rem;color:var(--text-muted);line-height:1.55}
+.governance{background:var(--bg)}
+.governance-grid{display:grid;grid-template-columns:1fr;gap:32px;align-items:start}
+@media (min-width:900px){.governance-grid{grid-template-columns:1.1fr 0.9fr;gap:64px}}
+.governance-pillars{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--border)}
+.pillar{padding:26px 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:40px 1fr;gap:24px;align-items:start}
+.pillar .pillar-num{font-family:var(--mono);font-size:0.72rem;color:var(--gold);letter-spacing:0.14em;padding-top:4px}
+.pillar h4{font-family:var(--display);font-size:1.25rem;font-weight:500;margin-bottom:6px}
+.pillar p{font-size:0.88rem;color:var(--text-muted)}
+.governance-visual{position:relative;aspect-ratio:4/5;background:var(--surface-1);border:1px solid var(--border);overflow:hidden}
+.governance-visual::before{content:'GOVERNANCE ARCHITECTURE';position:absolute;top:20px;left:20px;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.22em;color:var(--text-faint);z-index:2}
+.governance-visual svg{position:absolute;inset:0;width:100%;height:100%}
+.standards{background:var(--bg-soft)}
+.standards-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);border:1px solid var(--border)}
+@media (min-width:720px){.standards-grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1100px){.standards-grid{grid-template-columns:repeat(4,1fr)}}
+.standard{background:var(--bg-soft);padding:28px 24px;display:flex;flex-direction:column;gap:12px;min-height:180px;transition:background 0.4s var(--ease)}
+.standard:hover{background:var(--surface-1)}
+.standard .standard-num{font-family:var(--mono);font-size:0.64rem;letter-spacing:0.2em;color:var(--gold)}
+.standard h4{font-family:var(--display);font-weight:500;font-size:1.15rem;line-height:1.3}
+.standard p{font-size:0.82rem;color:var(--text-muted);line-height:1.5;margin-top:auto}
+.standards-disclaimer{margin-top:32px;padding:20px 26px;border:1px solid var(--border);background:var(--surface-1);font-size:0.85rem;color:var(--text-muted);border-left:2px solid var(--gold);line-height:1.6}
+.standards-disclaimer strong{color:var(--text);font-weight:500}
+.arms{background:var(--bg)}
+.arms-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);border:1px solid var(--border)}
+@media (min-width:700px){.arms-grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1024px){.arms-grid{grid-template-columns:repeat(3,1fr)}}
+.arm{background:var(--bg);padding:36px 28px;transition:background 0.4s var(--ease);display:flex;flex-direction:column;gap:18px;min-height:240px}
+.arm:hover{background:var(--surface-1)}
+.arm .arm-icon{width:44px;height:44px;color:var(--gold)}
+.arm .arm-label{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.22em;color:var(--text-faint);text-transform:uppercase}
+.arm h3{font-family:var(--display);font-size:1.25rem;font-weight:500;line-height:1.25}
+.arm p{font-size:0.85rem;color:var(--text-muted);margin-top:auto}
+.arms-note{margin-top:32px;padding:22px 28px;border:1px solid var(--border);background:var(--surface-1);display:flex;align-items:center;gap:16px;font-family:var(--display);font-style:italic;color:var(--text);font-size:1rem}
+.arms-note::before{content:'';width:28px;height:1px;background:var(--gold);flex-shrink:0}
+.ecosystem{background:var(--bg-soft)}
+.ecosystem-wrap{border:1px solid var(--border);padding:clamp(28px,4vw,56px);background:var(--bg);position:relative}
+.ecosystem-svg{width:100%;max-width:760px;margin:0 auto;display:block;height:auto}
+.ecosystem-caption{text-align:center;margin-top:36px;font-family:var(--display);font-style:italic;color:var(--text-muted);font-size:0.95rem;max-width:56ch;margin-left:auto;margin-right:auto;line-height:1.55}
+.why{background:var(--bg);position:relative;overflow:hidden}
+.why::before{content:'';position:absolute;top:10%;right:-5%;width:40vw;height:40vw;max-width:600px;max-height:600px;background:radial-gradient(circle at center,var(--gold-soft) 0%,transparent 70%);filter:blur(60px);pointer-events:none}
+.why-inner{position:relative;max-width:880px;margin:0 auto;text-align:center}
+.why-inner h2{font-size:clamp(2rem,4vw,3.2rem);line-height:1.18;margin-bottom:32px}
+.why-inner h2 .accent{color:var(--gold);font-style:italic}
+.why-inner p{font-family:var(--display);font-style:italic;font-size:clamp(1.05rem,1.6vw,1.35rem);line-height:1.55;color:var(--text);max-width:64ch;margin:0 auto}
+.why-inner .divider{width:40px;height:1px;background:var(--gold);margin:36px auto}
+.architecture{background:var(--bg-soft)}
+.arch-grid{display:grid;grid-template-columns:1fr;gap:32px;margin-top:32px}
+@media (min-width:900px){.arch-grid{grid-template-columns:repeat(2,1fr);gap:28px}}
+.arch-layer{background:var(--bg);border:1px solid var(--border);padding:40px clamp(24px,3vw,44px);position:relative;transition:border-color 0.4s var(--ease)}
+.arch-layer:hover{border-color:var(--gold)}
+.arch-layer .layer-tag{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;display:inline-block;padding:6px 12px;border:1px solid var(--gold)}
+.arch-layer h3{font-family:var(--display);font-size:1.7rem;margin-bottom:12px}
+.arch-layer .layer-sub{font-family:var(--display);font-style:italic;color:var(--text-muted);margin-bottom:24px}
+.arch-layer ul{list-style:none;padding:0;margin:0 0 24px;display:flex;flex-direction:column;gap:10px}
+.arch-layer li{font-size:0.88rem;color:var(--text-muted);padding-left:16px;position:relative}
+.arch-layer li::before{content:'·';position:absolute;left:0;color:var(--gold);font-weight:700}
+.arch-layer .layer-footer{padding-top:22px;border-top:1px solid var(--border);font-family:var(--mono);font-size:0.7rem;letter-spacing:0.16em;color:var(--text-faint);text-transform:uppercase}
+.engage{background:var(--bg)}
+.engage-wrap{display:grid;grid-template-columns:1fr;gap:40px;align-items:center;padding:clamp(40px,6vw,80px) clamp(24px,4vw,56px);border:1px solid var(--gold);background:linear-gradient(135deg,var(--surface-1) 0%,var(--bg-soft) 100%);position:relative}
+.engage-wrap::before{top:-1px;left:-1px;border-top:1px solid var(--gold);border-left:1px solid var(--gold);width:80px;height:80px}
+.engage-wrap::after{bottom:-1px;right:-1px;border-bottom:1px solid var(--gold);border-right:1px solid var(--gold);width:80px;height:80px}
+@media (min-width:900px){.engage-wrap{grid-template-columns:1fr auto;gap:60px}}
+.engage-text h2{font-size:clamp(1.6rem,2.8vw,2.4rem);line-height:1.2;margin-bottom:18px}
+.engage-text h2 .accent{color:var(--gold);font-style:italic}
+.engage-text p{color:var(--text-muted);max-width:60ch;font-size:0.95rem}
+.engage-actions{display:flex;gap:16px;flex-wrap:wrap}
+.inquiries{background:var(--bg-soft)}
+.inquiries-grid{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--border)}
+.inquiry{border-bottom:1px solid var(--border)}
+.inquiry-summary{list-style:none;cursor:pointer;padding:26px 0;display:grid;grid-template-columns:40px 1fr 40px;align-items:center;gap:20px;transition:color 0.3s var(--ease)}
+.inquiry-summary::-webkit-details-marker{display:none}
+.inquiry-summary:hover .inquiry-q{color:var(--gold)}
+.inquiry .inq-num{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.16em;color:var(--gold)}
+.inquiry-q{font-family:var(--display);font-weight:500;font-size:clamp(1.1rem,1.7vw,1.4rem);color:var(--text);transition:color 0.3s var(--ease)}
+.inquiry-toggle{width:28px;height:28px;border:1px solid var(--border-accent);display:grid;place-items:center;color:var(--gold);font-family:var(--display);font-size:1.4rem;transition:transform 0.4s var(--ease),border-color 0.3s var(--ease)}
+.inquiry[open] .inquiry-toggle{transform:rotate(45deg);border-color:var(--gold)}
+.inquiry-body{padding:0 0 28px 60px;color:var(--text-muted);font-size:0.95rem;line-height:1.7;max-width:70ch;animation:revealBody 0.5s var(--ease-out)}
+@keyframes revealBody{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+@media (max-width:600px){.inquiry-body{padding-left:0}.inquiry-summary{grid-template-columns:1fr 32px}.inquiry .inq-num{display:none}}
+.contact{background:var(--bg)}
+.contact-grid{display:grid;grid-template-columns:1fr;gap:48px}
+@media (min-width:900px){.contact-grid{grid-template-columns:0.9fr 1.1fr;gap:80px}}
+.contact-aside h2{margin-bottom:24px}
+.contact-aside p{font-size:0.95rem;max-width:44ch}
+.contact-aside .contact-detail{margin-top:40px;padding-top:32px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:18px}
+.contact-aside .detail-row{display:flex;flex-direction:column;gap:4px}
+.contact-aside .detail-row .label{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-faint)}
+.contact-aside .detail-row .value{font-family:var(--display);font-style:italic;font-size:1.05rem;color:var(--text)}
+form.contact-form{display:grid;grid-template-columns:1fr;gap:22px}
+@media (min-width:600px){form.contact-form{grid-template-columns:1fr 1fr}}
+form.contact-form .field-full{grid-column:1/-1}
+form.contact-form label{display:block;font-family:var(--mono);font-size:0.66rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-faint);margin-bottom:10px}
+form.contact-form input,form.contact-form select,form.contact-form textarea{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border-accent);color:var(--text);font-family:var(--sans);font-size:0.95rem;padding:12px 0;transition:border-color 0.3s var(--ease)}
+form.contact-form input:focus,form.contact-form select:focus,form.contact-form textarea:focus{outline:none;border-bottom-color:var(--gold)}
+form.contact-form select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--gold) 50%),linear-gradient(135deg,var(--gold) 50%,transparent 50%);background-position:calc(100% - 14px) 50%,calc(100% - 8px) 50%;background-size:6px 6px;background-repeat:no-repeat;padding-right:28px}
+form.contact-form select option{background:var(--surface-1);color:var(--text)}
+form.contact-form textarea{min-height:120px;resize:vertical}
+form.contact-form .field-disclaimer{grid-column:1/-1;font-size:0.78rem;color:var(--text-faint);line-height:1.55;padding-top:8px}
+form.contact-form .submit-row{grid-column:1/-1;display:flex;justify-content:flex-start;padding-top:12px}
+footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:72px 0 36px;position:relative}
+.footer-top{display:grid;grid-template-columns:1fr;gap:48px;padding-bottom:56px;border-bottom:1px solid var(--border)}
+@media (min-width:800px){.footer-top{grid-template-columns:1.6fr 1fr 1fr 1fr}}
+.footer-brand .logo{margin-bottom:24px}
+.footer-brand p{max-width:44ch;font-size:0.88rem}
+.footer-brand .footer-region{margin-top:24px;font-family:var(--mono);font-size:0.7rem;letter-spacing:0.18em;color:var(--text-faint);display:flex;flex-wrap:wrap;gap:14px}
+.footer-brand .footer-region .active{color:var(--gold)}
+.footer-col h5{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--text-faint);margin:0 0 20px}
+.footer-col ul{list-style:none;padding:0;margin:0}
+.footer-col li{margin-bottom:12px}
+.footer-col a{font-size:0.92rem;color:var(--text-muted);transition:color 0.3s var(--ease)}
+.footer-col a:hover{color:var(--gold)}
+.footer-legal{padding-top:36px;display:flex;flex-direction:column;gap:20px}
+.footer-disclaimer{font-size:0.78rem;color:var(--text-muted);line-height:1.65;max-width:96ch;padding-left:16px;border-left:1px solid var(--gold)}
+.footer-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px;padding-top:24px;border-top:1px solid var(--border);font-family:var(--mono);font-size:0.7rem;letter-spacing:0.14em;color:var(--text-faint);text-transform:uppercase}
+.footer-bottom .gold{color:var(--gold)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.9s var(--ease),transform 0.9s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-stagger>*{opacity:0;transform:translateY(20px);transition:opacity 0.7s var(--ease),transform 0.7s var(--ease)}
+.reveal-stagger.visible>*{opacity:1;transform:translateY(0)}
+.reveal-stagger.visible>*:nth-child(1){transition-delay:0s}
+.reveal-stagger.visible>*:nth-child(2){transition-delay:0.08s}
+.reveal-stagger.visible>*:nth-child(3){transition-delay:0.16s}
+.reveal-stagger.visible>*:nth-child(4){transition-delay:0.24s}
+.reveal-stagger.visible>*:nth-child(5){transition-delay:0.32s}
+.reveal-stagger.visible>*:nth-child(6){transition-delay:0.40s}
+.reveal-stagger.visible>*:nth-child(7){transition-delay:0.48s}
+.reveal-stagger.visible>*:nth-child(8){transition-delay:0.56s}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}.hero-bg::before{animation:none}.hero-lines path{animation:none}.scroll-hint{display:none}}
+@media print{.nav,.mobile-menu,.scroll-progress,.scroll-hint{display:none}}
+/* V2.1 — Problem We Address */
+.problem{background:var(--bg-soft)}
+.problem-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-top:32px}
+@media (min-width:720px){.problem-grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1100px){.problem-grid{grid-template-columns:repeat(4,1fr)}}
+.problem-card{background:var(--bg-soft);padding:32px 26px;display:flex;flex-direction:column;gap:14px;min-height:240px;transition:background 0.4s var(--ease)}
+.problem-card:hover{background:var(--surface-1)}
+.problem-card .problem-mark{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.22em;color:var(--text-faint);text-transform:uppercase}
+.problem-card h4{font-family:var(--display);font-size:1.2rem;font-weight:500;color:var(--text);line-height:1.3}
+.problem-card p{font-size:0.85rem;color:var(--text-muted);line-height:1.55;margin-top:auto}
+/* V2.1 — Audience Navigation */
+.audience-nav{background:var(--bg)}
+.audience-nav-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-top:24px}
+@media (min-width:720px){.audience-nav-grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1100px){.audience-nav-grid{grid-template-columns:repeat(4,1fr)}}
+.audience-link{background:var(--bg-soft);padding:34px 28px;display:flex;flex-direction:column;gap:14px;min-height:240px;transition:background 0.4s var(--ease);color:inherit;cursor:pointer}
+.audience-link:hover{background:var(--surface-1)}
+.audience-link .aud-tag{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase}
+.audience-link h4{font-family:var(--display);font-size:1.3rem;font-weight:500;color:var(--text);line-height:1.25}
+.audience-link p{font-size:0.85rem;color:var(--text-muted);line-height:1.5}
+.audience-link .aud-cta{margin-top:auto;font-family:var(--mono);font-size:0.7rem;letter-spacing:0.18em;color:var(--gold);display:inline-flex;align-items:center;gap:8px;transition:gap 0.3s var(--ease)}
+.audience-link .aud-cta::after{content:'→'}
+.audience-link:hover .aud-cta{gap:14px}
+/* V2.1 — Regulated Partner Boundary */
+.regulated{background:var(--bg)}
+.regulated-wrap{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);border:1px solid var(--gold);margin-top:32px}
+@media (min-width:900px){.regulated-wrap{grid-template-columns:1fr 1fr}}
+.regulated-side{background:var(--bg-soft);padding:40px clamp(20px,3vw,40px);position:relative}
+.regulated-side .side-tag{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:inline-block;padding:5px 11px;border:1px solid var(--gold)}
+.regulated-side.regulated-them .side-tag{color:var(--text-faint);border-color:var(--border-accent)}
+.regulated-side h3{font-family:var(--display);font-size:1.4rem;font-weight:500;margin-bottom:20px;line-height:1.3}
+.regulated-side ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.regulated-side li{font-size:0.88rem;color:var(--text-muted);padding-left:16px;position:relative;line-height:1.5}
+.regulated-side li::before{content:'';position:absolute;left:0;top:10px;width:8px;height:1px;background:var(--gold)}
+.regulated-side.regulated-them li::before{background:var(--text-faint)}
+.regulated-statement{margin-top:36px;padding:24px 28px;border:1px solid var(--gold);background:var(--surface-1);font-family:var(--display);font-style:italic;font-size:1.05rem;color:var(--text);line-height:1.55;text-align:center}
+.regulated-statement strong{color:var(--gold);font-weight:500;font-style:normal;font-family:var(--sans);font-size:0.92rem;letter-spacing:0.04em;display:block;margin-bottom:6px}
+/* V2.1 — Pilot Corridor Demonstration */
+.pilot{background:var(--bg-soft)}
+.pilot-disclaimer{padding:22px 28px;border:1px solid var(--gold);background:var(--surface-1);font-size:0.88rem;color:var(--text);line-height:1.65;margin-bottom:48px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start}
+.pilot-disclaimer .disc-mark{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;padding-top:2px;white-space:nowrap}
+.pilot-disclaimer strong{color:var(--gold);font-weight:500}
+@media (max-width:600px){.pilot-disclaimer{grid-template-columns:1fr}}
+.pilot-flow{display:grid;grid-template-columns:1fr;gap:20px;position:relative}
+@media (min-width:1024px){.pilot-flow{grid-template-columns:repeat(4,1fr);gap:16px}.pilot-flow::before{content:'';position:absolute;top:42px;left:8%;right:8%;height:1px;background:linear-gradient(90deg,transparent,var(--gold) 15%,var(--gold) 85%,transparent);opacity:0.4;pointer-events:none}}
+.pilot-stage{background:var(--bg);border:1px solid var(--border);padding:28px 24px;display:flex;flex-direction:column;gap:14px;min-height:240px;transition:border-color 0.4s var(--ease)}
+.pilot-stage:hover{border-color:var(--gold)}
+.pilot-stage .stage-mark{width:40px;height:40px;border:1px solid var(--gold);color:var(--gold);font-family:var(--display);font-size:1.05rem;font-style:italic;display:grid;place-items:center;background:var(--bg-soft);margin-bottom:6px}
+.pilot-stage .stage-label{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.22em;color:var(--text-faint);text-transform:uppercase}
+.pilot-stage h4{font-family:var(--display);font-size:1.2rem;font-weight:500;line-height:1.3}
+.pilot-stage p{font-size:0.84rem;color:var(--text-muted);line-height:1.55;margin-top:auto}
+.pilot-note{margin-top:36px;font-family:var(--display);font-style:italic;color:var(--text-muted);font-size:0.95rem;text-align:center;line-height:1.6;max-width:64ch;margin-left:auto;margin-right:auto}
+/* V2.1 — Partner Qualification Gate */
+.qualification{background:var(--bg)}
+.qual-steps{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-top:32px}
+@media (min-width:720px){.qual-steps{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1024px){.qual-steps{grid-template-columns:repeat(3,1fr)}}
+.qual-step{background:var(--bg-soft);padding:28px 26px;display:grid;grid-template-columns:48px 1fr;gap:18px;align-items:start;min-height:150px;transition:background 0.4s var(--ease)}
+.qual-step:hover{background:var(--surface-1)}
+.qual-step .qual-num{font-family:var(--display);font-size:1.8rem;font-style:italic;color:var(--gold);line-height:1}
+.qual-step h4{font-family:var(--display);font-size:1.1rem;font-weight:500;margin-bottom:8px;line-height:1.3}
+.qual-step p{font-size:0.82rem;color:var(--text-muted);line-height:1.5}
+.qual-note{margin-top:36px;padding:22px 28px;border:1px solid var(--border);background:var(--surface-1);border-left:2px solid var(--gold);font-family:var(--display);font-style:italic;font-size:1rem;color:var(--text);line-height:1.6}
+/* V2.1 — Arms Prelude */
+.arms-prelude{margin-bottom:36px;padding:22px 28px;border:1px solid var(--border);background:var(--surface-1);border-left:2px solid var(--gold);font-size:0.92rem;color:var(--text);line-height:1.65}
+.arms-prelude strong{color:var(--gold);font-weight:500}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="logo" aria-label="SWAQAR Group — Corridors of Trust — home">
+      <span class="logo-rule" aria-hidden="true"></span>
+      <span class="logo-stack">
+        <span class="logo-name">SWAQAR <em>GROUP</em></span>
+        <span class="logo-tag">Corridors of Trust</span>
+      </span>
+    </a>
+    <div class="nav-cluster">
+      <nav aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="#problem">Problem</a></li>
+          <li><a href="#corridors">Corridors</a></li>
+          <li><a href="#gates">Model</a></li>
+          <li><a href="#governance">Governance</a></li>
+          <li><a href="#pilot">Candidate Corridor</a></li>
+          <li><a href="#engage">Engage</a></li>
+        </ul>
+      </nav>
+      <div class="nav-region" aria-label="Regional scope">
+        <span class="active">EN</span><span class="divider">·</span>
+        <span>AR</span><span class="divider">·</span>
+        <span>FR</span>
+      </div>
+      <a href="#engage" class="btn nav-cta">Institutional Inquiry</a>
+      <button class="nav-toggle" aria-label="Open menu" id="navToggle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <ul>
+    <li><a href="#problem">Problem We Address</a></li>
+    <li><a href="#corridors">Corridors</a></li>
+    <li><a href="#audience-nav">Engage by Role</a></li>
+    <li><a href="#approach">Approach</a></li>
+    <li><a href="#gates">4-Gate Model</a></li>
+    <li><a href="#regulated">Regulated Boundary</a></li>
+    <li><a href="#pilot">Candidate Corridor</a></li>
+    <li><a href="#governance">Governance</a></li>
+    <li><a href="#standards">Standards</a></li>
+    <li><a href="#qualification">Qualification Gate</a></li>
+    <li><a href="#arms">Strategic Arms</a></li>
+    <li><a href="#ecosystem">Ecosystem</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#inquiries">Inquiries</a></li>
+    <li><a href="#engage">Engage</a></li>
+  </ul>
+  <a href="#engage" class="btn">Institutional Inquiry</a>
+  <div class="mobile-region">
+    <span class="active">EN</span><span>AR</span><span>FR</span>
+  </div>
+</aside>
+
+<main id="main">
+
+<section class="hero" id="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-lines" aria-hidden="true">
+    <svg viewBox="0 0 1200 800" preserveAspectRatio="none">
+      <path d="M0,640 C300,580 600,620 900,540 C1050,500 1150,520 1200,480"/>
+      <path d="M0,520 C200,460 500,500 800,400 C1000,340 1100,360 1200,300"/>
+      <path d="M0,720 C350,680 700,700 1000,640 C1100,620 1180,610 1200,600"/>
+    </svg>
+  </div>
+  <div class="container hero-inner">
+    <div class="hero-grid">
+      <div class="hero-content reveal">
+        <div class="eyebrow">Corridors of Trust</div>
+        <h1 class="hero-title">
+          A Trusted <span class="accent">Trade Coordination Layer</span><br/>
+          for Africa <span class="divider"></span> Middle East <span class="divider"></span> Asia
+        </h1>
+        <p class="hero-sub">A governance-led coordination institution for cross-regional trade corridors. Verification-first. Non-custodial. Built for institutional durability.</p>
+        <div class="hero-actions">
+          <a href="#engage" class="btn btn-solid">Request Institutional Engagement</a>
+          <a href="#corridors" class="btn btn-ghost">Explore the Coordination Layer</a>
+        </div>
+        <div class="hero-meta">
+          <div><span class="label">Posture</span><span class="value">Non-Custodial · Asset-Light</span></div>
+          <div><span class="label">Structure</span><span class="value">Governance-Led · Verification-First</span></div>
+          <div><span class="label">Horizon</span><span class="value">Multi-Decade Institutional</span></div>
+        </div>
+      </div>
+      <div class="hero-visual reveal" aria-label="Corridor coordination visualization">
+        <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#C9A862" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#C9A862" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <circle cx="80" cy="120" r="22" fill="url(#nodeGlow)"/>
+          <circle cx="320" cy="200" r="22" fill="url(#nodeGlow)"/>
+          <circle cx="200" cy="380" r="22" fill="url(#nodeGlow)"/>
+          <circle class="corridor-node" cx="80" cy="120" r="3.5"/>
+          <circle class="corridor-node" cx="320" cy="200" r="3.5"/>
+          <circle class="corridor-node" cx="200" cy="380" r="3.5"/>
+          <circle class="corridor-node" cx="200" cy="240" r="5"/>
+          <path class="corridor-line delay-1" d="M80,120 Q140,160 200,240"/>
+          <path class="corridor-line delay-2" d="M320,200 Q260,220 200,240"/>
+          <path class="corridor-line delay-3" d="M200,240 Q200,310 200,380"/>
+          <circle class="pulse-dot" r="3" style="offset-path:path('M80,120 Q140,160 200,240 Q260,310 320,200');"/>
+          <text x="92" y="100" font-family="IBM Plex Mono" font-size="9" fill="#C9A862" letter-spacing="2">AFRICA</text>
+          <text x="332" y="180" font-family="IBM Plex Mono" font-size="9" fill="#C9A862" letter-spacing="2">ASIA</text>
+          <text x="148" y="408" font-family="IBM Plex Mono" font-size="9" fill="#C9A862" letter-spacing="2">MIDDLE EAST</text>
+          <text x="160" y="232" font-family="IBM Plex Mono" font-size="7" fill="#E8EAED" letter-spacing="1.5">SWAQAR</text>
+        </svg>
+        <div class="visual-caption">Verification, documentation, synchronization across three regions — one coordination layer.</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true">
+    <span>SCROLL</span><span class="line"></span>
+  </div>
+</section>
+
+<section class="trust-strip" aria-label="Trust pillars">
+  <div class="container">
+    <div class="trust-grid reveal-stagger">
+      <div class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+        <h4>Verification-First</h4>
+        <p>Counterparty status, documentation, and corridor flows verified by licensed firms under counsel-validated discipline.</p>
+      </div>
+      <div class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16v12H4z"/><path d="M4 6l8 6 8-6"/><path d="M2 4l20 16" stroke-dasharray="2 2"/></svg>
+        <h4>Non-Custodial</h4>
+        <p>SWAQAR does not custody funds, hold title to goods, or stand in the chain of finance at any point.</p>
+      </div>
+      <div class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/></svg>
+        <h4>Governance-Led</h4>
+        <p>Material decisions move through constitutional procedure under Supreme Council, Ethics &amp; Oversight, and counsel of record.</p>
+      </div>
+      <div class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 19V9l9-5 9 5v10"/><path d="M3 19h18"/><path d="M9 19v-6h6v6"/></svg>
+        <h4>Asset-Light</h4>
+        <p>The institution owns no cargo, no fleet, no terminal, no physical capacity. The perimeter is constitutional.</p>
+      </div>
+      <div class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="12" r="3"/><circle cx="18" cy="12" r="3"/><circle cx="12" cy="6" r="3"/><path d="M8.5 10.5l3-3M15.5 10.5l-3-3M9 12h6"/></svg>
+        <h4>Corridor-First</h4>
+        <p>Corridors are the unit of institutional operation. Sequential, sustained, demonstrated — not parallel or theoretical.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="problem" id="problem">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">The Coordination Problem</div>
+      <h2>Cross-regional trade fails <br/>at the same <span class="accent">four points</span>.</h2>
+      <p class="lede">Coordination loss across regions is structural, not incidental. SWAQAR exists to address the four points at which cross-regional corridors most commonly lose institutional integrity.</p>
+    </div>
+    <div class="problem-grid reveal-stagger">
+      <div class="problem-card">
+        <span class="problem-mark">Point 01</span>
+        <h4>Fragmented Verification</h4>
+        <p>Counterparties verified bilaterally without sustained institutional standards or continuous cadence.</p>
+      </div>
+      <div class="problem-card">
+        <span class="problem-mark">Point 02</span>
+        <h4>Documentation Drift</h4>
+        <p>Counterparty, regulatory, financial, verification, and logistics documentation moving without alignment.</p>
+      </div>
+      <div class="problem-card">
+        <span class="problem-mark">Point 03</span>
+        <h4>Coordination Loss</h4>
+        <p>Sequencing, dependency, and communication breakdowns between regions, parties, and licensed activities.</p>
+      </div>
+      <div class="problem-card">
+        <span class="problem-mark">Point 04</span>
+        <h4>Reputational Asymmetry</h4>
+        <p>Single-deal trust without institutional continuity; relationships that do not survive cycles or transitions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="corridors" id="corridors">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Africa · Middle East · Asia</div>
+      <h2>A coordinated corridor between three<br/><span class="accent">structurally complementary</span> regions.</h2>
+      <p class="lede">Three anchors. Complementary roles. One institutional coordination layer integrating verification, documentation, synchronization, and oversight across the corridors that connect them.</p>
+    </div>
+    <div class="corridor-map-wrap reveal">
+      <svg class="corridor-map-svg" viewBox="0 0 1200 540" preserveAspectRatio="xMidYMid meet" aria-label="Africa Middle East Asia coordination map">
+        <defs>
+          <radialGradient id="regionGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#C9A862" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#C9A862" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#C9A862" stop-opacity="0.42"/>
+            <stop offset="100%" stop-color="#C9A862" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="goldStroke" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#C9A862" stop-opacity="0.2"/>
+            <stop offset="50%" stop-color="#C9A862" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#C9A862" stop-opacity="0.2"/>
+          </linearGradient>
+        </defs>
+        <g opacity="0.06" stroke="#C9A862" stroke-width="0.5">
+          <line x1="0" y1="135" x2="1200" y2="135"/><line x1="0" y1="270" x2="1200" y2="270"/><line x1="0" y1="405" x2="1200" y2="405"/>
+          <line x1="300" y1="0" x2="300" y2="540"/><line x1="600" y1="0" x2="600" y2="540"/><line x1="900" y1="0" x2="900" y2="540"/>
+        </g>
+        <circle cx="220" cy="300" r="180" fill="url(#regionGlow)"/>
+        <circle cx="600" cy="220" r="200" fill="url(#centerGlow)"/>
+        <circle cx="980" cy="300" r="180" fill="url(#regionGlow)"/>
+        <g stroke="#3A4452" stroke-width="1" fill="#161B22" opacity="0.95">
+          <path d="M160,200 Q140,250 160,310 Q175,380 240,400 Q300,395 310,340 Q320,280 290,230 Q260,190 220,190 Q180,190 160,200 Z"/>
+        </g>
+        <g stroke="#C9A862" stroke-width="1" fill="#1C232C" opacity="0.95">
+          <path d="M520,160 Q500,210 530,260 Q565,300 620,295 Q680,290 690,250 Q700,200 670,170 Q635,140 580,145 Q540,145 520,160 Z"/>
+        </g>
+        <g stroke="#3A4452" stroke-width="1" fill="#161B22" opacity="0.95">
+          <path d="M870,190 Q840,240 855,310 Q880,395 970,400 Q1060,395 1080,330 Q1100,260 1060,200 Q1010,165 940,170 Q890,175 870,190 Z"/>
+        </g>
+        <text x="235" y="305" text-anchor="middle" font-family="Cormorant Garamond" font-size="22" font-style="italic" fill="#E8EAED">Africa</text>
+        <text x="235" y="328" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" letter-spacing="2" fill="#9099A3">VERIFIED SUPPLY · ORIGIN</text>
+        <text x="605" y="220" text-anchor="middle" font-family="Cormorant Garamond" font-size="22" font-style="italic" fill="#C9A862">Middle East</text>
+        <text x="605" y="243" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" letter-spacing="2" fill="#C9A862">INSTITUTIONAL TRUST · CAPITAL</text>
+        <text x="970" y="305" text-anchor="middle" font-family="Cormorant Garamond" font-size="22" font-style="italic" fill="#E8EAED">Asia</text>
+        <text x="970" y="328" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" letter-spacing="2" fill="#9099A3">INDUSTRIAL SCALE · MANUFACTURING</text>
+        <g fill="none" stroke="url(#goldStroke)" stroke-width="1.2">
+          <path d="M310,280 Q420,300 520,260" stroke-dasharray="5 6"/>
+          <path d="M690,250 Q800,290 870,260" stroke-dasharray="5 6"/>
+          <path d="M310,300 Q500,420 870,310" stroke-dasharray="5 6" opacity="0.4"/>
+        </g>
+        <g transform="translate(600,440)">
+          <rect x="-130" y="-32" width="260" height="64" fill="#1C232C" stroke="#C9A862" stroke-width="1"/>
+          <text x="0" y="-8" text-anchor="middle" font-family="Cormorant Garamond" font-size="18" font-style="italic" fill="#C9A862">SWAQAR Group</text>
+          <text x="0" y="14" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" letter-spacing="2.5" fill="#E8EAED">COORDINATION · VERIFICATION LAYER</text>
+        </g>
+        <g fill="none" stroke="#C9A862" stroke-width="0.8" opacity="0.5" stroke-dasharray="2 4">
+          <line x1="500" y1="430" x2="280" y2="370"/>
+          <line x1="600" y1="408" x2="600" y2="320"/>
+          <line x1="700" y1="430" x2="920" y2="370"/>
+        </g>
+        <g fill="#C9A862">
+          <circle cx="235" cy="270" r="3"/><circle cx="605" cy="200" r="4"/><circle cx="970" cy="270" r="3"/>
+        </g>
+      </svg>
+    </div>
+    <div class="corridor-legend reveal-stagger">
+      <div class="legend-item">
+        <div class="legend-tag">Region 01</div>
+        <h4>Africa</h4>
+        <p>Verified supply, industrial inputs, agricultural flows, and emerging destination markets of institutional significance.</p>
+      </div>
+      <div class="legend-item">
+        <div class="legend-tag">Region 02</div>
+        <h4>Middle East</h4>
+        <p>Institutional and financial anchor; regional convening platform; multi-decade institutional capital depth.</p>
+      </div>
+      <div class="legend-item">
+        <div class="legend-tag">Region 03</div>
+        <h4>Asia</h4>
+        <p>Industrial scale, manufacturing depth, and infrastructure participation across cross-regional flows.</p>
+      </div>
+      <div class="legend-item swaqar">
+        <div class="legend-tag">Coordination Layer</div>
+        <h4>SWAQAR Group</h4>
+        <p>Verification, documentation, synchronization, and governance oversight integrating the three regions as one corridor system.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="audience-nav" id="audience-nav">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Institutional Entry Points</div>
+      <h2>Different roles. One <br/><span class="accent">coordination layer</span>.</h2>
+      <p class="lede">Different institutional counterparts engage SWAQAR for different purposes. The shortcuts below route to the most relevant section based on role.</p>
+    </div>
+    <div class="audience-nav-grid reveal-stagger">
+      <a class="audience-link" href="#governance">
+        <span class="aud-tag">Sovereign · Ministerial</span>
+        <h4>Government &amp; Ministry</h4>
+        <p>Engagement at institutional counterpart standard under sovereign-grade discretion. Non-substitution discipline preserved.</p>
+        <span class="aud-cta">Governance Architecture</span>
+      </a>
+      <a class="audience-link" href="#approach">
+        <span class="aud-tag">Banking · Trade Finance</span>
+        <h4>Bank &amp; Trade Finance</h4>
+        <p>Coordination alongside licensed banking activity. SWAQAR does not custody, finance as principal, or stand in the chain of finance.</p>
+        <span class="aud-cta">Operating Approach</span>
+      </a>
+      <a class="audience-link" href="#gates">
+        <span class="aud-tag">Exporter · Buyer</span>
+        <h4>Exporter &amp; Buyer</h4>
+        <p>Coordinated corridor participation under verification-first, documentation-aligned, governance-overseen institutional discipline.</p>
+        <span class="aud-cta">4-Gate Model</span>
+      </a>
+      <a class="audience-link" href="#architecture">
+        <span class="aud-tag">Institutional Partner</span>
+        <h4>Capital &amp; Strategic Partner</h4>
+        <p>Counsel-validated institutional engagement under multi-decade horizon. Not a security, not a fund offering, not solicitation.</p>
+        <span class="aud-cta">Institutional Architecture</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="approach" id="approach">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">The Operating Architecture</div>
+      <h2>Four standing functions <br/>operating <span class="accent">continuously</span>.</h2>
+      <p class="lede">Coordination is not a service. It is an integrated discipline operated continuously across every corridor SWAQAR coordinates — institutional, governance-led, counsel-validated.</p>
+    </div>
+    <div class="approach-grid reveal-stagger">
+      <article class="function">
+        <div class="function-mark">I</div>
+        <div class="function-label">Function 01</div>
+        <h3>Counterparty Verification</h3>
+        <p>Licensed firms perform regulated due diligence on every coordinated counterparty under counsel-validated review. Verification status is sustained continuously; verification gaps halt corridor advancement.</p>
+      </article>
+      <article class="function">
+        <div class="function-mark">II</div>
+        <div class="function-label">Function 02</div>
+        <h3>Documentation Coordination</h3>
+        <p>Counterparty, regulatory, financial, verification, and logistics documentation is integrated through a counsel-cleared institutional record. SWAQAR coordinates references; it does not issue licensed documentation.</p>
+      </article>
+      <article class="function">
+        <div class="function-mark">III</div>
+        <div class="function-label">Function 03</div>
+        <h3>Institutional Synchronization</h3>
+        <p>Sequencing, dependency, communication, and visibility across counterparties are coordinated under one institutional voice. The discipline addresses the four points at which cross-regional corridors most commonly lose coordination.</p>
+      </article>
+      <article class="function">
+        <div class="function-mark">IV</div>
+        <div class="function-label">Function 04</div>
+        <h3>Governance Oversight</h3>
+        <p>Material corridor decisions move through Supreme Council under constitutional procedure. Routine coordination operates within governance-set parameters. Governance is the operating substrate, not a compliance overlay.</p>
+      </article>
+    </div>
+    <div class="approach-note reveal">The four functions do not operate in sequence. They operate together, continuously, across the corridor lifecycle.</div>
+  </div>
+</section>
+
+<section class="who" id="who">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Institutional Counterparts</div>
+      <h2>SWAQAR engages institutions <br/><span class="accent">qualified</span> for coordinated corridor participation.</h2>
+      <p class="lede">Engagement is selective, by-invitation, and counsel-validated. Every prospective counterpart moves through a seven-step institutional qualification gate before participation.</p>
+    </div>
+    <div class="audience-grid reveal-stagger">
+      <div class="audience-card"><span class="num">01</span><h3>Exporters</h3><p>Verified, qualified exporters operating under their own licensed regulatory frameworks within coordinated corridors.</p></div>
+      <div class="audience-card"><span class="num">02</span><h3>Buyers</h3><p>Verified institutional buyers with counterparty profiles appropriate to coordinated cross-regional procurement.</p></div>
+      <div class="audience-card"><span class="num">03</span><h3>Banks &amp; Trade Finance</h3><p>Licensed banks and trade-finance institutions coordinated as financial partners — never replaced or substituted.</p></div>
+      <div class="audience-card"><span class="num">04</span><h3>Governments &amp; Ministries</h3><p>Institutional coordination counterparts for corridor authorization, policy alignment, and sovereign-grade engagement.</p></div>
+      <div class="audience-card"><span class="num">05</span><h3>Logistics Partners</h3><p>Licensed logistics and infrastructure operators with verified standing; SWAQAR coordinates touchpoints, never operates flows.</p></div>
+      <div class="audience-card"><span class="num">06</span><h3>Industrial Partners</h3><p>Industrial and trade-development partners contributing to corridor-strengthening ecosystem capability.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="boundaries" id="boundaries">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Institutional Boundaries</div>
+      <h2>What SWAQAR <span class="accent">does</span>, <br/>and what it does not.</h2>
+      <p class="lede">Boundary clarity protects counterparties and the institution. The lines below are constitutional and operate continuously across every engagement.</p>
+    </div>
+    <div class="boundaries-grid reveal">
+      <div class="boundary-col does">
+        <h3><span class="mark">[ +  SWAQAR DOES ]</span></h3>
+        <ul>
+          <li>Coordinates trade execution across institutional counterparts</li>
+          <li>Verifies counterparties through licensed verification firms</li>
+          <li>Standardizes workflows and corridor documentation</li>
+          <li>Synchronizes corridor stakeholders under one institutional voice</li>
+          <li>Strengthens institutional trust as corridor infrastructure</li>
+          <li>Operates governance oversight across the corridor lifecycle</li>
+        </ul>
+      </div>
+      <div class="boundary-col does-not">
+        <h3><span class="mark">[ −  SWAQAR DOES NOT ]</span></h3>
+        <ul>
+          <li>Buy, sell, or take title to any commodity at any point</li>
+          <li>Custody funds, transfer value, or finance as principal</li>
+          <li>Own, charter, or operate any logistics fleet or infrastructure</li>
+          <li>Act as broker, agent, or commercial intermediary</li>
+          <li>Replace banks, customs authorities, or licensed operators</li>
+          <li>Guarantee payment, delivery, or any commercial outcome</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="regulated" id="regulated">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">The Regulated Boundary</div>
+      <h2>Regulated activity remains with <br/><span class="accent">regulated parties</span>.</h2>
+      <p class="lede">SWAQAR is a coordination institution, not a regulated operator. Banking, custody, logistics, customs, verification, and regulatory authority remain entirely with licensed parties under their own scope. SWAQAR coordinates alongside; it never substitutes.</p>
+    </div>
+    <div class="regulated-wrap reveal">
+      <div class="regulated-side regulated-us">
+        <span class="side-tag">SWAQAR Group</span>
+        <h3>Coordination Layer Activity</h3>
+        <ul>
+          <li>Counterparty verification governance (via licensed firms)</li>
+          <li>Documentation coordination across counterparties</li>
+          <li>Institutional synchronization of corridor activity</li>
+          <li>Governance oversight under constitutional procedure</li>
+          <li>Reciprocal reputation discipline across partners</li>
+          <li>Institutional record preservation</li>
+        </ul>
+      </div>
+      <div class="regulated-side regulated-them">
+        <span class="side-tag">Licensed / Regulated Parties</span>
+        <h3>Regulated Activity (Not SWAQAR)</h3>
+        <ul>
+          <li>Banking, trade-finance, custody — licensed banks</li>
+          <li>Cargo ownership, fleet, terminal — licensed logistics operators</li>
+          <li>Customs clearance, regulatory approval — sovereign authorities</li>
+          <li>Verification &amp; inspection — licensed verification firms</li>
+          <li>Commercial principal activity — verified counterparties</li>
+          <li>Legal opinions, jurisdictional positions — counsel of record</li>
+        </ul>
+      </div>
+    </div>
+    <div class="regulated-statement reveal">
+      <strong>The Categorical Statement</strong>
+      SWAQAR does not perform regulated banking, logistics, custodial, brokerage, or sovereign functions. The institution does not guarantee payment, delivery, or any commercial outcome.
+    </div>
+  </div>
+</section>
+
+<section class="gates" id="gates">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Corridor Coordination Model</div>
+      <h2>Every coordinated corridor moves through <br/><span class="accent">four institutional gates</span>.</h2>
+      <p class="lede">Each gate has a defined purpose, governance-closing authority, and gate-pass criteria. Corridors advance forward on readiness; under deterioration, they return to an earlier gate for institutional reset.</p>
+    </div>
+    <div class="gates-flow reveal-stagger">
+      <article class="gate"><div class="gate-num">01</div><div class="gate-label">Gate One</div><h3>Verification</h3><p>Counterparty status, regulatory standing, and corridor-specific compliance posture verified through licensed firms under counsel-validated due diligence.</p></article>
+      <article class="gate"><div class="gate-num">02</div><div class="gate-label">Gate Two</div><h3>Documentation</h3><p>Counterparty, regulatory, financial, verification, and logistics documentation coordinated under counsel-validated framework per jurisdiction.</p></article>
+      <article class="gate"><div class="gate-num">03</div><div class="gate-label">Gate Three</div><h3>Coordination</h3><p>Live institutional synchronization across counterparties: sequencing, dependency, communication, and visibility maintained as standing condition.</p></article>
+      <article class="gate"><div class="gate-num">04</div><div class="gate-label">Gate Four</div><h3>Escalation &amp; Oversight</h3><p>Material matters surface through institutional escalation; routine deviations operate within governance-set parameters; record preserved.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="pilot" id="pilot">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Candidate Corridor Preparation</div>
+      <h2>How a coordinated transaction <br/>moves through <span class="accent">institutional discipline</span>.</h2>
+      <p class="lede">The stages below illustrate the institutional mechanics under which SWAQAR would coordinate a hypothetical corridor transaction. The illustration is structural; no specific transaction or party is represented.</p>
+    </div>
+    <div class="pilot-disclaimer reveal">
+      <span class="disc-mark">GOVERNANCE NOTE</span>
+      <span>This section illustrates the <strong>candidate corridor preparation structure</strong> SWAQAR Group is building toward. No corridor is currently operational. No pilot has been confirmed. This is a governance-architecture illustration only — subject to counsel-validated legal, regulatory, and governance review before any corridor activation proceeds. This content does not constitute an offer, solicitation, or operational commitment.</span>
+    </div>
+    <div class="pilot-flow reveal-stagger">
+      <article class="pilot-stage">
+        <div class="stage-mark">I</div>
+        <div class="stage-label">Stage 01</div>
+        <h4>Qualification</h4>
+        <p>Counterparties move through the seven-step institutional qualification gate. Engagement is counsel-validated, governance-ratified, and by-invitation.</p>
+      </article>
+      <article class="pilot-stage">
+        <div class="stage-mark">II</div>
+        <div class="stage-label">Stage 02</div>
+        <h4>Verification</h4>
+        <p>Licensed verification firms perform regulated due diligence. Verification outputs are integrated into the institutional coordination record under counsel-validated discipline.</p>
+      </article>
+      <article class="pilot-stage">
+        <div class="stage-mark">III</div>
+        <div class="stage-label">Stage 03</div>
+        <h4>Coordination</h4>
+        <p>Live institutional synchronization across counterparties. Licensed parties perform their licensed activities; SWAQAR coordinates the institutional surface across them.</p>
+      </article>
+      <article class="pilot-stage">
+        <div class="stage-mark">IV</div>
+        <div class="stage-label">Stage 04</div>
+        <h4>Oversight &amp; Closure</h4>
+        <p>Material matters surface through institutional escalation. The coordination record is preserved; institutional learning is captured; reputational standing is maintained.</p>
+      </article>
+    </div>
+    <p class="pilot-note">For demonstration purposes only. SWAQAR coordinates the institutional context; licensed parties perform principal commercial, financial, operating, verification, and regulatory activities under their own authority.</p>
+  </div>
+</section>
+
+<section class="governance" id="governance">
+  <div class="container">
+    <div class="governance-grid">
+      <div class="reveal">
+        <div class="eyebrow">Governance Architecture</div>
+        <h2>Trust is institutional <br/>infrastructure — <span class="accent">built across cycles</span>.</h2>
+        <p style="margin-top:20px;max-width:54ch;">Governance is the operating substrate of the institution, not a compliance overlay. Material decisions move through constitutional procedure. Counterparties engage an institution they can hold institutionally accountable through standing bodies, counsel of record, and reserved-matter discipline.</p>
+        <div class="governance-pillars">
+          <div class="pillar"><div class="pillar-num">01</div><div><h4>Verification-First Structure</h4><p>Continuous verification through licensed firms; verification integrity sustained as standing corridor condition.</p></div></div>
+          <div class="pillar"><div class="pillar-num">02</div><div><h4>Non-Custodial Model</h4><p>Constitutional perimeter: no custody of funds, goods, title, or documents at any point in any corridor.</p></div></div>
+          <div class="pillar"><div class="pillar-num">03</div><div><h4>Governance Discipline</h4><p>Supreme Council, Ethics &amp; Oversight Council, External Trustee Panel, and counsel of record as standing surface.</p></div></div>
+          <div class="pillar"><div class="pillar-num">04</div><div><h4>Compliance Orientation</h4><p>Compliance operated per jurisdiction under counsel-validated discipline, aligned with licensed partner frameworks.</p></div></div>
+          <div class="pillar"><div class="pillar-num">05</div><div><h4>Corridor Safeguards</h4><p>Reciprocal reputation discipline; sovereign-grade discretion; stop-scaling discipline preserved across every phase.</p></div></div>
+        </div>
+      </div>
+      <div class="governance-visual reveal" aria-label="Governance architecture diagram">
+        <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <radialGradient id="govGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#C9A862" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#C9A862" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <circle cx="200" cy="250" r="160" fill="url(#govGlow)"/>
+          <circle cx="200" cy="250" r="140" fill="none" stroke="#3A4452" stroke-width="1" stroke-dasharray="2 4"/>
+          <circle cx="200" cy="250" r="100" fill="none" stroke="#3A4452" stroke-width="1"/>
+          <circle cx="200" cy="250" r="60" fill="none" stroke="#C9A862" stroke-width="1"/>
+          <g fill="#C9A862">
+            <circle cx="200" cy="110" r="4"/><circle cx="340" cy="250" r="4"/>
+            <circle cx="200" cy="390" r="4"/><circle cx="60" cy="250" r="4"/>
+          </g>
+          <rect x="180" y="230" width="40" height="40" fill="#1C232C" stroke="#C9A862" stroke-width="1"/>
+          <text x="200" y="256" text-anchor="middle" font-family="Cormorant Garamond" font-size="14" font-style="italic" fill="#C9A862">SWAQAR</text>
+          <text x="200" y="98" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" letter-spacing="1.5" fill="#9099A3">SUPREME COUNCIL</text>
+          <text x="345" y="244" text-anchor="start" font-family="IBM Plex Mono" font-size="8" letter-spacing="1.5" fill="#9099A3">ETHICS</text>
+          <text x="200" y="408" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" letter-spacing="1.5" fill="#9099A3">TRUSTEE PANEL</text>
+          <text x="55" y="244" text-anchor="end" font-family="IBM Plex Mono" font-size="8" letter-spacing="1.5" fill="#9099A3">COUNSEL</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="standards" id="standards">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Institutional Standards</div>
+      <h2>Compliance orientation <br/>operated <span class="accent">per jurisdiction</span>.</h2>
+      <p class="lede">SWAQAR is compliance-oriented under counsel-validated discipline per jurisdiction. The institution does not claim universal compliance, full licensing, or regulatory approval — it aligns with licensed partner frameworks under standing institutional procedure.</p>
+    </div>
+    <div class="standards-grid reveal-stagger">
+      <div class="standard"><div class="standard-num">01</div><h4>Jurisdictional Legal Review</h4><p>Counsel of record and jurisdiction-specific counsel engaged on material legal matters per jurisdiction.</p></div>
+      <div class="standard"><div class="standard-num">02</div><h4>Licensing Requirements</h4><p>Licensed activity performed by licensed parties under their own scope; SWAQAR coordinates alongside, does not substitute.</p></div>
+      <div class="standard"><div class="standard-num">03</div><h4>Anti-Money-Laundering</h4><p>AML alignment with licensed banks under their regulatory frameworks; SWAQAR supports, does not substitute for banking compliance.</p></div>
+      <div class="standard"><div class="standard-num">04</div><h4>Sanctions Screening</h4><p>Counterparties and material engagement screened against applicable sanctions regimes under counsel-validated discipline.</p></div>
+      <div class="standard"><div class="standard-num">05</div><h4>Due Diligence</h4><p>Licensed due-diligence firms perform regulated counterparty verification under counsel-cleared scope.</p></div>
+      <div class="standard"><div class="standard-num">06</div><h4>Data Protection</h4><p>Cross-border information handling under counsel-validated discipline per jurisdiction; data-protection requirements vary materially by jurisdiction.</p></div>
+      <div class="standard"><div class="standard-num">07</div><h4>Tax &amp; Corporate</h4><p>Material tax and corporate-law matters operate under counsel of record and jurisdiction-specific counsel as relevant.</p></div>
+      <div class="standard"><div class="standard-num">08</div><h4>Regulatory Engagement</h4><p>Sovereign regulatory authority remains with regulators; SWAQAR engages alongside under non-substitution discipline.</p></div>
+    </div>
+    <div class="standards-disclaimer reveal">
+      <strong>Compliance orientation, not compliance status.</strong> SWAQAR Group is compliance-oriented under counsel-validated discipline per jurisdiction and operates alongside licensed partner frameworks. The institution does not claim full licensing, universal compliance, regulatory approval, or substitution for licensed compliance activity. Material legal, regulatory, tax, employment, AML, sanctions, and data-protection matters operate under counsel of record and jurisdiction-specific counsel.
+    </div>
+  </div>
+</section>
+<section class="qualification" id="qualification">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Partner Qualification Gate</div>
+      <h2>Seven institutional checks <br/>before <span class="accent">any engagement</span>.</h2>
+      <p class="lede">Every prospective institutional counterpart moves through the same seven-step qualification gate. The discipline is selective, counsel-cleared, and by-invitation. Engagement is not solicitative; not every inquiry advances.</p>
+    </div>
+    <div class="qual-steps reveal-stagger">
+      <div class="qual-step"><span class="qual-num">01</span><div><h4>Identity &amp; Legal Verification</h4><p>Licensed verification firm confirms registered standing, ownership structure, and jurisdictional legal status under counsel review.</p></div></div>
+      <div class="qual-step"><span class="qual-num">02</span><div><h4>Strategic Alignment Review</h4><p>Counterpart's commercial position, operating standing, and engagement intent assessed for institutional fit with the corridor.</p></div></div>
+      <div class="qual-step"><span class="qual-num">03</span><div><h4>Compliance &amp; Reputational Screening</h4><p>Sanctions, AML, adverse-media, regulatory standing, and reputational integrity assessed under counsel-validated discipline.</p></div></div>
+      <div class="qual-step"><span class="qual-num">04</span><div><h4>Operational Relevance Assessment</h4><p>Operating fit within coordinated corridor activity assessed; corridor-specific operational appropriateness confirmed.</p></div></div>
+      <div class="qual-step"><span class="qual-num">05</span><div><h4>Institutional Governance Approval</h4><p>Supreme Council ratification of counterpart participation. Material engagement is governance-cleared, not staff-cleared.</p></div></div>
+      <div class="qual-step"><span class="qual-num">06</span><div><h4>Controlled Engagement Onboarding</h4><p>Counsel-cleared documentation governs engagement scope; named institutional steward assigned; institutional record initiated.</p></div></div>
+      <div class="qual-step"><span class="qual-num">07</span><div><h4>Ongoing Relationship Monitoring</h4><p>Verification status, compliance posture, and reputational standing monitored continuously; deterioration triggers backward movement.</p></div></div>
+    </div>
+    <div class="qual-note reveal">Engagement is by invitation under counsel-validated structure. The qualification gate is institutional discipline, not commercial onboarding.</div>
+  </div>
+</section>
+
+<section class="arms" id="arms">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Strategic Arms</div>
+      <h2>Internal institutional divisions. <br/><span class="accent">One governance.</span> One mission.</h2>
+      <p class="lede">Strategic Arms are internal divisions of SWAQAR Group, not separate entities, subsidiaries, or affiliated companies. Each operates within the institutional perimeter under one identity, one governance, and one corridor mission. Arms institutionalise sequentially under Supreme Council ratification as corridor scale justifies.</p>
+    </div>
+    <div class="arms-prelude reveal"><strong>Internal divisions, not subsidiaries.</strong> Strategic Arms are internal institutional divisions operating within SWAQAR Group's single institutional perimeter. Each operates under one governance, one counsel of record, one institutional identity, and one corridor mission. Arms are not legally separate entities, affiliated companies, joint ventures, or independent service providers.</div>
+    <div class="arms-grid reveal-stagger">
+      <article class="arm">
+        <svg class="arm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg>
+        <span class="arm-label">Arm 01</span>
+        <h3>SWAQAR Intelligence</h3>
+        <p>Institutional intelligence and strategic foresight informing corridor decisions, counterparty assessment, and corridor risk.</p>
+      </article>
+      <article class="arm">
+        <svg class="arm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="7" width="18" height="13"/><path d="M3 11h18M8 16h3"/><path d="M7 7V4h10v3"/></svg>
+        <span class="arm-label">Arm 02</span>
+        <h3>Capital &amp; Trade Finance Coordination</h3>
+        <p>Coordinates trade-finance flows alongside licensed banking partners; integrates financial coordination into corridor synchronization without custody.</p>
+      </article>
+      <article class="arm">
+        <svg class="arm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 17h2l2-9h12l-1 9h2"/><circle cx="8" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg>
+        <span class="arm-label">Arm 03</span>
+        <h3>Infrastructure &amp; Logistics Coordination</h3>
+        <p>Coordinates physical-flow touchpoints alongside licensed logistics and infrastructure operators; does not own or operate physical capacity.</p>
+      </article>
+      <article class="arm">
+        <svg class="arm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="4" width="18" height="13" rx="1"/><path d="M3 9h18M8 21h8M12 17v4"/></svg>
+        <span class="arm-label">Arm 04</span>
+        <h3>SWAQAR Digital Systems</h3>
+        <p>Institutional digital coordination supporting verification, documentation, and corridor visibility under standardise-before-digitise discipline.</p>
+      </article>
+      <article class="arm">
+        <svg class="arm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="4"/><path d="M5 21v-1a7 7 0 0114 0v1"/></svg>
+        <span class="arm-label">Arm 05</span>
+        <h3>Institutional Advisory</h3>
+        <p>Counsel-validated institutional advisory inputs supporting corridor governance and counterparty engagement under conflict-disciplined terms.</p>
+      </article>
+      <article class="arm">
+        <svg class="arm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 20V8l8-4 8 4v12"/><path d="M9 20v-6h6v6M4 20h16"/></svg>
+        <span class="arm-label">Arm 06</span>
+        <h3>Industrial &amp; Trade Development</h3>
+        <p>Corridor-strengthening ecosystem activity coordinated with industrial and trade-development partners under non-principal posture.</p>
+      </article>
+    </div>
+      <article class="arm">
+        <svg class="arm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <span class="arm-label">Arm 07</span>
+        <h3>SWAQAR Ventures</h3>
+        <p>Strategic future investments coordinated under Supreme Council ratification. Innovation, future corridor technologies, and ecosystem expansion opportunities. Not yet active — subject to Supreme Council ratification and governance-validated activation criteria.</p>
+      </article>
+    <div class="arms-note reveal">All arms support SWAQAR Corridors of Trust — the institutional operating core.</div>
+  </div>
+</section>
+
+<section class="ecosystem" id="ecosystem">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Partner Ecosystem</div>
+      <h2>SWAQAR coordinates the <br/><span class="accent">licensed parties</span> who do the work.</h2>
+      <p class="lede">Each partner operates within its own licensed scope. SWAQAR integrates their activity into one coordinated corridor under institutional governance, reciprocal reputation discipline, and counsel-validated framework.</p>
+    </div>
+    <div class="ecosystem-wrap reveal">
+      <svg class="ecosystem-svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet" aria-label="Partner ecosystem hub-and-spoke diagram">
+        <defs>
+          <radialGradient id="ecoCenter" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#C9A862" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#C9A862" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="400" cy="300" r="180" fill="url(#ecoCenter)"/>
+        <g stroke="#3A4452" stroke-width="1" stroke-dasharray="3 5">
+          <line x1="400" y1="300" x2="400" y2="90"/>
+          <line x1="400" y1="300" x2="630" y2="155"/>
+          <line x1="400" y1="300" x2="700" y2="350"/>
+          <line x1="400" y1="300" x2="600" y2="500"/>
+          <line x1="400" y1="300" x2="200" y2="500"/>
+          <line x1="400" y1="300" x2="100" y2="350"/>
+          <line x1="400" y1="300" x2="170" y2="155"/>
+        </g>
+        <g transform="translate(400,300)">
+          <rect x="-86" y="-32" width="172" height="64" fill="#1C232C" stroke="#C9A862" stroke-width="1.5"/>
+          <text x="0" y="-7" text-anchor="middle" font-family="Cormorant Garamond" font-size="18" font-style="italic" fill="#C9A862">SWAQAR Group</text>
+          <text x="0" y="14" text-anchor="middle" font-family="IBM Plex Mono" font-size="7" letter-spacing="2" fill="#E8EAED">COORDINATION LAYER</text>
+        </g>
+        <g text-anchor="middle">
+          <g transform="translate(400,80)"><rect x="-66" y="-22" width="132" height="44" fill="#161B22" stroke="#3A4452"/><text y="-2" font-family="Cormorant Garamond" font-size="14" font-style="italic" fill="#E8EAED">Governments</text><text y="14" font-family="IBM Plex Mono" font-size="7" letter-spacing="1.5" fill="#9099A3">SOVEREIGN</text></g>
+          <g transform="translate(630,145)"><rect x="-66" y="-22" width="132" height="44" fill="#161B22" stroke="#3A4452"/><text y="-2" font-family="Cormorant Garamond" font-size="14" font-style="italic" fill="#E8EAED">Banks</text><text y="14" font-family="IBM Plex Mono" font-size="7" letter-spacing="1.5" fill="#9099A3">TRADE FINANCE</text></g>
+          <g transform="translate(700,340)"><rect x="-66" y="-22" width="132" height="44" fill="#161B22" stroke="#3A4452"/><text y="-2" font-family="Cormorant Garamond" font-size="14" font-style="italic" fill="#E8EAED">Buyers</text><text y="14" font-family="IBM Plex Mono" font-size="7" letter-spacing="1.5" fill="#9099A3">VERIFIED DEMAND</text></g>
+          <g transform="translate(600,510)"><rect x="-66" y="-22" width="132" height="44" fill="#161B22" stroke="#3A4452"/><text y="-2" font-family="Cormorant Garamond" font-size="14" font-style="italic" fill="#E8EAED">Verification Firms</text><text y="14" font-family="IBM Plex Mono" font-size="7" letter-spacing="1.5" fill="#9099A3">DUE DILIGENCE</text></g>
+          <g transform="translate(200,510)"><rect x="-66" y="-22" width="132" height="44" fill="#161B22" stroke="#3A4452"/><text y="-2" font-family="Cormorant Garamond" font-size="14" font-style="italic" fill="#E8EAED">Industrial</text><text y="14" font-family="IBM Plex Mono" font-size="7" letter-spacing="1.5" fill="#9099A3">STAKEHOLDERS</text></g>
+          <g transform="translate(100,340)"><rect x="-66" y="-22" width="132" height="44" fill="#161B22" stroke="#3A4452"/><text y="-2" font-family="Cormorant Garamond" font-size="14" font-style="italic" fill="#E8EAED">Exporters</text><text y="14" font-family="IBM Plex Mono" font-size="7" letter-spacing="1.5" fill="#9099A3">VERIFIED SUPPLY</text></g>
+          <g transform="translate(170,145)"><rect x="-66" y="-22" width="132" height="44" fill="#161B22" stroke="#3A4452"/><text y="-2" font-family="Cormorant Garamond" font-size="14" font-style="italic" fill="#E8EAED">Logistics</text><text y="14" font-family="IBM Plex Mono" font-size="7" letter-spacing="1.5" fill="#9099A3">LICENSED OPERATORS</text></g>
+        </g>
+        <g fill="#C9A862">
+          <circle cx="400" cy="90" r="3"/><circle cx="630" cy="155" r="3"/><circle cx="700" cy="350" r="3"/>
+          <circle cx="600" cy="500" r="3"/><circle cx="200" cy="500" r="3"/><circle cx="100" cy="350" r="3"/><circle cx="170" cy="155" r="3"/>
+        </g>
+      </svg>
+      <p class="ecosystem-caption">Coordination, not substitution. Each partner retains its licensed activity. SWAQAR integrates the institutional surface across them.</p>
+    </div>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="container">
+    <div class="why-inner">
+      <div class="eyebrow" style="justify-content:center;">The Coordination Imperative</div>
+      <h2>SWAQAR exists because corridor trust cannot be <span class="accent">assumed</span> — it must be built, governed, and maintained.</h2>
+      <div class="divider"></div>
+      <p>Cross-regional trade has long depended on bilateral arrangements that do not survive cycles. SWAQAR coordinates the licensed parties so corridors function with verification, governance, and reciprocal reputation as standing conditions. The contribution is institutional, not commercial.</p>
+    </div>
+  </div>
+</section>
+
+<section class="architecture" id="architecture">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Institutional Architecture</div>
+      <h2>Two complementary layers. <br/>One <span class="accent">institutional architecture</span>.</h2>
+      <p class="lede">A constitutional foundation (Layer A) and an external positioning architecture (Layer B). The architecture allows SWAQAR to engage sovereign, ministerial, banking, and institutional counterparts at multi-decade horizon.</p>
+    </div>
+    <div class="arch-grid">
+      <article class="arch-layer reveal">
+        <span class="layer-tag">Layer A</span>
+        <h3>Constitutional Foundation</h3>
+        <div class="layer-sub">The standing institutional substrate.</div>
+        <ul>
+          <li>Constitutional documents and standing governance</li>
+          <li>Supreme Council, Ethics &amp; Oversight Council, External Trustee Panel</li>
+          <li>Reserved-matter procedure and conflict-of-interest framework</li>
+          <li>Capital allocation, crisis response, subsidiary governance</li>
+          <li>Leadership succession discipline and institutional memory</li>
+          <li>Counsel of record + jurisdiction-specific counsel as institutional substrate</li>
+        </ul>
+        <div class="layer-footer">Internal · Counsel-Cleared · Constitutional</div>
+      </article>
+      <article class="arch-layer reveal">
+        <span class="layer-tag">Layer B</span>
+        <h3>External Positioning</h3>
+        <div class="layer-sub">The institutional surface visible to counterparts.</div>
+        <ul>
+          <li>Identity, strategy &amp; positioning under IS/IS-NOT discipline</li>
+          <li>Operational model &amp; four-gate corridor coordination</li>
+          <li>Investment &amp; partnership architecture; partner qualification gate</li>
+          <li>Risk, compliance orientation &amp; categorical risks refused</li>
+          <li>Phased execution roadmap with go/no-go discipline</li>
+          <li>Trade Coordination Layer category positioning &amp; Proof Ladder</li>
+        </ul>
+        <div class="layer-footer">External · Counsel-Cleared · Institutional</div>
+      </article>
+    </div>
+  </div>
+</section>
+<section class="engage" id="engage">
+  <div class="container">
+    <div class="engage-wrap reveal">
+      <div class="engage-text">
+        <div class="eyebrow">Controlled Institutional Engagement</div>
+        <h2>Institutional engagement is <span class="accent">selective</span>, qualified, and counsel-validated.</h2>
+        <p>Every prospective partnership passes through the seven-step Partner Qualification Gate. Engagement is by invitation under counsel-validated structure. Inquiries are reviewed institutionally; not every inquiry advances to qualification.</p>
+      </div>
+      <div class="engage-actions">
+        <a href="#contact" class="btn btn-solid">Submit Institutional Inquiry</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="inquiries" id="inquiries">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Institutional Inquiries</div>
+      <h2>Common questions, <br/><span class="accent">answered institutionally</span>.</h2>
+      <p class="lede">These responses are written for institutional counterparts assessing engagement. They reflect standing institutional discipline, not aspirational positioning.</p>
+    </div>
+    <div class="inquiries-grid reveal">
+      <details class="inquiry">
+        <summary class="inquiry-summary">
+          <span class="inq-num">01</span>
+          <span class="inquiry-q">How does engagement with SWAQAR Group begin?</span>
+          <span class="inquiry-toggle">+</span>
+        </summary>
+        <div class="inquiry-body">Engagement begins with an institutional inquiry submitted by an authorised counterpart. The inquiry is reviewed institutionally under counsel-validated discipline. Where the inquiry meets institutional fit criteria, a counsel-cleared engagement structure is established and the prospective counterpart enters the seven-step qualification gate. Engagement is not solicitative; not every inquiry advances.</div>
+      </details>
+      <details class="inquiry">
+        <summary class="inquiry-summary">
+          <span class="inq-num">02</span>
+          <span class="inquiry-q">What does the qualification process require?</span>
+          <span class="inquiry-toggle">+</span>
+        </summary>
+        <div class="inquiry-body">The seven-step partner qualification gate covers: identity and legal verification under counsel-validated due diligence, strategic alignment review for institutional fit, compliance and reputational screening, operational relevance assessment, institutional governance approval, controlled engagement onboarding, and ongoing relationship monitoring. The discipline is selective and counsel-cleared throughout.</div>
+      </details>
+      <details class="inquiry">
+        <summary class="inquiry-summary">
+          <span class="inq-num">03</span>
+          <span class="inquiry-q">How is SWAQAR Group governed?</span>
+          <span class="inquiry-toggle">+</span>
+        </summary>
+        <div class="inquiry-body">SWAQAR operates under constitutional governance bodies — Supreme Council, Ethics &amp; Oversight Council, External Trustee Panel — with counsel of record as standing external discipline. Material institutional decisions move through Supreme Council under constitutional procedure. Identity-relevant matters receive Ethics &amp; Oversight concurrence under reserved-matter procedure. Governance is the institutional substrate, not a compliance overlay.</div>
+      </details>
+      <details class="inquiry">
+        <summary class="inquiry-summary">
+          <span class="inq-num">04</span>
+          <span class="inquiry-q">Does SWAQAR custody funds, own cargo, or operate logistics?</span>
+          <span class="inquiry-toggle">+</span>
+        </summary>
+        <div class="inquiry-body">No. SWAQAR is non-custodial and asset-light by constitutional design. The institution does not custody funds, hold title to goods, finance as principal, stand in any chain of finance, own or operate any cargo, fleet, vessel, terminal, or physical capacity. Licensed parties perform principal activities under their own scope; SWAQAR coordinates the institutional surface across them.</div>
+      </details>
+      <details class="inquiry">
+        <summary class="inquiry-summary">
+          <span class="inq-num">05</span>
+          <span class="inquiry-q">In which jurisdictions does SWAQAR operate?</span>
+          <span class="inquiry-toggle">+</span>
+        </summary>
+        <div class="inquiry-body">SWAQAR coordinates corridors across the three regions of institutional scope — Africa, the Middle East, and Asia — under counsel-validated discipline per jurisdiction. The institution does not claim universal licensing or universal compliance. Material legal, regulatory, tax, and corporate matters operate under counsel of record and jurisdiction-specific counsel per matter. Corridor activation is by-corridor under governance ratification.</div>
+      </details>
+      <details class="inquiry">
+        <summary class="inquiry-summary">
+          <span class="inq-num">06</span>
+          <span class="inquiry-q">How is the institution structured for continuity?</span>
+          <span class="inquiry-toggle">+</span>
+        </summary>
+        <div class="inquiry-body">Institutional continuity rests on standing constitutional discipline: backup steward chains for every institutional function, rehearsed leadership succession procedure, counsel-cleared transition documentation, institutional memory under capture-integrity discipline, and document-control and versioning policy. The institution is built to be greater than any individual within it and to outlast every leadership generation that serves it.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <aside class="contact-aside reveal">
+        <div class="eyebrow">Institutional Inquiry</div>
+        <h2>Submit an institutional <br/><span style="color:var(--gold);font-style:italic;">engagement inquiry</span>.</h2>
+        <p>Inquiries are reviewed institutionally under counsel-validated discipline. Engagement is selective; not every inquiry advances to qualification.</p>
+        <div class="contact-detail">
+          <div class="detail-row"><span class="label">Engagement Office</span><span class="value">Founding Execution Office</span></div>
+          <div class="detail-row"><span class="label">Counsel Coordination</span><span class="value">Per Jurisdiction · Counsel of Record</span></div>
+          <div class="detail-row"><span class="label">Response Discipline</span><span class="value">Institutional Review Cadence</span></div>
+        </div>
+      </aside>
+      <form class="contact-form reveal" onsubmit="event.preventDefault(); handleInquiry(this);" novalidate>
+        <div><label for="cf-name">Full Name *</label><input type="text" id="cf-name" name="name" required autocomplete="name"/></div>
+        <div><label for="cf-org">Organisation *</label><input type="text" id="cf-org" name="organisation" required/></div>
+        <div><label for="cf-role">Role / Title *</label><input type="text" id="cf-role" name="role" required/></div>
+        <div><label for="cf-email">Institutional Email *</label><input type="email" id="cf-email" name="email" required autocomplete="email"/></div>
+        <div><label for="cf-country">Country / Jurisdiction *</label><input type="text" id="cf-country" name="country" required autocomplete="country-name"/></div>
+        <div><label for="cf-website">Organisation Website</label><input type="url" id="cf-website" name="website" placeholder="https://" autocomplete="url"/></div>
+        <div class="field-full">
+          <label for="cf-type">Inquiry Type *</label>
+          <select id="cf-type" name="inquiry_type" required>
+            <option value="">Select inquiry category</option>
+            <option>Government / Ministerial Engagement</option>
+            <option>Banking / Trade-Finance Coordination</option>
+            <option>Exporter / Buyer Corridor Participation</option>
+            <option>Logistics / Infrastructure Partnership</option>
+            <option>Verification / Compliance Partnership</option>
+            <option>Industrial Stakeholder Engagement</option>
+            <option>Institutional Capital Partner Engagement</option>
+            <option>Other Institutional Inquiry</option>
+          </select>
+        </div>
+        <div class="field-full">
+          <label for="cf-timing">Engagement Timeline</label>
+          <select id="cf-timing" name="timing">
+            <option>Routine institutional review</option>
+            <option>Defined corridor opportunity</option>
+            <option>Time-sensitive institutional matter</option>
+            <option>Preferred not to specify</option>
+          </select>
+        </div>
+        <div class="field-full"><label for="cf-message">Institutional Purpose of Engagement *</label><textarea id="cf-message" name="message" required placeholder="Briefly describe the institutional purpose. Counsel-validated due diligence will follow under standing institutional procedure."></textarea></div>
+        <div class="field-disclaimer">By submitting this inquiry you acknowledge that institutional engagement with SWAQAR Group is subject to qualification, counsel-validated due diligence, jurisdictional legal review, and institutional governance approval. Nothing in this form constitutes an offer, solicitation, recommendation, or institutional commitment. SWAQAR Group does not custody funds, own cargo, operate logistics, broker transactions, or replace regulated operators.</div>
+        <div class="submit-row"><button type="submit" class="btn btn-solid">Submit Institutional Inquiry</button></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo"><span class="logo-rule" aria-hidden="true"></span><span class="logo-stack"><span class="logo-name">SWAQAR <em>GROUP</em></span><span class="logo-tag">Corridors of Trust</span></span></div>
+        <p>A governance-led Trade Coordination Layer for cross-regional corridors connecting Africa, the Middle East, and Asia under verification, institutional trust, and disciplined execution.</p>
+        <div class="footer-region"><span class="active">EN</span><span>·</span><span>AR</span><span>·</span><span>FR</span></div>
+      </div>
+      <div class="footer-col">
+        <h5>Institution</h5>
+        <ul>
+          <li><a href="#problem">Problem We Address</a></li>
+          <li><a href="#corridors">Corridors</a></li>
+          <li><a href="#approach">Operating Approach</a></li>
+          <li><a href="#gates">4-Gate Model</a></li>
+          <li><a href="#governance">Governance</a></li>
+          <li><a href="#arms">Strategic Arms</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Engagement</h5>
+        <ul>
+          <li><a href="#audience-nav">Engage by Role</a></li>
+          <li><a href="#boundaries">Boundaries</a></li>
+          <li><a href="#regulated">Regulated Boundary</a></li>
+          <li><a href="#qualification">Qualification Gate</a></li>
+          <li><a href="#engage">Partnership Inquiry</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Standards</h5>
+        <ul>
+          <li><a href="#standards">Institutional Standards</a></li>
+          <li><a href="#pilot">Candidate Corridor</a></li>
+          <li><a href="#ecosystem">Partner Ecosystem</a></li>
+          <li><a href="#architecture">Institutional Architecture</a></li>
+          <li><a href="#inquiries">Institutional Inquiries</a></li>
+          <li><a href="#why">Why SWAQAR Matters</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <p class="footer-disclaimer">SWAQAR Group is a governance-led, non-custodial Trade Coordination Layer. This website does not constitute brokerage, commodity trading, logistics operation, or any regulated financial activity. All institutional engagement is subject to counsel-validated due diligence per jurisdiction. SWAQAR Group does not accept unsolicited commodity offers, speculative trade proposals, or brokerage representations of any kind.</p>
+      <div class="footer-bottom">
+        <span>© 2025 SWAQAR GROUP · ALL RIGHTS RESERVED · INSTITUTIONAL COORDINATION LAYER</span>
+        <span class="gold">Counsel-Cleared · Governance-Led · Non-Custodial</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+const navToggle = document.getElementById('navToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+const scrollProgress = document.getElementById('scrollProgress');
+
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  nav.classList.toggle('scrolled', y > 40);
+  const docH = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docH > 0 ? (y / docH) * 100 : 0;
+  scrollProgress.style.width = pct + '%';
+}, { passive: true });
+
+navToggle.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  mobileMenu.setAttribute('aria-hidden', String(!open));
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+
+mobileMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  });
+});
+
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
+
+function handleInquiry(form) {
+  const submit = form.querySelector('button[type="submit"]');
+  const original = submit.innerHTML;
+  submit.innerHTML = 'Inquiry Received';
+  submit.disabled = true;
+  submit.style.opacity = '0.85';
+  setTimeout(() => {
+    form.reset();
+    submit.innerHTML = original;
+    submit.disabled = false;
+    submit.style.opacity = '';
+  }, 2600);
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    const id = link.getAttribute('href');
+    if (id.length <= 1) return;
+    const target = document.querySelector(id);
+    if (!target) return;
+    e.preventDefault();
+    const top = target.getBoundingClientRect().top + window.scrollY - 80;
+    window.scrollTo({ top, behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>
