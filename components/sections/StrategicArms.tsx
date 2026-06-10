@@ -63,7 +63,7 @@ export default function StrategicArms() {
                     <span className="block text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold mb-3">
                         Future Institutional Architecture
                     </span>
-                    <h2 id="strategic-arms-heading" className="text-swaqar-text">
+                    <h2 id="strategic-arms-heading" className="text-swaqar-heading">
                         Strategic Architecture
                     </h2>
                     <p className="text-swaqar-muted mt-3 text-base leading-relaxed">
@@ -79,21 +79,21 @@ export default function StrategicArms() {
                     {ARMS.map((arm, i) => (
                         <div
                             key={`arm-${i}`}
-                            className="border-l-4 border-swaqar-gold bg-swaqar-bg flex flex-col"
+                            className="border-l-4 border-swaqar-gold bg-swaqar-bg border border-swaqar-border flex flex-col"
                         >
                             {/* Card header */}
                             <div className="px-6 pt-6 pb-4 border-b border-swaqar-gold/20">
                                 <span className="text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold">
                                     Arm {arm.number}
                                 </span>
-                                <h3 className="text-swaqar-text text-base font-semibold leading-snug mt-2">
+                                <h3 className="text-swaqar-heading text-base font-semibold leading-snug mt-2">
                                     {arm.name}
                                 </h3>
                             </div>
 
                             {/* Card body */}
                             <div className="px-6 py-5 flex-1">
-                                <p className="text-swaqar-muted text-sm leading-relaxed">
+                                <p className="text-swaqar-text text-sm leading-relaxed">
                                     {arm.description}
                                 </p>
                             </div>
@@ -130,7 +130,7 @@ export default function StrategicArms() {
                         <span className="text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold">
                             Institutional Boundary
                         </span>
-                        <p className="text-swaqar-muted text-sm leading-relaxed">
+                        <p className="text-swaqar-text text-sm leading-relaxed">
                             All strategic arms are subject to governance-ratified activation.
                             No arm operates beyond its confirmed institutional mandate.
                             SWAQAR Group does not trade, broker, custody funds, provide escrow,

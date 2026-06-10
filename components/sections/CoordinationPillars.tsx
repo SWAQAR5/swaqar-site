@@ -42,7 +42,7 @@ export default function CoordinationPillars() {
         <section
             id="what-swaqar-coordinates"
             aria-labelledby="pillars-heading"
-            className="swaqar-section bg-swaqar-bg"
+            className="swaqar-section bg-swaqar-surface"
         >
             <div className="swaqar-container">
 
@@ -51,10 +51,10 @@ export default function CoordinationPillars() {
                     <span className="block text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold mb-3">
                         Coordination Functions
                     </span>
-                    <h2 id="pillars-heading" className="text-swaqar-text">
+                    <h2 id="pillars-heading" className="text-swaqar-heading">
                         What SWAQAR Coordinates
                     </h2>
-                    <p className="text-swaqar-muted mt-3 text-base leading-relaxed">
+                    <p className="text-swaqar-text mt-3 text-base leading-relaxed">
                         SWAQAR Group coordinates six institutional functions across every
                         candidate corridor. Each function must be completed before a corridor
                         can be considered for pilot activation. SWAQAR coordinates — licensed
@@ -67,21 +67,21 @@ export default function CoordinationPillars() {
                     {PILLARS.map((pillar, i) => (
                         <div
                             key={`pillar-${i}`}
-                            className="border-l-4 border-swaqar-gold bg-swaqar-surface flex flex-col"
+                            className="border-l-4 border-swaqar-gold bg-white border border-swaqar-border flex flex-col"
                         >
                             {/* Card header */}
                             <div className="px-6 pt-6 pb-4 border-b border-swaqar-gold/20">
                                 <span className="text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold">
                                     {pillar.number}
                                 </span>
-                                <h3 className="text-swaqar-text text-base font-semibold leading-snug mt-2">
+                                <h3 className="text-swaqar-heading text-base font-semibold leading-snug mt-2">
                                     {pillar.title}
                                 </h3>
                             </div>
 
                             {/* Card body */}
                             <div className="px-6 py-5 flex-1">
-                                <p className="text-swaqar-muted text-sm leading-relaxed">
+                                <p className="text-swaqar-text text-sm leading-relaxed">
                                     {pillar.description}
                                 </p>
                             </div>

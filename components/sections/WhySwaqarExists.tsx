@@ -42,7 +42,7 @@ export default function WhySwaqarExists() {
         <section
             id="why-swaqar-exists"
             aria-labelledby="why-heading"
-            className="swaqar-section bg-swaqar-bg"
+            className="swaqar-section bg-white"
         >
             <div className="swaqar-container">
 
@@ -51,10 +51,10 @@ export default function WhySwaqarExists() {
                     <span className="block text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold mb-3">
                         Why SWAQAR Exists
                     </span>
-                    <h2 id="why-heading" className="text-swaqar-text">
+                    <h2 id="why-heading" className="text-swaqar-heading">
                         The corridor trust gap must be coordinated before it can be scaled.
                     </h2>
-                    <p className="text-swaqar-muted mt-3 text-base leading-relaxed">
+                    <p className="text-swaqar-text mt-3 text-base leading-relaxed">
                         Cross-border trade across Africa, the Middle East, and Asia is structurally
                         impeded by four compounding problems. Each one erodes institutional confidence,
                         delays counterparty readiness, and prevents verified transactions from
@@ -85,7 +85,7 @@ export default function WhySwaqarExists() {
                                 {problem.lines.map((line, j) => (
                                     <p
                                         key={`line-${i}-${j}`}
-                                        className="text-swaqar-muted text-sm leading-relaxed"
+                                        className="text-swaqar-text text-sm leading-relaxed"
                                     >
                                         {line}
                                     </p>
@@ -100,7 +100,7 @@ export default function WhySwaqarExists() {
                                 >
                                     ▣
                                 </span>
-                                <p className="text-swaqar-muted text-xs leading-relaxed">
+                                <p className="text-swaqar-text text-xs leading-relaxed">
                                     {problem.coordination}
                                 </p>
                             </div>

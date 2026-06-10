@@ -41,17 +41,17 @@ export default function Boundaries() {
         <section
             id="boundaries"
             aria-labelledby="boundaries-heading"
-            className="swaqar-section bg-swaqar-surface/30"
+            className="swaqar-section bg-white"
         >
             <div className="swaqar-container">
                 <div className="mb-14 max-w-3xl">
                     <span className="block text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold mb-3">
                         System Boundaries
                     </span>
-                    <h2 id="boundaries-heading" className="text-swaqar-text">
+                    <h2 id="boundaries-heading" className="text-swaqar-heading">
                         What SWAQAR Is — and What It Is Not
                     </h2>
-                    <p className="text-swaqar-muted mt-3 text-base leading-relaxed">
+                    <p className="text-swaqar-text mt-3 text-base leading-relaxed">
                         Clarity removes risk. SWAQAR's authority depends on what it
                         refuses to do, as much as what it does.
                     </p>
@@ -121,7 +121,7 @@ function BoundaryColumn({
     const icon = isNot ? "✖" : "✔";
 
     return (
-        <div className={`border-l-4 ${borderColor} bg-swaqar-bg flex flex-col`}>
+        <div className={`border-l-4 ${borderColor} bg-white border border-swaqar-border flex flex-col`}>
             <div className="px-6 pt-6 pb-4 border-b border-swaqar-gold/20">
                 <div className="flex items-center justify-between mb-3">
                     <span className="text-[10px] tracking-[0.25em] text-swaqar-muted uppercase font-medium">
@@ -129,7 +129,7 @@ function BoundaryColumn({
                     </span>
                     <span className={`${accentColor} text-lg font-bold`}>{icon}</span>
                 </div>
-                <h3 className="text-swaqar-text text-xl font-semibold tracking-tight">
+                <h3 className="text-swaqar-heading text-xl font-semibold tracking-tight">
                     {heading}
                 </h3>
             </div>
@@ -148,10 +148,10 @@ function BoundaryColumn({
                         </span>
 
                         <div className="flex flex-col gap-1 flex-1">
-                            <span className="text-swaqar-text text-base font-semibold leading-tight">
+                            <span className="text-swaqar-heading text-base font-semibold leading-tight">
                                 {item.label}
                             </span>
-                            <span className="text-swaqar-muted text-sm leading-relaxed">
+                            <span className="text-swaqar-text text-sm leading-relaxed">
                                 {item.detail}
                             </span>
                         </div>

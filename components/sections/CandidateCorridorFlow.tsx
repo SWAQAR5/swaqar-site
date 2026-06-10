@@ -45,7 +45,7 @@ export default function CandidateCorridorFlow() {
                     <span className="block text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold mb-3">
                         Candidate Corridor Preparation
                     </span>
-                    <h2 id="corridor-heading" className="text-swaqar-text">
+                    <h2 id="corridor-heading" className="text-swaqar-heading">
                         Five steps determine whether a corridor is ready for pilot activation.
                     </h2>
                     <p className="text-swaqar-muted mt-3 text-base leading-relaxed">
@@ -85,10 +85,10 @@ export default function CandidateCorridorFlow() {
                                     <span className="text-swaqar-muted text-[10px] tracking-[0.25em] uppercase font-medium">
                                         Step {step.number}
                                     </span>
-                                    <h3 className="text-swaqar-text text-lg font-semibold leading-tight">
+                                    <h3 className="text-swaqar-heading text-lg font-semibold leading-tight">
                                         {step.title}
                                     </h3>
-                                    <p className="text-swaqar-muted text-sm leading-relaxed">
+                                    <p className="text-swaqar-text text-sm leading-relaxed">
                                         {step.description}
                                     </p>
                                 </div>

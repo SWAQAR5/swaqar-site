@@ -49,10 +49,10 @@ export default function Governance() {
                 <span className="block text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold mb-3">
                     Authority & Control
                 </span>
-                <h2 id="governance-heading" className="text-swaqar-text">
+                <h2 id="governance-heading" className="text-swaqar-heading">
                     Three Governance Layers Active Before Any Corridor Proceeds
                 </h2>
-                <p className="text-swaqar-muted mt-3 text-base leading-relaxed">
+                <p className="text-swaqar-text mt-3 text-base leading-relaxed">
                     Before any corridor moves toward pilot activation, it passes through
                     three governance layers. No exceptions.
                 </p>
@@ -141,7 +141,7 @@ function GovernanceLayerCard({
     return (
         <div
             role="listitem"
-            className="bg-swaqar-bg p-5 sm:p-7 flex flex-col gap-4"
+            className="bg-white border border-swaqar-border p-5 sm:p-7 flex flex-col gap-4"
         >
             <div className="flex items-center justify-between">
                 <span className="text-swaqar-muted text-[10px] tracking-[0.25em] uppercase font-medium">

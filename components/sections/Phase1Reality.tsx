@@ -20,7 +20,7 @@ export default function Phase1Reality() {
         <section
             id="phase-1-focus"
             aria-labelledby="phase1-heading"
-            className="swaqar-section bg-swaqar-surface/30"
+            className="swaqar-section bg-swaqar-surface"
         >
             <div className="swaqar-container">
 
@@ -29,10 +29,10 @@ export default function Phase1Reality() {
                     <span className="block text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold mb-3">
                         Current Institutional Stage
                     </span>
-                    <h2 id="phase1-heading" className="text-swaqar-text">
+                    <h2 id="phase1-heading" className="text-swaqar-heading">
                         Phase 1 — Foundation Stage
                     </h2>
-                    <p className="text-swaqar-muted mt-3 text-base leading-relaxed">
+                    <p className="text-swaqar-text mt-3 text-base leading-relaxed">
                         Phase 1 is focused on governance, verification, institutional alignment,
                         and corridor readiness. No brokerage, custody, logistics execution, or
                         marketplace operations are active.
@@ -43,7 +43,7 @@ export default function Phase1Reality() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
                     {/* LEFT — Activated */}
-                    <div className="border-l-4 border-swaqar-gold bg-swaqar-bg flex flex-col">
+                    <div className="border-l-4 border-swaqar-gold bg-white flex flex-col">
                         <div className="px-6 pt-6 pb-4 border-b border-swaqar-gold/20 flex items-center justify-between">
                             <span className="text-[10px] tracking-[0.25em] text-swaqar-muted uppercase font-medium">
                                 Status
@@ -67,7 +67,7 @@ export default function Phase1Reality() {
                                     >
                                         ✔
                                     </span>
-                                    <span className="text-swaqar-text text-sm font-medium leading-snug">
+                                    <span className="text-swaqar-heading text-sm font-medium leading-snug">
                                         {item}
                                     </span>
                                 </li>
@@ -76,7 +76,7 @@ export default function Phase1Reality() {
                     </div>
 
                     {/* RIGHT — Not Yet Activated */}
-                    <div className="border-l-4 border-swaqar-text/20 bg-swaqar-bg flex flex-col">
+                    <div className="border-l-4 border-swaqar-text/20 bg-white flex flex-col">
                         <div className="px-6 pt-6 pb-4 border-b border-swaqar-gold/20 flex items-center justify-between">
                             <span className="text-[10px] tracking-[0.25em] text-swaqar-muted uppercase font-medium">
                                 Status
@@ -100,7 +100,7 @@ export default function Phase1Reality() {
                                     >
                                         ○
                                     </span>
-                                    <span className="text-swaqar-muted text-sm font-medium leading-snug">
+                                    <span className="text-swaqar-text text-sm font-medium leading-snug">
                                         {item}
                                     </span>
                                 </li>
@@ -116,15 +116,15 @@ export default function Phase1Reality() {
                             Institutional Position
                         </span>
                         <div className="flex flex-col gap-1 mt-1">
-                            <p className="text-swaqar-text text-lg md:text-xl font-medium leading-snug">
+                            <p className="text-swaqar-heading text-lg md:text-xl font-medium leading-snug">
                                 Trust before{" "}
                                 <span className="text-swaqar-gold font-semibold">scale.</span>
                             </p>
-                            <p className="text-swaqar-text text-lg md:text-xl font-medium leading-snug">
+                            <p className="text-swaqar-heading text-lg md:text-xl font-medium leading-snug">
                                 Verification before{" "}
                                 <span className="text-swaqar-gold font-semibold">volume.</span>
                             </p>
-                            <p className="text-swaqar-text text-lg md:text-xl font-medium leading-snug">
+                            <p className="text-swaqar-heading text-lg md:text-xl font-medium leading-snug">
                                 Governance before{" "}
                                 <span className="text-swaqar-gold font-semibold">growth.</span>
                             </p>
