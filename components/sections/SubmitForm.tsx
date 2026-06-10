@@ -25,6 +25,8 @@ type FormStatus = "idle" | "submitting" | "success" | "error";
 export default function SubmitForm() {
     const [status, setStatus] = useState<FormStatus>("idle");
     const [formData, setFormData] = useState({
+        legalEntityName: "",
+        jurisdiction: "",
         name: "",
         organization: "",
         email: "",
@@ -54,6 +56,8 @@ export default function SubmitForm() {
             if (res.ok) {
                 setStatus("success");
                 setFormData({
+                    legalEntityName: "",
+                    jurisdiction: "",
                     name: "",
                     organization: "",
                     email: "",
@@ -90,6 +94,17 @@ export default function SubmitForm() {
     // ─── FORM STATE ───
     return (
         <div className="border border-swaqar-gold bg-swaqar-surface max-w-2xl mx-auto">
+            {/* Phase 1 notice */}
+            <div className="border border-swaqar-border bg-swaqar-surface p-5 mb-6">
+                <p className="font-mono text-xs uppercase tracking-widest text-swaqar-gold flex items-center gap-2 mb-3">
+                    <span className="inline-block w-2 h-2 rounded-full bg-swaqar-gold"></span>
+                    Phase 1 — Foundation Stage
+                </p>
+                <p className="font-mono text-xs text-swaqar-muted leading-relaxed">
+                    SWAQAR Group is currently in Phase 1 — Foundation Stage and is not yet operationally active. All corridor activation is subject to completion of the Four-Gate Model and Supreme Council mandate. Submission of this form does not initiate an engagement, create a commitment on the part of SWAQAR Group, or constitute any form of agreement.
+                </p>
+            </div>
+
             {/* Form header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-swaqar-gold/30">
                 <span className="text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold">
@@ -99,6 +114,28 @@ export default function SubmitForm() {
             </div>
 
             <div className="px-6 py-8 flex flex-col gap-6">
+                {/* Row 0: Legal Entity Name + Jurisdiction of Incorporation */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <FormField
+                        label="Legal Entity Name"
+                        name="legalEntityName"
+                        type="text"
+                        value={formData.legalEntityName}
+                        onChange={handleChange}
+                        placeholder="Full registered legal name"
+                        required
+                    />
+                    <FormField
+                        label="Jurisdiction of Incorporation"
+                        name="jurisdiction"
+                        type="text"
+                        value={formData.jurisdiction}
+                        onChange={handleChange}
+                        placeholder="Country or jurisdiction of incorporation"
+                        required
+                    />
+                </div>
+
                 {/* Row 1: Name + Organization */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <FormField
@@ -203,6 +240,11 @@ export default function SubmitForm() {
                     </div>
                 )}
 
+                {/* Submission notice */}
+                <p className="font-mono text-xs text-swaqar-muted leading-relaxed mt-4 mb-4 p-4 border border-swaqar-border bg-swaqar-surface">
+                    All inquiries are reviewed against SWAQAR&#39;s counterparty eligibility criteria before any response is issued. Submission does not initiate an engagement, create contractual obligation, or constitute regulated advice of any kind. SWAQAR engages institutional counterparts only.
+                </p>
+
                 {/* Submit button */}
                 <div className="flex flex-col sm:flex-row gap-3 pt-2">
                     <button
@@ -211,7 +253,7 @@ export default function SubmitForm() {
                         disabled={status === "submitting"}
                         className="inline-flex items-center justify-center bg-swaqar-gold text-swaqar-navy font-semibold px-7 py-3.5 transition-opacity hover:opacity-90 focus-visible:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        {status === "submitting" ? "Submitting..." : "Submit Inquiry"}
+                        {status === "submitting" ? "Submitting..." : "Submit Institutional Inquiry"}
                     </button>
                     <a
                         href="mailto:partnerships@swaqar.com?subject=Partnership%20Discussion%20Request"
