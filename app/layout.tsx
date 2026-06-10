@@ -23,11 +23,11 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "SWAQAR — Structured Trade Coordination System",
-    template: "%s | SWAQAR",
+    default: "SWAQAR Group — Corridors of Trust",
+    template: "%s | SWAQAR Group",
   },
   description:
-    "SWAQAR governs how cross-border trade transactions are verified, structured, and executed between Africa and the Middle East. Only verified and structured transactions are allowed to proceed.",
+    "SWAQAR Group is a governance-led, verification-first, asset-light, non-custodial Trade Coordination Layer coordinating verified cross-regional trade corridors across Africa, the Middle East, and Asia.",
   applicationName: "SWAQAR",
   keywords: [
     "trade coordination",
@@ -59,9 +59,9 @@ export const metadata: Metadata = {
     apple: "/favicon.svg",
   },
   openGraph: {
-    title: "SWAQAR — Structured Trade Coordination System",
+    title: "SWAQAR Group — Corridors of Trust",
     description:
-      "A controlled coordination layer for cross-border trade between Africa and the Middle East.",
+      "A governance-led, verification-first, non-custodial Trade Coordination Layer across Africa, the Middle East, and Asia.",
     siteName: "SWAQAR",
     type: "website",
     locale: "en_US",
@@ -69,9 +69,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SWAQAR — Structured Trade Coordination System",
+    title: "SWAQAR Group — Corridors of Trust",
     description:
-      "A controlled coordination layer for cross-border trade between Africa and the Middle East.",
+      "A governance-led, verification-first, non-custodial Trade Coordination Layer across Africa, the Middle East, and Asia.",
   },
   robots: {
     index: true,
@@ -89,8 +89,8 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#1A1A1A",
-  colorScheme: "dark",
+  themeColor: "#0B1F3A",
+  colorScheme: "light",
 };
 
 const organizationSchema = {
@@ -136,7 +136,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-swaqar-bg text-swaqar-text antialiased selection:bg-swaqar-gold selection:text-swaqar-bg">
+      <body className="min-h-screen bg-swaqar-bg text-swaqar-text antialiased selection:bg-swaqar-gold selection:text-swaqar-navy">
         {children}
       </body>
     </html>
