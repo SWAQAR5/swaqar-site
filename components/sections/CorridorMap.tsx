@@ -1,120 +1,229 @@
-const regions = [
+// ─────────────────────────────────────────────────────────────────────────────
+// components/sections/CorridorMap.tsx
+// ─────────────────────────────────────────────────────────────────────────────
+
+const CORRIDORS = [
   {
-    id: "01",
-    name: "Africa",
-    role: "Verified Supply",
-    detail: "Verified supply, industrial inputs, agricultural flows, and emerging destination markets of institutional significance.",
-    tags: ["VERIFIED SUPPLY", "ORIGIN · COMMODITIES"],
+    region: "Africa Corridor",
+    title: "Origin & Supply",
+    body: "Agricultural commodities, industrial minerals, and verified exporter networks. SWAQAR coordinates verification readiness and documentation alignment for African supply-side participants.",
+    tags: ["Verified Exporters", "Documentation", "Corridor Readiness"],
   },
   {
-    id: "02",
-    name: "Middle East",
-    role: "Institutional Trust",
-    detail: "Institutional and financial anchor; regional convening platform; multi-decade institutional capital depth.",
-    tags: ["INSTITUTIONAL TRUST", "CAPITAL · GOVERNANCE"],
+    region: "Middle East Corridor",
+    title: "Trust & Capital Hub",
+    body: "The institutional anchor of the SWAQAR model. Trade finance coordination, sovereign engagement, and free zone interface. SWAQAR does not custody funds or act as financial principal.",
+    tags: ["Trade Finance", "Sovereign Engagement", "Free Zone Interface"],
   },
   {
-    id: "03",
-    name: "Asia",
-    role: "Industrial Scale",
-    detail: "Industrial scale, manufacturing depth, and infrastructure participation across cross-regional flows.",
-    tags: ["INDUSTRIAL SCALE", "MANUFACTURING · DEMAND"],
+    region: "Asia Corridor",
+    title: "Demand & Industrial Scale",
+    body: "Verified offtake counterparties, institutional buyers, and industrial demand coordination. SWAQAR aligns documentation and governance readiness for Asia-side engagement.",
+    tags: ["Verified Buyers", "Offtake Coordination", "Industrial Scale"],
   },
-];
+] as const;
 
 export default function CorridorMap() {
   return (
     <section
       id="corridor-map"
       aria-label="Corridor regions"
-      className="bg-white swaqar-section"
+      className="swaqar-section bg-swaqar-navy"
     >
       <div className="swaqar-container">
-        <div className="max-w-[720px] mx-auto text-center mb-16">
-          <div className="w-8 h-px bg-swaqar-gold mx-auto mb-8" aria-hidden="true" />
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="h-px w-8 bg-swaqar-gold" />
-            <span className="swaqar-eyebrow">Africa · Middle East · Asia</span>
-            <div className="h-px w-8 bg-swaqar-gold" />
+        {/* Header row */}
+        <div className="flex flex-col md:flex-row justify-between items-end mb-14 gap-6">
+          <div>
+            <span className="swaqar-eyebrow text-swaqar-gold">
+              Corridor Architecture
+            </span>
+            <h2 className="font-serif text-3xl text-white font-semibold mt-4">
+              Three regions.
+              <br />
+              <em className="italic text-swaqar-gold">
+                One coordination layer.
+              </em>
+            </h2>
           </div>
-          <h2 className="font-serif text-4xl sm:text-5xl font-bold text-swaqar-heading leading-tight mb-6">
-            A coordinated corridor between three{" "}
-            <em className="text-swaqar-gold not-italic">structurally complementary</em>{" "}
-            regions.
-          </h2>
-          <p className="font-serif italic text-swaqar-text text-lg leading-relaxed">
-            Three anchors. Complementary roles. One institutional coordination layer integrating verification, documentation, synchronization, and oversight across the corridors that connect them.
+          <p className="max-w-xs text-sm text-white/40 leading-relaxed text-right">
+            SWAQAR coordinates verified trade flow across the three most
+            strategically aligned regions in global South–South trade.
           </p>
         </div>
 
-        {/* Visual diagram */}
-        <div className="border border-swaqar-border p-8 mb-12">
-          <div className="grid grid-cols-3 gap-4 mb-4">
-            {regions.map((region, i) => (
-              <div key={region.id} className="relative">
-                <div className="bg-swaqar-navy p-8 text-center min-h-[200px] flex flex-col justify-between border border-swaqar-gold/20">
-                  <p className="text-[9px] font-semibold tracking-[0.16em] uppercase text-swaqar-gold/60 text-left">
-                    Region {region.id}
-                  </p>
-                  <div>
-                    <h3 className="font-serif italic text-3xl font-bold text-white mb-4">
-                      {region.name}
-                    </h3>
-                    {region.tags.map((tag) => (
-                      <p key={tag} className="text-[9px] font-semibold tracking-[0.12em] uppercase text-white/50">
-                        {tag}
-                      </p>
-                    ))}
-                  </div>
-                  <div className="w-2 h-2 rounded-full bg-swaqar-gold/40 mx-auto" />
-                </div>
-                {i < 2 && (
-                  <div className="hidden md:flex absolute top-1/2 -right-4 z-10 items-center gap-1 -translate-y-1/2">
-                    <div className="w-6 border-t border-dashed border-swaqar-gold/40" />
-                    <span className="text-[8px] text-swaqar-gold/60 tracking-widest uppercase">Corridor</span>
-                    <div className="w-2 border-t border-dashed border-swaqar-gold/40" />
-                    <span className="text-swaqar-gold/60 text-xs">→</span>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-          <div className="border border-swaqar-gold/30 bg-swaqar-gold/5 py-4 text-center">
-            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-swaqar-gold mb-1">
-              SWAQAR GROUP
-            </p>
-            <p className="text-[9px] tracking-[0.16em] uppercase text-swaqar-muted">
-              Coordination · Verification Layer
-            </p>
-          </div>
+        {/* SVG map container */}
+        <div className="bg-[#071530] border border-swaqar-border p-12 flex items-center justify-center min-h-72 relative overflow-hidden">
+          <div
+            className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(184,146,58,0.04),transparent_70%)] pointer-events-none"
+            aria-hidden="true"
+          />
+          <svg
+            viewBox="0 0 780 240"
+            width="100%"
+            className="max-w-3xl relative"
+            aria-hidden="true"
+          >
+            <path
+              d="M 160,120 Q 330,72 440,120 Q 550,168 620,120"
+              fill="none"
+              stroke="rgba(184,146,58,0.22)"
+              strokeWidth="1.4"
+              strokeDasharray="6 10"
+            >
+              <animate
+                attributeName="stroke-dashoffset"
+                from="0"
+                to="-80"
+                dur="3s"
+                repeatCount="indefinite"
+              />
+            </path>
+            <path
+              d="M 160,120 Q 330,168 440,120 Q 550,72 620,120"
+              fill="none"
+              stroke="rgba(184,146,58,0.09)"
+              strokeWidth="1"
+              strokeDasharray="4 8"
+            />
+
+            {/* Africa node */}
+            <circle
+              cx="160"
+              cy="120"
+              r="11"
+              fill="rgba(184,146,58,0.13)"
+              stroke="rgba(184,146,58,0.45)"
+            />
+            <circle cx="160" cy="120" r="4.5" fill="rgba(184,146,58,0.8)">
+              <animate
+                attributeName="r"
+                values="4.5;7;4.5"
+                dur="2.5s"
+                repeatCount="indefinite"
+              />
+            </circle>
+            <text
+              x="160"
+              y="144"
+              textAnchor="middle"
+              fontFamily="DM Mono, monospace"
+              fontSize="7"
+              fill="rgba(184,146,58,0.6)"
+              letterSpacing="2"
+            >
+              AFRICA
+            </text>
+
+            {/* Middle East node */}
+            <circle
+              cx="440"
+              cy="120"
+              r="13"
+              fill="rgba(184,146,58,0.13)"
+              stroke="rgba(184,146,58,0.45)"
+            />
+            <circle cx="440" cy="120" r="5.5" fill="rgba(184,146,58,0.8)">
+              <animate
+                attributeName="r"
+                values="5.5;9;5.5"
+                dur="2.5s"
+                repeatCount="indefinite"
+              />
+            </circle>
+            <text
+              x="440"
+              y="147"
+              textAnchor="middle"
+              fontFamily="DM Mono, monospace"
+              fontSize="7"
+              fill="rgba(184,146,58,0.6)"
+              letterSpacing="2"
+            >
+              MIDDLE EAST
+            </text>
+
+            {/* Asia node */}
+            <circle
+              cx="620"
+              cy="120"
+              r="11"
+              fill="rgba(184,146,58,0.13)"
+              stroke="rgba(184,146,58,0.45)"
+            />
+            <circle cx="620" cy="120" r="4.5" fill="rgba(184,146,58,0.8)">
+              <animate
+                attributeName="r"
+                values="4.5;7;4.5"
+                dur="2.5s"
+                repeatCount="indefinite"
+              />
+            </circle>
+            <text
+              x="620"
+              y="144"
+              textAnchor="middle"
+              fontFamily="DM Mono, monospace"
+              fontSize="7"
+              fill="rgba(184,146,58,0.6)"
+              letterSpacing="2"
+            >
+              ASIA
+            </text>
+
+            {/* Center label */}
+            <text
+              x="390"
+              y="96"
+              textAnchor="middle"
+              fontFamily="DM Mono, monospace"
+              fontSize="6.5"
+              fill="rgba(184,146,58,0.3)"
+              letterSpacing="3"
+            >
+              SWAQAR COORDINATION LAYER
+            </text>
+
+            {/* Animated pulse dot */}
+            <circle r="3.5" fill="rgba(184,146,58,0.9)">
+              <animateMotion
+                dur="3s"
+                repeatCount="indefinite"
+                path="M 160,120 Q 330,72 440,120 Q 550,168 620,120"
+              />
+            </circle>
+          </svg>
         </div>
 
-        {/* Region detail cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {regions.map((region) => (
-            <div key={region.id} className="border border-swaqar-border p-8">
-              <p className="text-[10px] font-semibold tracking-[0.14em] uppercase text-swaqar-gold mb-3">
-                Region {region.id}
+        {/* Corridor cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-swaqar-border mt-px">
+          {CORRIDORS.map((corridor) => (
+            <div
+              key={corridor.region}
+              className="bg-swaqar-navy/80 hover:bg-[#071530] p-8 relative overflow-hidden transition-colors group"
+            >
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-swaqar-gold to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+
+              <p className="font-mono text-xs tracking-widest uppercase text-swaqar-gold mb-2">
+                {corridor.region}
               </p>
-              <h3 className="font-serif text-2xl font-semibold text-swaqar-heading mb-4">
-                {region.name}
+              <h3 className="font-serif text-xl text-white font-medium mb-3">
+                {corridor.title}
               </h3>
-              <p className="text-sm text-swaqar-text leading-relaxed">
-                {region.detail}
+              <p className="text-sm text-white/40 leading-relaxed mb-5">
+                {corridor.body}
               </p>
+              <div className="flex flex-wrap gap-1.5">
+                {corridor.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="font-mono text-xs uppercase tracking-wider text-swaqar-gold border border-swaqar-border/50 px-2 py-1"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
           ))}
-          <div className="border border-swaqar-gold/40 bg-swaqar-surface p-8">
-            <p className="text-[10px] font-semibold tracking-[0.14em] uppercase text-swaqar-gold mb-3">
-              Coordination Layer
-            </p>
-            <h3 className="font-serif text-2xl font-semibold text-swaqar-heading mb-4">
-              SWAQAR Group
-            </h3>
-            <p className="text-sm text-swaqar-text leading-relaxed">
-              Verification, documentation, synchronization, and governance oversight integrating the three regions as one corridor system.
-            </p>
-          </div>
         </div>
       </div>
     </section>
