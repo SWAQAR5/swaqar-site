@@ -22,7 +22,7 @@ export default function Footer() {
         <footer
             id="footer"
             aria-label="Site footer"
-            className="border-t border-swaqar-gold/30 bg-swaqar-bg"
+            className="border-t border-swaqar-gold/30 bg-swaqar-navy"
         >
             <div className="swaqar-container">
 
@@ -34,7 +34,7 @@ export default function Footer() {
                         <span className="text-swaqar-gold font-bold text-lg tracking-[0.2em]">
                             SWAQAR Group
                         </span>
-                        <p className="text-swaqar-text text-sm font-medium leading-relaxed max-w-xs">
+                        <p className="text-white text-sm font-medium leading-relaxed max-w-xs">
                             Governance-Led Trade Coordination Layer
                         </p>
                         <p className="text-swaqar-muted text-sm leading-relaxed max-w-xs">
@@ -128,19 +128,20 @@ export default function Footer() {
                 {/* ═══════════ DISCLAIMER ═══════════ */}
                 <div className="border-t border-swaqar-gold/20 py-6 border-l-2 border-l-swaqar-gold/40 pl-4">
                     <p className="text-swaqar-muted text-xs leading-relaxed max-w-4xl">
-                        SWAQAR Group is not a commodity trader, broker, bank, escrow provider,
-                        logistics operator, or public marketplace. All institutional engagement
-                        is subject to counsel-validated legal, regulatory, and governance review.
+                        SWAQAR Group is a governance-led, non-custodial Trade
+                        Coordination Layer. This website does not constitute brokerage,
+                        commodity trading, logistics operation, or any regulated financial
+                        activity. All institutional engagement is subject to
+                        counsel-validated due diligence per jurisdiction. SWAQAR Group
+                        does not accept unsolicited commodity offers, speculative trade
+                        proposals, or brokerage representations of any kind.
                     </p>
                 </div>
 
                 {/* ═══════════ BOTTOM BAR ═══════════ */}
                 <div className="border-t border-swaqar-gold/20 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                     <p className="text-swaqar-muted text-xs">
-                        © 2025 SWAQAR Group. All rights reserved.
-                    </p>
-                    <p className="text-swaqar-muted text-xs">
-                        Trade Coordination Infrastructure · swaqar.com
+                        © 2025 SWAQAR Group. All rights reserved. Trade Coordination Infrastructure · swaqar.com
                     </p>
                 </div>
 
