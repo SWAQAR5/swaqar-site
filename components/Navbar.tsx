@@ -5,11 +5,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
-    { label: "System", href: "#system-flow" },
-    { label: "Audience", href: "#who-this-is-for" },
-    { label: "Execution", href: "#execution" },
+    { label: "What We Do", href: "#coordination" },
+    { label: "Boundaries", href: "#boundaries" },
     { label: "Governance", href: "#governance" },
-    { label: "Contact", href: "#contact" },
+    { label: "Architecture", href: "#strategic-arms" },
+    { label: "Inquiry", href: "#contact" },
 ] as const;
 
 export default function Navbar() {
@@ -26,11 +26,11 @@ export default function Navbar() {
     return (
         <header
             className={`sticky top-0 z-50 w-full transition-colors duration-200 border-b ${scrolled
-                ? "border-swaqar-gold/30"
-                : "border-swaqar-gold/15"
+                ? "border-swaqar-gold/40 shadow-sm"
+                : "border-swaqar-gold/20"
                 }`}
             // Always solid black so logo dark elements are visible
-            style={{ backgroundColor: "#000000" }}
+            style={{ backgroundColor: "var(--swaqar-navy)" }}
         >
             <div className="swaqar-container">
                 <div className="flex items-center justify-between h-16">
@@ -54,7 +54,7 @@ export default function Navbar() {
                             <a
                                 key={link.label}
                                 href={link.href}
-                                className="relative text-swaqar-text text-sm font-medium group py-1"
+                                className="relative text-white/75 text-xs font-medium tracking-widest uppercase group py-1 font-mono"
                             >
                                 {link.label}
                                 <span
@@ -67,10 +67,10 @@ export default function Navbar() {
 
                     {/* ───── DESKTOP CTA ───── */}
                     <a
-                        href="#submit-opportunity"
-                        className="hidden md:inline-flex items-center justify-center bg-swaqar-gold text-swaqar-bg text-sm font-semibold px-5 py-2.5 transition-opacity hover:opacity-90"
+                        href="#contact"
+                        className="hidden md:inline-flex items-center justify-center bg-swaqar-gold text-swaqar-navy text-xs font-semibold px-5 py-2.5 tracking-widest uppercase transition-opacity hover:opacity-90"
                     >
-                        Submit Opportunity
+                        Institutional Inquiry
                     </a>
 
                     {/* ───── MOBILE TOGGLE ───── */}
@@ -99,17 +99,17 @@ export default function Navbar() {
                                 key={link.label}
                                 href={link.href}
                                 onClick={() => setMobileOpen(false)}
-                                className="text-swaqar-text text-sm font-medium py-3 border-b border-swaqar-surface hover:text-swaqar-gold transition-colors"
+                                className="text-white/75 text-xs font-medium tracking-widest uppercase py-3 border-b border-white/10 hover:text-swaqar-gold transition-colors"
                             >
                                 {link.label}
                             </a>
                         ))}
                         <a
-                            href="#submit-opportunity"
+                            href="#contact"
                             onClick={() => setMobileOpen(false)}
                             className="mt-3 inline-flex items-center justify-center bg-swaqar-gold text-swaqar-bg text-sm font-semibold py-3"
                         >
-                            Submit Opportunity
+                            Institutional Inquiry
                         </a>
                     </nav>
                 </div>
