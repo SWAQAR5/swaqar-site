@@ -2,90 +2,95 @@
 // components/sections/TrustPillars.tsx
 // ─────────────────────────────────────────────────────────────────────────────
 
-const pillars = [
+const PILLARS = [
   {
-    id: "01",
-    label: "Verification-First",
-    body: "Counterparty status, documentation, and corridor flows verified by licensed firms under counsel-validated discipline.",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="14" cy="14" r="11" />
-        <polyline points="9,14 12.5,17.5 19,11" />
-      </svg>
-    ),
+    name: "Governance-Led",
+    desc: "Supreme Council, Ethics Council, External Trustee Panel",
   },
   {
-    id: "02",
-    label: "Non-Custodial",
-    body: "SWAQAR does not custody funds, hold title to goods, or stand in the chain of finance at any point.",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="5" y="8" width="18" height="13" rx="1" />
-        <path d="M9 8V6a5 5 0 0 1 10 0v2" />
-      </svg>
-    ),
+    name: "Verification-First",
+    desc: "Every counterparty verified before engagement",
   },
   {
-    id: "03",
-    label: "Governance-Led",
-    body: "Material decisions move through constitutional procedure under Supreme Council, Ethics & Oversight, and counsel of record.",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 3 L25 8 L25 13 C25 19 20 23.5 14 25 C8 23.5 3 19 3 13 L3 8 Z" />
-      </svg>
-    ),
+    name: "Asset-Light",
+    desc: "No owned infrastructure, cargo, or capital positions",
   },
   {
-    id: "04",
-    label: "Asset-Light",
-    body: "The institution owns no cargo, no fleet, no terminal, no physical capacity. The perimeter is constitutional.",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 21 L10 14 L15 19 L20 12 L25 7" />
-        <path d="M21 7 L25 7 L25 11" />
-      </svg>
-    ),
+    name: "Non-Custodial",
+    desc: "SWAQAR never holds funds or title to goods",
   },
-  {
-    id: "05",
-    label: "Corridor-First",
-    body: "Corridors are the unit of institutional operation. Sequential, sustained, demonstrated — not parallel or theoretical.",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="5" cy="14" r="2.5" />
-        <circle cx="14" cy="14" r="2.5" />
-        <circle cx="23" cy="14" r="2.5" />
-        <line x1="7.5" y1="14" x2="11.5" y2="14" />
-        <line x1="16.5" y1="14" x2="20.5" y2="14" />
-      </svg>
-    ),
-  },
-];
+] as const;
 
 export default function TrustPillars() {
   return (
     <section
       id="trust-pillars"
       aria-label="Institutional trust pillars"
-      className="bg-swaqar-surface py-16"
+      className="swaqar-section bg-swaqar-navy"
     >
       <div className="swaqar-container">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
-          {pillars.map((pillar) => (
-            <div key={pillar.id} className="flex flex-col gap-4">
-              <div className="text-swaqar-gold">
-                {pillar.icon}
+        <span className="swaqar-eyebrow text-swaqar-gold">
+          Institutional Identity
+        </span>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mt-8">
+          {/* LEFT COLUMN */}
+          <div>
+            <h2 className="font-serif text-3xl font-semibold text-white">
+              A coordination layer,
+              <br />
+              not a counterparty.
+            </h2>
+            <p className="text-sm text-white/50 leading-relaxed mt-4 max-w-lg">
+              SWAQAR governs the space between verified exporters,
+              institutional buyers, licensed operators, and trade finance
+              providers. It coordinates without owning. Verifies without
+              brokering. Connects without custodying.
+            </p>
+
+            <div className="grid grid-cols-2 gap-px mt-8 bg-swaqar-border">
+              {PILLARS.map((pillar) => (
+                <div
+                  key={pillar.name}
+                  className="bg-swaqar-navy p-5 border-l-2 border-transparent hover:border-swaqar-gold transition-colors"
+                >
+                  <p className="font-mono text-xs uppercase tracking-widest text-white/85 font-medium mb-1">
+                    {pillar.name}
+                  </p>
+                  <p className="text-xs text-white/40 leading-relaxed">
+                    {pillar.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* RIGHT COLUMN */}
+          <div className="bg-[#071530] border border-swaqar-border p-10 relative">
+            <div className="absolute top-0 left-8 w-16 h-0.5 bg-swaqar-gold" />
+
+            <p className="font-serif text-2xl text-white leading-relaxed font-normal italic mb-6">
+              SWAQAR coordinates without owning. Verifies without brokering.
+              Connects without{" "}
+              <span className="font-bold not-italic text-swaqar-gold">
+                custodying.
+              </span>
+            </p>
+
+            <div className="border-t border-swaqar-border pt-5 flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-swaqar-gold/10 border border-swaqar-border flex items-center justify-center font-mono text-xs text-swaqar-gold">
+                ✦
               </div>
               <div>
-                <p className="text-[10px] font-semibold tracking-[0.14em] uppercase text-swaqar-heading mb-2">
-                  {pillar.label}
+                <p className="font-mono text-xs uppercase tracking-wider text-white/65">
+                  SWAQAR Group
                 </p>
-                <p className="text-sm text-swaqar-text leading-relaxed">
-                  {pillar.body}
+                <p className="font-mono text-xs text-white/30 mt-0.5">
+                  Founding Governance Doctrine
                 </p>
               </div>
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </section>
