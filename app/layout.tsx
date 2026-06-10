@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: "%s | SWAQAR Group",
   },
   description:
-    "SWAQAR Group is a governance-led, verification-first, asset-light, non-custodial Trade Coordination Layer coordinating verified cross-regional trade corridors across Africa, the Middle East, and Asia.",
+    "A governance-led, verification-first, asset-light, non-custodial Trade Coordination Layer coordinating verified cross-regional trade corridors across Africa, the Middle East, and Asia.",
   applicationName: "SWAQAR",
   keywords: [
     "trade coordination",
@@ -54,9 +54,9 @@ export const metadata: Metadata = {
   // ── Favicon set ──────────────────────────────────────
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/logo.png", type: "image/png" },
     ],
-    apple: "/favicon.svg",
+    apple: "/logo.png",
   },
   openGraph: {
     title: "SWAQAR Group — Corridors of Trust",
