@@ -51,6 +51,7 @@ export default function HomePage() {
   return (
     <main>
       <Hero />
+      <CategoryClarity />
       <TrustPillars />
       <CorridorStatement />
       <ProblemSection />
@@ -59,7 +60,6 @@ export default function HomePage() {
       <OperatingFunctions />
       <InstitutionalCounterparts />
       <Boundaries />
-      <CategoryClarity />
       <RegulatedBoundary />
       <FourGates />
       <CandidateCorridorPrep />
