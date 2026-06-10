@@ -103,6 +103,14 @@ export default function Hero() {
                     .
                 </p>
 
+                {/* ── Founding thesis statement ───────────────────────────────────
+            New addition: founding thesis with gold left-border accent.
+        ─────────────────────────────────────────────────────────────────── */}
+                <p className="font-serif italic text-base md:text-lg text-white/70 leading-relaxed border-l-2 border-swaqar-gold pl-4 max-w-xl mb-6">
+                    Cross-regional trade does not fail for lack of goods. It fails for
+                    lack of trusted coordination infrastructure.
+                </p>
+
                 {/* ── CTA buttons ─────────────────────────────────────────────────
             Primary: Submit Institutional Inquiry — anchors to SubmitForm
             Secondary: View Phase 1 Focus — anchors to Phase1Reality section
@@ -200,6 +208,42 @@ export default function Hero() {
                             </span>
                         ))}
                     </div>
+                </div>
+
+            </div>
+
+            {/* ── Governance principles bar ───────────────────────────────────────
+        New addition: full-width strip with four governance principles.
+    ─────────────────────────────────────────────────────────────────────── */}
+            <div className="bg-swaqar-surface border-t border-swaqar-border py-4">
+                <div className="max-w-[1100px] mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {[
+                        {
+                            principle: "Governance-Led",
+                            label: "Supreme Council · Ethics Council · Trustee Panel",
+                        },
+                        {
+                            principle: "Verification-First",
+                            label: "Every counterparty verified before engagement",
+                        },
+                        {
+                            principle: "Non-Custodial",
+                            label: "No funds held · No cargo owned · No principal risk",
+                        },
+                        {
+                            principle: "Four-Gate Protocol",
+                            label: "Constitutional corridor entry requirement",
+                        },
+                    ].map((item) => (
+                        <div key={item.principle}>
+                            <p className="font-serif text-swaqar-heading font-medium">
+                                {item.principle}
+                            </p>
+                            <p className="font-mono text-xs text-swaqar-muted uppercase tracking-widest mt-1">
+                                {item.label}
+                            </p>
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>
