@@ -1,145 +1,129 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// components/sections/StrategicArms.tsx
+// ─────────────────────────────────────────────────────────────────────────────
+
 const ARMS = [
-    {
-        number: "01",
-        name: "SWAQAR Corridors of Trust",
-        description:
-            "The primary coordination arm. Governs corridor qualification, verification governance, documentation alignment, and stakeholder synchronisation across Africa ⇄ Middle East ⇄ Asia.",
-        status: "Foundation stage — governance architecture under development.",
-        stage: "foundation",
-    },
-    {
-        number: "02",
-        name: "SWAQAR Intelligence",
-        description:
-            "Corridor intelligence, risk mapping, counterparty research, and institutional data to support verification and governance decisions.",
-        status: "Capability under development. Not yet operational.",
-        stage: "future",
-    },
-    {
-        number: "03",
-        name: "SWAQAR Digital Systems",
-        description:
-            "Technology infrastructure to support coordination, documentation alignment, and institutional record-keeping. Manual-first approach until governance processes are standardised.",
-        status: "Under development. No proprietary platform operational.",
-        stage: "future",
-    },
-    {
-        number: "04",
-        name: "SWAQAR Capital & Trade Finance Coordination",
-        description:
-            "Coordination support for trade finance structures between counterparties and licensed financial institutions. SWAQAR does not provide, hold, or guarantee any financial instruments.",
-        status: "Future capability — subject to counsel-validated legal and regulatory review before activation.",
-        stage: "future",
-    },
-    {
-        number: "05",
-        name: "SWAQAR Infrastructure & Logistics Coordination",
-        description:
-            "Coordination with licensed logistics operators and infrastructure partners. SWAQAR does not own, operate, or manage any logistics or freight infrastructure.",
-        status: "Future capability — non-operating coordination role only.",
-        stage: "future",
-    },
-    {
-        number: "06",
-        name: "SWAQAR Institutional Advisory",
-        description:
-            "Advisory coordination supporting corridor participants in governance readiness, verification preparation, and institutional alignment.",
-        status: "Future capability — not yet active.",
-        stage: "future",
-    },
+  {
+    number: "01",
+    name: "Industrial Trade Development",
+    desc: "Commodity corridor development, supply-side verification, and industrial trade readiness coordination across Africa ⇄ Middle East ⇄ Asia.",
+  },
+  {
+    number: "02",
+    name: "Capital & Trade Finance Coordination",
+    desc: "Facilitating access to licensed trade finance institutions. SWAQAR does not custody funds or act as financial principal under any circumstance.",
+  },
+  {
+    number: "03",
+    name: "Infrastructure & Logistics Coordination",
+    desc: "Coordinating timing signals, documentation alignment, and synchronization context for licensed logistics operators. SWAQAR does not own or operate logistics infrastructure.",
+  },
+  {
+    number: "04",
+    name: "Intelligence & Research",
+    desc: "Corridor intelligence, market signals, counterparty risk data, and regulatory monitoring as a standing institutional function — lawfully gathered, ethically sourced.",
+  },
+  {
+    number: "05",
+    name: "Digital Systems",
+    desc: "Governance-layer digital coordination: documentation and verification management. Counsel-validated, governance-aligned. Standardise before digitise.",
+  },
+  {
+    number: "06",
+    name: "Institutional Advisory",
+    desc: "Government, ministry, and institutional counterpart engagement at sovereign-grade discretion. Non-substitution discipline preserved.",
+  },
+] as const;
+
+const METRICS = [
+  { value: "Phase I", label: "Foundation Stage" },
+  { value: "IV", label: "Gates · Entry Protocol" },
+  { value: "3", label: "Regions · Corridor Mandate" },
+  { value: "100%", label: "Non-Custodial" },
 ] as const;
 
 export default function StrategicArms() {
-    return (
-        <section
-            id="strategic-arms"
-            aria-labelledby="strategic-arms-heading"
-            className="swaqar-section bg-swaqar-surface/30"
-        >
-            <div className="swaqar-container">
+  return (
+    <section
+      id="strategic-arms"
+      aria-labelledby="strategic-arms-heading"
+      className="swaqar-section bg-swaqar-surface"
+    >
+      <div className="swaqar-container">
+        <span className="swaqar-eyebrow text-swaqar-gold">
+          Institutional Architecture
+        </span>
 
-                {/* ── Section header ─────────────────────────────────────────── */}
-                <div className="mb-14 max-w-3xl">
-                    <span className="block text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold mb-3">
-                        Future Institutional Architecture
-                    </span>
-                    <h2 id="strategic-arms-heading" className="text-swaqar-heading">
-                        Strategic Architecture
-                    </h2>
-                    <p className="text-swaqar-muted mt-3 text-base leading-relaxed">
-                        SWAQAR Group is being built as a multi-arm institutional coordination
-                        structure. The arms below represent the intended future architecture.
-                        They are not currently operational. Each arm will be activated through
-                        a governance-ratified process as the institution matures.
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mt-14">
+          {/* LEFT COLUMN */}
+          <div>
+            <h2
+              id="strategic-arms-heading"
+              className="font-serif text-3xl text-swaqar-heading font-semibold mb-2"
+            >
+              Six strategic arms.{" "}
+              <em className="italic text-swaqar-gold">
+                One institutional mission.
+              </em>
+            </h2>
+
+            <div>
+              {ARMS.map((arm) => (
+                <div
+                  key={arm.number}
+                  className="border-b border-swaqar-border py-5 flex gap-5 items-start cursor-default hover:pl-2 transition-all duration-300"
+                >
+                  <span className="font-serif text-sm text-swaqar-gold/55 flex-shrink-0 mt-0.5">
+                    {arm.number}
+                  </span>
+                  <div>
+                    <p className="font-mono text-xs uppercase tracking-widest text-swaqar-heading/90 font-medium mb-1.5">
+                      {arm.name}
                     </p>
+                    <p className="text-sm text-swaqar-muted leading-relaxed">
+                      {arm.desc}
+                    </p>
+                  </div>
                 </div>
-
-                {/* ── Six arm cards ──────────────────────────────────────────── */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {ARMS.map((arm, i) => (
-                        <div
-                            key={`arm-${i}`}
-                            className="border-l-4 border-swaqar-gold bg-white border border-swaqar-border flex flex-col"
-                        >
-                            {/* Card header */}
-                            <div className="px-6 pt-6 pb-4 border-b border-swaqar-gold/20">
-                                <span className="text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold">
-                                    Arm {arm.number}
-                                </span>
-                                <h3 className="text-swaqar-heading text-base font-semibold leading-snug mt-2">
-                                    {arm.name}
-                                </h3>
-                            </div>
-
-                            {/* Card body */}
-                            <div className="px-6 py-5 flex-1">
-                                <p className="text-swaqar-text text-sm leading-relaxed">
-                                    {arm.description}
-                                </p>
-                            </div>
-
-                            {/* Status footer */}
-                            <div className="px-6 py-4 border-t border-swaqar-gold/20 flex items-start gap-3">
-                                <span
-                                    aria-hidden="true"
-                                    className={`text-xs font-bold mt-0.5 flex-shrink-0 ${
-                                        arm.stage === "foundation"
-                                            ? "text-swaqar-gold"
-                                            : "text-swaqar-muted"
-                                    }`}
-                                >
-                                    {arm.stage === "foundation" ? "▣" : "○"}
-                                </span>
-                                <p
-                                    className={`text-xs leading-relaxed ${
-                                        arm.stage === "foundation"
-                                            ? "text-swaqar-gold"
-                                            : "text-swaqar-muted"
-                                    }`}
-                                >
-                                    {arm.status}
-                                </p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                {/* ── Closing institutional note ─────────────────────────────── */}
-                <div className="mt-10 border-l-4 border-swaqar-gold pl-6 py-3">
-                    <div className="flex flex-col gap-2">
-                        <span className="text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold">
-                            Institutional Boundary
-                        </span>
-                        <p className="text-swaqar-text text-sm leading-relaxed">
-                            All strategic arms are subject to governance-ratified activation.
-                            No arm operates beyond its confirmed institutional mandate.
-                            SWAQAR Group does not trade, broker, custody funds, provide escrow,
-                            operate logistics, or function as a marketplace in any arm.
-                        </p>
-                    </div>
-                </div>
-
+              ))}
             </div>
-        </section>
-    );
+          </div>
+
+          {/* RIGHT COLUMN */}
+          <div className="bg-white border border-swaqar-border p-10 relative overflow-hidden">
+            <div
+              className="absolute -right-11 -bottom-11 w-44 h-44 rounded-full border border-swaqar-border/30 pointer-events-none"
+              aria-hidden="true"
+            />
+
+            <p className="font-mono text-xs uppercase tracking-widest text-swaqar-gold mb-4">
+              Institutional Foundation
+            </p>
+            <h3 className="font-serif text-2xl text-swaqar-heading font-semibold leading-snug mb-4">
+              Built for a multi-decade institutional horizon.
+            </h3>
+            <p className="text-sm text-swaqar-muted leading-relaxed mb-8">
+              SWAQAR is not a startup seeking scale. It is a coordination
+              institution being built to last — verification-governed,
+              governance-anchored, designed to compound institutional
+              credibility over time, not transaction volume.
+            </p>
+
+            <div className="grid grid-cols-2 gap-4 pt-6 border-t border-swaqar-border">
+              {METRICS.map((metric) => (
+                <div key={metric.label}>
+                  <p className="font-serif text-2xl text-swaqar-gold font-semibold">
+                    {metric.value}
+                  </p>
+                  <p className="font-mono text-xs uppercase tracking-widest text-swaqar-muted mt-1">
+                    {metric.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
