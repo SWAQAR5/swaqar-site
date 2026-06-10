@@ -75,7 +75,7 @@ export default function WhySwaqarExists() {
                                 <span className="text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold">
                                     Problem {problem.number}
                                 </span>
-                                <h3 className="text-swaqar-text text-lg font-semibold leading-tight mt-2">
+                                <h3 className="text-swaqar-heading text-lg font-semibold leading-tight mt-2">
                                     {problem.title}
                                 </h3>
                             </div>

@@ -151,7 +151,7 @@ function GovernanceLayerCard({
             </div>
 
             <div className="flex flex-col gap-1.5">
-                <h3 className="text-swaqar-text text-lg font-semibold leading-tight">
+                <h3 className="text-swaqar-heading text-lg font-semibold leading-tight">
                     {layer}
                 </h3>
                 <span className="text-swaqar-gold text-xs font-medium tracking-wider uppercase">
