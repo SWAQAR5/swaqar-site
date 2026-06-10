@@ -76,7 +76,7 @@ export default function Governance() {
             </div>
 
             {/* RULES BLOCK */}
-            <div className="mt-10 border border-swaqar-gold bg-swaqar-bg">
+            <div className="mt-10 border border-swaqar-gold bg-swaqar-surface">
                 <div className="px-6 py-4 border-b border-swaqar-gold/40 flex items-center justify-between">
                     <span className="text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold">
                         Enforcement Rules

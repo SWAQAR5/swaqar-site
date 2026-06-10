@@ -79,7 +79,7 @@ export default function StrategicArms() {
                     {ARMS.map((arm, i) => (
                         <div
                             key={`arm-${i}`}
-                            className="border-l-4 border-swaqar-gold bg-swaqar-bg border border-swaqar-border flex flex-col"
+                            className="border-l-4 border-swaqar-gold bg-white border border-swaqar-border flex flex-col"
                         >
                             {/* Card header */}
                             <div className="px-6 pt-6 pb-4 border-b border-swaqar-gold/20">
