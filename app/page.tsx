@@ -21,6 +21,7 @@
 import type { Metadata } from "next";
 
 import Hero from "@/components/sections/Hero";
+import TrustStrip from "@/components/sections/TrustStrip";
 import Phase1Reality from "@/components/sections/Phase1Reality";
 import WhySwaqarExists from "@/components/sections/WhySwaqarExists";
 import CoordinationPillars from "@/components/sections/CoordinationPillars";
@@ -73,6 +74,8 @@ export default function HomePage() {
           CTAs: Submit Institutional Inquiry + View Phase 1 Focus
           File: components/sections/Hero.tsx */}
       <Hero />
+
+      <TrustStrip />
 
       {/* 2 — CURRENT INSTITUTIONAL STAGE
           Phase 1 foundation stage explanation
