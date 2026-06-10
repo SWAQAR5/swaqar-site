@@ -71,9 +71,9 @@ export default function SubmitForm() {
     // ─── SUCCESS STATE ───
     if (status === "success") {
         return (
-            <div className="border border-swaqar-success/40 bg-swaqar-bg px-6 py-8 flex flex-col items-center gap-4 text-center max-w-lg mx-auto">
+            <div className="border border-swaqar-success/40 bg-white px-6 py-8 flex flex-col items-center gap-4 text-center max-w-lg mx-auto">
                 <span className="text-swaqar-success text-2xl font-bold">✔</span>
-                <h3 className="text-swaqar-text text-lg font-semibold">
+                <h3 className="text-swaqar-heading text-lg font-semibold">
                     Submission Received
                 </h3>
                 <p className="text-swaqar-muted text-sm leading-relaxed">
@@ -89,7 +89,7 @@ export default function SubmitForm() {
 
     // ─── FORM STATE ───
     return (
-        <div className="border border-swaqar-gold bg-swaqar-bg max-w-2xl mx-auto">
+        <div className="border border-swaqar-gold bg-swaqar-surface max-w-2xl mx-auto">
             {/* Form header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-swaqar-gold/30">
                 <span className="text-[10px] tracking-[0.25em] text-swaqar-gold uppercase font-bold">
@@ -145,7 +145,7 @@ export default function SubmitForm() {
                             value={formData.type}
                             onChange={handleChange}
                             required
-                            className="bg-swaqar-bg border border-swaqar-gold/40 text-swaqar-text text-sm px-4 py-3 focus:outline-none focus:border-swaqar-gold transition-colors appearance-none"
+                            className="bg-white border border-swaqar-border text-swaqar-text text-sm px-4 py-3 focus:outline-none focus:border-swaqar-gold transition-colors appearance-none"
                         >
                             <option value="" disabled>
                                 Select type
@@ -177,7 +177,7 @@ export default function SubmitForm() {
                         required
                         rows={4}
                         placeholder="Please describe the nature of your institutional inquiry and your organisation's area of interest."
-                        className="bg-swaqar-bg border border-swaqar-gold/40 text-swaqar-text text-sm px-4 py-3 focus:outline-none focus:border-swaqar-gold transition-colors resize-none placeholder:text-swaqar-muted/50"
+                        className="bg-white border border-swaqar-border text-swaqar-text text-sm px-4 py-3 focus:outline-none focus:border-swaqar-gold transition-colors resize-none placeholder:text-swaqar-muted/50"
                     />
                 </div>
 
@@ -209,7 +209,7 @@ export default function SubmitForm() {
                         type="button"
                         onClick={handleSubmit}
                         disabled={status === "submitting"}
-                        className="inline-flex items-center justify-center bg-swaqar-gold text-swaqar-bg font-semibold px-7 py-3.5 transition-opacity hover:opacity-90 focus-visible:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="inline-flex items-center justify-center bg-swaqar-gold text-swaqar-navy font-semibold px-7 py-3.5 transition-opacity hover:opacity-90 focus-visible:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         {status === "submitting" ? "Submitting..." : "Submit Inquiry"}
                     </button>
@@ -269,7 +269,7 @@ function FormField({
                 onChange={onChange}
                 placeholder={placeholder}
                 required={required}
-                className="bg-swaqar-bg border border-swaqar-gold/40 text-swaqar-text text-sm px-4 py-3 focus:outline-none focus:border-swaqar-gold transition-colors placeholder:text-swaqar-muted/50"
+                className="bg-white border border-swaqar-border text-swaqar-text text-sm px-4 py-3 focus:outline-none focus:border-swaqar-gold transition-colors placeholder:text-swaqar-muted/50"
             />
         </div>
     );
