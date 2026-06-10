@@ -2,30 +2,30 @@
 
 /* ═══════════════════════════════════════════════════════════
    SWAQAR DESIGN SYSTEM — Tailwind v4
-   Background: Charcoal #1A1A1A (matches logo dark fill)
-   Surface:    Charcoal #2A2A2A (widened gap for section clarity)
+   Institutional Navy/Gold/White palette
    ═══════════════════════════════════════════════════════════ */
 
 @theme {
-  --color-swaqar-bg: #1A1A1A;
-  /* Charcoal — matches logo */
-  --color-swaqar-surface: #2A2A2A;
-  /* Wider contrast gap */
-  --color-swaqar-gold: #C6A85B;
-  /* Primary gold — locked */
-  --color-swaqar-text: #F8FAFC;
-  /* Primary text — locked */
-  --color-swaqar-muted: #94A3B8;
-  /* Secondary text — locked */
-  --color-swaqar-success: #22C55E;
-  /* Approval green — locked */
-  --color-swaqar-error: #EF4444;
-  /* Rejection red — locked */
+  --color-swaqar-bg:      #FFFFFF;
+  --color-swaqar-surface: #F5F7FA;
+  --color-swaqar-navy:    #0B1F3A;
+  --color-swaqar-navy-mid:#112847;
+  --color-swaqar-gold:    #B8923A;
+  --color-swaqar-gold-light: #d4aa5a;
+  --color-swaqar-text:    #4A5568;
+  --color-swaqar-heading: #0B1F3A;
+  --color-swaqar-muted:   #718096;
+  --color-swaqar-border:  #DDE2EA;
+  --color-swaqar-success: #2F855A;
+  --color-swaqar-error:   #C53030;
+  --color-swaqar-teal:    #0F766E;
+  --color-swaqar-amber:   #D69E2E;
 
   --container-swaqar: 1200px;
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", Roboto, sans-serif;
+  --font-sans: var(--font-ibm-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), Georgia, serif;
+  --font-mono: var(--font-ibm-plex-mono), monospace;
 
   --radius-none: 0;
   --radius-sm: 0;
@@ -38,9 +38,15 @@
 }
 
 :root {
-  --swaqar-bg: #1A1A1A;
-  --swaqar-surface: #2A2A2A;
-  --swaqar-gold: #C6A85B;
+  --swaqar-bg:         #FFFFFF;
+  --swaqar-surface:    #F5F7FA;
+  --swaqar-navy:       #0B1F3A;
+  --swaqar-gold:       #B8923A;
+  --swaqar-gold-light: #d4aa5a;
+  --swaqar-text:       #4A5568;
+  --swaqar-heading:    #0B1F3A;
+  --swaqar-muted:      #718096;
+  --swaqar-border:     #DDE2EA;
   --swaqar-section-py: 80px;
   --swaqar-container-px: 20px;
   --swaqar-h1: 52px;
@@ -57,41 +63,40 @@
   }
 
   body {
+    font-family: var(--font-sans);
     font-size: var(--swaqar-body);
-    line-height: 1.5;
+    line-height: 1.6;
     letter-spacing: 0.01em;
     background-color: var(--swaqar-bg);
-    color: #F8FAFC;
+    color: var(--swaqar-text);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    color: var(--swaqar-heading);
+    line-height: 1.15;
   }
 
   h1 {
     font-size: var(--swaqar-h1);
     font-weight: 700;
-    line-height: 1.1;
     letter-spacing: -0.02em;
   }
 
   h2 {
     font-size: var(--swaqar-h2);
     font-weight: 600;
-    line-height: 1.2;
     letter-spacing: -0.01em;
   }
 
   h3 {
     font-size: 22px;
     font-weight: 600;
-    line-height: 1.3;
   }
 
   @media (max-width: 768px) {
-    h1 {
-      font-size: 36px;
-    }
-
-    h2 {
-      font-size: 28px;
-    }
+    h1 { font-size: 36px; }
+    h2 { font-size: 28px; }
   }
 
   [id] {
@@ -121,9 +126,20 @@
 
   @media (max-width: 768px) {
     .swaqar-section {
-      padding-top: 40px;
-      padding-bottom: 40px;
+      padding-top: 48px;
+      padding-bottom: 48px;
     }
+  }
+
+  .swaqar-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--swaqar-gold);
+    display: block;
+    margin-bottom: 12px;
   }
 
   .swaqar-corridor {
@@ -132,9 +148,18 @@
     width: 100%;
   }
 
-  @media (max-width: 768px) {
-    .text-swaqar-muted {
-      color: #B0BCC9 !important;
-    }
+  /* Dark section overrides — Hero, Why, CTA, Footer */
+  .section-dark {
+    background-color: var(--swaqar-navy);
+  }
+  .section-dark h1,
+  .section-dark h2,
+  .section-dark h3,
+  .section-dark p,
+  .section-dark li {
+    color: #FFFFFF;
+  }
+  .section-dark .swaqar-eyebrow {
+    color: var(--swaqar-gold);
   }
 }
