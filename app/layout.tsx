@@ -1,12 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Cormorant_Garamond, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-cormorant",
   weight: ["400", "500", "600", "700"],
+});
+const ibmPlexSans = IBM_Plex_Sans({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-ibm-plex-sans",
+  weight: ["400", "500", "600", "700"],
+});
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-ibm-plex-mono",
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -113,7 +125,7 @@ export default function RootLayout({
     <html
       lang="en"
       dir="ltr"
-      className={`${inter.variable} ${inter.className}`}
+      className={`${cormorant.variable} ${ibmPlexSans.variable} ${ibmPlexMono.variable} ${ibmPlexSans.className}`}
       suppressHydrationWarning
     >
       <head>
