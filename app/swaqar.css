@@ -329,3 +329,36 @@ section{padding-top:clamp(56px,7vw,100px);padding-bottom:clamp(56px,7vw,100px)}
 .problem-card,.fn,.gate,.ac2,.ps,.std{min-height:auto;padding:28px 24px}
 /* LEDE ITALIC SERIF READABLE SIZE */
 .lede{font-size:clamp(1rem,1.4vw,1.2rem);line-height:1.65;margin-top:16px}
+/* HEADING LINE CONTROL */
+h1{font-size:clamp(2.8rem,4.8vw,4.8rem);line-height:1.04;max-width:none}
+h2{font-size:clamp(1.9rem,2.8vw,3rem);line-height:1.1;max-width:none}
+.hero-title{font-size:clamp(2.8rem,4.5vw,5rem);line-height:1.04;white-space:normal}
+.section-head{max-width:900px}
+.section-head h2{max-width:none}
+.lede{max-width:72ch;font-size:clamp(1rem,1.3vw,1.18rem);line-height:1.7}
+/* PROBLEM CARDS — tighter heading */
+.problem-card h4{font-size:1.05rem;line-height:1.25}
+/* CORRIDOR CARDS — full width flow */
+.li h4{font-size:1.1rem;line-height:1.2}
+.li p{font-size:0.86rem;line-height:1.65;max-width:none}
+/* APPROACH / GATE CARDS */
+.fn h3,.gate h3{font-size:1.1rem;line-height:1.2}
+.fn p,.gate p{font-size:0.86rem;line-height:1.65;max-width:none}
+/* BODY TEXT MAX WIDTH — prevent runaway lines */
+.bc li{max-width:58ch}
+.ig-col li{max-width:58ch}
+.rs li{max-width:58ch}
+/* TRUST STRIP */
+.trust-item h4{font-size:0.78rem;letter-spacing:0.1em}
+.trust-item p{font-size:0.82rem;line-height:1.6;max-width:28ch}
+/* CONTACT SECTION */
+.ca h2{font-size:clamp(1.6rem,2.2vw,2.2rem);line-height:1.15;max-width:none}
+.dr .val{font-size:1rem;line-height:1.4}
+/* GOVERNANCE SECTION */
+.gg h2{max-width:none;font-size:clamp(1.7rem,2.4vw,2.6rem)}
+.pl h4{font-size:0.9rem}
+/* ENGAGE SECTION */
+.engt h2{font-size:clamp(1.5rem,2.2vw,2.4rem);max-width:none;line-height:1.15}
+/* FOOTER */
+.fb p{max-width:38ch;line-height:1.7}
+.fdisc{max-width:none;line-height:1.8}
