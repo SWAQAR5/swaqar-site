@@ -1,119 +1,9 @@
-import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
-import "./globals.css";
-
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-cormorant",
-  weight: ["400", "500", "600", "700"],
-});
-const ibmPlexSans = IBM_Plex_Sans({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-ibm-plex-sans",
-  weight: ["400", "500", "600", "700"],
-});
-const ibmPlexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-ibm-plex-mono",
-  weight: ["400", "500"],
-});
+import type { Metadata } from "next";
+import "./swaqar.css";
 
 export const metadata: Metadata = {
-  title: {
-    default: "SWAQAR Group — Corridors of Trust",
-    template: "%s | SWAQAR Group",
-  },
-  description:
-    "A governance-led, verification-first, asset-light, non-custodial Trade Coordination Layer coordinating verified cross-regional trade corridors across Africa, the Middle East, and Asia.",
-  applicationName: "SWAQAR",
-  keywords: [
-    "trade coordination",
-    "cross-border trade",
-    "Africa Middle East trade",
-    "trade infrastructure",
-    "verified trade corridors",
-    "structured trade",
-    "trade coordination system",
-    "Africa trade",
-    "Saudi Arabia trade",
-    "UAE trade",
-  ],
-  authors: [{ name: "SWAQAR" }],
-  creator: "SWAQAR",
-  publisher: "SWAQAR",
-  metadataBase: new URL("https://swaqar.com"),
-  alternates: { canonical: "/" },
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  // ── Favicon set ──────────────────────────────────────
-  icons: {
-    icon: [
-      { url: "/logo.png", type: "image/png" },
-    ],
-    apple: "/logo.png",
-  },
-  openGraph: {
-    title: "SWAQAR Group — Corridors of Trust",
-    description:
-      "A governance-led, verification-first, non-custodial Trade Coordination Layer across Africa, the Middle East, and Asia.",
-    siteName: "SWAQAR",
-    type: "website",
-    locale: "en_US",
-    url: "https://swaqar.com",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "SWAQAR Group — Corridors of Trust",
-    description:
-      "A governance-led, verification-first, non-custodial Trade Coordination Layer across Africa, the Middle East, and Asia.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-};
-
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 5,
-  themeColor: "#0B1F3A",
-  colorScheme: "light",
-};
-
-const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "SWAQAR",
-  description:
-    "Structured Trade Coordination System governing cross-border trade between Africa and the Middle East.",
-  url: "https://swaqar.com",
-  logo: "https://swaqar.com/logo.svg",
-  contactPoint: [
-    {
-      "@type": "ContactPoint",
-      email: "opportunities@swaqar.com",
-      contactType: "Trade Opportunities",
-    },
-    {
-      "@type": "ContactPoint",
-      email: "partnerships@swaqar.com",
-      contactType: "Partnerships",
-    },
-  ],
-  areaServed: ["Africa", "Middle East"],
+  title: "SWAQAR Group — Corridors of Trust",
+  description: "SWAQAR Group is a governance-led Trade Coordination Layer connecting Africa, the Middle East, and Asia through verification, institutional trust, corridor synchronization, and disciplined execution.",
 };
 
 export default function RootLayout({
@@ -122,23 +12,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      dir="ltr"
-      className={`${cormorant.variable} ${ibmPlexSans.variable} ${ibmPlexMono.variable} ${ibmPlexSans.className}`}
-      suppressHydrationWarning
-    >
+    <html lang="en">
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema),
-          }}
-        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
       </head>
-      <body className="min-h-screen bg-swaqar-bg text-swaqar-text antialiased selection:bg-swaqar-gold selection:text-swaqar-navy">
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
