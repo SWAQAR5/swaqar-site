@@ -188,7 +188,7 @@ export default function Home() {
               <div className="stag"><div className="stagline"></div><div className="stagtext">Corridor Architecture</div></div>
               <h2 className="stitle">Three regions.<br/><em>One coordination layer.</em></h2>
             </div>
-            <p style={{maxWidth:'34ch',fontSize:'.84rem',lineHeight:'1.78',color:'rgba(255,255,255,.38)',textAlign:'right'}}>SWAQAR coordinates verified trade flow across the three most strategically aligned regions in global South–South trade.</p>
+            <p style={{maxWidth:'34ch',fontSize:'.84rem',lineHeight:'1.78',color:'rgba(255,255,255,.38)',textAlign:'left'}}>SWAQAR coordinates verified trade flow across the three most strategically aligned regions in global South–South trade.</p>
           </div>
           <div className="corr-vis">
             <svg viewBox="0 0 780 240" style={{width:'100%',maxWidth:'780px',position:'relative'}}>
