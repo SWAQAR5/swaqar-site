@@ -172,6 +172,10 @@ footer{background:#0d2444;border-top:1px solid var(--gl);padding:68px 0 32px}
 .fcopy{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;color:rgba(255,255,255,.22);white-space:nowrap}
 .fbadges{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 .fbadge{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.28);border:1px solid rgba(184,146,58,.1);padding:4px 10px}
+.govstrip{border-top:1px solid rgba(184,146,58,0.18);border-bottom:1px solid rgba(184,146,58,0.18);background:#071530;padding:14px 0}
+.gstrip-inner{max-width:1220px;margin:0 auto;padding:0 52px;display:flex;align-items:center;justify-content:space-between}
+.gstrip-item{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(184,146,58,.6);display:flex;align-items:center;gap:10px}
+.gstrip-sep{width:1px;height:14px;background:rgba(184,146,58,0.18)}
 @media(max-width:768px){
   nav{padding:0 20px}
   .nlinks{display:none}
