@@ -1,402 +1,361 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 export default function Home() {
-  const progressRef = useRef<HTMLDivElement>(null);
-  const navRef = useRef<HTMLElement>(null);
-  const mobileMenuRef = useRef<HTMLElement>(null);
-
   useEffect(() => {
-    const nav = navRef.current;
-    const progress = progressRef.current;
-    const handleScroll = () => {
-      if (!nav || !progress) return;
-      const y = window.scrollY;
-      nav.classList.toggle('scrolled', y > 40);
-      const dh = document.documentElement.scrollHeight - window.innerHeight;
-      progress.style.width = (dh > 0 ? (y / dh) * 100 : 0) + '%';
+    const dot = document.getElementById('cur-dot');
+    const ring = document.getElementById('cur-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    const onMove = (e: MouseEvent) => {
+      mx = e.clientX; my = e.clientY;
+      if (dot) { dot.style.left = mx + 'px'; dot.style.top = my + 'px'; }
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-    setTimeout(() => {
-      document.querySelectorAll('.reveal,.reveal-stagger').forEach(el => io.observe(el));
-      document.querySelectorAll('.hero .reveal,.hero .reveal-stagger').forEach(el => el.classList.add('visible'));
-    }, 100);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const animRing = () => {
+      rx += (mx - rx) * 0.14; ry += (my - ry) * 0.14;
+      if (ring) { ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; }
+      requestAnimationFrame(animRing);
+    };
+    document.addEventListener('mousemove', onMove);
+    animRing();
+    document.querySelectorAll('a,button,.arm,.pillar,.gate,.cor-card,.gov-card,.partner').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('hov'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('hov'));
+    });
+    const nav = document.getElementById('nav');
+    const onScroll = () => { if (nav) nav.classList.toggle('scrolled', window.scrollY > 10); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('navLinks');
+    burger?.addEventListener('click', () => {
+      if (!navLinks || !burger) return;
+      const open = navLinks.classList.toggle('open');
+      burger.setAttribute('aria-expanded', String(open));
+    });
+    navLinks?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('up'); io.unobserve(e.target); } });
+      }, { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
+      document.querySelectorAll('.r').forEach(el => io.observe(el));
+    } else {
+      document.querySelectorAll('.r').forEach(el => el.classList.add('up'));
+    }
+    document.querySelectorAll('.stat-n').forEach(c => {
+      const tgt = c.textContent || '';
+      const num = parseFloat(tgt);
+      if (isNaN(num)) return;
+      c.textContent = '0';
+      const io2 = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          let s = 0; const step = num / 40;
+          const t = setInterval(() => {
+            s += step;
+            if (s >= num) { c.textContent = tgt; clearInterval(t); }
+            else c.textContent = tgt.includes('%') ? Math.round(s) + '%' : Math.round(s) + tgt.replace(/[0-9.]/g, '');
+          }, 30);
+          io2.unobserve(e.target);
+        });
+      }, { threshold: 0.5 });
+      io2.observe(c as Element);
+    });
+    const orb = document.querySelector('.hero-orb') as HTMLElement;
+    const onScrollOrb = () => { if (orb) orb.style.transform = `translateY(calc(-50% + ${window.scrollY * 0.08}px))`; };
+    window.addEventListener('scroll', onScrollOrb, { passive: true });
+    return () => {
+      document.removeEventListener('mousemove', onMove);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('scroll', onScrollOrb);
+    };
   }, []);
-
-  const toggleMenu = () => {
-    const m = mobileMenuRef.current;
-    if (!m) return;
-    const open = m.classList.contains('open');
-    m.classList.toggle('open', !open);
-    m.setAttribute('aria-hidden', open ? 'true' : 'false');
-    document.body.style.overflow = open ? '' : 'hidden';
-  };
 
   return (
     <>
-      <div className="scroll-progress" ref={progressRef as React.RefObject<HTMLDivElement>} aria-hidden="true"></div>
+      <div id="cur"><div id="cur-dot"></div><div id="cur-ring"></div></div>
 
-      <header className="nav" ref={navRef as React.RefObject<HTMLElement>} id="nav">
-        <div className="nav-inner">
-          <a href="#hero" className="logo" aria-label="SWAQAR Group home">
-            <span className="logo-rule" aria-hidden="true"></span>
-            <span className="logo-stack">
-              <span className="logo-name">SWAQAR <em>GROUP</em></span>
-              <span className="logo-tag">Corridors of Trust</span>
-            </span>
-          </a>
-          <div className="nav-cluster">
-            <nav aria-label="Primary">
-              <ul className="nav-links">
-                <li><a href="#problem">Problem</a></li>
-                <li><a href="#corridors">Corridors</a></li>
-                <li><a href="#gates">Model</a></li>
-                <li><a href="#governance">Governance</a></li>
-                <li><a href="#pilot">Candidate Corridor</a></li>
-                <li><a href="#engage">Engage</a></li>
-              </ul>
-            </nav>
-            <a href="#engage" className="btn nav-cta">Institutional Inquiry →</a>
-            <button className="nav-toggle" aria-label="Open menu" onClick={toggleMenu}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-            </button>
+      <div className="banner">
+        <div className="banner-dot"></div>
+        <p className="banner-txt"><strong>Phase I — Foundation Stage</strong> &nbsp;·&nbsp; Not yet operationally active. All corridor activation subject to Four-Gate Model completion and Supreme Council mandate.</p>
+      </div>
+
+      <nav id="nav">
+        <a className="nav-brand" href="#home">
+          <svg className="nav-mark" viewBox="508 252 1024 900" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path fill="#CEA437" d="M917.74,952.98c4.78-0.46,9.55-0.93,14.33-1.39c6.44-0.49,12.88-1.11,19.33-1.43c25.94-1.31,51.9-2.34,77.88-2.62c47.48-0.51,94.95,0.16,142.38,2.41c22.77,1.08,45.55,2.3,68.28,4.07c21.07,1.64,42.08,3.97,63.01,7.01c3.94,0.95,7.88,1.9,11.82,2.85c-3.55-2.77-7.73-3.62-11.85-4.67c-6.68-2.03-13.36-4.1-20.05-6.1c-22.04-6.58-44.49-11.42-67.18-15.06c-4.25-0.68-5.69-2.26-5.49-6.66c0.37-8.31,0.03-16.66,0.03-24.99c-0.02-51.99-0.05-103.99,0.04-155.98c0.01-3.5-0.49-4.93-4.52-4.76c-8.48,0.37-17,0.33-25.48-0.04c-3.96-0.17-4.63,1.18-4.59,4.75c0.19,15,0.08,29.99,0.08,44.99c-0.01,44.33-0.02,88.65-0.05,132.98c0,2.01,0.69,4.89-3.06,3.86c-2.52-0.69-6.79,1.58-6.51-4.13c0.31-6.48,0.02-12.99,0.03-19.49c0.09-52.82,0.15-105.65,0.35-158.47c0.01-3.42-0.81-4.5-4.33-4.39c-8.16,0.26-16.34,0.3-24.49-0.06c-4.46-0.2-5.77,1.01-5.76,5.66c0.21,57.49,0.12,114.98,0.35,172.48c0.02,4.57-1.16,5.53-5.47,5.25c-29.78-1.94-59.6-1.9-89.42-1.93c-3.65,0-7.3-0.16-10.95-0.25c2.43-1.03,4.81-2.18,7.29-3.06c20.54-7.3,40.69-15.49,58.76-27.94c14.43-9.95,25.93-21.26,24.23-41.39c-1.47-17.44-14.89-33.77-32.83-36.73c-11.76-5.64-24.32-9-36.65-13.02c-8.88-2.9-17.63-6.15-25.46-11.34c-9.31-6.16-9.94-14.45-1.6-21.81c5.27-4.65,11.41-8.04,17.86-10.84c19.76-8.56,40.31-14.55,61.23-19.54c39.29-9.38,78.92-14.05,119.28-9.65c3.69,0.4,3.99-0.95,3.96-3.97c-0.11-14.16-0.04-28.32,0-42.48c0.01-3-0.58-6.12,1.71-8.8c-8.87,5.69-18.19,10.05-27.51,14.34c-38.47,17.69-78.65,30.69-118.97,43.34c-26.16,8.21-52.77,15.03-78.29,25.26c-11.99,4.8-23.28,10.75-32.42,20.11c-10.9,11.15-11.62,24.96-1.83,36.31c4.98,5.77,11.36,9.73,18.14,13.03c12.01,5.85,24.86,9.4,37.51,13.5c9.16,2.97,18.5,5.84,25.72,12.72c5.91,5.63,5.92,12.06,0.36,18.04c-4.13,4.44-9.14,7.74-14.37,10.69c-11.92,6.74-24.65,11.62-37.53,16.13c-14.14,4.95-28.54,9.01-43.01,12.84c-5.69,1.51-5.74,1.32-5.78-4.5c-0.05-9.33-0.13-18.66-0.15-27.99c-0.07-42.98-0.17-85.96-0.1-128.95c0.01-3.62-0.71-4.83-4.61-4.65c-7.64,0.37-15.34,0.34-22.98-0.07c-4.14-0.22-5.26,0.82-5.25,5.06c0.12,53.31,0.04,106.63-0.03,159.94c-0.01,9.07-0.1,9.07-9.87,10.23c0-10.69,0-21.34,0-31.98c0.01-45.82-0.02-91.63,0.13-137.45c0.01-4.3-0.74-6.13-5.59-5.84c-7.8,0.47-15.67,0.47-23.48,0.03c-4.9-0.28-5.96,1.24-5.95,6.01c0.21,57.64,0.14,115.29,0.26,172.93c0.01,3.49-0.68,4.98-4.5,5.96c-24.49,6.26-48.92,12.76-73.26,19.57c-12.77,3.57-25.64,6.98-37.63,12.87l0.07,0.15l-0.01-0.24c15.44-2.5,30.88-4.99,46.33-7.49c-0.91,3.5,0.79,4.18,3.95,4.23c12.67,0.18,25.25-1.49,37.88-1.59c16.99-0.13,33.93-1.22,50.87-2.25C898.58,955.15,908.15,953.92,917.74,952.98z"/>
+            <path fill="#E5C97A" d="M1074.04,881.79c0.22,1.4-1.06,2.28-1.6,3.49c11.7,1.87,36.72-19.2,41.05-34.5c2.5,6.8-0.26,12.02-3.87,17.03c-6.76,9.36-16.55,14.7-26.39,20.01c-30.82,16.63-63.94,26.96-97.5,36.28c-33.2,9.22-67,15.63-100.88,21.5c-23.72,4.11-47.66,6.96-71.55,9.99c-3.77,0.48-8.05,1.74-11.76-0.93c30.24-6.3,60.52-12.43,90.71-18.95c42.23-9.13,84.38-18.65,125.67-31.57C1037.18,898.13,1056.21,891.45,1074.04,881.79z"/>
+          </svg>
+          <div className="nav-text">
+            <span className="nav-name">SWAQAR</span>
+            <span className="nav-sub">Group · Corridors of Trust</span>
+          </div>
+        </a>
+        <ul className="nav-links" id="navLinks">
+          <li><a href="#identity">Identity</a></li>
+          <li><a href="#corridors">Corridors</a></li>
+          <li><a href="#model">The Model</a></li>
+          <li><a href="#arms">Strategic Arms</a></li>
+          <li><a href="#governance">Governance</a></li>
+          <li><a href="#contact" className="nav-cta">Engage</a></li>
+        </ul>
+        <button className="burger" id="burger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+
+      <section className="hero" id="home">
+        <div className="hero-grid">
+          <svg viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice">
+            <defs><pattern id="g" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M 80 0 L 0 0 0 80" fill="none" stroke="rgba(206,164,55,0.045)" strokeWidth="0.5"/></pattern></defs>
+            <rect width="100%" height="100%" fill="url(#g)"/>
+            <path d="M 100,620 Q 340,490 560,380 Q 750,272 910,212" fill="none" stroke="rgba(206,164,55,0.22)" strokeWidth="1.1" strokeDasharray="6 12"><animate attributeName="stroke-dashoffset" from="0" to="-144" dur="4s" repeatCount="indefinite"/></path>
+            <path d="M 910,212 Q 1060,175 1200,235 Q 1318,292 1378,372" fill="none" stroke="rgba(206,164,55,0.15)" strokeWidth="1" strokeDasharray="6 12"><animate attributeName="stroke-dashoffset" from="0" to="-144" dur="5.5s" repeatCount="indefinite"/></path>
+            <circle r="3" fill="rgba(206,164,55,0.75)"><animateMotion dur="4s" repeatCount="indefinite" path="M 100,620 Q 340,490 560,380 Q 750,272 910,212"/></circle>
+            <circle r="2.5" fill="rgba(206,164,55,0.55)"><animateMotion dur="5.5s" repeatCount="indefinite" begin="1.5s" path="M 910,212 Q 1060,175 1200,235 Q 1318,292 1378,372"/></circle>
+            <text x="95" y="658" fontSize="8.5" fill="rgba(206,164,55,0.28)" letterSpacing="4" fontFamily="DM Sans,sans-serif" textAnchor="middle">AFRICA</text>
+            <text x="910" y="192" fontSize="8.5" fill="rgba(206,164,55,0.28)" letterSpacing="4" fontFamily="DM Sans,sans-serif" textAnchor="middle">MIDDLE EAST</text>
+            <text x="1338" y="356" fontSize="8.5" fill="rgba(206,164,55,0.28)" letterSpacing="4" fontFamily="DM Sans,sans-serif" textAnchor="middle">ASIA</text>
+          </svg>
+        </div>
+        <div className="hero-orb"></div>
+        <svg className="mer" viewBox="0 0 600 600" style={{position:'absolute',right:'-8vw',top:'50%',transform:'translateY(-50%)',width:'54vw',height:'54vw',pointerEvents:'none'}}>
+          <ellipse cx="300" cy="300" rx="198" ry="295" fill="none" stroke="rgba(206,164,55,0.06)" strokeWidth="0.8"/>
+          <ellipse cx="300" cy="300" rx="118" ry="295" fill="none" stroke="rgba(206,164,55,0.045)" strokeWidth="0.8"/>
+          <ellipse cx="300" cy="300" rx="295" ry="118" fill="none" stroke="rgba(206,164,55,0.04)" strokeWidth="0.8"/>
+        </svg>
+        <svg className="mer mer2" viewBox="0 0 600 600" style={{position:'absolute',right:'-8vw',top:'50%',transform:'translateY(-50%)',width:'54vw',height:'54vw',pointerEvents:'none'}}>
+          <ellipse cx="300" cy="300" rx="52" ry="295" fill="none" stroke="rgba(206,164,55,0.035)" strokeWidth="0.6"/>
+          <ellipse cx="300" cy="300" rx="295" ry="52" fill="none" stroke="rgba(206,164,55,0.035)" strokeWidth="0.6"/>
+        </svg>
+        <div className="hero-body">
+          <div className="eyebrow r"><div className="eyebrow-line"></div><span className="eyebrow-text">Trade Coordination · Africa · Middle East · Asia</span></div>
+          <h1 className="hero-h1 r" data-d="1">Corridors<br/>of <em>Trust</em></h1>
+          <p className="hero-sub r" data-d="2">Where Governance Meets Execution</p>
+          <p className="hero-desc r" data-d="3">A governance-led, asset-light, non-custodial Trade Coordination Layer — governing verification, execution, institutional trust, and corridor discipline across Africa, the Middle East, and Asia.</p>
+          <div className="hero-btns r" data-d="4">
+            <a href="#corridors" className="btn-gold"><span>Explore Corridors</span><svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></a>
+            <a href="#contact" className="btn-ghost-light">Institutional Inquiry</a>
           </div>
         </div>
-      </header>
+        <div className="hero-scroll"><div className="hero-scroll-line"></div><span className="hero-scroll-txt">Scroll</span></div>
+      </section>
 
-      <aside className="mobile-menu" ref={mobileMenuRef as React.RefObject<HTMLElement>} aria-hidden="true">
-        <ul>
-          <li><a href="#problem" onClick={toggleMenu}>Problem We Address</a></li>
-          <li><a href="#corridors" onClick={toggleMenu}>Corridors</a></li>
-          <li><a href="#approach" onClick={toggleMenu}>Operating Approach</a></li>
-          <li><a href="#gates" onClick={toggleMenu}>4-Gate Model</a></li>
-          <li><a href="#boundaries" onClick={toggleMenu}>Institutional Boundaries</a></li>
-          <li><a href="#pilot" onClick={toggleMenu}>Candidate Corridor</a></li>
-          <li><a href="#governance" onClick={toggleMenu}>Governance</a></li>
-          <li><a href="#arms" onClick={toggleMenu}>Strategic Arms</a></li>
-          <li><a href="#engage" onClick={toggleMenu}>Engage</a></li>
-        </ul>
-        <a href="#engage" className="btn btn-solid" onClick={toggleMenu}>Institutional Inquiry</a>
-      </aside>
+      <div className="stats">
+        <div className="stat r"><span className="stat-n">3</span><span className="stat-l">Continental Corridors</span></div>
+        <div className="stat r" data-d="1"><span className="stat-n">4</span><span className="stat-l">Institutional Gates</span></div>
+        <div className="stat r" data-d="2"><span className="stat-n">100%</span><span className="stat-l">Non-Custodial Structure</span></div>
+        <div className="stat r" data-d="3"><span className="stat-n">6</span><span className="stat-l">Strategic Arms</span></div>
+      </div>
 
-      <main id="main">
+      <div className="marquee">
+        <div className="marquee-track">
+          {[...Array(2)].map((_,i) => (
+            <span key={i} style={{display:'contents'}}>
+              {['Governance-Led','Verification-First','Asset-Light','Non-Custodial','Africa ⇄ Middle East ⇄ Asia','Four-Gate Protocol','Phase I — Foundation Stage','Counsel-Validated','Supreme Council Governed'].map((item,j) => (
+                <span className="mq-item" key={j}><span className="mq-dot"></span>{item}</span>
+              ))}
+            </span>
+          ))}
+        </div>
+      </div>
 
-        <section className="hero" id="hero" aria-label="SWAQAR Group introduction">
-          <div className="hero-bg" aria-hidden="true"></div>
-          <div className="hero-lines" aria-hidden="true">
-            <svg viewBox="0 0 1200 800" preserveAspectRatio="none">
-              <path d="M0,640 C300,580 600,620 900,540 C1050,500 1150,520 1200,480"/>
-              <path d="M0,520 C200,460 500,500 800,400 C1000,340 1100,360 1200,300"/>
-              <path d="M0,720 C350,680 700,700 1000,640 C1100,620 1180,610 1200,600"/>
+      <section className="identity" id="identity">
+        <div className="wrap">
+          <div className="id-inner">
+            <div>
+              <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">Institutional Identity</span></div>
+              <h2 className="sec-h r" data-d="1">A coordination layer,<br/>not a <em>counterparty</em>.</h2>
+              <p className="sec-p r" data-d="2">SWAQAR Group governs the institutional space between verified exporters, buyers, banks, logistics operators, and governments — coordinating without owning, verifying without brokering, connecting without custodying.</p>
+              <div className="pillars r" data-d="3">
+                <div className="pillar"><div className="pillar-name">Governance-Led</div><div className="pillar-desc">Supreme Council, Ethics &amp; Oversight Council, External Trustee Panel</div></div>
+                <div className="pillar"><div className="pillar-name">Verification-First</div><div className="pillar-desc">Every counterparty verified through licensed firms before engagement</div></div>
+                <div className="pillar"><div className="pillar-name">Asset-Light</div><div className="pillar-desc">No owned infrastructure, cargo, or capital positions at any stage</div></div>
+                <div className="pillar"><div className="pillar-name">Non-Custodial</div><div className="pillar-desc">SWAQAR never holds funds, title, or goods under any circumstance</div></div>
+              </div>
+            </div>
+            <div className="id-card r" data-d="2">
+              <div className="id-quote">&ldquo;SWAQAR coordinates without owning. Verifies without brokering. Connects without <strong>custodying.</strong>&rdquo;</div>
+              <div className="id-meta">
+                <div className="id-badge-circle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#CEA437" strokeWidth="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+                <div><div className="id-badge-name">SWAQAR Group</div><div className="id-badge-role">Founding Governance Doctrine</div></div>
+              </div>
+              <div className="id-medallion"><span className="id-medallion-n">I</span><span className="id-medallion-t">Foundation</span></div>
+            </div>
+          </div>
+          <div className="id-grid r">
+            <div className="id-col id-col-yes">
+              <div className="id-col-head">✦ — SWAQAR IS</div>
+              {['A governance-led Trade Coordination Layer','Verification-first across all corridors and counterparties','Asset-light and non-custodial by constitutional design','A coordination layer working above licensed operators — not replacing them','Governed by Supreme Council, Ethics & Oversight Council, and External Trustee Panel','Operating under counsel-validated legal and compliance frameworks','Phase I — Foundation Stage · Not yet operationally active','Built for a multi-decade institutional horizon'].map((t,i) => (
+                <div className="id-row" key={i}><div className="id-pip">—</div><span className="id-txt">{t}</span></div>
+              ))}
+            </div>
+            <div className="id-col id-col-no">
+              <div className="id-col-head">✕ — SWAQAR IS NOT</div>
+              {['A commodity trader, broker, or dealer of any kind','A bank, lender, escrow provider, or regulated financial institution','A logistics operator, freight company, or cargo owner','A marketplace, exchange, or transactional platform of any kind','A custodian or paymaster of any kind','A fintech, SaaS company, or speculative technology startup','A counterparty to any transaction it coordinates','An investment vehicle or capital-raising vehicle of any kind'].map((t,i) => (
+                <div className="id-row" key={i}><div className="id-pip">✕</div><span className="id-txt">{t}</span></div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="gold-rule"></div>
+
+      <section className="corridors" id="corridors">
+        <div className="wrap">
+          <div className="cor-head">
+            <div>
+              <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">Corridor Architecture</span></div>
+              <h2 className="sec-h r" data-d="1">Three regions.<br/><em>One coordination layer.</em></h2>
+            </div>
+            <p className="sec-p r" data-d="2" style={{maxWidth:'34ch',textAlign:'right'}}>SWAQAR coordinates verified trade flow across the three most strategically aligned regions in global South–South trade.</p>
+          </div>
+          <div className="cor-map-box r">
+            <svg viewBox="0 0 780 220" style={{width:'100%',maxWidth:'780px'}}>
+              <path d="M 155,110 Q 325,66 435,110 Q 545,154 615,110" fill="none" stroke="rgba(206,164,55,0.28)" strokeWidth="1.4" strokeDasharray="6 10"><animate attributeName="stroke-dashoffset" from="0" to="-80" dur="3s" repeatCount="indefinite"/></path>
+              <path d="M 155,110 Q 385,168 615,110" fill="none" stroke="rgba(206,164,55,0.10)" strokeWidth="1" strokeDasharray="4 8"/>
+              <circle cx="155" cy="110" r="10" fill="rgba(206,164,55,0.10)" stroke="rgba(206,164,55,0.40)" strokeWidth="1"/>
+              <circle cx="155" cy="110" r="4" fill="#CEA437"><animate attributeName="r" values="4;6.5;4" dur="2.5s" repeatCount="indefinite"/></circle>
+              <text x="155" y="132" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="7" fill="rgba(206,164,55,0.65)" letterSpacing="2">AFRICA</text>
+              <circle cx="435" cy="110" r="12" fill="rgba(206,164,55,0.14)" stroke="rgba(206,164,55,0.55)" strokeWidth="1.5"/>
+              <circle cx="435" cy="110" r="5" fill="#CEA437"><animate attributeName="r" values="5;8.5;5" dur="3s" repeatCount="indefinite"/></circle>
+              <text x="435" y="135" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="7" fill="rgba(206,164,55,0.75)" letterSpacing="2">MIDDLE EAST</text>
+              <circle cx="615" cy="110" r="10" fill="rgba(206,164,55,0.10)" stroke="rgba(206,164,55,0.40)" strokeWidth="1"/>
+              <circle cx="615" cy="110" r="4" fill="#CEA437"><animate attributeName="r" values="4;6.5;4" dur="2.8s" repeatCount="indefinite"/></circle>
+              <text x="615" y="132" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="7" fill="rgba(206,164,55,0.65)" letterSpacing="2">ASIA</text>
+              <text x="385" y="86" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="6.5" fill="rgba(206,164,55,0.30)" letterSpacing="3">SWAQAR COORDINATION LAYER</text>
             </svg>
           </div>
-          <div className="container hero-inner">
-            <div className="hero-grid">
-              <div className="hero-content reveal">
-                <div className="eyebrow">Corridors of Trust</div>
-                <h1 className="hero-title">A Trusted <span className="accent">Trade Coordination Layer</span><br/>for Africa — Middle East — Asia</h1>
-                <p className="hero-sub">A governance-led coordination institution for cross-regional trade corridors. Verification-first. Non-custodial. Built for institutional durability.</p>
-                <div className="hero-actions">
-                  <a href="#engage" className="btn btn-solid">Request Institutional Engagement</a>
-                  <a href="#corridors" className="btn btn-ghost">Explore the Coordination Layer</a>
-                </div>
-                <div className="hero-meta">
-                  <div><span className="label">Posture</span><span className="value">Non-Custodial · Asset-Light</span></div>
-                  <div><span className="label">Structure</span><span className="value">Governance-Led · Verification-First</span></div>
-                  <div><span className="label">Horizon</span><span className="value">Multi-Decade Institutional</span></div>
-                </div>
-              </div>
-              <div className="hero-visual reveal" aria-label="Corridor coordination visualization">
-                <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
-                  <defs><radialGradient id="ng" cx="50%" cy="50%" r="50%"><stop offset="0%" stopColor="#B8923A" stopOpacity="0.85"/><stop offset="100%" stopColor="#B8923A" stopOpacity="0"/></radialGradient></defs>
-                  <circle cx="80" cy="120" r="20" fill="url(#ng)"/><circle cx="320" cy="200" r="20" fill="url(#ng)"/><circle cx="200" cy="380" r="20" fill="url(#ng)"/>
-                  <circle className="corridor-node" cx="80" cy="120" r="3.5"/><circle className="corridor-node" cx="320" cy="200" r="3.5"/><circle className="corridor-node" cx="200" cy="380" r="3.5"/><circle className="corridor-node" cx="200" cy="240" r="5"/>
-                  <path className="corridor-line d1" d="M80,120 Q140,160 200,240"/>
-                  <path className="corridor-line d2" d="M320,200 Q260,220 200,240"/>
-                  <path className="corridor-line d3" d="M200,240 Q200,310 200,380"/>
-                  <text x="92" y="100" fontFamily="DM Mono" fontSize="9" fill="#B8923A" letterSpacing="2">AFRICA</text>
-                  <text x="332" y="182" fontFamily="DM Mono" fontSize="9" fill="#B8923A" letterSpacing="2">ASIA</text>
-                  <text x="148" y="408" fontFamily="DM Mono" fontSize="9" fill="#B8923A" letterSpacing="2">MIDDLE EAST</text>
-                  <text x="162" y="234" fontFamily="DM Mono" fontSize="7" fill="rgba(255,255,255,0.7)" letterSpacing="1.5">SWAQAR</text>
-                </svg>
-                <div className="visual-caption">Verification, documentation, synchronization across three regions — one coordination layer.</div>
+          <div className="cor-cards">
+            <div className="cor-card r"><div className="cor-reg">Africa Corridor</div><div className="cor-title">Origin &amp; Supply</div><div className="cor-body">Agricultural commodities, industrial minerals, and verified exporter networks. SWAQAR coordinates verification readiness and documentation alignment for African supply-side participants.</div><div className="cor-tags"><span className="cor-tag">Verified Exporters</span><span className="cor-tag">Documentation</span><span className="cor-tag">Corridor Readiness</span></div></div>
+            <div className="cor-card r" data-d="1"><div className="cor-reg">Middle East Corridor</div><div className="cor-title">Trust &amp; Capital Hub</div><div className="cor-body">The institutional anchor of the SWAQAR model. Trade finance coordination, sovereign engagement, and free zone interface. SWAQAR does not custody funds or act as financial principal.</div><div className="cor-tags"><span className="cor-tag">Trade Finance</span><span className="cor-tag">Sovereign Engagement</span><span className="cor-tag">Free Zone Interface</span></div></div>
+            <div className="cor-card r" data-d="2"><div className="cor-reg">Asia Corridor</div><div className="cor-title">Demand &amp; Industrial Scale</div><div className="cor-body">Verified offtake counterparties, institutional buyers, and industrial demand coordination. SWAQAR aligns documentation and governance readiness for Asia-side engagement.</div><div className="cor-tags"><span className="cor-tag">Verified Buyers</span><span className="cor-tag">Offtake Coordination</span><span className="cor-tag">Industrial Scale</span></div></div>
+          </div>
+        </div>
+      </section>
+
+      <div className="gold-rule"></div>
+
+      <section className="gates" id="model">
+        <div className="wrap">
+          <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">Corridor Entry Protocol</span></div>
+          <h2 className="sec-h r" data-d="1">Every coordinated corridor moves through<br/><em>four governance gates.</em></h2>
+          <p className="sec-p r" data-d="2">No corridor engagement proceeds until all four gates are passed. This is a constitutional governance requirement, not a process preference.</p>
+          <div className="gates-grid">
+            <div className="gate r"><div className="gate-n">I</div><div className="gate-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg></div><div className="gate-tag">Gate I</div><div className="gate-name">Counterparty Verification</div><div className="gate-desc">Every participant — exporter, buyer, logistics operator, financial intermediary — passes SWAQAR&apos;s verification protocol before any coordination mandate is issued.</div></div>
+            <div className="gate r" data-d="1"><div className="gate-n">II</div><div className="gate-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 12h6M9 16h6M9 8h6M5 4h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5a1 1 0 011-1z"/></svg></div><div className="gate-tag">Gate II</div><div className="gate-name">Documentation Readiness</div><div className="gate-desc">All trade documentation must meet SWAQAR&apos;s standard prior to corridor activation. A counsel-reviewed documentation package is required in full before Gate II closes.</div></div>
+            <div className="gate r" data-d="2"><div className="gate-n">III</div><div className="gate-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 2l10 5v5c0 5.55-3.84 10.74-10 12C5.84 22.74 2 17.55 2 12V7l10-5z"/></svg></div><div className="gate-tag">Gate III</div><div className="gate-name">Governance Alignment</div><div className="gate-desc">The corridor structure must align to SWAQAR&apos;s governance architecture and applicable legal frameworks across all participating jurisdictions. Supreme Council confirmation required.</div></div>
+            <div className="gate r" data-d="3"><div className="gate-n">IV</div><div className="gate-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><div className="gate-tag">Gate IV</div><div className="gate-name">Execution Mandate</div><div className="gate-desc">Only after Gates I–III are cleared does SWAQAR issue a formal Execution Mandate. This governs the coordination engagement and defines the boundaries of SWAQAR&apos;s role.</div></div>
+          </div>
+        </div>
+      </section>
+
+      <div className="gold-rule"></div>
+
+      <section className="arms" id="arms">
+        <div className="wrap">
+          <div className="arms-inner">
+            <div>
+              <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">Institutional Architecture</span></div>
+              <h2 className="sec-h r" data-d="1">Six strategic arms.<br/><em>One institutional mission.</em></h2>
+              <div style={{marginTop:'36px'}}>
+                {[
+                  ['01','Industrial Trade Development','Commodity corridor development, supply-side verification, and industrial trade readiness coordination across Africa ⇄ Middle East ⇄ Asia.'],
+                  ['02','Capital & Trade Finance Coordination','Facilitating access to licensed trade finance institutions. SWAQAR does not custody funds or act as financial principal under any circumstance.'],
+                  ['03','Infrastructure & Logistics Coordination','Coordinating timing signals, documentation alignment, and synchronization context for licensed logistics operators. SWAQAR does not own or operate logistics infrastructure.'],
+                  ['04','Intelligence & Research','Corridor intelligence, market signals, counterparty risk data, and regulatory monitoring as a standing institutional function — lawfully gathered, ethically sourced.'],
+                  ['05','Digital Systems','Governance-layer digital coordination: documentation and verification management. Counsel-validated, governance-aligned. Standardise before digitise.'],
+                  ['06','Institutional Advisory','Government, ministry, and institutional counterpart engagement at sovereign-grade discretion. Non-substitution discipline preserved.']
+                ].map(([n,name,desc]) => (
+                  <div className="arm r" key={n}><span className="arm-n">{n}</span><div><div className="arm-name">{name}</div><div className="arm-desc">{desc}</div></div></div>
+                ))}
               </div>
             </div>
-          </div>
-          <div className="scroll-hint" aria-hidden="true"><span>SCROLL</span><span className="ln"></span></div>
-        </section>
-
-        <div className="trust-strip">
-          <div className="container">
-            <div className="trust-grid reveal-stagger">
-              <div className="trust-item"><svg className="trust-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M16 4l10 5v8c0 5-4 9-10 11C10 26 6 22 6 17V9l10-5z"/></svg><h4>Governance-Led</h4><p>Supreme Council, Ethics &amp; Oversight Council, External Trustee Panel as standing institutional surface.</p></div>
-              <div className="trust-item"><svg className="trust-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="16" cy="16" r="10"/><path d="M11 16l4 4 7-8"/></svg><h4>Verification-First</h4><p>Every counterparty verified through licensed firms before any corridor engagement proceeds.</p></div>
-              <div className="trust-item"><svg className="trust-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M8 12h16M8 16h16M8 20h10"/><rect x="4" y="6" width="24" height="22" rx="1"/></svg><h4>Non-Custodial</h4><p>SWAQAR holds no funds, cargo, or title at any stage of any corridor engagement.</p></div>
-              <div className="trust-item"><svg className="trust-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M6 16h4l4-8 4 16 4-10 3 6h5"/></svg><h4>Asset-Light</h4><p>No owned logistics infrastructure, cargo, or capital positions. Coordination without ownership.</p></div>
-              <div className="trust-item"><svg className="trust-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="16" cy="16" r="10"/><path d="M16 10v6l4 3"/></svg><h4>Multi-Decade Horizon</h4><p>Built for institutional durability — corridor credibility compounds over time, not transaction volume.</p></div>
+            <div className="abx r" data-d="2">
+              <div className="abx-tag">Institutional Foundation</div>
+              <div className="abx-h">Built for a multi-decade institutional horizon.</div>
+              <div className="abx-p">SWAQAR is not a startup seeking scale. It is a coordination institution being built to last — verification-governed, governance-anchored, designed to compound institutional credibility over time, not transaction volume.</div>
+              <div className="abx-metrics">
+                <div className="abx-m"><div className="abx-mv">Phase I</div><div className="abx-ml">Foundation Stage</div></div>
+                <div className="abx-m"><div className="abx-mv">IV Gates</div><div className="abx-ml">Entry Protocol</div></div>
+                <div className="abx-m"><div className="abx-mv">3</div><div className="abx-ml">Corridor Regions</div></div>
+                <div className="abx-m"><div className="abx-mv">100%</div><div className="abx-ml">Non-Custodial</div></div>
+              </div>
             </div>
           </div>
         </div>
+      </section>
 
-        <section id="problem" style={{background:'var(--bg)'}}>
-          <div className="container">
-            <div className="section-head reveal">
-              <div className="eyebrow">The Problem We Address</div>
-              <h2>Cross-regional trade does not fail for lack of goods.<br/>It fails for lack of <span className="accent">trusted coordination infrastructure</span>.</h2>
-              <p className="lede">The institutional gap is not supply. It is not demand. It is the absence of a governed, verified coordination layer capable of holding the institutional surface across Africa, the Middle East, and Asia.</p>
-            </div>
-            <div className="problem-grid reveal-stagger">
-              <div className="problem-card"><span className="pm">Gap 01</span><h4>No Verified Counterparty Layer</h4><p>Exporters and buyers lack institutional-grade verification infrastructure. Counterparty risk is managed informally, if at all.</p></div>
-              <div className="problem-card"><span className="pm">Gap 02</span><h4>Documentation Fragmentation</h4><p>Trade documentation is jurisdiction-specific, unsynchronized, and institutionally disconnected across corridors.</p></div>
-              <div className="problem-card"><span className="pm">Gap 03</span><h4>Absent Governance Layer</h4><p>No standing institutional body governs corridor integrity, escalates material matters, or preserves reputational discipline across participants.</p></div>
-              <div className="problem-card"><span className="pm">Gap 04</span><h4>Institutional Trust Deficit</h4><p>Banks, governments, and trade finance institutions require institutional-grade counterpart trust that current corridor structures cannot provide.</p></div>
-            </div>
+      <div className="gold-rule"></div>
+
+      <section className="gov" id="governance">
+        <div className="wrap">
+          <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">Governance Structure</span></div>
+          <h2 className="sec-h r" data-d="1">Three layers of institutional<br/><em>governance oversight.</em></h2>
+          <div className="gov-grid">
+            <div className="gov-card r"><div className="gov-name">Supreme Council</div><div className="gov-desc">The highest governance authority. Oversees constitutional mandate, reserved matters, and institutional continuity. Supermajority required on all mission-critical decisions.</div></div>
+            <div className="gov-card r" data-d="1"><div className="gov-name">Ethics &amp; Oversight Council</div><div className="gov-desc">Independent institutional review body responsible for ethical governance, mission alignment, and counterparty conduct standards across all corridor engagements.</div></div>
+            <div className="gov-card r" data-d="2"><div className="gov-name">External Trustee Panel</div><div className="gov-desc">Senior external advisors providing independent institutional oversight. Ensures non-substitution discipline and multi-jurisdictional governance accountability.</div></div>
           </div>
-        </section>
-
-        <section id="corridors" style={{background:'var(--bg)'}}>
-          <div className="container">
-            <div className="section-head reveal">
-              <div className="eyebrow">Corridor Architecture</div>
-              <h2>Three regions. <span className="accent">One coordination layer.</span></h2>
-              <p className="lede">SWAQAR coordinates verified trade flow across the three most strategically aligned regions in global South–South trade — without owning, brokering, or operating any part of the corridor.</p>
-            </div>
-            <div className="cmw reveal">
-              <svg className="cms" viewBox="0 0 780 240">
-                <rect width="780" height="240" fill="none"/>
-                <path d="M 160,120 Q 330,72 440,120 Q 550,168 620,120" fill="none" stroke="rgba(184,146,58,0.35)" strokeWidth="1.4" strokeDasharray="6 10"><animate attributeName="stroke-dashoffset" from="0" to="-80" dur="3s" repeatCount="indefinite"/></path>
-                <path d="M 160,120 Q 390,180 620,120" fill="none" stroke="rgba(184,146,58,0.12)" strokeWidth="1" strokeDasharray="4 8"/>
-                <circle cx="160" cy="120" r="11" fill="rgba(184,146,58,0.1)" stroke="rgba(184,146,58,0.4)" strokeWidth="1"/>
-                <circle cx="160" cy="120" r="4.5" fill="#B8923A"><animate attributeName="r" values="4.5;7;4.5" dur="2.5s" repeatCount="indefinite"/></circle>
-                <text x="160" y="144" textAnchor="middle" fontFamily="DM Mono,monospace" fontSize="7" fill="rgba(184,146,58,0.7)" letterSpacing="2">AFRICA</text>
-                <circle cx="440" cy="120" r="13" fill="rgba(184,146,58,0.15)" stroke="rgba(184,146,58,0.5)" strokeWidth="1.5"/>
-                <circle cx="440" cy="120" r="5.5" fill="#B8923A"><animate attributeName="r" values="5.5;9;5.5" dur="3s" repeatCount="indefinite"/></circle>
-                <text x="440" y="147" textAnchor="middle" fontFamily="DM Mono,monospace" fontSize="7" fill="rgba(184,146,58,0.7)" letterSpacing="2">MIDDLE EAST</text>
-                <circle cx="620" cy="120" r="11" fill="rgba(184,146,58,0.1)" stroke="rgba(184,146,58,0.4)" strokeWidth="1"/>
-                <circle cx="620" cy="120" r="4.5" fill="#B8923A"><animate attributeName="r" values="4.5;7;4.5" dur="2.8s" repeatCount="indefinite"/></circle>
-                <text x="620" y="144" textAnchor="middle" fontFamily="DM Mono,monospace" fontSize="7" fill="rgba(184,146,58,0.7)" letterSpacing="2">ASIA</text>
-                <text x="390" y="94" textAnchor="middle" fontFamily="DM Mono,monospace" fontSize="6.5" fill="rgba(184,146,58,0.35)" letterSpacing="3">SWAQAR COORDINATION LAYER</text>
-              </svg>
-            </div>
-            <div className="cl reveal-stagger">
-              <div className="li sw"><div className="lt">Africa Corridor</div><h4>Origin &amp; Supply</h4><p>Agricultural commodities, industrial minerals, and verified exporter networks coordinated for corridor readiness.</p></div>
-              <div className="li"><div className="lt">Middle East Corridor</div><h4>Trust &amp; Capital Hub</h4><p>Trade finance coordination, sovereign engagement, and free zone interface. SWAQAR does not custody funds.</p></div>
-              <div className="li"><div className="lt">Asia Corridor</div><h4>Demand &amp; Industrial Scale</h4><p>Verified offtake counterparties and institutional buyers coordinated for governance-aligned engagement.</p></div>
-              <div className="li"><div className="lt">Coordination Layer</div><h4>SWAQAR</h4><p>Governs the institutional surface across all three corridors — verification, documentation, synchronization.</p></div>
-            </div>
+          <div className="gov-note r">
+            <div className="gov-note-tag">Governance Position</div>
+            <div className="gov-note-txt">All corridor activation is subject to Supreme Council mandate and counsel-validated legal review. SWAQAR Group is currently in Phase I — Foundation Stage and is not yet operationally active. Nothing on this site constitutes a financial solicitation, investment advice, or offer of any regulated service.</div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section id="approach" style={{background:'var(--bg)'}}>
-          <div className="container">
-            <div className="section-head reveal">
-              <div className="eyebrow">Operating Approach</div>
-              <h2>How SWAQAR <span className="accent">coordinates</span> without owning.</h2>
-              <p className="lede">SWAQAR&apos;s operating model is defined by what it governs and what it does not touch. The coordination layer operates above licensed parties — synchronizing, verifying, and governing without substituting.</p>
-            </div>
-            <div className="apg reveal-stagger">
-              <div className="fn"><div className="fm">I</div><div className="fl">Foundation</div><h3>Verification Governance</h3><p>Licensed verification firms perform regulated due diligence. SWAQAR governs the verification mandate — it does not perform or substitute for regulated verification activity.</p></div>
-              <div className="fn"><div className="fm">II</div><div className="fl">Foundation</div><h3>Documentation Coordination</h3><p>Counsel-validated documentation frameworks coordinated across counterparties and jurisdictions. SWAQAR standardizes — licensed parties execute under their own authority.</p></div>
-              <div className="fn"><div className="fm">III</div><div className="fl">Foundation</div><h3>Institutional Synchronization</h3><p>Live coordination across exporters, buyers, banks, logistics operators, and governments. One institutional voice governing the corridor surface.</p></div>
-              <div className="fn"><div className="fm">IV</div><div className="fl">Foundation</div><h3>Governance Oversight</h3><p>Material matters surface through constitutional escalation. Routine deviations operate within governance-set parameters. The institutional record is preserved.</p></div>
-            </div>
-            <div className="an">SWAQAR coordinates without owning. Verifies without brokering. Connects without custodying. Every licensed activity remains with the licensed party under their own regulatory authority.</div>
-          </div>
-        </section>
+      <div className="gold-rule"></div>
 
-        <section id="gates" style={{background:'var(--bg-soft)'}}>
-          <div className="container">
-            <div className="section-head reveal">
-              <div className="eyebrow">Corridor Coordination Model</div>
-              <h2>Every coordinated corridor moves through <span className="accent">four institutional gates</span>.</h2>
-              <p className="lede">Each gate has a defined purpose, governance-closing authority, and gate-pass criteria. No corridor proceeds until all gates are cleared.</p>
+      <section className="contact" id="contact">
+        <div className="wrap">
+          <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">Institutional Inquiry</span></div>
+          <div className="con-inner">
+            <div>
+              <h2 className="sec-h r" data-d="1" style={{color:'#fff'}}>Submit a governed<br/><em>institutional inquiry.</em></h2>
+              <p className="sec-p r" data-d="2" style={{color:'rgba(255,255,255,0.45)',marginBottom:'40px'}}>All inquiries reviewed against counterparty eligibility criteria. Submission does not initiate an engagement or create any obligation.</p>
+              <div className="con-grp r" data-d="2"><label className="con-lbl">Legal Entity Name</label><input className="con-input" type="text" placeholder="Full registered legal name"/></div>
+              <div className="con-grp r" data-d="2"><label className="con-lbl">Jurisdiction of Incorporation</label><input className="con-input" type="text" placeholder="Country or jurisdiction"/></div>
+              <div className="con-grp r" data-d="3"><label className="con-lbl">Engagement Category</label><select className="con-sel"><option value="">Select category</option><option>Government &amp; Ministry</option><option>Bank &amp; Trade Finance Institution</option><option>Verified Exporter or Buyer</option><option>Capital &amp; Strategic Partner</option><option>Licensed Logistics or Infrastructure Operator</option></select></div>
+              <div className="con-grp r" data-d="3"><label className="con-lbl">Nature of Inquiry</label><textarea className="con-area" placeholder="Describe the institutional engagement purpose. Be specific."></textarea></div>
+              <p className="con-disc r" data-d="4">All inquiries are reviewed against SWAQAR&apos;s counterparty eligibility criteria before any response is issued. Submission does not initiate an engagement, create contractual obligation, or constitute regulated advice of any kind.</p>
+              <button className="btn-gold r" data-d="4" style={{width:'100%',justifyContent:'center'}}>Submit Institutional Inquiry</button>
             </div>
-            <div className="gf reveal-stagger">
-              <article className="gate"><div className="gn">01</div><div className="gl">Gate One</div><h3>Verification</h3><p>Counterparty status, regulatory standing, and corridor-specific compliance posture verified through licensed firms under counsel-validated due diligence.</p></article>
-              <article className="gate"><div className="gn">02</div><div className="gl">Gate Two</div><h3>Documentation</h3><p>Counterparty, regulatory, financial, verification, and logistics documentation coordinated under counsel-validated framework per jurisdiction.</p></article>
-              <article className="gate"><div className="gn">03</div><div className="gl">Gate Three</div><h3>Coordination</h3><p>Live institutional synchronization across counterparties: sequencing, dependency, communication, and visibility maintained as standing condition.</p></article>
-              <article className="gate"><div className="gn">04</div><div className="gl">Gate Four</div><h3>Escalation &amp; Oversight</h3><p>Material matters surface through institutional escalation; routine deviations operate within governance-set parameters; record preserved.</p></article>
-            </div>
-          </div>
-        </section>
-
-        <section id="boundaries" style={{background:'var(--bg)'}}>
-          <div className="container">
-            <div className="section-head reveal">
-              <div className="eyebrow">Institutional Boundaries</div>
-              <h2>What SWAQAR <span className="accent">does</span>, and what it does not.</h2>
-              <p className="lede">Boundary clarity protects counterparties and the institution. The lines below are constitutional and operate continuously across every engagement.</p>
-            </div>
-            <div className="bg2 reveal">
-              <div className="bc does"><h3><span className="mk">[ + SWAQAR DOES ]</span></h3><ul><li>Coordinates trade execution across institutional counterparts</li><li>Verifies counterparties through licensed verification firms</li><li>Standardizes workflows and corridor documentation</li><li>Synchronizes corridor stakeholders under one institutional voice</li><li>Strengthens institutional trust as corridor infrastructure</li><li>Operates governance oversight across the corridor lifecycle</li></ul></div>
-              <div className="bc dn"><h3><span className="mk">[ − SWAQAR DOES NOT ]</span></h3><ul><li>Buy, sell, or take title to any commodity at any point</li><li>Custody funds, transfer value, or finance as principal</li><li>Own, charter, or operate any logistics fleet or infrastructure</li><li>Act as broker, agent, or commercial intermediary</li><li>Replace banks, customs authorities, or licensed operators</li><li>Guarantee payment, delivery, or any commercial outcome</li></ul></div>
-            </div>
-          </div>
-        </section>
-
-        <section id="identity-guard" style={{background:'var(--bg-soft)'}}>
-          <div className="container">
-            <div className="section-head reveal">
-              <div className="eyebrow">Category Clarity</div>
-              <h2>The category is defined by what <span className="accent">the institution is not</span> as much as what it is.</h2>
-              <p className="lede">These boundaries are constitutional operating reality — not marketing language. They are enforced through institutional governance, not personal preference.</p>
-            </div>
-            <div className="ig-grid reveal">
-              <div className="ig-col ig-col-is">
-                <h3><span className="ig-dot" aria-hidden="true"></span>SWAQAR Group Is</h3>
-                <ul>
-                  <li>A Trade Coordination Layer — governance, verification, documentation, and execution coordination</li>
-                  <li>Asset-light and non-custodial by constitutional design</li>
-                  <li>Verification-governed across all corridors and counterparties</li>
-                  <li>A coordination layer working above licensed operators — not replacing them</li>
-                  <li>Constitutionally governed through Supreme Council, Ethics &amp; Oversight Council, and External Trustee Panel</li>
-                  <li>Multi-decade in institutional horizon — corridor durability over transactional volume</li>
-                  <li>Fee-for-coordination; disclosed, mission-aligned revenue model</li>
-                </ul>
-              </div>
-              <div className="ig-col ig-col-not">
-                <h3><span className="ig-dot" aria-hidden="true"></span>SWAQAR Group Is Not</h3>
-                <ul>
-                  <li>A commodity trader — does not buy, sell, or hold title to goods</li>
-                  <li>A broker — licensed parties contract directly with each other</li>
-                  <li>A marketplace or transactional platform of any kind</li>
-                  <li>A bank, fund manager, or regulated financial institution</li>
-                  <li>A logistics operator, freight company, or cargo owner</li>
-                  <li>A custodian, escrow provider, or paymaster</li>
-                  <li>A lender, investment platform, or capital vehicle</li>
-                  <li>A SaaS platform, fintech company, or speculative technology startup</li>
-                </ul>
+            <div className="r" data-d="2">
+              <div className="con-info-h">Engage SWAQAR at institutional standard.</div>
+              <div className="con-info-p">SWAQAR Group operates under strict counterparty verification and engagement protocols. Institutional engagement begins with verification, proceeds through the Four-Gate Model, and is governed at every stage by the Supreme Council mandate.</div>
+              <div className="con-details">
+                <div className="con-detail"><div className="con-detail-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div><div><div className="con-detail-lbl">Headquarters</div><div className="con-detail-val">Jeddah, Kingdom of Saudi Arabia</div></div></div>
+                <div className="con-detail"><div className="con-detail-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div><div className="con-detail-lbl">Engagement Type</div><div className="con-detail-val">Institutional counterparts only. No retail engagement accepted.</div></div></div>
+                <div className="con-detail"><div className="con-detail-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div><div className="con-detail-lbl">Current Stage</div><div className="con-detail-val">Phase I — Foundation. Not yet operationally active.</div></div></div>
+                <div className="con-detail"><div className="con-detail-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg></div><div><div className="con-detail-lbl">Legal Position</div><div className="con-detail-val">Subject to counsel-validated legal and regulatory review in all applicable jurisdictions.</div></div></div>
               </div>
             </div>
           </div>
-        </section>
-
-        <section id="pilot" style={{background:'var(--bg)'}}>
-          <div className="container">
-            <div className="section-head reveal">
-              <div className="eyebrow">Candidate Corridor Preparation</div>
-              <h2>How a coordinated transaction moves through <span className="accent">institutional discipline</span>.</h2>
-              <p className="lede">The stages below illustrate the institutional mechanics under which SWAQAR would coordinate a hypothetical corridor transaction. No specific transaction or party is represented.</p>
-            </div>
-            <div className="pd reveal"><span className="dm">Governance Note</span><span>This section illustrates the <strong>candidate corridor preparation structure</strong> SWAQAR Group is building toward. No corridor is currently operational. No pilot has been confirmed. This is a governance-architecture illustration only — subject to counsel-validated legal, regulatory, and governance review before any corridor activation proceeds.</span></div>
-            <div className="pf reveal-stagger">
-              <article className="ps"><div className="sm">I</div><div className="sl">Stage 01</div><h4>Qualification</h4><p>Counterparties move through the institutional qualification gate. Engagement is counsel-validated, governance-ratified, and by-invitation.</p></article>
-              <article className="ps"><div className="sm">II</div><div className="sl">Stage 02</div><h4>Verification</h4><p>Licensed verification firms perform regulated due diligence. Outputs are integrated into the institutional coordination record under counsel-validated discipline.</p></article>
-              <article className="ps"><div className="sm">III</div><div className="sl">Stage 03</div><h4>Coordination</h4><p>Live institutional synchronization across counterparties. Licensed parties perform their licensed activities; SWAQAR coordinates the institutional surface across them.</p></article>
-              <article className="ps"><div className="sm">IV</div><div className="sl">Stage 04</div><h4>Oversight &amp; Closure</h4><p>Material matters surface through institutional escalation. The coordination record is preserved; institutional learning is captured; reputational standing is maintained.</p></article>
-            </div>
-            <p className="pn">For demonstration purposes only. SWAQAR coordinates the institutional context; licensed parties perform principal commercial, financial, operating, verification, and regulatory activities under their own authority.</p>
-          </div>
-        </section>
-
-        <section id="governance" style={{background:'var(--bg-soft)'}}>
-          <div className="container">
-            <div className="gg">
-              <div className="reveal">
-                <div className="eyebrow">Governance Architecture</div>
-                <h2>Trust is institutional infrastructure — <span className="accent">built across cycles</span>.</h2>
-                <p style={{marginTop:'18px',maxWidth:'54ch',color:'var(--text-muted)',fontSize:'0.93rem'}}>Governance is the operating substrate of the institution, not a compliance overlay. Material decisions move through constitutional procedure. Counterparties engage an institution they can hold institutionally accountable through standing bodies, counsel of record, and reserved-matter discipline.</p>
-                <div className="gps">
-                  <div className="pl"><div className="pn2">01</div><div><h4>Verification-First Structure</h4><p>Continuous verification through licensed firms; verification integrity sustained as standing corridor condition.</p></div></div>
-                  <div className="pl"><div className="pn2">02</div><div><h4>Non-Custodial Model</h4><p>Constitutional perimeter: no custody of funds, goods, title, or documents at any point in any corridor.</p></div></div>
-                  <div className="pl"><div className="pn2">03</div><div><h4>Governance Discipline</h4><p>Supreme Council, Ethics &amp; Oversight Council, External Trustee Panel, and counsel of record as standing surface.</p></div></div>
-                  <div className="pl"><div className="pn2">04</div><div><h4>Compliance Orientation</h4><p>Compliance operated per jurisdiction under counsel-validated discipline, aligned with licensed partner frameworks.</p></div></div>
-                  <div className="pl"><div className="pn2">05</div><div><h4>Corridor Safeguards</h4><p>Reciprocal reputation discipline; sovereign-grade discretion; stop-scaling discipline preserved across every phase.</p></div></div>
-                </div>
-              </div>
-              <div className="gv reveal" aria-label="Governance architecture diagram">
-                <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
-                  <defs><radialGradient id="gg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stopColor="#B8923A" stopOpacity="0.3"/><stop offset="100%" stopColor="#B8923A" stopOpacity="0"/></radialGradient></defs>
-                  <circle cx="200" cy="250" r="160" fill="url(#gg1)"/>
-                  <circle cx="200" cy="250" r="140" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1" strokeDasharray="2 4"/>
-                  <circle cx="200" cy="250" r="100" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="1"/>
-                  <circle cx="200" cy="250" r="60" fill="none" stroke="#B8923A" strokeWidth="1"/>
-                  <g fill="#B8923A"><circle cx="200" cy="110" r="4"/><circle cx="340" cy="250" r="4"/><circle cx="200" cy="390" r="4"/><circle cx="60" cy="250" r="4"/></g>
-                  <rect x="180" y="230" width="40" height="40" fill="rgba(17,40,71,0.8)" stroke="#B8923A" strokeWidth="1"/>
-                  <text x="200" y="256" textAnchor="middle" fontFamily="Playfair Display" fontSize="13" fontStyle="italic" fill="#B8923A">SWAQAR</text>
-                  <text x="200" y="96" textAnchor="middle" fontFamily="DM Mono" fontSize="7.5" letterSpacing="1.5" fill="rgba(255,255,255,0.4)">SUPREME COUNCIL</text>
-                  <text x="348" y="244" textAnchor="start" fontFamily="DM Mono" fontSize="7.5" letterSpacing="1.5" fill="rgba(255,255,255,0.4)">ETHICS</text>
-                  <text x="200" y="408" textAnchor="middle" fontFamily="DM Mono" fontSize="7.5" letterSpacing="1.5" fill="rgba(255,255,255,0.4)">TRUSTEE PANEL</text>
-                  <text x="52" y="244" textAnchor="end" fontFamily="DM Mono" fontSize="7.5" letterSpacing="1.5" fill="rgba(255,255,255,0.4)">COUNSEL</text>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="engage" className="engage-section">
-          <div className="container">
-            <div className="eyebrow">Institutional Engagement</div>
-            <div className="engw">
-              <div className="engt">
-                <h2>Engage SWAQAR at <span className="accent">institutional standard</span>.</h2>
-                <p>SWAQAR Group is currently in Phase I — Foundation Stage and is not yet operationally active. All corridor activation is subject to completion of the Four-Gate Model and Supreme Council mandate. Institutional engagement begins with qualification and counsel-validated due diligence.</p>
-              </div>
-              <div className="enga">
-                <a href="#contact" className="btn btn-solid">Submit Institutional Inquiry</a>
-                <a href="#governance" className="btn btn-ghost">Review Governance Structure</a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="contact" className="contact-section">
-          <div className="container">
-            <div className="cg">
-              <aside className="ca">
-                <div className="eyebrow">Institutional Inquiry</div>
-                <h2>Submit a governed institutional inquiry.</h2>
-                <p>All inquiries are reviewed against SWAQAR&apos;s counterparty eligibility criteria. Submission does not initiate an engagement or create any obligation.</p>
-                <div className="cdet2">
-                  <div className="dr"><span className="lbl">Headquarters</span><span className="val">Jeddah, Kingdom of Saudi Arabia</span></div>
-                  <div className="dr"><span className="lbl">Engagement Type</span><span className="val">Institutional counterparts only</span></div>
-                  <div className="dr"><span className="lbl">Current Stage</span><span className="val">Phase I — Foundation. Not yet operationally active.</span></div>
-                  <div className="dr"><span className="lbl">Legal Position</span><span className="val">Subject to counsel-validated legal review in all applicable jurisdictions.</span></div>
-                </div>
-              </aside>
-              <form className="cf reveal" onSubmit={(e) => { e.preventDefault(); const btn = e.currentTarget.querySelector('button[type="submit"]') as HTMLButtonElement; if(btn){const orig=btn.innerHTML;btn.innerHTML='Inquiry Received — Under Institutional Review';btn.disabled=true;setTimeout(()=>{(e.target as HTMLFormElement).reset();btn.innerHTML=orig;btn.disabled=false;},3200);} }} noValidate>
-                <div className="ff"><div className="phase-notice"><div className="phase-dot"></div><div><div className="phase-notice-label">Phase I — Foundation Stage</div><div className="phase-notice-body">SWAQAR Group is currently in Phase I — Foundation Stage and is not yet operationally active. All corridor activation is subject to completion of the Four-Gate Model and Supreme Council mandate. Submission of this form does not initiate an engagement or create any commitment on the part of SWAQAR Group.</div></div></div></div>
-                <div><label htmlFor="fn">Full Name *</label><input type="text" id="fn" name="name" required autoComplete="name"/></div>
-                <div><label htmlFor="org">Organisation *</label><input type="text" id="org" name="organisation" required/></div>
-                <div><label htmlFor="role">Role / Title *</label><input type="text" id="role" name="role" required/></div>
-                <div><label htmlFor="email">Institutional Email *</label><input type="email" id="email" name="email" required autoComplete="email"/></div>
-                <div><label htmlFor="country">Country / Jurisdiction *</label><input type="text" id="country" name="country" required/></div>
-                <div><label htmlFor="website">Organisation Website</label><input type="url" id="website" name="website" placeholder="https://"/></div>
-                <div className="ff"><label htmlFor="itype">Inquiry Type *</label><select id="itype" name="inquiry_type" required><option value="">Select inquiry category</option><option>Government / Ministerial Engagement</option><option>Banking / Trade-Finance Coordination</option><option>Exporter / Buyer Corridor Participation</option><option>Logistics / Infrastructure Partnership</option><option>Verification / Compliance Partnership</option><option>Industrial Stakeholder Engagement</option><option>Institutional Capital Partner Engagement</option><option>Other Institutional Inquiry</option></select></div>
-                <div className="ff"><label htmlFor="msg">Institutional Purpose of Engagement *</label><textarea id="msg" name="message" required placeholder="Briefly describe the institutional purpose. Counsel-validated due diligence will follow under standing institutional procedure."></textarea></div>
-                <div className="fdis">By submitting this inquiry you acknowledge that institutional engagement with SWAQAR Group is subject to qualification, counsel-validated due diligence per jurisdiction, and institutional governance approval. Nothing in this form constitutes an offer, solicitation, or institutional commitment of any kind.</div>
-                <div className="sr"><button type="submit" className="btn btn-solid">Submit Institutional Inquiry</button></div>
-              </form>
-            </div>
-          </div>
-        </section>
-
-      </main>
+        </div>
+      </section>
 
       <footer>
-        <div className="container">
-          <div className="ft">
-            <div className="fb">
-              <div className="logo">
-                <span className="logo-rule" aria-hidden="true"></span>
-                <span className="logo-stack">
-                  <span className="logo-name">SWAQAR <em>GROUP</em></span>
-                  <span className="logo-tag">Corridors of Trust</span>
-                </span>
+        <div className="wrap">
+          <div className="foot-inner">
+            <div>
+              <div className="foot-mark">
+                <svg className="foot-mark-svg" viewBox="508 252 1024 900" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path fill="#CEA437" d="M917.74,952.98c4.78-0.46,9.55-0.93,14.33-1.39c6.44-0.49,12.88-1.11,19.33-1.43c25.94-1.31,51.9-2.34,77.88-2.62c47.48-0.51,94.95,0.16,142.38,2.41c22.77,1.08,45.55,2.3,68.28,4.07c21.07,1.64,42.08,3.97,63.01,7.01c3.94,0.95,7.88,1.9,11.82,2.85c-3.55-2.77-7.73-3.62-11.85-4.67c-6.68-2.03-13.36-4.1-20.05-6.1c-22.04-6.58-44.49-11.42-67.18-15.06c-4.25-0.68-5.69-2.26-5.49-6.66c0.37-8.31,0.03-16.66,0.03-24.99c-0.02-51.99-0.05-103.99,0.04-155.98c0.01-3.5-0.49-4.93-4.52-4.76c-8.48,0.37-17,0.33-25.48-0.04c-3.96-0.17-4.63,1.18-4.59,4.75c0.19,15,0.08,29.99,0.08,44.99c-0.01,44.33-0.02,88.65-0.05,132.98c0,2.01,0.69,4.89-3.06,3.86c-2.52-0.69-6.79,1.58-6.51-4.13c0.31-6.48,0.02-12.99,0.03-19.49c0.09-52.82,0.15-105.65,0.35-158.47c0.01-3.42-0.81-4.5-4.33-4.39c-8.16,0.26-16.34,0.3-24.49-0.06c-4.46-0.2-5.77,1.01-5.76,5.66c0.21,57.49,0.12,114.98,0.35,172.48c0.02,4.57-1.16,5.53-5.47,5.25c-29.78-1.94-59.6-1.9-89.42-1.93c-3.65,0-7.3-0.16-10.95-0.25c2.43-1.03,4.81-2.18,7.29-3.06c20.54-7.3,40.69-15.49,58.76-27.94c14.43-9.95,25.93-21.26,24.23-41.39c-1.47-17.44-14.89-33.77-32.83-36.73c-11.76-5.64-24.32-9-36.65-13.02c-8.88-2.9-17.63-6.15-25.46-11.34c-9.31-6.16-9.94-14.45-1.6-21.81c5.27-4.65,11.41-8.04,17.86-10.84c19.76-8.56,40.31-14.55,61.23-19.54c39.29-9.38,78.92-14.05,119.28-9.65c3.69,0.4,3.99-0.95,3.96-3.97c-0.11-14.16-0.04-28.32,0-42.48c0.01-3-0.58-6.12,1.71-8.8c-8.87,5.69-18.19,10.05-27.51,14.34c-38.47,17.69-78.65,30.69-118.97,43.34c-26.16,8.21-52.77,15.03-78.29,25.26c-11.99,4.8-23.28,10.75-32.42,20.11c-10.9,11.15-11.62,24.96-1.83,36.31c4.98,5.77,11.36,9.73,18.14,13.03c12.01,5.85,24.86,9.4,37.51,13.5c9.16,2.97,18.5,5.84,25.72,12.72c5.91,5.63,5.92,12.06,0.36,18.04c-4.13,4.44-9.14,7.74-14.37,10.69c-11.92,6.74-24.65,11.62-37.53,16.13c-14.14,4.95-28.54,9.01-43.01,12.84c-5.69,1.51-5.74,1.32-5.78-4.5c-0.05-9.33-0.13-18.66-0.15-27.99c-0.07-42.98-0.17-85.96-0.1-128.95c0.01-3.62-0.71-4.83-4.61-4.65c-7.64,0.37-15.34,0.34-22.98-0.07c-4.14-0.22-5.26,0.82-5.25,5.06c0.12,53.31,0.04,106.63-0.03,159.94c-0.01,9.07-0.1,9.07-9.87,10.23c0-10.69,0-21.34,0-31.98c0.01-45.82-0.02-91.63,0.13-137.45c0.01-4.3-0.74-6.13-5.59-5.84c-7.8,0.47-15.67,0.47-23.48,0.03c-4.9-0.28-5.96,1.24-5.95,6.01c0.21,57.64,0.14,115.29,0.26,172.93c0.01,3.49-0.68,4.98-4.5,5.96c-24.49,6.26-48.92,12.76-73.26,19.57c-12.77,3.57-25.64,6.98-37.63,12.87l0.07,0.15l-0.01-0.24c15.44-2.5,30.88-4.99,46.33-7.49c-0.91,3.5,0.79,4.18,3.95,4.23c12.67,0.18,25.25-1.49,37.88-1.59c16.99-0.13,33.93-1.22,50.87-2.25C898.58,955.15,908.15,953.92,917.74,952.98z"/>
+                </svg>
+                <div><div className="foot-name">SWAQAR</div><div className="foot-sub">Group · Corridors of Trust</div></div>
               </div>
-              <p>A governance-led Trade Coordination Layer for cross-regional corridors connecting Africa, the Middle East, and Asia under verification, institutional trust, and disciplined execution.</p>
+              <p className="foot-desc">A governance-led, non-custodial Trade Coordination Layer governing verification, institutional trust, corridor execution, and intelligence across Africa, the Middle East, and Asia.</p>
             </div>
-            <div className="fc"><h5>Institution</h5><ul><li><a href="#problem">Problem We Address</a></li><li><a href="#corridors">Corridors</a></li><li><a href="#approach">Operating Approach</a></li><li><a href="#gates">4-Gate Model</a></li><li><a href="#governance">Governance</a></li></ul></div>
-            <div className="fc"><h5>Engagement</h5><ul><li><a href="#boundaries">Institutional Boundaries</a></li><li><a href="#identity-guard">Category Clarity</a></li><li><a href="#pilot">Candidate Corridor</a></li><li><a href="#engage">Partnership Inquiry</a></li><li><a href="#contact">Contact</a></li></ul></div>
-            <div className="fc"><h5>Governance</h5><ul><li><a href="#governance">Governance Architecture</a></li><li><a href="#gates">Corridor Gates</a></li><li><a href="#approach">Operating Approach</a></li><li><a href="#identity-guard">Institutional Boundaries</a></li><li><a href="#contact">Institutional Inquiry</a></li></ul></div>
+            <div className="foot-col"><h5>The Model</h5><ul><li><a href="#corridors">Corridor Architecture</a></li><li><a href="#model">4-Gate Model</a></li><li><a href="#governance">Governance Architecture</a></li><li><a href="#arms">Strategic Arms</a></li></ul></div>
+            <div className="foot-col"><h5>Engage</h5><ul><li><a href="#contact">Institutional Inquiry</a></li><li><a href="#identity">Identity</a></li><li><a href="#governance">Review Governance</a></li><li style={{color:'rgba(255,255,255,0.32)'}}>Jeddah · Kingdom of Saudi Arabia</li></ul></div>
+            <div className="foot-col"><h5>Corridors</h5><ul><li><a href="#corridors">Africa ↔ Middle East</a></li><li><a href="#corridors">Middle East ↔ Asia</a></li><li><a href="#corridors">Africa ↔ Asia</a></li><li><a href="#model">4-Gate Process</a></li></ul></div>
           </div>
-          <div className="fl2">
-            <p className="fdisc">SWAQAR Group is a governance-led, non-custodial Trade Coordination Layer. This website is for institutional information only and does not constitute an offer, solicitation, recommendation, or investment advice of any kind. SWAQAR Group does not custody funds, hold title to goods, own cargo, operate logistics assets, act as a broker, trader, or commercial agent, or replace regulated financial, banking, customs, or logistics operators. Engagement with SWAQAR Group is subject to jurisdictional legal review, counsel-validated due diligence per jurisdiction, and institutional governance approval. SWAQAR Group does not accept unsolicited commodity offers, speculative investment proposals, or brokerage representations. Confidential — for institutional audiences only.</p>
-            <div className="fbot"><span>© 2025 SWAQAR GROUP · ALL RIGHTS RESERVED · INSTITUTIONAL COORDINATION LAYER</span><span className="gold">Counsel-Cleared · Governance-Led · Non-Custodial</span></div>
+          <p className="foot-legal">SWAQAR Group is a governance-led, non-custodial Trade Coordination Layer. This website is for institutional information only and does not constitute an offer, solicitation, recommendation, or investment advice of any kind. SWAQAR Group does not custody funds, hold title to goods, own cargo, operate logistics assets, act as a broker, trader, or commercial agent, or replace regulated financial, banking, customs, or logistics operators. Engagement with SWAQAR Group is subject to jurisdictional legal review, counsel-validated due diligence per jurisdiction, and institutional governance approval. For institutional audiences only.</p>
+          <div className="foot-btm">
+            <div style={{display:'flex',gap:'24px',alignItems:'center',flexWrap:'wrap'}}>
+              <span className="foot-copy">© 2025 SWAQAR Group · All rights reserved</span>
+              <span className="foot-copy" style={{opacity:.5}}>Counsel-Cleared · Governance-Led · Non-Custodial</span>
+            </div>
+            <div className="foot-badges"><span className="foot-badge">Asset-Light</span><span className="foot-badge">Non-Custodial</span><span className="foot-badge">Verification-Governed</span></div>
           </div>
         </div>
       </footer>
