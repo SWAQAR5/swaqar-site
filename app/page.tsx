@@ -359,6 +359,7 @@ export default function Home() {
                 </div>
               </aside>
               <form className="cf reveal" onSubmit={(e) => { e.preventDefault(); const btn = e.currentTarget.querySelector('button[type="submit"]') as HTMLButtonElement; if(btn){const orig=btn.innerHTML;btn.innerHTML='Inquiry Received — Under Institutional Review';btn.disabled=true;setTimeout(()=>{(e.target as HTMLFormElement).reset();btn.innerHTML=orig;btn.disabled=false;},3200);} }} noValidate>
+                <div className="ff"><div className="phase-notice"><div className="phase-dot"></div><div><div className="phase-notice-label">Phase I — Foundation Stage</div><div className="phase-notice-body">SWAQAR Group is currently in Phase I — Foundation Stage and is not yet operationally active. All corridor activation is subject to completion of the Four-Gate Model and Supreme Council mandate. Submission of this form does not initiate an engagement or create any commitment on the part of SWAQAR Group.</div></div></div></div>
                 <div><label htmlFor="fn">Full Name *</label><input type="text" id="fn" name="name" required autoComplete="name"/></div>
                 <div><label htmlFor="org">Organisation *</label><input type="text" id="org" name="organisation" required/></div>
                 <div><label htmlFor="role">Role / Title *</label><input type="text" id="role" name="role" required/></div>

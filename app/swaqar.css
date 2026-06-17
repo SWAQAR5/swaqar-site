@@ -520,3 +520,26 @@ form.cf label{color:rgba(255,255,255,0.4)}
 .dm{color:var(--gold)}
 .pn{color:rgba(255,255,255,0.35)}
 .an{background:#071530;border-left-color:var(--gold);color:rgba(255,255,255,0.7)}
+
+/* HERO TITLE — 2 lines max */
+.hero-title{font-size:clamp(2.2rem,3.2vw,3.5rem);line-height:1.08;max-width:640px}
+
+/* HERO META — clean govbar style */
+.hero-meta{display:flex;flex-wrap:wrap;gap:32px;padding-top:24px;margin-top:32px;border-top:1px solid rgba(255,255,255,0.1)}
+.hero-meta div{display:flex;flex-direction:column;gap:3px}
+.hero-meta .label{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3)}
+.hero-meta .value{font-family:var(--serif);font-size:0.95rem;font-style:italic;color:rgba(255,255,255,0.82)}
+
+/* NAV CTA — visible solid gold */
+.nav-cta{background:var(--gold);color:#fff;border-color:var(--gold);padding:10px 22px;font-size:0.78rem;font-weight:500}
+.nav-cta:hover{background:var(--gold-bright);color:#fff;border-color:var(--gold-bright)}
+
+/* APPROACH CARDS — fix Foundation labels */
+.fl,.gl,.sl{color:rgba(255,255,255,0.3);font-size:0.58rem;letter-spacing:0.2em}
+
+/* PHASE 1 NOTICE BOX */
+.phase-notice{background:rgba(184,146,58,0.06);border:1px solid rgba(184,146,58,0.25);padding:20px 24px;margin-bottom:28px;display:flex;align-items:flex-start;gap:14px}
+.phase-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:5px;animation:pdot 2s ease-in-out infinite}
+.phase-notice-label{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.phase-notice-body{font-family:var(--mono);font-size:0.64rem;color:rgba(255,255,255,0.45);line-height:1.75;letter-spacing:0.01em}
+@keyframes pdot{0%,100%{opacity:0.4}50%{opacity:1}}
