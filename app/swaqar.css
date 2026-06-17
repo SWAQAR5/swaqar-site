@@ -258,3 +258,25 @@ footer{background:var(--navy);border-top:1px solid rgba(184,146,58,0.15);padding
 @keyframes drift{from{stroke-dashoffset:0}to{stroke-dashoffset:-200}}
 @keyframes drawLine{to{stroke-dashoffset:0}}
 @media(max-width:768px){.hero-visual{display:none}}
+
+/* GOVERNANCE NOTE — gold callout block */
+.pd{background:rgba(184,146,58,0.06);border:1px solid rgba(184,146,58,0.35);border-left:3px solid var(--gold);padding:24px 28px;margin-bottom:36px;display:flex;gap:18px;align-items:flex-start}
+.dm{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);flex-shrink:0;padding-top:2px;white-space:nowrap}
+.pd span{font-size:0.88rem;color:var(--text-muted);line-height:1.75}
+.pd strong{color:var(--text);font-weight:600}
+
+/* HERO TITLE — 2 lines max */
+.hero-title{font-size:clamp(2rem,3vw,3.2rem);line-height:1.08;max-width:580px}
+
+/* NAV CTA — visible */
+.nav-cta{background:var(--gold)!important;color:#fff!important;border-color:var(--gold)!important}
+.nav-cta:hover{background:var(--gold-bright)!important}
+
+/* SECTION HEAD — consistent width */
+.section-head{max-width:800px;margin-bottom:48px}
+.section-head h2{max-width:720px}
+.lede{max-width:620px;font-size:1rem;line-height:1.78;margin-top:14px;font-style:normal}
+
+/* BODY TEXT — readable across all cards */
+.problem-card p,.fn p,.gate p,.ac2 p,.ps p,.std p{font-size:0.9rem;line-height:1.75}
+.bc li,.ig-col li,.rs li{font-size:0.9rem;line-height:1.75}
