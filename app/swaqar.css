@@ -280,3 +280,56 @@ footer{background:var(--navy);border-top:1px solid rgba(184,146,58,0.15);padding
 /* BODY TEXT — readable across all cards */
 .problem-card p,.fn p,.gate p,.ac2 p,.ps p,.std p{font-size:0.9rem;line-height:1.75}
 .bc li,.ig-col li,.rs li{font-size:0.9rem;line-height:1.75}
+
+/* === HEADING SIZE CONTROL — FINAL FIX === */
+h1{font-size:2.8rem;line-height:1.08}
+h2{font-size:2rem;line-height:1.12;max-width:none}
+h3{font-size:1.25rem;line-height:1.25}
+h4{font-size:0.95rem;line-height:1.4}
+
+.hero-title{font-size:2.6rem;line-height:1.08;max-width:560px}
+@media(min-width:1024px){.hero-title{font-size:3rem}}
+
+.section-head h2{font-size:1.95rem;line-height:1.12;max-width:none}
+@media(min-width:1024px){.section-head h2{font-size:2.2rem}}
+
+/* === LEDE TEXT === */
+.lede{font-size:0.97rem;line-height:1.78;color:var(--text-muted);max-width:none;font-style:normal;font-family:var(--sans);margin-top:14px}
+
+/* === CONTAINER PADDING === */
+.container{padding-left:clamp(20px,4vw,56px);padding-right:clamp(20px,4vw,56px)}
+
+/* === CARD TEXT === */
+.problem-card h4,.fn h3,.gate h3,.ac2 h3,.ps h4{font-size:1.05rem;line-height:1.25;margin-bottom:10px;color:var(--navy)}
+.problem-card p,.fn p,.gate p,.ac2 p,.ps p{font-size:0.88rem;line-height:1.72;color:var(--text-muted)}
+
+/* === LIST ITEMS === */
+.bc li,.ig-col li,.rs li{font-size:0.9rem;line-height:1.75;color:var(--text-muted)}
+
+/* === SECTION SPACING === */
+section{padding-top:clamp(52px,7vw,96px);padding-bottom:clamp(52px,7vw,96px)}
+.section-head{margin-bottom:44px}
+
+/* === TRUST STRIP === */
+.trust-item h4{font-size:0.78rem;letter-spacing:0.1em;color:var(--navy)}
+.trust-item p{font-size:0.84rem;line-height:1.65;color:var(--text-muted)}
+
+/* === GOVERNANCE PILLARS === */
+.pl h4{font-size:0.9rem;color:var(--navy);font-weight:600}
+.pl p{font-size:0.85rem;line-height:1.65;color:var(--text-muted)}
+
+/* === FOOTER === */
+.fb p{font-size:0.86rem;line-height:1.7;color:rgba(255,255,255,0.45)}
+.fc a{font-size:0.88rem}
+.fdisc{font-size:0.78rem;line-height:1.8}
+
+/* === CONTACT === */
+.ca h2{font-size:1.7rem;line-height:1.15;max-width:none}
+.dr .val{font-size:0.95rem;font-style:normal;font-family:var(--sans);font-weight:500}
+
+/* === ENGAGE SECTION === */
+.engt h2{font-size:1.8rem;line-height:1.15;color:#fff;max-width:none}
+.engt p{font-size:0.92rem;line-height:1.72;color:rgba(255,255,255,0.6)}
+
+/* === AN QUOTE BLOCK === */
+.an{font-size:0.95rem;line-height:1.7;font-style:italic}
