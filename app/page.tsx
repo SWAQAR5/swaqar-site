@@ -198,38 +198,134 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="gold-rule"></div>
+      <div className="gold-rule" />
 
       <section className="corridors" id="corridors">
         <div className="wrap">
           <div className="cor-head">
             <div>
-              <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">Corridor Architecture</span></div>
-              <h2 className="sec-h r" data-d="1">Three regions.<br/><em>One coordination layer.</em></h2>
+              <div className="sec-tag r"><div className="sec-tag-line" /><span className="sec-tag-txt">Corridor Architecture</span></div>
+              <h2 className="sec-h r" data-d="1">Three Regions.<br /><em>One Coordination Layer.</em></h2>
             </div>
-            <p className="sec-p r" data-d="2" style={{maxWidth:'34ch',textAlign:'right'}}>SWAQAR coordinates verified trade flow across the three most strategically aligned regions in global South–South trade.</p>
+            <p className="sec-p r" data-d="2" style={{maxWidth:'40ch'}}>SWAQAR coordinates institutional trust, verification, and execution readiness across the Africa ↔ Middle East ↔ Asia corridor system. Each region plays a defined role. SWAQAR&apos;s coordination layer operates above licensed operators across all three — not within them.</p>
           </div>
+
           <div className="cor-map-box r">
-            <svg viewBox="0 0 780 220" style={{width:'100%',maxWidth:'780px'}}>
-              <path d="M 155,110 Q 325,66 435,110 Q 545,154 615,110" fill="none" stroke="rgba(206,164,55,0.28)" strokeWidth="1.4" strokeDasharray="6 10"><animate attributeName="stroke-dashoffset" from="0" to="-80" dur="3s" repeatCount="indefinite"/></path>
-              <path d="M 155,110 Q 385,168 615,110" fill="none" stroke="rgba(206,164,55,0.10)" strokeWidth="1" strokeDasharray="4 8"/>
-              <circle cx="155" cy="110" r="10" fill="rgba(206,164,55,0.10)" stroke="rgba(206,164,55,0.40)" strokeWidth="1"/>
-              <circle cx="155" cy="110" r="4" fill="#CEA437"><animate attributeName="r" values="4;6.5;4" dur="2.5s" repeatCount="indefinite"/></circle>
-              <text x="155" y="132" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="7" fill="rgba(206,164,55,0.65)" letterSpacing="2">AFRICA</text>
-              <circle cx="435" cy="110" r="12" fill="rgba(206,164,55,0.14)" stroke="rgba(206,164,55,0.55)" strokeWidth="1.5"/>
-              <circle cx="435" cy="110" r="5" fill="#CEA437"><animate attributeName="r" values="5;8.5;5" dur="3s" repeatCount="indefinite"/></circle>
-              <text x="435" y="135" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="7" fill="rgba(206,164,55,0.75)" letterSpacing="2">MIDDLE EAST</text>
-              <circle cx="615" cy="110" r="10" fill="rgba(206,164,55,0.10)" stroke="rgba(206,164,55,0.40)" strokeWidth="1"/>
-              <circle cx="615" cy="110" r="4" fill="#CEA437"><animate attributeName="r" values="4;6.5;4" dur="2.8s" repeatCount="indefinite"/></circle>
-              <text x="615" y="132" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="7" fill="rgba(206,164,55,0.65)" letterSpacing="2">ASIA</text>
-              <text x="385" y="86" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="6.5" fill="rgba(206,164,55,0.30)" letterSpacing="3">SWAQAR COORDINATION LAYER</text>
+            <svg viewBox="0 0 900 295" fill="none" style={{width:'100%',display:'block'}}>
+              <defs><filter id="bf"><feGaussianBlur stdDeviation="3" /></filter></defs>
+              <line x1="0" y1="74" x2="900" y2="74" stroke="rgba(26,26,26,.06)" strokeWidth=".5" strokeDasharray="4 8" />
+              <line x1="0" y1="148" x2="900" y2="148" stroke="rgba(26,26,26,.06)" strokeWidth=".5" strokeDasharray="4 8" />
+              <line x1="0" y1="222" x2="900" y2="222" stroke="rgba(26,26,26,.06)" strokeWidth=".5" strokeDasharray="4 8" />
+              <path d="M 110,188 C 200,163 270,133 360,113" stroke="#D4D0CA" strokeWidth="1" strokeDasharray="4 8" />
+              <path d="M 420,106 C 530,90 640,82 768,108" stroke="#D4D0CA" strokeWidth="1" strokeDasharray="4 8" />
+              <path d="M 110,188 C 200,163 270,133 360,113" stroke="#CEA437" strokeWidth="1.2" strokeDasharray="3 7" opacity=".5"><animate attributeName="stroke-dashoffset" from="0" to="-60" dur="3s" repeatCount="indefinite" /></path>
+              <path d="M 420,106 C 530,90 640,82 768,108" stroke="#CEA437" strokeWidth="1.2" strokeDasharray="3 7" opacity=".35"><animate attributeName="stroke-dashoffset" from="0" to="-60" dur="4.5s" repeatCount="indefinite" /></path>
+              <circle cx="110" cy="188" r="9" fill="rgba(26,26,26,.1)" stroke="#1A1A1A" strokeWidth="1.5" />
+              <circle cx="110" cy="188" r="4" fill="#1A1A1A" />
+              <circle cx="110" cy="188" r="16" fill="rgba(26,26,26,.05)"><animate attributeName="r" values="9;20;9" dur="2.8s" repeatCount="indefinite" /><animate attributeName="opacity" values=".4;0;.4" dur="2.8s" repeatCount="indefinite" /></circle>
+              <text x="110" y="212" textAnchor="middle" fontSize="7" fill="#1A1A1A" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">AFRICA</text>
+              <text x="110" y="221" textAnchor="middle" fontSize="6" fill="#535256" fontFamily="DM Sans,sans-serif" letterSpacing="2">ORIGIN &amp; SUPPLY</text>
+              <circle cx="390" cy="109" r="9" fill="rgba(26,26,26,.1)" stroke="#1A1A1A" strokeWidth="1.5" />
+              <circle cx="390" cy="109" r="4" fill="#1A1A1A" />
+              <circle cx="390" cy="109" r="16" fill="rgba(26,26,26,.05)"><animate attributeName="r" values="9;20;9" dur="2.8s" begin=".9s" repeatCount="indefinite" /><animate attributeName="opacity" values=".4;0;.4" dur="2.8s" begin=".9s" repeatCount="indefinite" /></circle>
+              <text x="390" y="88" textAnchor="middle" fontSize="7" fill="#1A1A1A" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">MIDDLE EAST</text>
+              <text x="390" y="97" textAnchor="middle" fontSize="6" fill="#535256" fontFamily="DM Sans,sans-serif" letterSpacing="2">TRUST &amp; CAPITAL · JEDDAH</text>
+              <rect x="340" y="130" width="100" height="22" rx="2" fill="#1A1A1A" />
+              <text x="390" y="145" textAnchor="middle" fontSize="6" fill="#CEA437" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">SWAQAR</text>
+              <circle cx="776" cy="108" r="9" fill="rgba(26,26,26,.1)" stroke="#1A1A1A" strokeWidth="1.5" />
+              <circle cx="776" cy="108" r="4" fill="#1A1A1A" />
+              <circle cx="776" cy="108" r="16" fill="rgba(26,26,26,.05)"><animate attributeName="r" values="9;20;9" dur="2.8s" begin="1.8s" repeatCount="indefinite" /><animate attributeName="opacity" values=".4;0;.4" dur="2.8s" begin="1.8s" repeatCount="indefinite" /></circle>
+              <text x="776" y="87" textAnchor="middle" fontSize="7" fill="#1A1A1A" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">ASIA</text>
+              <text x="776" y="96" textAnchor="middle" fontSize="6" fill="#535256" fontFamily="DM Sans,sans-serif" letterSpacing="2">DEMAND &amp; SCALE</text>
+              <circle r="4" fill="#CEA437" filter="url(#bf)" opacity=".7"><animateMotion dur="3s" repeatCount="indefinite" path="M 110,188 C 200,163 270,133 360,113" /></circle>
+              <circle r="3.5" fill="#CEA437" filter="url(#bf)" opacity=".55"><animateMotion dur="4s" repeatCount="indefinite" begin="1s" path="M 420,106 C 530,90 640,82 768,108" /></circle>
             </svg>
           </div>
-          <div className="cor-cards">
-            <div className="cor-card r"><div className="cor-reg">Africa Corridor</div><div className="cor-title">Origin &amp; Supply</div><div className="cor-body">Agricultural commodities, industrial minerals, and verified exporter networks. SWAQAR coordinates verification readiness and documentation alignment for African supply-side participants.</div><div className="cor-tags"><span className="cor-tag">Verified Exporters</span><span className="cor-tag">Documentation</span><span className="cor-tag">Corridor Readiness</span></div></div>
-            <div className="cor-card r" data-d="1"><div className="cor-reg">Middle East Corridor</div><div className="cor-title">Trust &amp; Capital Hub</div><div className="cor-body">The institutional anchor of the SWAQAR model. Trade finance coordination, sovereign engagement, and free zone interface. SWAQAR does not custody funds or act as financial principal.</div><div className="cor-tags"><span className="cor-tag">Trade Finance</span><span className="cor-tag">Sovereign Engagement</span><span className="cor-tag">Free Zone Interface</span></div></div>
-            <div className="cor-card r" data-d="2"><div className="cor-reg">Asia Corridor</div><div className="cor-title">Demand &amp; Industrial Scale</div><div className="cor-body">Verified offtake counterparties, institutional buyers, and industrial demand coordination. SWAQAR aligns documentation and governance readiness for Asia-side engagement.</div><div className="cor-tags"><span className="cor-tag">Verified Buyers</span><span className="cor-tag">Offtake Coordination</span><span className="cor-tag">Industrial Scale</span></div></div>
+
+          <div className="cor-tier r" data-d="1">
+            <div className="cor-tier-head">
+              <span className="cor-tier-num">01</span>
+              <span className="cor-tier-title">Current Strategic Focus — Phase I Active Pilot Corridor</span>
+              <span className="cor-tier-badge">Active</span>
+            </div>
+            <div className="cor-card-active">
+              <div className="cor-gov-note" style={{marginTop:'28px'}}>
+                <div className="cor-gov-note-icon">
+                  <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+                </div>
+                <div>
+                  <div className="cor-gov-note-tag">Governance Note — Phase I Candidate Corridor</div>
+                  <p className="cor-gov-note-txt">This corridor is SWAQAR Group&apos;s designated Phase I pilot corridor, currently in preparation. No corridor is operationally active. Activation is subject to completion of the Four-Gate Model, counterparty qualification through the Partner Qualification Gate, banking and TIC panel readiness, and Supreme Council mandate. This is a governance-architecture illustration only — subject to counsel-validated legal, regulatory, and governance review before any activation proceeds.</p>
+                </div>
+              </div>
+              <div className="cor-card-active-inner">
+                <div className="cor-active-left">
+                  <div className="cor-phase-label"><div className="cor-phase-dot" /><span className="cor-phase-txt">Agriculture &amp; Food Security · Africa ↔ Middle East ↔ Asia</span></div>
+                  <p className="cor-active-desc">Coordinating verification readiness, documentation alignment, and institutional counterparty qualification across agricultural commodity flows between verified African exporters and institutional buyers in the Middle East and Asia. SWAQAR coordinates the institutional conditions for this corridor — it does not trade, broker, hold title, or act as logistics operator at any stage.</p>
+                  <div className="cor-active-roles">
+                    <div className="cor-role"><div className="cor-role-region">Africa</div><div className="cor-role-name">Origin &amp; Supply</div><div className="cor-role-desc">Verified agricultural exporters across East and West Africa. Commodity readiness, documentation alignment, and counterparty qualification coordinated through licensed TIC partners.</div></div>
+                    <div className="cor-role"><div className="cor-role-region">Middle East · Jeddah</div><div className="cor-role-name">Trust &amp; Capital Anchor</div><div className="cor-role-desc">Institutional capital depth, Islamic trade finance infrastructure, and GCC sovereign food security demand. SWAQAR&apos;s institutional centre of gravity — coordinating alongside, not within, regional financial institutions.</div></div>
+                    <div className="cor-role"><div className="cor-role-region">Asia</div><div className="cor-role-name">Demand &amp; Industrial Scale</div><div className="cor-role-desc">Institutional buyers, processing entities, and industrial demand anchors across India, China, and Southeast Asia. Counterparty verification and documentation governance coordinated for Asian demand-side engagement.</div></div>
+                  </div>
+                </div>
+                <div className="cor-active-right">
+                  <div className="cor-focus-box">
+                    <div className="cor-focus-lbl">What SWAQAR Coordinates in This Corridor</div>
+                    <div className="cor-focus-item"><div className="cor-focus-pip" /><div className="cor-focus-txt"><strong>Counterparty verification</strong> — qualifying exporters and buyers through the seven-step Partner Qualification Gate via licensed TIC firms (SGS, Bureau Veritas, Intertek). No corridor participant is engaged without completed verification.</div></div>
+                    <div className="cor-focus-item"><div className="cor-focus-pip" /><div className="cor-focus-txt"><strong>Documentation alignment</strong> — coordinating commercial, regulatory, financial, and logistics documentation across corridor jurisdictions under a counsel-validated framework. Eliminating documentation drift before it surfaces under operational pressure.</div></div>
+                    <div className="cor-focus-item"><div className="cor-focus-pip" /><div className="cor-focus-txt"><strong>Banking panel readiness</strong> — aligning corridor participants with Islamic trade finance instruments (Murabaha, Wakala, L/C under UCP 600) through the banking panel, including ITFC and GCC institutional banking partners.</div></div>
+                    <div className="cor-focus-item"><div className="cor-focus-pip" /><div className="cor-focus-txt"><strong>Stakeholder synchronization</strong> — sequencing and aligning banks, TIC firms, exporters, buyers, logistics operators, and regulators under SWAQAR&apos;s Corridor Operating System — so all parties operate from the same institutional framework.</div></div>
+                    <div className="cor-focus-item"><div className="cor-focus-pip" /><div className="cor-focus-txt"><strong>Governance oversight</strong> — every coordinated transaction moves through the full Four-Gate Model under Supreme Council mandate. The escalation path is defined before any execution begins.</div></div>
+                  </div>
+                </div>
+              </div>
+              <div className="cor-active-footer">
+                <p className="cor-active-footer-txt">SWAQAR holds no title, cargo, funds, or physical assets in this corridor at any stage. Licensed parties execute; counterparties contract directly with each other. SWAQAR coordinates the institutional conditions under which they engage.</p>
+                <div className="cor-active-footer-tags">
+                  <span className="cor-tag-gold">Agriculture &amp; Food Security</span>
+                  <span className="cor-tag-gold">Verification-Governed</span>
+                  <span className="cor-tag-gold">Non-Custodial</span>
+                  <span className="cor-tag-gold">Four-Gate Protocol</span>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <div className="cor-tier r" data-d="2" style={{marginTop:'2px'}}>
+            <div className="cor-tier-head">
+              <span className="cor-tier-num">02</span>
+              <span className="cor-tier-title">Corridor Domains Under Strategic Evaluation</span>
+              <span className="cor-tier-badge eval">Phase II+ · Subject to Phase I Proof</span>
+            </div>
+            <div className="cor-eval-grid" data-cols="3" style={{gridTemplateColumns:'1fr 1fr 1fr'}}>
+              <div className="cor-eval-card">
+                <div className="cor-eval-reg">Industrial Development</div>
+                <div className="cor-eval-title">Building Materials &amp; Industrial Goods</div>
+                <p className="cor-eval-body">Africa&apos;s infrastructure development — housing, roads, industrial parks, ports — creates structural demand for building materials flowing from Asian manufacturers through Middle Eastern free zone infrastructure to African project developers. Multi-stakeholder verification requirements, cross-jurisdictional documentation complexity, and the absence of a neutral institutional governance layer make this domain a natural fit for SWAQAR&apos;s four-gate coordination architecture.</p>
+                <div className="cor-tags" style={{marginBottom:'14px'}}><span className="cor-tag">Asia → Middle East → Africa</span><span className="cor-tag">Verification</span><span className="cor-tag">Documentation Governance</span><span className="cor-tag">Multi-Stakeholder</span></div>
+                <p className="cor-eval-note">SWAQAR coordinates verification, documentation, and institutional counterparty readiness — it does not act as procurement agent, project developer, contractor, or capital provider in this domain. Evaluation is subject to Phase I proof and Supreme Council mandate.</p>
+              </div>
+              <div className="cor-eval-card">
+                <div className="cor-eval-reg">Agricultural Value Chain</div>
+                <div className="cor-eval-title">Agricultural Inputs &amp; Commodity Processing</div>
+                <p className="cor-eval-body">Beyond raw agricultural commodity flows, the verified coordination of agricultural inputs — fertilisers, seeds, agrochemicals, processing equipment — and agro-processing capacity represents a natural institutional extension of SWAQAR&apos;s Phase I Agriculture corridor. GCC and Asian demand for processed agricultural products, and Africa&apos;s growing agro-processing sector, create the same multi-stakeholder verification and documentation requirements SWAQAR&apos;s four-gate model is designed to govern.</p>
+                <div className="cor-tags" style={{marginBottom:'14px'}}><span className="cor-tag">Africa ↔ Middle East ↔ Asia</span><span className="cor-tag">Agricultural Inputs</span><span className="cor-tag">Agro-Processing</span><span className="cor-tag">Verification</span></div>
+                <p className="cor-eval-note">SWAQAR coordinates verification readiness, documentation alignment, and institutional counterparty qualification — it does not trade, aggregate, procure, or act as a logistics operator in this domain. Evaluation subject to Phase I proof and Supreme Council mandate.</p>
+              </div>
+              <div className="cor-eval-card" style={{borderLeft:'2px solid var(--gold-a18)'}}>
+                <div className="cor-eval-reg" style={{color:'var(--muted)'}}>Institutional Enablement</div>
+                <div className="cor-eval-title" style={{fontSize:'1rem'}}>Active Capabilities Supporting All Corridors</div>
+                <p className="cor-eval-body" style={{fontSize:'.78rem'}}>These institutional capabilities are not corridor-specific — they are the operating substrate active from Phase I onward across every coordinated corridor SWAQAR activates.</p>
+                <div style={{marginBottom:'12px'}}>
+                  <div className="cor-focus-item" style={{padding:'7px 0',borderBottom:'1px solid var(--rule)'}}><div className="cor-focus-pip" /><div className="cor-focus-txt" style={{fontSize:'.76rem'}}><strong>Counterparty Verification</strong><br /><span style={{color:'var(--muted)'}}>Active Phase I — licensed TIC panel engaged for all corridor participants.</span></div></div>
+                  <div className="cor-focus-item" style={{padding:'7px 0',borderBottom:'1px solid var(--rule)'}}><div className="cor-focus-pip" /><div className="cor-focus-txt" style={{fontSize:'.76rem'}}><strong>Documentation Governance</strong><br /><span style={{color:'var(--muted)'}}>Active Phase I — counsel-validated framework per corridor, per ICC standards.</span></div></div>
+                  <div className="cor-focus-item" style={{padding:'7px 0'}}><div className="cor-focus-pip" /><div className="cor-focus-txt" style={{fontSize:'.76rem'}}><strong>Trade Finance Readiness</strong><br /><span style={{color:'var(--muted)'}}>Building toward Phase II — alignment with ITFC, Afreximbank, and GCC banking panel partners.</span></div></div>
+                </div>
+                <p className="cor-eval-note" style={{fontSize:'.7rem'}}>These are governance infrastructure — not corridors in themselves — forming the institutional foundation that makes every corridor sound.</p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 

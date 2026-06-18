@@ -122,19 +122,56 @@ section{position:relative;padding:104px 0}
 .id-col-no .id-pip{background:var(--rule);color:var(--muted)}
 .id-col-yes .id-txt{font-size:.83rem;color:rgba(255,255,255,.7);line-height:1.5}
 .id-col-no .id-txt{font-size:.83rem;color:var(--body);line-height:1.5}
+/* ── CORRIDORS ── */
 .corridors{background:var(--stone)}
 .cor-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:52px;flex-wrap:wrap;gap:24px}
 .cor-map-box{background:var(--parchment);border:1px solid var(--rule);border-top:3px solid var(--ink);padding:48px}
-.cor-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);margin-top:1px;border:1px solid var(--rule);border-top:none}
-.cor-card{background:var(--parchment);padding:36px 30px;position:relative;overflow:hidden;transition:background .3s}
-.cor-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
-.cor-card:hover{background:var(--stone)}
-.cor-card:hover::after{transform:scaleX(1)}
-.cor-reg{font-size:.54rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:600}
-.cor-title{font-family:var(--serif);font-size:1.3rem;font-weight:700;color:var(--ink);margin-bottom:10px;line-height:1.2}
-.cor-body{font-size:.83rem;line-height:1.72;color:var(--body);margin-bottom:20px}
+.cor-phase-label{display:inline-flex;align-items:center;gap:10px;margin-bottom:24px}
+.cor-phase-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;flex-shrink:0;animation:pulse 2s ease-in-out infinite}
+.cor-phase-txt{font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.cor-gov-note{margin-bottom:36px;padding:18px 22px;background:var(--parchment);border:1px solid var(--rule);border-left:3px solid var(--gold);display:flex;gap:14px;align-items:flex-start}
+.cor-gov-note-icon{flex-shrink:0;margin-top:1px;color:var(--gold)}
+.cor-gov-note-tag{font-size:.54rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:5px}
+.cor-gov-note-txt{font-size:.8rem;line-height:1.72;color:var(--body)}
+.cor-tier{margin-bottom:1px}
+.cor-tier-head{padding:16px 22px;background:var(--ink);display:flex;align-items:center;gap:12px}
+.cor-tier-num{font-family:var(--serif);font-size:.7rem;color:var(--gold);opacity:.7;flex-shrink:0}
+.cor-tier-title{font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:#fff;font-weight:600}
+.cor-tier-badge{font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);background:var(--gold);padding:3px 10px;margin-left:auto;flex-shrink:0;font-weight:700}
+.cor-tier-badge.eval{background:transparent;color:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,.2)}
+.cor-card-active{background:var(--parchment);border:1px solid var(--rule);border-top:none;padding:36px 30px 0;position:relative;overflow:hidden}
+.cor-card-active-inner{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.cor-active-desc{font-size:.9rem;line-height:1.82;color:var(--body);margin-bottom:22px}
+.cor-active-roles{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:0}
+.cor-role{background:var(--parchment);padding:20px 16px;border-left:2px solid transparent;transition:border-color .3s,background .3s}
+.cor-role:hover{border-color:var(--gold);background:var(--stone)}
+.cor-role-region{font-size:.54rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:600}
+.cor-role-name{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:5px;line-height:1.2}
+.cor-role-desc{font-size:.78rem;line-height:1.6;color:var(--muted)}
+.cor-focus-box{background:var(--stone);border:1px solid var(--rule);padding:24px 22px;height:100%}
+.cor-focus-lbl{font-size:.54rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:12px}
+.cor-focus-item{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--rule)}
+.cor-focus-item:last-child{border-bottom:none}
+.cor-focus-pip{width:5px;height:5px;background:var(--gold);border-radius:50%;flex-shrink:0;margin-top:6px}
+.cor-focus-txt{font-size:.8rem;line-height:1.6;color:var(--body)}
+.cor-active-footer{display:flex;align-items:center;gap:12px;padding:18px 0;margin-top:28px;border-top:1px solid var(--rule)}
+.cor-active-footer-txt{font-size:.72rem;color:var(--muted);line-height:1.5;flex:1}
+.cor-active-footer-tags{display:flex;flex-wrap:wrap;gap:6px;flex-shrink:0}
+.cor-eval-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);border-top:none}
+.cor-eval-card{background:var(--parchment);padding:28px 24px;position:relative;overflow:hidden;transition:background .3s}
+.cor-eval-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.cor-eval-card:hover{background:var(--stone)}
+.cor-eval-card:hover::after{transform:scaleX(1)}
+.cor-eval-reg{font-size:.52rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:600}
+.cor-eval-title{font-family:var(--serif);font-size:1.15rem;font-weight:700;color:var(--ink);margin-bottom:8px;line-height:1.2}
+.cor-eval-body{font-size:.8rem;line-height:1.7;color:var(--body);margin-bottom:16px}
+.cor-eval-note{font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.5;padding-top:12px;border-top:1px solid var(--rule)}
 .cor-tags{display:flex;flex-wrap:wrap;gap:6px}
 .cor-tag{font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);border:1px solid var(--rule);padding:4px 10px;background:var(--stone)}
+.cor-tag-gold{font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-a18);padding:4px 10px;background:var(--parchment)}
+@media(max-width:900px){.cor-card-active-inner{grid-template-columns:1fr}.cor-active-roles{grid-template-columns:1fr}.cor-eval-grid{grid-template-columns:1fr}}
+@media(max-width:1100px){.cor-eval-grid[data-cols="3"]{grid-template-columns:1fr 1fr}}
+@media(max-width:680px){.cor-eval-grid[data-cols="3"]{grid-template-columns:1fr}.cor-tier-badge{display:none}.cor-active-footer{flex-direction:column;align-items:flex-start}}
 .gates{background:var(--ink)}
 .gates .sec-h{color:#fff}
 .gates .sec-p{color:rgba(255,255,255,.52)}
