@@ -140,10 +140,10 @@ export default function Home() {
       </section>
 
       <div className="stats">
-        <div className="stat r"><span className="stat-n">3</span><span className="stat-l">Continental Corridors</span></div>
+        <div className="stat r"><span className="stat-n">3</span><span className="stat-l">Corridor Regions</span></div>
         <div className="stat r" data-d="1"><span className="stat-n">4</span><span className="stat-l">Institutional Gates</span></div>
         <div className="stat r" data-d="2"><span className="stat-n">100%</span><span className="stat-l">Non-Custodial Structure</span></div>
-        <div className="stat r" data-d="3"><span className="stat-n">6</span><span className="stat-l">Strategic Arms</span></div>
+        <div className="stat r" data-d="3"><span className="stat-n">7</span><span className="stat-l">Strategic Arms</span></div>
       </div>
 
       <div className="marquee">
@@ -352,15 +352,16 @@ export default function Home() {
           <div className="arms-inner">
             <div>
               <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">Institutional Architecture</span></div>
-              <h2 className="sec-h r" data-d="1">Six strategic arms.<br/><em>One institutional mission.</em></h2>
+              <h2 className="sec-h r" data-d="1">Seven <em>Institutional Arms.</em><br />One Architecture.</h2>
               <div style={{marginTop:'36px'}}>
                 {[
-                  ['01','Industrial Trade Development','Commodity corridor development, supply-side verification, and industrial trade readiness coordination across Africa ⇄ Middle East ⇄ Asia.'],
-                  ['02','Capital & Trade Finance Coordination','Facilitating access to licensed trade finance institutions. SWAQAR does not custody funds or act as financial principal under any circumstance.'],
-                  ['03','Infrastructure & Logistics Coordination','Coordinating timing signals, documentation alignment, and synchronization context for licensed logistics operators. SWAQAR does not own or operate logistics infrastructure.'],
-                  ['04','Intelligence & Research','Corridor intelligence, market signals, counterparty risk data, and regulatory monitoring as a standing institutional function — lawfully gathered, ethically sourced.'],
-                  ['05','Digital Systems','Governance-layer digital coordination: documentation and verification management. Counsel-validated, governance-aligned. Standardise before digitise.'],
-                  ['06','Institutional Advisory','Government, ministry, and institutional counterpart engagement at sovereign-grade discretion. Non-substitution discipline preserved.']
+                  ['01','SWAQAR Corridors of Trust','Institutional trade corridor coordination across Africa ⇄ Middle East ⇄ Asia. Verification-governed, non-custodial architecture. SWAQAR coordinates the institutional conditions for corridor engagement — it does not trade, broker, hold title, or act as logistics operator at any stage.'],
+                  ['02','SWAQAR Intelligence','Corridor intelligence, market signals, counterparty risk data, and regulatory monitoring as a standing institutional function — lawfully gathered, ethically sourced.'],
+                  ['03','SWAQAR Capital & Trade Finance Coordination','Facilitating access to licensed trade finance institutions. SWAQAR does not custody funds or act as financial principal under any circumstance.'],
+                  ['04','SWAQAR Verification & Compliance','Counterparty verification and compliance readiness coordination through licensed TIC partners. The seven-step Partner Qualification Gate is a prerequisite for engagement across all SWAQAR corridor activations.'],
+                  ['05','SWAQAR Institutional Relations','Sovereign, government, and ministerial engagement at institutional grade. SWAQAR coordinates institutional relationships — it does not substitute for licensed government affairs or regulated advocacy functions.'],
+                  ['06','SWAQAR Industrial Corridors','Industrial trade development across SWAQAR\'s corridor regions — building materials, industrial goods, and value-added manufacturing. Verification and documentation readiness coordinated for qualified industrial counterparties.'],
+                  ['07','SWAQAR Advisory','Strategic advisory to governments, sovereign entities, and qualified institutional counterparties on corridor architecture, governance design, and trade coordination readiness. Counsel-validated, governance-anchored.']
                 ].map(([n,name,desc]) => (
                   <div className="arm r" key={n}><span className="arm-n">{n}</span><div><div className="arm-name">{name}</div><div className="arm-desc">{desc}</div></div></div>
                 ))}
@@ -422,6 +423,7 @@ export default function Home() {
                 <div className="con-detail"><div className="con-detail-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div><div><div className="con-detail-lbl">Headquarters</div><div className="con-detail-val">Jeddah, Kingdom of Saudi Arabia</div></div></div>
                 <div className="con-detail"><div className="con-detail-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div><div className="con-detail-lbl">Engagement Type</div><div className="con-detail-val">Institutional counterparts only. No retail engagement accepted.</div></div></div>
                 <div className="con-detail"><div className="con-detail-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div><div className="con-detail-lbl">Current Stage</div><div className="con-detail-val">Phase I — Foundation. Not yet operationally active.</div></div></div>
+                <div className="con-detail"><div className="con-detail-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg></div><div><div className="con-detail-lbl">Institutional Contact</div><div className="con-detail-val">engage@swaqar.com</div></div></div>
                 <div className="con-detail"><div className="con-detail-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg></div><div><div className="con-detail-lbl">Legal Position</div><div className="con-detail-val">Subject to counsel-validated legal and regulatory review in all applicable jurisdictions.</div></div></div>
               </div>
             </div>
@@ -443,7 +445,7 @@ export default function Home() {
             </div>
             <div className="foot-col"><h5>The Model</h5><ul><li><a href="#corridors">Corridor Architecture</a></li><li><a href="#model">4-Gate Model</a></li><li><a href="#governance">Governance Architecture</a></li><li><a href="#arms">Strategic Arms</a></li></ul></div>
             <div className="foot-col"><h5>Engage</h5><ul><li><a href="#contact">Institutional Inquiry</a></li><li><a href="#identity">Identity</a></li><li><a href="#governance">Review Governance</a></li><li style={{color:'rgba(255,255,255,0.32)'}}>Jeddah · Kingdom of Saudi Arabia</li></ul></div>
-            <div className="foot-col"><h5>Corridors</h5><ul><li><a href="#corridors">Africa ↔ Middle East</a></li><li><a href="#corridors">Middle East ↔ Asia</a></li><li><a href="#corridors">Africa ↔ Asia</a></li><li><a href="#model">4-Gate Process</a></li></ul></div>
+            <div className="foot-col"><h5>Corridor Regions</h5><ul><li><a href="#corridors">Africa ↔ Middle East</a></li><li><a href="#corridors">Middle East ↔ Asia</a></li><li><a href="#corridors">Africa ↔ Asia</a></li><li><a href="#model">4-Gate Process</a></li></ul></div>
           </div>
           <p className="foot-legal">SWAQAR Group is a governance-led, non-custodial Trade Coordination Layer. This website is for institutional information only and does not constitute an offer, solicitation, recommendation, or investment advice of any kind. SWAQAR Group does not custody funds, hold title to goods, own cargo, operate logistics assets, act as a broker, trader, or commercial agent, or replace regulated financial, banking, customs, or logistics operators. Engagement with SWAQAR Group is subject to jurisdictional legal review, counsel-validated due diligence per jurisdiction, and institutional governance approval. For institutional audiences only.</p>
           <div className="foot-btm">
