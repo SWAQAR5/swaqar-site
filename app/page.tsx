@@ -241,7 +241,7 @@ export default function Home() {
           </div>
           <div className="gov-note r" data-d="3" style={{marginTop:'32px'}}>
             <div className="gov-note-tag">Revenue Model</div>
-            <p className="gov-note-txt">SWAQAR earns governance coordination fees for governed corridor engagement — disclosed, fixed-scope, and not commission-based. SWAQAR does not earn fees from the transactions it coordinates, does not take positions in those transactions, and does not receive undisclosed payments from any corridor participant. The revenue model is aligned with the institutional mission and confirmed in writing before any coordination mandate begins. Coordination fees are earned upon engagement mandate confirmation and are structured as institutional fixed fees paid by corridor participants — not percentage-based commissions and not earned from the transaction value itself.</p>
+            <p className="gov-note-txt">SWAQAR earns disclosed, fixed-scope governance coordination fees upon engagement mandate confirmation — structured as institutional fixed fees paid by corridor participants, not percentage-based commissions. SWAQAR holds no position in, and earns no fees from, the transactions it coordinates.</p>
           </div>
         </div>
       </section>
@@ -253,7 +253,7 @@ export default function Home() {
           <div className="cor-head">
             <div>
               <div className="sec-tag r"><div className="sec-tag-line" /><span className="sec-tag-txt">Corridor Architecture</span></div>
-              <h2 className="sec-h r" data-d="1">Three Regions.<br /><em>One Coordination Layer.</em></h2>
+              <h2 className="sec-h r" data-d="1">Three Regions. <em>One Coordination Layer.</em></h2>
             </div>
             <p className="sec-p r" data-d="2" style={{maxWidth:'40ch'}}>SWAQAR coordinates institutional trust, verification, and execution readiness across the Africa ↔ Middle East ↔ Asia corridor system. Each region plays a defined role. SWAQAR&apos;s coordination layer operates above licensed operators across all three — not within them.</p>
           </div>
@@ -400,16 +400,16 @@ export default function Home() {
           <div className="arms-inner">
             <div>
               <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">Institutional Architecture</span></div>
-              <h2 className="sec-h r" data-d="1">Seven <em>Institutional Arms.</em><br />One Architecture.</h2>
+              <h2 className="sec-h r" data-d="1">Seven <em>Institutional Arms.</em> One Architecture.</h2>
               <div style={{marginTop:'36px'}}>
                 {[
                   ['01','SWAQAR Corridors of Trust','Institutional trade corridor coordination across Africa ⇄ Middle East ⇄ Asia. Verification-governed, non-custodial architecture. SWAQAR coordinates the institutional conditions for corridor engagement — it does not trade, broker, hold title, or act as logistics operator at any stage.'],
                   ['02','SWAQAR Intelligence','Corridor intelligence, market signals, counterparty risk data, and regulatory monitoring as a standing institutional function — lawfully gathered, ethically sourced.'],
                   ['03','SWAQAR Capital & Trade Finance Coordination','Facilitating access to licensed trade finance institutions. SWAQAR does not custody funds or act as financial principal under any circumstance.'],
-                  ['04','SWAQAR Verification & Compliance','Counterparty verification and compliance readiness coordination through licensed TIC partners. The seven-step Partner Qualification Gate is a prerequisite for engagement across all SWAQAR corridor activations. For exporters and buyers entering SWAQAR\'s corridors, this arm governs the qualification process and maintains verification integrity as a standing corridor condition — not a one-time gate.'],
-                  ['05','SWAQAR Institutional Relations','Sovereign, government, and ministerial engagement at institutional grade. SWAQAR coordinates institutional relationships — it does not substitute for licensed government affairs or regulated advocacy functions. Government ministries and sovereign bodies engaging with SWAQAR do so through this arm — the dedicated interface for sovereign-grade counterparty engagement at institutional standard.'],
-                  ['06','SWAQAR Industrial Corridors','Industrial trade development across SWAQAR\'s corridor regions — building materials, industrial goods, and value-added manufacturing. Verification and documentation readiness coordinated for qualified industrial counterparties. Licensed logistics and infrastructure operators within SWAQAR\'s active corridors engage through this arm for documentation alignment, stakeholder synchronization, and corridor readiness coordination.'],
-                  ['07','SWAQAR Advisory','Strategic advisory to governments, sovereign entities, and qualified institutional counterparties on corridor architecture, governance design, and trade coordination readiness. Counsel-validated, governance-anchored. Capital and strategic partners are engaged through this arm at governance level — subject to Supreme Council review and counsel-validated engagement frameworks.']
+                  ['04','SWAQAR Verification & Compliance','Counterparty verification through licensed TIC partners. The Partner Qualification Gate is a prerequisite for all corridor activations — maintaining verification integrity as a standing corridor condition, not a one-time gate.'],
+                  ['05','SWAQAR Institutional Relations','Sovereign, government, and ministerial engagement at institutional grade. The dedicated interface for government ministries and sovereign bodies engaging with SWAQAR at institutional standard.'],
+                  ['06','SWAQAR Industrial Corridors','Industrial trade development across SWAQAR\'s corridor regions. Documentation alignment and stakeholder synchronization for licensed logistics operators and qualified industrial counterparties.'],
+                  ['07','SWAQAR Advisory','Strategic advisory on corridor architecture and governance design. Capital and strategic partners engage through this arm at governance level, subject to Supreme Council review.']
                 ].map(([n,name,desc]) => (
                   <div className="arm r" key={n}><span className="arm-n">{n}</span><div><div className="arm-name">{name}</div><div className="arm-desc">{desc}</div></div></div>
                 ))}
@@ -435,7 +435,7 @@ export default function Home() {
       <section className="gov" id="governance">
         <div className="wrap">
           <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">Governance Structure</span></div>
-          <h2 className="sec-h r" data-d="1">Three layers of institutional<br/><em>governance oversight.</em></h2>
+          <h2 className="sec-h r" data-d="1">Three layers of institutional <em>governance oversight.</em></h2>
           <div className="gov-grid">
             <div className="gov-card r"><div className="gov-name">Supreme Council</div><div className="gov-desc">The highest governance authority. Oversees constitutional mandate, reserved matters, and institutional continuity. Supermajority required on all mission-critical decisions.</div></div>
             <div className="gov-card r" data-d="1"><div className="gov-name">Ethics &amp; Oversight Council</div><div className="gov-desc">Independent institutional review body responsible for ethical governance, mission alignment, and counterparty conduct standards across all corridor engagements. KYC and AML compliance discipline operates in alignment with FATF guidelines and applicable regulatory requirements per corridor jurisdiction.</div></div>
@@ -461,29 +461,29 @@ export default function Home() {
               <div className="con-grp r" data-d="2"><label className="con-lbl">Authorised Representative Name</label><input className="con-input" type="text" placeholder="Full name of authorised representative"/></div>
               <div className="con-grp r" data-d="3"><label className="con-lbl">Engagement Category</label><select className="con-sel"><option value="">Select inquiry category</option><option>Government / Ministerial Engagement</option><option>Banking / Trade-Finance Coordination</option><option>Verified Exporter — Corridor Participation</option><option>Verified Buyer — Corridor Participation</option><option>Verification / Compliance Partnership</option><option>Logistics / Infrastructure Partnership</option><option>Institutional Capital Partner Engagement</option><option>Other Institutional Inquiry</option></select></div>
               <div className="con-grp r" data-d="3"><label className="con-lbl">Nature of Inquiry</label><textarea className="con-area" placeholder="Describe the institutional engagement purpose. Be specific."></textarea></div>
-              <div style={{marginBottom:'24px',padding:'20px 22px',background:'rgba(255,255,255,.04)',border:'1px solid rgba(255,255,255,.1)',borderLeft:'2px solid var(--gold)'}}>
+              <div style={{marginBottom:'24px',padding:'20px 22px',background:'var(--stone)',border:'1px solid var(--rule)',borderLeft:'2px solid var(--gold)'}}>
                 <div style={{fontSize:'.54rem',letterSpacing:'.28em',textTransform:'uppercase' as const,color:'var(--gold)',fontWeight:600,marginBottom:'12px'}}>What Happens After You Submit</div>
                 <div style={{display:'flex',flexDirection:'column' as const,gap:'10px'}}>
                   <div style={{display:'flex',gap:'12px',alignItems:'flex-start'}}>
                     <span style={{fontFamily:'var(--serif)',fontSize:'.75rem',color:'var(--gold)',flexShrink:0,marginTop:'1px'}}>01</span>
-                    <span style={{fontSize:'.8rem',lineHeight:'1.65',color:'rgba(255,255,255,.52)'}}><strong style={{color:'rgba(255,255,255,.8)'}}>Inquiry received</strong> — your submission enters SWAQAR&apos;s institutional review queue. All inquiries are acknowledged.</span>
+                    <span style={{fontSize:'.8rem',lineHeight:'1.65',color:'var(--body)'}}><strong style={{color:'var(--ink)'}}>Inquiry received</strong> — your submission enters SWAQAR&apos;s institutional review queue. All inquiries are acknowledged.</span>
                   </div>
                   <div style={{display:'flex',gap:'12px',alignItems:'flex-start'}}>
                     <span style={{fontFamily:'var(--serif)',fontSize:'.75rem',color:'var(--gold)',flexShrink:0,marginTop:'1px'}}>02</span>
-                    <span style={{fontSize:'.8rem',lineHeight:'1.65',color:'rgba(255,255,255,.52)'}}><strong style={{color:'rgba(255,255,255,.8)'}}>Eligibility review</strong> — your inquiry is assessed against SWAQAR&apos;s counterparty eligibility criteria and engagement category requirements.</span>
+                    <span style={{fontSize:'.8rem',lineHeight:'1.65',color:'var(--body)'}}><strong style={{color:'var(--ink)'}}>Eligibility review</strong> — your inquiry is assessed against SWAQAR&apos;s counterparty eligibility criteria and engagement category requirements.</span>
                   </div>
                   <div style={{display:'flex',gap:'12px',alignItems:'flex-start'}}>
                     <span style={{fontFamily:'var(--serif)',fontSize:'.75rem',color:'var(--gold)',flexShrink:0,marginTop:'1px'}}>03</span>
-                    <span style={{fontSize:'.8rem',lineHeight:'1.65',color:'rgba(255,255,255,.52)'}}><strong style={{color:'rgba(255,255,255,.8)'}}>Qualification gate initiated</strong> — eligible counterparties are invited to begin the Partner Qualification Gate process under SWAQAR&apos;s governance framework.</span>
+                    <span style={{fontSize:'.8rem',lineHeight:'1.65',color:'var(--body)'}}><strong style={{color:'var(--ink)'}}>Qualification gate initiated</strong> — eligible counterparties are invited to begin the Partner Qualification Gate process under SWAQAR&apos;s governance framework.</span>
                   </div>
                   <div style={{display:'flex',gap:'12px',alignItems:'flex-start'}}>
                     <span style={{fontFamily:'var(--serif)',fontSize:'.75rem',color:'var(--gold)',flexShrink:0,marginTop:'1px'}}>04</span>
-                    <span style={{fontSize:'.8rem',lineHeight:'1.65',color:'rgba(255,255,255,.52)'}}><strong style={{color:'rgba(255,255,255,.8)'}}>Engagement confirmed or declined</strong> — all outcomes are communicated in writing. SWAQAR does not proceed without a confirmed governance-compliant engagement framework in place.</span>
+                    <span style={{fontSize:'.8rem',lineHeight:'1.65',color:'var(--body)'}}><strong style={{color:'var(--ink)'}}>Engagement confirmed or declined</strong> — all outcomes are communicated in writing. SWAQAR does not proceed without a confirmed governance-compliant engagement framework in place.</span>
                   </div>
                 </div>
               </div>
               <p className="con-disc r" data-d="4">All inquiries are reviewed against SWAQAR&apos;s counterparty eligibility criteria before any response is issued. Submission does not initiate an engagement, create contractual obligation, or constitute regulated advice of any kind.</p>
-              <button className="btn-gold r" data-d="4" style={{width:'100%',justifyContent:'center'}}>Submit Institutional Inquiry</button>
+              <button className="btn-ink r" data-d="4" style={{width:'100%',justifyContent:'center'}}>Submit Institutional Inquiry</button>
             </div>
             <div className="r" data-d="2">
               <div className="con-info-h">Engage SWAQAR at institutional standard.</div>
