@@ -284,7 +284,7 @@ export default function Home() {
               <div className="sec-tag r"><div className="sec-tag-line" /><span className="sec-tag-txt">Corridor Architecture</span></div>
               <h2 className="sec-h r" data-d="1">Three Regions. <em>One Coordination Layer.</em></h2>
             </div>
-            <p className="sec-p r" data-d="2" style={{maxWidth:'40ch'}}>SWAQAR coordinates institutional trust, verification, and execution readiness across the Africa ↔ Middle East ↔ Asia corridor system. Each region plays a defined role. SWAQAR&apos;s coordination layer operates above licensed operators across all three — not within them.</p>
+            <p className="sec-p r" data-d="2">SWAQAR coordinates institutional trust, verification, and execution readiness across the Africa ↔ Middle East ↔ Asia corridor system. Each region plays a defined role. SWAQAR&apos;s coordination layer operates above licensed operators across all three — not within them.</p>
           </div>
 
           <div className="cor-map-box r">
