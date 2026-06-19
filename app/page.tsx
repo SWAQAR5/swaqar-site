@@ -212,7 +212,7 @@ export default function Home() {
               <div className="pillars r" data-d="3">
                 <div className="pillar"><div className="pillar-name">Governance-Led</div><div className="pillar-desc">Supreme Council, Ethics &amp; Oversight Council, External Trustee Panel</div></div>
                 <div className="pillar"><div className="pillar-name">Verification-First</div><div className="pillar-desc">Every counterparty verified through licensed firms before engagement</div></div>
-                <div className="pillar"><div className="pillar-name">Asset-Light</div><div className="pillar-desc">No owned infrastructure, cargo, or capital positions at any stage</div></div>
+                <div className="pillar"><div className="pillar-name">Asset-Light</div><div className="pillar-desc">No owned infrastructure, cargo, or capital positions</div></div>
                 <div className="pillar"><div className="pillar-name">Non-Custodial</div><div className="pillar-desc">SWAQAR never holds funds, title, or goods under any circumstance</div></div>
               </div>
             </div>
