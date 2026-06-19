@@ -338,7 +338,7 @@ export default function Home() {
               <div className="cor-card-active-inner">
                 <div className="cor-active-left">
                   <div className="cor-phase-label"><div className="cor-phase-dot" /><span className="cor-phase-txt">Agriculture &amp; Food Security · Africa ↔ Middle East ↔ Asia</span></div>
-                  <p className="cor-active-desc">Coordinating verification readiness, documentation alignment, and institutional counterparty qualification across agricultural commodity flows between verified African exporters and institutional buyers in the Middle East and Asia. SWAQAR coordinates the institutional conditions for this corridor — it does not trade, broker, hold title, or act as logistics operator at any stage.</p>
+                  <p className="cor-active-desc">Coordinating agricultural commodity flows between verified African exporters and institutional buyers in the Middle East and Asia. SWAQAR coordinates the institutional conditions — it does not trade, broker, hold title, or act as logistics operator at any stage.</p>
                   <div className="cor-active-roles">
                     <div className="cor-role"><div className="cor-role-region">Africa</div><div className="cor-role-name">Origin &amp; Supply</div><div className="cor-role-desc">Verified agricultural exporters across East and West Africa. Commodity readiness, documentation alignment, and counterparty qualification coordinated through licensed TIC partners.</div></div>
                     <div className="cor-role"><div className="cor-role-region">Middle East · Jeddah</div><div className="cor-role-name">Trust &amp; Capital Anchor</div><div className="cor-role-desc">Institutional capital depth, Islamic trade finance infrastructure, and GCC sovereign food security demand. SWAQAR&apos;s institutional centre of gravity — coordinating alongside, not within, regional financial institutions.</div></div>
@@ -346,13 +346,42 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="cor-active-right">
-                  <div className="cor-focus-box">
-                    <div className="cor-focus-lbl">What SWAQAR Coordinates in This Corridor</div>
-                    <div className="cor-focus-item"><div className="cor-focus-pip" /><div className="cor-focus-txt"><strong>Counterparty verification</strong> — qualifying exporters and buyers through the seven-step Partner Qualification Gate via licensed TIC firms (SGS, Bureau Veritas, Intertek). No corridor participant is engaged without completed verification.</div></div>
-                    <div className="cor-focus-item"><div className="cor-focus-pip" /><div className="cor-focus-txt"><strong>Documentation alignment</strong> — coordinating commercial, regulatory, financial, and logistics documentation across corridor jurisdictions under a counsel-validated framework. Eliminating documentation drift before it surfaces under operational pressure.</div></div>
-                    <div className="cor-focus-item"><div className="cor-focus-pip" /><div className="cor-focus-txt"><strong>Banking panel readiness</strong> — aligning corridor participants with Islamic trade finance instruments (Murabaha, Wakala, L/C under UCP 600) through the banking panel, including ITFC and GCC institutional banking partners.</div></div>
-                    <div className="cor-focus-item"><div className="cor-focus-pip" /><div className="cor-focus-txt"><strong>Stakeholder synchronization</strong> — sequencing and aligning banks, TIC firms, exporters, buyers, logistics operators, and regulators under SWAQAR&apos;s Corridor Operating System — so all parties operate from the same institutional framework.</div></div>
-                    <div className="cor-focus-item"><div className="cor-focus-pip" /><div className="cor-focus-txt"><strong>Governance oversight</strong> — every coordinated transaction moves through the full Four-Gate Model under Supreme Council mandate. The escalation path is defined before any execution begins.</div></div>
+                  <div className="cor-coordinates">
+                    <div className="cor-coord-item">
+                      <div className="cor-coord-pip" />
+                      <div className="cor-coord-txt">
+                        <strong>Counterparty verification</strong>
+                        Exporters and buyers qualified through the Partner Qualification Gate via licensed TIC firms — SGS, Bureau Veritas, and Intertek.
+                      </div>
+                    </div>
+                    <div className="cor-coord-item">
+                      <div className="cor-coord-pip" />
+                      <div className="cor-coord-txt">
+                        <strong>Documentation alignment</strong>
+                        Commercial, regulatory, financial, and logistics documentation coordinated across all corridor jurisdictions under a counsel-validated framework.
+                      </div>
+                    </div>
+                    <div className="cor-coord-item">
+                      <div className="cor-coord-pip" />
+                      <div className="cor-coord-txt">
+                        <strong>Banking panel readiness</strong>
+                        Corridor participants aligned with Islamic trade finance instruments — Murabaha, Wakala, L/C under UCP 600 — through ITFC and GCC banking partners.
+                      </div>
+                    </div>
+                    <div className="cor-coord-item">
+                      <div className="cor-coord-pip" />
+                      <div className="cor-coord-txt">
+                        <strong>Stakeholder synchronization</strong>
+                        Banks, TIC firms, exporters, buyers, logistics operators, and regulators sequenced under SWAQAR&apos;s Corridor Operating System.
+                      </div>
+                    </div>
+                    <div className="cor-coord-item" style={{gridColumn:'1 / -1'}}>
+                      <div className="cor-coord-pip" />
+                      <div className="cor-coord-txt">
+                        <strong>Governance oversight</strong>
+                        Every coordinated transaction moves through the full Four-Gate Model under Supreme Council mandate. The escalation path is defined before any execution begins.
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -374,7 +403,7 @@ export default function Home() {
               <span className="cor-tier-title">Corridor Domains Under Strategic Evaluation</span>
               <span className="cor-tier-badge eval">Phase II+ · Subject to Phase I Proof</span>
             </div>
-            <div className="cor-eval-grid" data-cols="3" style={{gridTemplateColumns:'1fr 1fr 1fr'}}>
+            <div className="cor-eval-grid" data-cols="2" style={{gridTemplateColumns:'1fr 1fr'}}>
               <div className="cor-eval-card">
                 <div className="cor-eval-reg">Industrial Development</div>
                 <div className="cor-eval-title">Building Materials &amp; Industrial Goods</div>
@@ -389,16 +418,22 @@ export default function Home() {
                 <div className="cor-tags" style={{marginBottom:'14px'}}><span className="cor-tag">Africa ↔ Middle East ↔ Asia</span><span className="cor-tag">Agricultural Inputs</span><span className="cor-tag">Agro-Processing</span><span className="cor-tag">Verification</span></div>
                 <p className="cor-eval-note">SWAQAR coordinates verification readiness, documentation alignment, and institutional counterparty qualification — it does not trade, aggregate, procure, or act as a logistics operator in this domain. Evaluation subject to Phase I proof and Supreme Council mandate. If your institutional interest is in this corridor domain, you may register your interest for Phase II consideration through the Engage section.</p>
               </div>
-              <div className="cor-eval-card" style={{borderLeft:'2px solid var(--gold-a18)'}}>
-                <div className="cor-eval-reg" style={{color:'var(--muted)'}}>Institutional Enablement</div>
-                <div className="cor-eval-title" style={{fontSize:'1rem'}}>Active Capabilities Supporting All Corridors</div>
-                <p className="cor-eval-body" style={{fontSize:'.78rem'}}>These institutional capabilities are not corridor-specific — they are the operating substrate active from Phase I onward across every coordinated corridor SWAQAR activates.</p>
-                <div style={{marginBottom:'12px'}}>
-                  <div className="cor-focus-item" style={{padding:'7px 0',borderBottom:'1px solid var(--rule)'}}><div className="cor-focus-pip" /><div className="cor-focus-txt" style={{fontSize:'.76rem'}}><strong>Counterparty Verification</strong><br /><span style={{color:'var(--muted)'}}>Active Phase I — licensed TIC panel engaged for all corridor participants.</span></div></div>
-                  <div className="cor-focus-item" style={{padding:'7px 0',borderBottom:'1px solid var(--rule)'}}><div className="cor-focus-pip" /><div className="cor-focus-txt" style={{fontSize:'.76rem'}}><strong>Documentation Governance</strong><br /><span style={{color:'var(--muted)'}}>Active Phase I — counsel-validated framework per corridor, per ICC standards.</span></div></div>
-                  <div className="cor-focus-item" style={{padding:'7px 0'}}><div className="cor-focus-pip" /><div className="cor-focus-txt" style={{fontSize:'.76rem'}}><strong>Trade Finance Readiness</strong><br /><span style={{color:'var(--muted)'}}>Building toward Phase II — alignment with ITFC, Afreximbank, and GCC banking panel partners.</span></div></div>
-                </div>
-                <p className="cor-eval-note" style={{fontSize:'.7rem'}}>These are governance infrastructure — not corridors in themselves — forming the institutional foundation that makes every corridor sound.</p>
+            </div>
+            <div className="cor-cap-row">
+              <div className="cor-cap-item">
+                <div className="cor-cap-name">Counterparty Verification</div>
+                <div className="cor-cap-status">Active — Phase I</div>
+                <p className="cor-cap-desc">Licensed TIC panel engaged for all corridor participants. Verification precedes every engagement.</p>
+              </div>
+              <div className="cor-cap-item">
+                <div className="cor-cap-name">Documentation Governance</div>
+                <div className="cor-cap-status">Active — Phase I</div>
+                <p className="cor-cap-desc">Counsel-validated documentation framework per corridor jurisdiction, aligned with ICC standards.</p>
+              </div>
+              <div className="cor-cap-item">
+                <div className="cor-cap-name">Trade Finance Readiness</div>
+                <div className="cor-cap-status">Building toward Phase II</div>
+                <p className="cor-cap-desc">Alignment with ITFC, Afreximbank, and GCC banking panel partners for Islamic and conventional instruments.</p>
               </div>
             </div>
           </div>
