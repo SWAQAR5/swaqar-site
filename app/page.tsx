@@ -401,11 +401,11 @@ export default function Home() {
             <div>
               <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">Institutional Architecture</span></div>
               <h2 className="sec-h r" data-d="1">Seven <em>Institutional Arms.</em> One Architecture.</h2>
-              <div style={{marginTop:'36px'}}>
+              <div className="arm-list" style={{marginTop:'36px'}}>
                 {[
-                  ['01','SWAQAR Corridors of Trust','Institutional trade corridor coordination across Africa ⇄ Middle East ⇄ Asia. Verification-governed, non-custodial architecture. SWAQAR coordinates the institutional conditions for corridor engagement — it does not trade, broker, hold title, or act as logistics operator at any stage.'],
-                  ['02','SWAQAR Intelligence','Corridor intelligence, market signals, counterparty risk data, and regulatory monitoring as a standing institutional function — lawfully gathered, ethically sourced.'],
-                  ['03','SWAQAR Capital & Trade Finance Coordination','Facilitating access to licensed trade finance institutions. SWAQAR does not custody funds or act as financial principal under any circumstance.'],
+                  ['01','SWAQAR Corridors of Trust','Core corridor governance across Africa, the Middle East, and Asia — verification-governed and non-custodial.'],
+                  ['02','SWAQAR Intelligence','Corridor intelligence, market signals, and counterparty risk data — lawfully gathered, ethically sourced.'],
+                  ['03','SWAQAR Capital & Trade Finance Coordination','Facilitating access to licensed trade finance institutions. Never custodial. Never a financial principal.'],
                   ['04','SWAQAR Verification & Compliance','Counterparty verification through licensed TIC partners. The Partner Qualification Gate is a prerequisite for all corridor activations — maintaining verification integrity as a standing corridor condition, not a one-time gate.'],
                   ['05','SWAQAR Institutional Relations','Sovereign, government, and ministerial engagement at institutional grade. The dedicated interface for government ministries and sovereign bodies engaging with SWAQAR at institutional standard.'],
                   ['06','SWAQAR Industrial Corridors','Industrial trade development across SWAQAR\'s corridor regions. Documentation alignment and stakeholder synchronization for licensed logistics operators and qualified industrial counterparties.'],
