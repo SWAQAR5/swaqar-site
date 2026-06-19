@@ -1,7 +1,19 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
+  const [lang, setLang] = useState('en');
+
+  useEffect(() => {
+    if (lang === 'ar') {
+      document.documentElement.setAttribute('dir', 'rtl');
+      document.body.classList.add('lang-ar');
+    } else {
+      document.documentElement.removeAttribute('dir');
+      document.body.classList.remove('lang-ar');
+    }
+  }, [lang]);
+
   useEffect(() => {
     const dot = document.getElementById('cur-dot');
     const ring = document.getElementById('cur-ring');
@@ -98,10 +110,27 @@ export default function Home() {
           <li><a href="#governance">Governance</a></li>
           <li><a href="#contact" className="nav-cta">Engage</a></li>
         </ul>
+        <div className="lang-toggle" aria-label="Language selection">
+          <button className={`lang-btn${lang==='en'?' active':''}`} onClick={()=>setLang('en')} aria-label="Switch to English" aria-pressed={lang==='en'}>EN</button>
+          <span className="lang-sep" aria-hidden="true">|</span>
+          <button className={`lang-btn${lang==='ar'?' active':''}`} onClick={()=>setLang('ar')} aria-label="Switch to Arabic" aria-pressed={lang==='ar'}>AR</button>
+          <span className="lang-sep" aria-hidden="true">|</span>
+          <button className={`lang-btn${lang==='fr'?' active':''}`} onClick={()=>setLang('fr')} aria-label="Switch to French" aria-pressed={lang==='fr'}>FR</button>
+        </div>
         <button className="burger" id="burger" aria-label="Open menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
       </nav>
+      {lang !== 'en' && (
+        <div className="banner">
+          <div className="banner-dot"></div>
+          <p className="banner-txt">
+            {lang === 'ar'
+              ? 'Arabic translation in preparation — approved institutional translator appointed. Content currently displayed in English.'
+              : 'French translation in preparation — approved institutional translator appointed. Content currently displayed in English.'}
+          </p>
+        </div>
+      )}
 
       <section className="hero" id="home">
         <div className="hero-grid">

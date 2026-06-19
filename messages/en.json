@@ -1,0 +1,20 @@
+{
+  "nav": {
+    "mission": "Mission",
+    "identity": "Identity",
+    "corridors": "Corridors",
+    "model": "The Model",
+    "arms": "Strategic Arms",
+    "governance": "Governance",
+    "engage": "Engage"
+  },
+  "hero": {},
+  "mission": {},
+  "identity": {},
+  "corridors": {},
+  "model": {},
+  "arms": {},
+  "governance": {},
+  "contact": {},
+  "footer": {}
+}

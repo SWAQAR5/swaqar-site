@@ -36,6 +36,11 @@ nav.scrolled{box-shadow:0 2px 24px rgba(26,26,26,.08)}
 .nav-cta{padding:9px 22px!important;border:1px solid var(--ink)!important;color:var(--ink)!important;transition:background .25s,color .25s!important}
 .nav-cta:hover{background:var(--ink)!important;color:var(--parchment)!important}
 .nav-cta::after{display:none!important}
+.lang-toggle{display:flex;align-items:center;gap:8px;margin-right:12px}
+.lang-btn{background:none;border:none;cursor:pointer;font-family:var(--sans);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:0;line-height:1;transition:color .2s}
+.lang-btn.active{color:var(--gold)}
+.lang-btn:hover:not(.active){color:var(--ink)}
+.lang-sep{font-size:.58rem;color:var(--rule);line-height:1;user-select:none}
 .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
 .burger span{width:22px;height:1.5px;background:var(--ink);display:block;transition:all .3s}
 .hero{position:relative;min-height:92vh;background:var(--ink);display:flex;align-items:center;overflow:hidden}
@@ -257,7 +262,7 @@ footer{background:var(--ink-deep);border-top:1px solid var(--gold-a18);padding:7
 .foot-badges{display:flex;gap:10px;flex-wrap:wrap}
 .foot-badge{font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.1);padding:4px 12px}
 @media(max-width:1024px){.stats{grid-template-columns:repeat(2,1fr)}.id-inner{grid-template-columns:1fr;gap:52px}.cor-cards{grid-template-columns:1fr}.gates-grid{grid-template-columns:repeat(2,1fr)}.arms-inner{grid-template-columns:1fr}.gov-grid{grid-template-columns:1fr 1fr}.con-inner{grid-template-columns:1fr}.foot-inner{grid-template-columns:1fr 1fr}.id-grid{grid-template-columns:1fr}}
-@media(max-width:768px){.banner{padding:9px 24px}nav{padding:0 24px}.nav-links{display:none;position:fixed;inset:72px 0 0;background:var(--parchment);flex-direction:column;padding:32px 24px;gap:22px;border-top:1px solid var(--rule);z-index:999}.nav-links.open{display:flex}.burger{display:flex}.hero-body{padding:0 24px}.hero-scroll{display:none}.wrap{padding:0 24px}section{padding:76px 0}.arm-list{grid-template-columns:1fr}.gates-grid{grid-template-columns:1fr}.gov-grid{grid-template-columns:1fr}.foot-inner{grid-template-columns:1fr}.abx-metrics{grid-template-columns:1fr}.stat{padding:20px 24px}}
+@media(max-width:768px){.banner{padding:9px 24px}nav{padding:0 24px}.nav-links{display:none;position:fixed;inset:72px 0 0;background:var(--parchment);flex-direction:column;padding:32px 24px;gap:22px;border-top:1px solid var(--rule);z-index:999}.nav-links.open{display:flex}.burger{display:flex}.lang-btn:not(.active){display:none}.lang-sep{display:none}.hero-body{padding:0 24px}.hero-scroll{display:none}.wrap{padding:0 24px}section{padding:76px 0}.arm-list{grid-template-columns:1fr}.gates-grid{grid-template-columns:1fr}.gov-grid{grid-template-columns:1fr}.foot-inner{grid-template-columns:1fr}.abx-metrics{grid-template-columns:1fr}.stat{padding:20px 24px}}
 @media(max-width:900px){.pillars{grid-template-columns:1fr 1fr}}
 @media(max-width:500px){.pillars{grid-template-columns:1fr}}
 .mission{background:var(--ink);position:relative;overflow:hidden}
@@ -281,4 +286,24 @@ footer{background:var(--ink-deep);border-top:1px solid var(--gold-a18);padding:7
 @media(max-width:900px){.mv-inner{grid-template-columns:1fr}.mv-values{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.mv-values{grid-template-columns:1fr}.mv-intent{flex-direction:column;align-items:flex-start}}
 p{text-align:justify}
+/* ── ARABIC RTL LAYOUT ── */
+html[dir="rtl"] body{font-family:'IBM Plex Arabic','Noto Naskh Arabic','Arial',sans-serif}
+html[dir="rtl"] .banner{flex-direction:row-reverse}
+html[dir="rtl"] nav{flex-direction:row-reverse}
+html[dir="rtl"] .nav-links{flex-direction:row-reverse}
+html[dir="rtl"] .nav-brand{flex-direction:row-reverse}
+html[dir="rtl"] .hero-body{text-align:right}
+html[dir="rtl"] .eyebrow{flex-direction:row-reverse}
+html[dir="rtl"] .sec-tag{flex-direction:row-reverse}
+html[dir="rtl"] .id-inner{direction:rtl}
+html[dir="rtl"] .mv-inner{direction:rtl}
+html[dir="rtl"] .cor-tier-head{flex-direction:row-reverse}
+html[dir="rtl"] .cor-tier-badge{margin-left:auto;margin-right:0}
+html[dir="rtl"] .arm{flex-direction:row-reverse;text-align:right}
+html[dir="rtl"] .con-inner{direction:rtl}
+html[dir="rtl"] .foot-inner{direction:rtl}
+html[dir="rtl"] .foot-btm{flex-direction:row-reverse}
+html[dir="rtl"] p,html[dir="rtl"] .sec-p,html[dir="rtl"] .arm-desc,html[dir="rtl"] .gov-desc{text-align:right}
+/* French — LTR, no layout changes needed */
+/* FR content will use the same LTR layout as EN */
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}}
