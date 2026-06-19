@@ -219,8 +219,8 @@ section{position:relative;padding:104px 0}
 .partners-track{display:flex;animation:mq 30s linear infinite;width:max-content}
 .partner{padding:0 44px;font-family:var(--serif);font-size:.96rem;color:var(--muted);letter-spacing:.06em;border-right:1px solid var(--rule);white-space:nowrap;transition:color .3s}
 .partner:hover{color:var(--ink)}
-.contact{background:var(--parchment)}
-.contact .sec-h{color:var(--ink)}
+.contact{background:var(--ink)}
+.contact .sec-h{color:#fff}
 .contact .sec-tag-txt{color:var(--gold)}
 .contact .sec-tag-line{background:var(--gold)}
 .con-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:80px;align-items:start}
@@ -230,15 +230,15 @@ section{position:relative;padding:104px 0}
 .con-input:focus,.con-sel:focus,.con-area:focus{border-color:var(--gold)}
 .con-area{min-height:120px;resize:vertical}
 .con-sel option{background:#fff}
-.con-disc{font-size:.68rem;color:var(--muted);line-height:1.65;margin-bottom:20px}
-.con-info-h{font-family:var(--serif);font-size:1.85rem;color:var(--ink);font-weight:700;margin-bottom:16px}
-.con-info-p{font-size:.95rem;line-height:1.82;color:var(--body);margin-bottom:32px;text-align:justify}
+.con-disc{font-size:.68rem;color:rgba(255,255,255,.28);line-height:1.65;margin-bottom:20px}
+.con-info-h{font-family:var(--serif);font-size:1.85rem;color:#fff;font-weight:700;margin-bottom:16px}
+.con-info-p{font-size:.95rem;line-height:1.82;color:rgba(255,255,255,.48);margin-bottom:32px;text-align:justify}
 .con-details{display:flex;flex-direction:column;gap:16px}
 .con-detail{display:flex;align-items:flex-start;gap:12px}
 .con-detail-ico{width:32px;height:32px;flex-shrink:0;background:var(--stone);border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;color:var(--gold)}
 .con-detail-ico svg{width:15px;height:15px}
-.con-detail-lbl{font-size:.53rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
-.con-detail-val{font-size:.84rem;color:var(--body);line-height:1.5;text-align:justify}
+.con-detail-lbl{font-size:.53rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:2px}
+.con-detail-val{font-size:.84rem;color:rgba(255,255,255,.58);line-height:1.5;text-align:justify}
 footer{background:var(--ink-deep);border-top:1px solid var(--gold-a18);padding:72px 0 32px}
 .foot-inner{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:52px;margin-bottom:52px}
 .foot-mark{display:flex;align-items:center;gap:12px;margin-bottom:16px}

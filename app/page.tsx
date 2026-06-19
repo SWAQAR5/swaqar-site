@@ -483,7 +483,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="con-disc r" data-d="4">All inquiries are reviewed against SWAQAR&apos;s counterparty eligibility criteria before any response is issued. Submission does not initiate an engagement, create contractual obligation, or constitute regulated advice of any kind.</p>
-              <button className="btn-ink r" data-d="4" style={{width:'100%',justifyContent:'center'}}>Submit Institutional Inquiry</button>
+              <button className="btn-gold r" data-d="4" style={{width:'100%',justifyContent:'center'}}>Submit Institutional Inquiry</button>
             </div>
             <div className="r" data-d="2">
               <div className="con-info-h">Engage SWAQAR at institutional standard.</div>
