@@ -158,7 +158,6 @@ export default function Home() {
         <div className="hero-body">
           <div className="eyebrow r"><div className="eyebrow-line"></div><span className="eyebrow-text">{tx(t.hero.eyebrow, lang)}</span></div>
           <h1 className="hero-h1 r" data-d="1">{tx(t.hero.h1line1, lang)}<br/>{tx(t.hero.h1line2, lang)} <em>{tx(t.hero.h1em, lang)}</em></h1>
-          <p className="hero-sub r" data-d="2">{tx(t.hero.sub, lang)}</p>
           <p className="hero-desc r" data-d="3">{tx(t.hero.desc, lang)}</p>
           <div className="hero-btns r" data-d="4">
             <a href="#corridors" className="btn-gold"><span>{tx(t.hero.btnExplore, lang)}</span><svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></a>
@@ -531,7 +530,7 @@ export default function Home() {
           <p className="foot-legal">{tx(t.footer.legal, lang)}</p>
           <div className="foot-btm">
             <div style={{display:'flex',gap:'24px',alignItems:'center',flexWrap:'wrap'}}>
-              <span className="foot-copy">{tx(t.footer.copyright, lang)}</span>
+              <span className="foot-copy">© {new Date().getFullYear()} {tx(t.footer.copyright, lang)}</span>
               <span className="foot-copy" style={{opacity:.5}}>{tx(t.footer.secondaryLine, lang)}</span>
             </div>
             <div className="foot-badges">{(t.footer.badges[lang] ?? t.footer.badges['en']).map((badge, i) => <span className="foot-badge" key={i}>{badge}</span>)}</div>

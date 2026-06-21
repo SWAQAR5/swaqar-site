@@ -35,11 +35,6 @@ export const t = {
     h1line1: { en: 'Corridors', ar: 'ممرات', fr: 'Corridors' },
     h1line2: { en: 'of', ar: 'من', fr: 'de' },
     h1em: { en: 'Trust', ar: 'الثقة', fr: 'Confiance' },
-    sub: {
-      en: 'Where Governance Meets Execution',
-      ar: 'حيث تلتقي الحوكمة بالتنفيذ',
-      fr: 'Là où la Gouvernance rencontre l\'Exécution',
-    },
     desc: {
       en: 'A governance-led, asset-light, non-custodial Trade Coordination Layer — governing verification, execution, institutional trust, and corridor discipline across Africa, the Middle East, and Asia.',
       ar: 'طبقة تنسيق تجاري رائدة بالحوكمة، خفيفة الأصول، غير وصائية — تحكم التحقق والتنفيذ والثقة المؤسسية وانضباط الممرات عبر أفريقيا والشرق الأوسط وآسيا.',
@@ -61,7 +56,7 @@ export const t = {
   // ── STATS ──
   stats: {
     corridorRegions: { en: 'Corridor Regions', ar: 'مناطق الممرات', fr: 'Régions de Corridors' },
-    institutionalGates: { en: 'Institutional Gates', ar: 'البوابات المؤسسية', fr: 'Portes Institutionnelles' },
+    institutionalGates: { en: 'Four-Gate Entry Protocol', ar: 'بروتوكول دخول البوابات الأربع', fr: 'Protocole d\'Entrée à Quatre Portes' },
     nonCustodial: { en: 'Non-Custodial Structure', ar: 'هيكل غير وصائي', fr: 'Structure Non-Dépositaire' },
     strategicArms: { en: 'Strategic Arms', ar: 'الأذرع الاستراتيجية', fr: 'Bras Stratégiques' },
   },
@@ -273,9 +268,9 @@ export const t = {
     categoryLabel: { en: 'Engagement Category', ar: 'فئة الانخراط', fr: 'Catégorie d\'Engagement' },
     categoryDefault: { en: 'Select inquiry category', ar: 'اختر فئة الاستفسار', fr: 'Sélectionner la catégorie' },
     categories: {
-      en: ['Government / Ministerial Engagement','Banking / Trade-Finance Coordination','Verified Exporter — Corridor Participation','Verified Buyer — Corridor Participation','Verification / Compliance Partnership','Logistics / Infrastructure Partnership','Institutional Capital Partner Engagement','Other Institutional Inquiry'],
-      ar: ['انخراط حكومي / وزاري','تنسيق مصرفي / تمويل تجاري','مُصدِّر موثق — مشاركة في الممر','مشترٍ موثق — مشاركة في الممر','شراكة تحقق / امتثال','شراكة لوجستية / بنية تحتية','انخراط شريك رأس مال مؤسسي','استفسار مؤسسي آخر'],
-      fr: ['Engagement Gouvernemental / Ministériel','Coordination Bancaire / Financement Commercial','Exportateur Vérifié — Participation au Corridor','Acheteur Vérifié — Participation au Corridor','Partenariat Vérification / Conformité','Partenariat Logistique / Infrastructure','Engagement Partenaire Capital Institutionnel','Autre Demande Institutionnelle'],
+      en: ['Government / Ministerial Engagement','Banking / Trade-Finance Coordination','Verified Exporter — Corridor Participation','Verified Buyer — Corridor Participation','Verification / Compliance Partnership','Logistics / Infrastructure Partnership','Institutional Capital Partner Engagement','Other Institutional Inquiry','Phase II Interest — Building Materials & Industrial Goods','Phase II Interest — Agricultural Inputs & Commodity Processing'],
+      ar: ['انخراط حكومي / وزاري','تنسيق مصرفي / تمويل تجاري','مُصدِّر موثق — مشاركة في الممر','مشترٍ موثق — مشاركة في الممر','شراكة تحقق / امتثال','شراكة لوجستية / بنية تحتية','انخراط شريك رأس مال مؤسسي','استفسار مؤسسي آخر','اهتمام بالمرحلة الثانية — مواد البناء والسلع الصناعية','اهتمام بالمرحلة الثانية — المدخلات الزراعية ومعالجة السلع'],
+      fr: ['Engagement Gouvernemental / Ministériel','Coordination Bancaire / Financement Commercial','Exportateur Vérifié — Participation au Corridor','Acheteur Vérifié — Participation au Corridor','Partenariat Vérification / Conformité','Partenariat Logistique / Infrastructure','Engagement Partenaire Capital Institutionnel','Autre Demande Institutionnelle','Intérêt Phase II — Matériaux de Construction & Biens Industriels','Intérêt Phase II — Intrants Agricoles & Transformation des Matières Premières'],
     },
     inquiryLabel: { en: 'Nature of Inquiry', ar: 'طبيعة الاستفسار', fr: 'Nature de la Demande' },
     inquiryPlaceholder: {
@@ -349,7 +344,7 @@ export const t = {
       ar: 'مجموعة سواقر هي طبقة تنسيق تجاري رائدة بالحوكمة وغير وصائية. هذا الموقع لأغراض المعلومات المؤسسية فقط ولا يُشكّل عرضاً أو طلباً أو توصية أو مشورة استثمارية من أي نوع. لا تحتفظ مجموعة سواقر بالأموال أو تمتلك حق الملكية على البضائع أو تمتلك شحنات أو تشغل أصول لوجستية أو تتصرف كوسيط أو تاجر أو وكيل تجاري أو تستبدل المشغلين الماليين أو المصرفيين أو الجمركيين أو اللوجستيين المنظمين. يخضع الانخراط مع مجموعة سواقر للمراجعة القانونية للولاية القضائية والعناية الواجبة المعتمدة من المستشارين لكل ولاية قضائية وموافقة الحوكمة المؤسسية. للجماهير المؤسسية فقط.',
       fr: 'SWAQAR Group est une Couche de Coordination Commerciale à gouvernance structurée et non-dépositaire. Ce site est uniquement à des fins d\'information institutionnelle et ne constitue pas une offre, sollicitation, recommandation ou conseil en investissement. SWAQAR Group ne détient pas de fonds, de titres de propriété sur des marchandises, ne possède pas de fret, n\'exploite pas d\'actifs logistiques, n\'agit pas en tant que courtier, négociant ou agent commercial. L\'engagement avec SWAQAR Group est soumis à un examen juridique juridictionnel et à une approbation de gouvernance institutionnelle. Pour les audiences institutionnelles uniquement.',
     },
-    copyright: { en: '© 2025 SWAQAR Group · All rights reserved', ar: '© 2025 مجموعة سواقر · جميع الحقوق محفوظة', fr: '© 2025 SWAQAR Group · Tous droits réservés' },
+    copyright: { en: 'SWAQAR Group · All rights reserved', ar: 'مجموعة سواقر · جميع الحقوق محفوظة', fr: 'SWAQAR Group · Tous droits réservés' },
     footerLinks: {
       corridorArch: { en: 'Corridor Architecture', ar: 'هيكل الممرات', fr: 'Architecture des Corridors' },
       gateModel: { en: '4-Gate Model', ar: 'نموذج البوابات الأربع', fr: 'Modèle à 4 Portes' },
@@ -575,7 +570,7 @@ export const t = {
         ['04','SWAQAR Verification & Compliance','Counterparty verification through licensed TIC partners. The Partner Qualification Gate is a prerequisite for all corridor activations — maintaining verification integrity as a standing corridor condition, not a one-time gate.'],
         ['05','SWAQAR Institutional Relations','Sovereign, government, and ministerial engagement at institutional grade. The dedicated interface for government ministries and sovereign bodies engaging with SWAQAR at institutional standard.'],
         ['06','SWAQAR Industrial Corridors','Industrial trade development across SWAQAR\'s corridor regions. Documentation alignment and stakeholder synchronization for licensed logistics operators and qualified industrial counterparties.'],
-        ['07','SWAQAR Advisory','Strategic advisory on corridor architecture and governance design. Capital and strategic partners engage through this arm at governance level, subject to Supreme Council review.'],
+        ['07','SWAQAR Advisory','Strategic advisory on corridor architecture, governance design, and institutional positioning. Capital and strategic partners engage through this arm at governance level — not transaction level. Engagement is structured as a formal institutional relationship, governed by a counsel-validated framework, and subject to Supreme Council review before any mandate is confirmed. SWAQAR does not accept speculative or uncommitted capital conversations through this arm.'],
       ],
       ar: [
         ['٠١','ممرات الثقة سواقر','حوكمة الممرات الأساسية عبر أفريقيا والشرق الأوسط وآسيا — محكومة بالتحقق وغير وصائية.'],
@@ -584,7 +579,7 @@ export const t = {
         ['٠٤','سواقر للتحقق والامتثال','التحقق من الأطراف المقابلة عبر شركاء TIC المرخصين. بوابة تأهل الشركاء شرط أساسي لجميع تفعيلات الممرات — للحفاظ على نزاهة التحقق كشرط دائم للممر، وليس بوابة لمرة واحدة.'],
         ['٠٥','سواقر للعلاقات المؤسسية','انخراط سيادي وحكومي ووزاري على المستوى المؤسسي. الواجهة المخصصة للوزارات الحكومية والهيئات السيادية المنخرطة مع سواقر بالمعيار المؤسسي.'],
         ['٠٦','سواقر للممرات الصناعية','تطوير التجارة الصناعية عبر مناطق ممرات سواقر. مواءمة التوثيق وتنسيق أصحاب المصلحة للمشغلين اللوجستيين المرخصين والأطراف المقابلة الصناعية المؤهلة.'],
-        ['٠٧','سواقر للاستشارات','الاستشارات الاستراتيجية في هيكل الممرات وتصميم الحوكمة. يتعامل شركاء رأس المال والشركاء الاستراتيجيون عبر هذا الذراع على مستوى الحوكمة، خاضعاً لمراجعة المجلس الأعلى.'],
+        ['٠٧','سواقر للاستشارات','استشارات استراتيجية في هيكل الممرات وتصميم الحوكمة والتموضع المؤسسي. يتعامل شركاء رأس المال والشركاء الاستراتيجيون عبر هذا الذراع على مستوى الحوكمة — وليس على مستوى المعاملات. يُهيكَل الانخراط كعلاقة مؤسسية رسمية، محكومة بإطار معتمد من المستشارين، وخاضعة لمراجعة المجلس الأعلى قبل تأكيد أي تفويض. لا تقبل سواقر محادثات رأس المال التكهنية أو غير الملتزمة عبر هذا الذراع.'],
       ],
       fr: [
         ['01','SWAQAR Corridors de Confiance','Gouvernance des corridors centraux à travers l\'Afrique, le Moyen-Orient et l\'Asie — vérification-gouvernée et non-dépositaire.'],
@@ -593,7 +588,7 @@ export const t = {
         ['04','SWAQAR Vérification & Conformité','Vérification des contreparties par des partenaires TIC agréés. La Porte de Qualification des Partenaires est un prérequis pour toutes les activations de corridor.'],
         ['05','SWAQAR Relations Institutionnelles','Engagement souverain, gouvernemental et ministériel au niveau institutionnel. L\'interface dédiée aux ministères gouvernementaux et aux organes souverains.'],
         ['06','SWAQAR Corridors Industriels','Développement du commerce industriel dans les régions de corridors de SWAQAR. Alignement de la documentation et synchronisation des parties prenantes.'],
-        ['07','SWAQAR Advisory','Conseil stratégique sur l\'architecture des corridors et la conception de la gouvernance. Les partenaires en capital et stratégiques s\'engagent via ce bras au niveau de la gouvernance.'],
+        ['07','SWAQAR Advisory','Conseil stratégique sur l\'architecture des corridors, la conception de la gouvernance et le positionnement institutionnel. Les partenaires en capital et stratégiques s\'engagent via ce bras au niveau de la gouvernance — pas au niveau transactionnel. L\'engagement est structuré comme une relation institutionnelle formelle, régie par un cadre validé par des conseillers, et soumise à l\'examen du Conseil Suprême avant toute confirmation de mandat. SWAQAR n\'accepte pas les conversations en capital spéculatives ou non engagées via ce bras.'],
       ],
     },
   },
