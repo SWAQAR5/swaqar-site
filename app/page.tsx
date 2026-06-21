@@ -1,8 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { t, tx, type Lang } from '@/lib/translations';
 
 export default function Home() {
-  const [lang, setLang] = useState('en');
+  const [lang, setLang] = useState<Lang>('en');
 
   useEffect(() => {
     if (lang === 'ar') {
@@ -61,9 +62,9 @@ export default function Home() {
         entries.forEach(e => {
           if (!e.isIntersecting) return;
           let s = 0; const step = num / 40;
-          const t = setInterval(() => {
+          const timer = setInterval(() => {
             s += step;
-            if (s >= num) { c.textContent = tgt; clearInterval(t); }
+            if (s >= num) { c.textContent = tgt; clearInterval(timer); }
             else c.textContent = tgt.includes('%') ? Math.round(s) + '%' : Math.round(s) + tgt.replace(/[0-9.]/g, '');
           }, 30);
           io2.unobserve(e.target);
@@ -87,7 +88,7 @@ export default function Home() {
 
       <div className="banner">
         <div className="banner-dot"></div>
-        <p className="banner-txt"><strong>Phase I — Foundation Stage</strong> &nbsp;·&nbsp; Not yet operationally active. All corridor activation subject to Four-Gate Model completion and Supreme Council mandate.</p>
+        <p className="banner-txt">{tx(t.banner, lang)}</p>
       </div>
 
       <nav id="nav">
@@ -102,13 +103,13 @@ export default function Home() {
           </div>
         </a>
         <ul className="nav-links" id="navLinks">
-          <li><a href="#mission">Mission</a></li>
-          <li><a href="#identity">Identity</a></li>
-          <li><a href="#corridors">Corridors</a></li>
-          <li><a href="#model">The Model</a></li>
-          <li><a href="#arms">Strategic Arms</a></li>
-          <li><a href="#governance">Governance</a></li>
-          <li><a href="#contact" className="nav-cta">Engage</a></li>
+          <li><a href="#mission">{tx(t.nav.mission, lang)}</a></li>
+          <li><a href="#identity">{tx(t.nav.identity, lang)}</a></li>
+          <li><a href="#corridors">{tx(t.nav.corridors, lang)}</a></li>
+          <li><a href="#model">{tx(t.nav.model, lang)}</a></li>
+          <li><a href="#arms">{tx(t.nav.arms, lang)}</a></li>
+          <li><a href="#governance">{tx(t.nav.governance, lang)}</a></li>
+          <li><a href="#contact" className="nav-cta">{tx(t.nav.engage, lang)}</a></li>
         </ul>
         <div className="lang-toggle" aria-label="Language selection">
           <button className={`lang-btn${lang==='en'?' active':''}`} onClick={()=>setLang('en')} aria-label="Switch to English" aria-pressed={lang==='en'}>EN</button>
@@ -125,9 +126,7 @@ export default function Home() {
         <div className="banner">
           <div className="banner-dot"></div>
           <p className="banner-txt">
-            {lang === 'ar'
-              ? 'Arabic translation in preparation — approved institutional translator appointed. Content currently displayed in English.'
-              : 'French translation in preparation — approved institutional translator appointed. Content currently displayed in English.'}
+            {tx(t.translationPending, lang)}
           </p>
         </div>
       )}
@@ -157,23 +156,23 @@ export default function Home() {
           <ellipse cx="300" cy="300" rx="295" ry="52" fill="none" stroke="rgba(206,164,55,0.035)" strokeWidth="0.6"/>
         </svg>
         <div className="hero-body">
-          <div className="eyebrow r"><div className="eyebrow-line"></div><span className="eyebrow-text">Trade Coordination · Africa · Middle East · Asia</span></div>
-          <h1 className="hero-h1 r" data-d="1">Corridors<br/>of <em>Trust</em></h1>
-          <p className="hero-sub r" data-d="2">Where Governance Meets Execution</p>
-          <p className="hero-desc r" data-d="3">A governance-led, asset-light, non-custodial Trade Coordination Layer — governing verification, execution, institutional trust, and corridor discipline across Africa, the Middle East, and Asia.</p>
+          <div className="eyebrow r"><div className="eyebrow-line"></div><span className="eyebrow-text">{tx(t.hero.eyebrow, lang)}</span></div>
+          <h1 className="hero-h1 r" data-d="1">{tx(t.hero.h1line1, lang)}<br/>{tx(t.hero.h1line2, lang)} <em>{tx(t.hero.h1em, lang)}</em></h1>
+          <p className="hero-sub r" data-d="2">{tx(t.hero.sub, lang)}</p>
+          <p className="hero-desc r" data-d="3">{tx(t.hero.desc, lang)}</p>
           <div className="hero-btns r" data-d="4">
-            <a href="#corridors" className="btn-gold"><span>Explore Corridors</span><svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></a>
-            <a href="#contact" className="btn-ghost-light">Institutional Inquiry</a>
+            <a href="#corridors" className="btn-gold"><span>{tx(t.hero.btnExplore, lang)}</span><svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></a>
+            <a href="#contact" className="btn-ghost-light">{tx(t.hero.btnInquiry, lang)}</a>
           </div>
         </div>
-        <div className="hero-scroll"><div className="hero-scroll-line"></div><span className="hero-scroll-txt">Scroll</span></div>
+        <div className="hero-scroll"><div className="hero-scroll-line"></div><span className="hero-scroll-txt">{tx(t.hero.scroll, lang)}</span></div>
       </section>
 
       <div className="stats">
-        <div className="stat r"><span className="stat-n">3</span><span className="stat-l">Corridor Regions</span></div>
-        <div className="stat r" data-d="1"><span className="stat-n">4</span><span className="stat-l">Institutional Gates</span></div>
-        <div className="stat r" data-d="2"><span className="stat-n">100%</span><span className="stat-l">Non-Custodial Structure</span></div>
-        <div className="stat r" data-d="3"><span className="stat-n">7</span><span className="stat-l">Strategic Arms</span></div>
+        <div className="stat r"><span className="stat-n">3</span><span className="stat-l">{tx(t.stats.corridorRegions, lang)}</span></div>
+        <div className="stat r" data-d="1"><span className="stat-n">4</span><span className="stat-l">{tx(t.stats.institutionalGates, lang)}</span></div>
+        <div className="stat r" data-d="2"><span className="stat-n">100%</span><span className="stat-l">{tx(t.stats.nonCustodial, lang)}</span></div>
+        <div className="stat r" data-d="3"><span className="stat-n">7</span><span className="stat-l">{tx(t.stats.strategicArms, lang)}</span></div>
       </div>
 
       <div className="marquee">
@@ -190,41 +189,41 @@ export default function Home() {
 
       <section className="mission" id="mission">
         <div className="wrap">
-          <div className="sec-tag r"><div className="sec-tag-line" /><span className="sec-tag-txt">Mission · Vision · Purpose</span></div>
-          <h2 className="sec-h r" data-d="1" style={{color:'#fff'}}>Why SWAQAR Exists.<br /><em>Where It Is Going.</em></h2>
+          <div className="sec-tag r"><div className="sec-tag-line" /><span className="sec-tag-txt">{tx(t.mission.sectionTag, lang)}</span></div>
+          <h2 className="sec-h r" data-d="1" style={{color:'#fff'}}>{tx(t.mission.heading, lang)}<br /><em>{tx(t.mission.headingEm, lang)}</em></h2>
           <div className="mv-inner">
             <div className="mv-block r" data-d="1">
-              <div className="mv-block-tag">Mission</div>
-              <div className="mv-block-h">The Trusted Trade Coordination Layer</div>
-              <p className="mv-block-p">To serve as the trusted Trade Coordination Layer through which verified cross-regional trade is coordinated between Africa, the Middle East, and Asia — with <em>institutional governance</em>, verified counterparties, and disciplined corridor execution.</p>
+              <div className="mv-block-tag">{tx(t.mission.missionTag, lang)}</div>
+              <div className="mv-block-h">{tx(t.mission.missionH, lang)}</div>
+              <p className="mv-block-p">{tx(t.mission.missionP, lang)}</p>
             </div>
             <div className="mv-block r" data-d="2">
-              <div className="mv-block-tag">Vision</div>
-              <div className="mv-block-h">Corridors Where Trust is a Standing Condition</div>
-              <p className="mv-block-p">That cross-regional trade between Africa, the Middle East, and Asia is conducted through coordinated corridors in which <em>verification, institutional trust, and governance are standing conditions</em> — and that SWAQAR Group is the institution through which those corridors are coordinated.</p>
+              <div className="mv-block-tag">{tx(t.mission.visionTag, lang)}</div>
+              <div className="mv-block-h">{tx(t.mission.visionH, lang)}</div>
+              <p className="mv-block-p">{tx(t.mission.visionP, lang)}</p>
             </div>
           </div>
           <div className="mv-values">
             <div className="mv-value r" data-d="1">
-              <div className="mv-value-name">Governance</div>
-              <div className="mv-value-desc">The operating substrate, not a compliance overlay. Every material decision moves through constitutional procedure.</div>
+              <div className="mv-value-name">{tx(t.mission.values.governance.name, lang)}</div>
+              <div className="mv-value-desc">{tx(t.mission.values.governance.desc, lang)}</div>
             </div>
             <div className="mv-value r" data-d="2">
-              <div className="mv-value-name">Trust</div>
-              <div className="mv-value-desc">Institutional infrastructure, not transactional outcome. Built through consistency, verification, and reciprocity.</div>
+              <div className="mv-value-name">{tx(t.mission.values.trust.name, lang)}</div>
+              <div className="mv-value-desc">{tx(t.mission.values.trust.desc, lang)}</div>
             </div>
             <div className="mv-value r" data-d="3">
-              <div className="mv-value-name">Verification</div>
-              <div className="mv-value-desc">Verification precedes execution, always. No corridor operates on unverified trust at any stage.</div>
+              <div className="mv-value-name">{tx(t.mission.values.verification.name, lang)}</div>
+              <div className="mv-value-desc">{tx(t.mission.values.verification.desc, lang)}</div>
             </div>
             <div className="mv-value r" data-d="4">
-              <div className="mv-value-name">Institutional Continuity</div>
-              <div className="mv-value-desc">The institution must outlast every leadership generation that serves it. Identity is constitutional — not personal.</div>
+              <div className="mv-value-name">{tx(t.mission.values.continuity.name, lang)}</div>
+              <div className="mv-value-desc">{tx(t.mission.values.continuity.desc, lang)}</div>
             </div>
           </div>
           <div className="mv-intent r" data-d="3">
             <div className="mv-intent-line" />
-            <p className="mv-intent-txt"><strong>Strategic Intent:</strong> SWAQAR intends to become the institutional reference point for corridor coordination governance across Africa, the Middle East, and Asia — the infrastructure layer that makes trade between these regions more verified, more trusted, and more executable. This is a multi-decade intention, subject to evidence, governance discipline, and counsel-validated milestones.</p>
+            <p className="mv-intent-txt"><strong>{tx(t.mission.intentLabel, lang)}</strong> {tx(t.mission.intentTxt, lang)}</p>
           </div>
         </div>
       </section>
@@ -235,9 +234,9 @@ export default function Home() {
         <div className="wrap">
           <div className="id-inner">
             <div>
-              <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">Institutional Identity</span></div>
-              <h2 className="sec-h r" data-d="1">A coordination layer,<br/>not a <em>counterparty</em>.</h2>
-              <p className="sec-p r" data-d="2">SWAQAR Group governs the institutional space between verified exporters, buyers, banks, logistics operators, and governments — coordinating without owning, verifying without brokering, connecting without custodying.</p>
+              <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">{tx(t.identity.sectionTag, lang)}</span></div>
+              <h2 className="sec-h r" data-d="1">{tx(t.identity.heading, lang)}<br/><em>{tx(t.identity.headingEm, lang)}</em></h2>
+              <p className="sec-p r" data-d="2">{tx(t.identity.desc, lang)}</p>
               <div className="pillars r" data-d="3">
                 <div className="pillar"><div className="pillar-name">Governance-Led</div><div className="pillar-desc">Supreme Council, Ethics &amp; Oversight Council, External Trustee Panel</div></div>
                 <div className="pillar"><div className="pillar-name">Verification-First</div><div className="pillar-desc">Every counterparty verified through licensed firms before engagement</div></div>
@@ -246,31 +245,31 @@ export default function Home() {
               </div>
             </div>
             <div className="id-card r" data-d="2">
-              <div className="id-quote">&ldquo;SWAQAR coordinates without owning. Verifies without brokering. Connects without <strong>custodying.</strong>&rdquo;</div>
+              <div className="id-quote">{tx(t.identity.quote, lang)}</div>
               <div className="id-meta">
                 <div className="id-badge-circle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#CEA437" strokeWidth="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-                <div><div className="id-badge-name">SWAQAR Group</div><div className="id-badge-role">Founding Governance Doctrine</div></div>
+                <div><div className="id-badge-name">{tx(t.identity.badgeName, lang)}</div><div className="id-badge-role">{tx(t.identity.badgeRole, lang)}</div></div>
               </div>
-              <div className="id-medallion"><span className="id-medallion-n">I</span><span className="id-medallion-t">Foundation</span></div>
+              <div className="id-medallion"><span className="id-medallion-n">I</span><span className="id-medallion-t">{tx(t.identity.medallionT, lang)}</span></div>
             </div>
           </div>
           <div className="id-grid r">
             <div className="id-col id-col-yes">
-              <div className="id-col-head">✦ — SWAQAR IS</div>
-              {['A governance-led Trade Coordination Layer','Verification-first across all corridors and counterparties','Asset-light and non-custodial by constitutional design','A coordination layer working above licensed operators — not replacing them','Governed by Supreme Council, Ethics & Oversight Council, and External Trustee Panel','Operating under counsel-validated legal and compliance frameworks','Phase I — Foundation Stage · Not yet operationally active','Built for a multi-decade institutional horizon'].map((t,i) => (
-                <div className="id-row" key={i}><div className="id-pip">—</div><span className="id-txt">{t}</span></div>
+              <div className="id-col-head">{tx(t.identity.isHead, lang)}</div>
+              {(t.identity.isItems[lang] ?? t.identity.isItems['en']).map((item, i) => (
+                <div className="id-row" key={i}><div className="id-pip">—</div><span className="id-txt">{item}</span></div>
               ))}
             </div>
             <div className="id-col id-col-no">
-              <div className="id-col-head">✕ — SWAQAR IS NOT</div>
-              {['A commodity trader, broker, or dealer of any kind','A bank, lender, escrow provider, or regulated financial institution','A logistics operator, freight company, or cargo owner','A marketplace, exchange, or transactional platform of any kind','A custodian or paymaster of any kind','A fintech, SaaS company, or speculative technology startup','A counterparty to any transaction it coordinates','An investment vehicle or capital-raising vehicle of any kind'].map((t,i) => (
-                <div className="id-row" key={i}><div className="id-pip">✕</div><span className="id-txt">{t}</span></div>
+              <div className="id-col-head">{tx(t.identity.isNotHead, lang)}</div>
+              {(t.identity.isNotItems[lang] ?? t.identity.isNotItems['en']).map((item, i) => (
+                <div className="id-row" key={i}><div className="id-pip">✕</div><span className="id-txt">{item}</span></div>
               ))}
             </div>
           </div>
           <div className="gov-note r" data-d="3" style={{marginTop:'32px'}}>
-            <div className="gov-note-tag">Revenue Model</div>
-            <p className="gov-note-txt">SWAQAR earns disclosed, fixed-scope governance coordination fees upon engagement mandate confirmation — structured as institutional fixed fees paid by corridor participants, not percentage-based commissions. SWAQAR holds no position in, and earns no fees from, the transactions it coordinates.</p>
+            <div className="gov-note-tag">{tx(t.identity.revenueTag, lang)}</div>
+            <p className="gov-note-txt">{tx(t.identity.revenueTxt, lang)}</p>
           </div>
         </div>
       </section>
@@ -498,16 +497,16 @@ export default function Home() {
 
       <section className="gov" id="governance">
         <div className="wrap">
-          <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">Governance Structure</span></div>
-          <h2 className="sec-h r" data-d="1">Three layers of institutional <em>governance oversight.</em></h2>
+          <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">{tx(t.governance.sectionTag, lang)}</span></div>
+          <h2 className="sec-h r" data-d="1">{tx(t.governance.heading, lang)} <em>{tx(t.governance.headingEm, lang)}</em></h2>
           <div className="gov-grid">
-            <div className="gov-card r"><div className="gov-name">Supreme Council</div><div className="gov-desc">The highest governance authority. Oversees constitutional mandate, reserved matters, and institutional continuity. Supermajority required on all mission-critical decisions.</div></div>
-            <div className="gov-card r" data-d="1"><div className="gov-name">Ethics &amp; Oversight Council</div><div className="gov-desc">Independent institutional review body responsible for ethical governance, mission alignment, and counterparty conduct standards across all corridor engagements. KYC and AML compliance discipline operates in alignment with FATF guidelines and applicable regulatory requirements per corridor jurisdiction.</div></div>
-            <div className="gov-card r" data-d="2"><div className="gov-name">External Trustee Panel</div><div className="gov-desc">Senior external advisors providing independent institutional oversight. Ensures non-substitution discipline and multi-jurisdictional governance accountability.</div></div>
+            <div className="gov-card r"><div className="gov-name">{tx(t.governance.supremeCouncil.name, lang)}</div><div className="gov-desc">{tx(t.governance.supremeCouncil.desc, lang)}</div></div>
+            <div className="gov-card r" data-d="1"><div className="gov-name">{tx(t.governance.ethicsCouncil.name, lang)}</div><div className="gov-desc">{tx(t.governance.ethicsCouncil.desc, lang)}</div></div>
+            <div className="gov-card r" data-d="2"><div className="gov-name">{tx(t.governance.trustePanel.name, lang)}</div><div className="gov-desc">{tx(t.governance.trustePanel.desc, lang)}</div></div>
           </div>
           <div className="gov-note r">
-            <div className="gov-note-tag">Governance Position</div>
-            <div className="gov-note-txt">All corridor activation is subject to Supreme Council mandate and counsel-validated legal review. SWAQAR Group is currently in Phase I — Foundation Stage and is not yet operationally active. Nothing on this site constitutes a financial solicitation, investment advice, or offer of any regulated service.</div>
+            <div className="gov-note-tag">{tx(t.governance.noteTag, lang)}</div>
+            <div className="gov-note-txt">{tx(t.governance.noteTxt, lang)}</div>
           </div>
         </div>
       </section>
@@ -516,49 +515,39 @@ export default function Home() {
 
       <section className="contact" id="contact">
         <div className="wrap">
-          <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">Institutional Inquiry</span></div>
+          <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">{tx(t.contact.sectionTag, lang)}</span></div>
           <div className="con-inner">
             <div>
-              <h2 className="sec-h r" data-d="1" style={{color:'#fff'}}>Submit a governed<br/><em>institutional inquiry.</em></h2>
-              <p className="sec-p r" data-d="2" style={{color:'rgba(255,255,255,0.45)',marginBottom:'40px'}}>All inquiries reviewed against counterparty eligibility criteria. Submission does not initiate an engagement or create any obligation.</p>
-              <div className="con-grp r" data-d="2"><label className="con-lbl">Organisation / Institution</label><input className="con-input" type="text" placeholder="Full registered legal entity name"/></div>
-              <div className="con-grp r" data-d="2"><label className="con-lbl">Authorised Representative Name</label><input className="con-input" type="text" placeholder="Full name of authorised representative"/></div>
-              <div className="con-grp r" data-d="3"><label className="con-lbl">Engagement Category</label><select className="con-sel"><option value="">Select inquiry category</option><option>Government / Ministerial Engagement</option><option>Banking / Trade-Finance Coordination</option><option>Verified Exporter — Corridor Participation</option><option>Verified Buyer — Corridor Participation</option><option>Verification / Compliance Partnership</option><option>Logistics / Infrastructure Partnership</option><option>Institutional Capital Partner Engagement</option><option>Other Institutional Inquiry</option></select></div>
-              <div className="con-grp r" data-d="3"><label className="con-lbl">Nature of Inquiry</label><textarea className="con-area" placeholder="Describe the institutional engagement purpose. Be specific."></textarea></div>
+              <h2 className="sec-h r" data-d="1" style={{color:'#fff'}}>{tx(t.contact.heading, lang)}<br/><em>{tx(t.contact.headingEm, lang)}</em></h2>
+              <p className="sec-p r" data-d="2" style={{color:'rgba(255,255,255,0.45)',marginBottom:'40px'}}>{tx(t.contact.subDesc, lang)}</p>
+              <div className="con-grp r" data-d="2"><label className="con-lbl">{tx(t.contact.orgLabel, lang)}</label><input className="con-input" type="text" placeholder={tx(t.contact.orgPlaceholder, lang)}/></div>
+              <div className="con-grp r" data-d="2"><label className="con-lbl">{tx(t.contact.repLabel, lang)}</label><input className="con-input" type="text" placeholder={tx(t.contact.repPlaceholder, lang)}/></div>
+              <div className="con-grp r" data-d="3"><label className="con-lbl">{tx(t.contact.categoryLabel, lang)}</label><select className="con-sel"><option value="">{tx(t.contact.categoryDefault, lang)}</option>{(t.contact.categories[lang] ?? t.contact.categories['en']).map((opt, i) => (<option key={i}>{opt}</option>))}</select></div>
+              <div className="con-grp r" data-d="3"><label className="con-lbl">{tx(t.contact.inquiryLabel, lang)}</label><textarea className="con-area" placeholder={tx(t.contact.inquiryPlaceholder, lang)}></textarea></div>
               <div style={{marginBottom:'24px',padding:'20px 22px',background:'var(--stone)',border:'1px solid var(--rule)',borderLeft:'2px solid var(--gold)'}}>
-                <div style={{fontSize:'.54rem',letterSpacing:'.28em',textTransform:'uppercase' as const,color:'var(--gold)',fontWeight:600,marginBottom:'12px'}}>What Happens After You Submit</div>
+                <div style={{fontSize:'.54rem',letterSpacing:'.28em',textTransform:'uppercase' as const,color:'var(--gold)',fontWeight:600,marginBottom:'12px'}}>{tx(t.contact.processTag, lang)}</div>
                 <div style={{display:'flex',flexDirection:'column' as const,gap:'10px'}}>
-                  <div style={{display:'flex',gap:'12px',alignItems:'flex-start'}}>
-                    <span style={{fontFamily:'var(--serif)',fontSize:'.75rem',color:'var(--gold)',flexShrink:0,marginTop:'1px'}}>01</span>
-                    <span style={{fontSize:'.8rem',lineHeight:'1.65',color:'var(--body)'}}><strong style={{color:'var(--ink)'}}>Inquiry received</strong> — your submission enters SWAQAR&apos;s institutional review queue. All inquiries are acknowledged.</span>
-                  </div>
-                  <div style={{display:'flex',gap:'12px',alignItems:'flex-start'}}>
-                    <span style={{fontFamily:'var(--serif)',fontSize:'.75rem',color:'var(--gold)',flexShrink:0,marginTop:'1px'}}>02</span>
-                    <span style={{fontSize:'.8rem',lineHeight:'1.65',color:'var(--body)'}}><strong style={{color:'var(--ink)'}}>Eligibility review</strong> — your inquiry is assessed against SWAQAR&apos;s counterparty eligibility criteria and engagement category requirements.</span>
-                  </div>
-                  <div style={{display:'flex',gap:'12px',alignItems:'flex-start'}}>
-                    <span style={{fontFamily:'var(--serif)',fontSize:'.75rem',color:'var(--gold)',flexShrink:0,marginTop:'1px'}}>03</span>
-                    <span style={{fontSize:'.8rem',lineHeight:'1.65',color:'var(--body)'}}><strong style={{color:'var(--ink)'}}>Qualification gate initiated</strong> — eligible counterparties are invited to begin the Partner Qualification Gate process under SWAQAR&apos;s governance framework.</span>
-                  </div>
-                  <div style={{display:'flex',gap:'12px',alignItems:'flex-start'}}>
-                    <span style={{fontFamily:'var(--serif)',fontSize:'.75rem',color:'var(--gold)',flexShrink:0,marginTop:'1px'}}>04</span>
-                    <span style={{fontSize:'.8rem',lineHeight:'1.65',color:'var(--body)'}}><strong style={{color:'var(--ink)'}}>Engagement confirmed or declined</strong> — all outcomes are communicated in writing. SWAQAR does not proceed without a confirmed governance-compliant engagement framework in place.</span>
-                  </div>
+                  {(t.contact.processSteps[lang] ?? t.contact.processSteps['en']).map((step, i) => (
+                    <div key={i} style={{display:'flex',gap:'12px',alignItems:'flex-start'}}>
+                      <span style={{fontFamily:'var(--serif)',fontSize:'.75rem',color:'var(--gold)',flexShrink:0,marginTop:'1px'}}>{String(i+1).padStart(2,'0')}</span>
+                      <span style={{fontSize:'.8rem',lineHeight:'1.65',color:'var(--body)'}}><strong style={{color:'var(--ink)'}}>{step.strong}</strong>{step.rest}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-              <p className="con-disc r" data-d="4">All inquiries are reviewed against SWAQAR&apos;s counterparty eligibility criteria before any response is issued. Submission does not initiate an engagement, create contractual obligation, or constitute regulated advice of any kind.</p>
-              <button className="btn-gold r" data-d="4" style={{width:'100%',justifyContent:'center'}}>Submit Institutional Inquiry</button>
+              <p className="con-disc r" data-d="4">{tx(t.contact.disclaimer, lang)}</p>
+              <button className="btn-gold r" data-d="4" style={{width:'100%',justifyContent:'center'}}>{tx(t.contact.submitBtn, lang)}</button>
             </div>
             <div className="r" data-d="2">
-              <div className="con-info-h">Engage SWAQAR at institutional standard.</div>
-              <div className="con-info-p">SWAQAR Group operates under strict counterparty verification and engagement protocols. Institutional engagement begins with verification, proceeds through the Four-Gate Model, and is governed at every stage by the Supreme Council mandate.</div>
+              <div className="con-info-h">{tx(t.contact.infoH, lang)}</div>
+              <div className="con-info-p">{tx(t.contact.infoP, lang)}</div>
               <div className="con-details">
-                <div className="con-detail"><div className="con-detail-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div><div><div className="con-detail-lbl">Headquarters</div><div className="con-detail-val">Jeddah, Kingdom of Saudi Arabia</div></div></div>
-                <div className="con-detail"><div className="con-detail-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div><div className="con-detail-lbl">Engagement Type</div><div className="con-detail-val">Institutional counterparts only. No retail engagement accepted.</div></div></div>
-                <div className="con-detail"><div className="con-detail-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div><div className="con-detail-lbl">Current Stage</div><div className="con-detail-val">Phase I — Foundation. Not yet operationally active.</div></div></div>
-                <div className="con-detail"><div className="con-detail-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg></div><div><div className="con-detail-lbl">Institutional Contact</div><div className="con-detail-val">engage@swaqar.com</div></div></div>
-                <div className="con-detail"><div className="con-detail-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"/></svg></div><div><div className="con-detail-lbl">Legal Standing</div><div className="con-detail-val">SWAQAR Group is a registered legal entity operating under counsel-validated governance frameworks across applicable jurisdictions. Legal registration details are available to qualified institutional counterparties upon engagement.</div></div></div>
-                <div className="con-detail"><div className="con-detail-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg></div><div><div className="con-detail-lbl">Legal Position</div><div className="con-detail-val">Subject to counsel-validated legal and regulatory review in all applicable jurisdictions.</div></div></div>
+                <div className="con-detail"><div className="con-detail-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div><div><div className="con-detail-lbl">{tx(t.contact.details.hq.label, lang)}</div><div className="con-detail-val">{tx(t.contact.details.hq.val, lang)}</div></div></div>
+                <div className="con-detail"><div className="con-detail-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div><div className="con-detail-lbl">{tx(t.contact.details.engType.label, lang)}</div><div className="con-detail-val">{tx(t.contact.details.engType.val, lang)}</div></div></div>
+                <div className="con-detail"><div className="con-detail-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div><div className="con-detail-lbl">{tx(t.contact.details.stage.label, lang)}</div><div className="con-detail-val">{tx(t.contact.details.stage.val, lang)}</div></div></div>
+                <div className="con-detail"><div className="con-detail-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg></div><div><div className="con-detail-lbl">{tx(t.contact.details.contact.label, lang)}</div><div className="con-detail-val">{tx(t.contact.details.contact.val, lang)}</div></div></div>
+                <div className="con-detail"><div className="con-detail-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"/></svg></div><div><div className="con-detail-lbl">{tx(t.contact.details.legal.label, lang)}</div><div className="con-detail-val">{tx(t.contact.details.legal.val, lang)}</div></div></div>
+                <div className="con-detail"><div className="con-detail-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg></div><div><div className="con-detail-lbl">{tx(t.contact.details.legalPos.label, lang)}</div><div className="con-detail-val">{tx(t.contact.details.legalPos.val, lang)}</div></div></div>
               </div>
             </div>
           </div>
@@ -575,16 +564,16 @@ export default function Home() {
                 </svg>
                 <div><div className="foot-name">SWAQAR</div><div className="foot-sub">Group · Corridors of Trust</div></div>
               </div>
-              <p className="foot-desc">A governance-led, non-custodial Trade Coordination Layer governing verification, institutional trust, corridor execution, and intelligence across Africa, the Middle East, and Asia.</p>
+              <p className="foot-desc">{tx(t.footer.desc, lang)}</p>
             </div>
-            <div className="foot-col"><h5>The Model</h5><ul><li><a href="#corridors">Corridor Architecture</a></li><li><a href="#model">4-Gate Model</a></li><li><a href="#governance">Governance Architecture</a></li><li><a href="#arms">Strategic Arms</a></li></ul></div>
-            <div className="foot-col"><h5>Engage</h5><ul><li><a href="#contact">Institutional Inquiry</a></li><li><a href="#identity">Identity</a></li><li><a href="#governance">Review Governance</a></li><li style={{color:'rgba(255,255,255,0.32)'}}>Jeddah · Kingdom of Saudi Arabia</li></ul></div>
-            <div className="foot-col"><h5>Corridor Regions</h5><ul><li><a href="#corridors">Africa ↔ Middle East</a></li><li><a href="#corridors">Middle East ↔ Asia</a></li><li><a href="#corridors">Africa ↔ Asia</a></li><li><a href="#model">4-Gate Process</a></li></ul></div>
+            <div className="foot-col"><h5>{tx(t.footer.model, lang)}</h5><ul><li><a href="#corridors">Corridor Architecture</a></li><li><a href="#model">4-Gate Model</a></li><li><a href="#governance">Governance Architecture</a></li><li><a href="#arms">Strategic Arms</a></li></ul></div>
+            <div className="foot-col"><h5>{tx(t.footer.engage, lang)}</h5><ul><li><a href="#contact">Institutional Inquiry</a></li><li><a href="#identity">Identity</a></li><li><a href="#governance">Review Governance</a></li><li style={{color:'rgba(255,255,255,0.32)'}}>Jeddah · Kingdom of Saudi Arabia</li></ul></div>
+            <div className="foot-col"><h5>{tx(t.footer.corridorRegions, lang)}</h5><ul><li><a href="#corridors">Africa ↔ Middle East</a></li><li><a href="#corridors">Middle East ↔ Asia</a></li><li><a href="#corridors">Africa ↔ Asia</a></li><li><a href="#model">4-Gate Process</a></li></ul></div>
           </div>
-          <p className="foot-legal">SWAQAR Group is a governance-led, non-custodial Trade Coordination Layer. This website is for institutional information only and does not constitute an offer, solicitation, recommendation, or investment advice of any kind. SWAQAR Group does not custody funds, hold title to goods, own cargo, operate logistics assets, act as a broker, trader, or commercial agent, or replace regulated financial, banking, customs, or logistics operators. Engagement with SWAQAR Group is subject to jurisdictional legal review, counsel-validated due diligence per jurisdiction, and institutional governance approval. For institutional audiences only.</p>
+          <p className="foot-legal">{tx(t.footer.legal, lang)}</p>
           <div className="foot-btm">
             <div style={{display:'flex',gap:'24px',alignItems:'center',flexWrap:'wrap'}}>
-              <span className="foot-copy">© 2025 SWAQAR Group · All rights reserved</span>
+              <span className="foot-copy">{tx(t.footer.copyright, lang)}</span>
               <span className="foot-copy" style={{opacity:.5}}>Counsel-Cleared · Governance-Led · Non-Custodial</span>
             </div>
             <div className="foot-badges"><span className="foot-badge">Asset-Light</span><span className="foot-badge">Non-Custodial</span><span className="foot-badge">Verification-Governed</span></div>
