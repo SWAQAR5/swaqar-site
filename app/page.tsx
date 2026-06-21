@@ -179,7 +179,7 @@ export default function Home() {
         <div className="marquee-track">
           {[...Array(2)].map((_,i) => (
             <span key={i} style={{display:'contents'}}>
-              {['Governance-Led','Verification-First','Asset-Light','Non-Custodial','Africa ⇄ Middle East ⇄ Asia','Four-Gate Protocol','Phase I — Foundation Stage','Counsel-Validated','Supreme Council Governed'].map((item,j) => (
+              {(t.marquee.items[lang] ?? t.marquee.items['en']).map((item,j) => (
                 <span className="mq-item" key={j}><span className="mq-dot"></span>{item}</span>
               ))}
             </span>
@@ -238,10 +238,9 @@ export default function Home() {
               <h2 className="sec-h r" data-d="1">{tx(t.identity.heading, lang)}<br/><em>{tx(t.identity.headingEm, lang)}</em></h2>
               <p className="sec-p r" data-d="2">{tx(t.identity.desc, lang)}</p>
               <div className="pillars r" data-d="3">
-                <div className="pillar"><div className="pillar-name">Governance-Led</div><div className="pillar-desc">Supreme Council, Ethics &amp; Oversight Council, External Trustee Panel</div></div>
-                <div className="pillar"><div className="pillar-name">Verification-First</div><div className="pillar-desc">Every counterparty verified through licensed firms before engagement</div></div>
-                <div className="pillar"><div className="pillar-name">Asset-Light</div><div className="pillar-desc">No owned infrastructure, cargo, or capital positions</div></div>
-                <div className="pillar"><div className="pillar-name">Non-Custodial</div><div className="pillar-desc">SWAQAR never holds funds, title, or goods under any circumstance</div></div>
+                {(t.identityPillars.items[lang] ?? t.identityPillars.items['en']).map((p, i) => (
+                  <div className="pillar" key={i}><div className="pillar-name">{p.name}</div><div className="pillar-desc">{p.desc}</div></div>
+                ))}
               </div>
             </div>
             <div className="id-card r" data-d="2">
@@ -280,10 +279,10 @@ export default function Home() {
         <div className="wrap">
           <div className="cor-head">
             <div>
-              <div className="sec-tag r"><div className="sec-tag-line" /><span className="sec-tag-txt">Corridor Architecture</span></div>
-              <h2 className="sec-h r" data-d="1">Three Regions. <em>One Coordination Layer.</em></h2>
+              <div className="sec-tag r"><div className="sec-tag-line" /><span className="sec-tag-txt">{tx(t.corridors.sectionTag, lang)}</span></div>
+              <h2 className="sec-h r" data-d="1">{tx(t.corridors.heading, lang)} <em>{tx(t.corridors.headingEm, lang)}</em></h2>
             </div>
-            <p className="sec-p r" data-d="2">SWAQAR coordinates institutional trust, verification, and execution readiness across the Africa ↔ Middle East ↔ Asia corridor system. Each region plays a defined role. SWAQAR&apos;s coordination layer operates above licensed operators across all three — not within them.</p>
+            <p className="sec-p r" data-d="2">{tx(t.corridors.desc, lang)}</p>
           </div>
 
           <div className="cor-map-box r">
@@ -299,20 +298,20 @@ export default function Home() {
               <circle cx="110" cy="188" r="9" fill="rgba(26,26,26,.1)" stroke="#1A1A1A" strokeWidth="1.5" />
               <circle cx="110" cy="188" r="4" fill="#1A1A1A" />
               <circle cx="110" cy="188" r="16" fill="rgba(26,26,26,.05)"><animate attributeName="r" values="9;20;9" dur="2.8s" repeatCount="indefinite" /><animate attributeName="opacity" values=".4;0;.4" dur="2.8s" repeatCount="indefinite" /></circle>
-              <text x="110" y="212" textAnchor="middle" fontSize="7" fill="#1A1A1A" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">AFRICA</text>
-              <text x="110" y="221" textAnchor="middle" fontSize="6" fill="#535256" fontFamily="DM Sans,sans-serif" letterSpacing="2">ORIGIN &amp; SUPPLY</text>
+              <text x="110" y="212" textAnchor="middle" fontSize="7" fill="#1A1A1A" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">{tx(t.corridors.map.africa, lang)}</text>
+              <text x="110" y="221" textAnchor="middle" fontSize="6" fill="#535256" fontFamily="DM Sans,sans-serif" letterSpacing="2">{tx(t.corridors.map.africaSub, lang)}</text>
               <circle cx="390" cy="109" r="9" fill="rgba(26,26,26,.1)" stroke="#1A1A1A" strokeWidth="1.5" />
               <circle cx="390" cy="109" r="4" fill="#1A1A1A" />
               <circle cx="390" cy="109" r="16" fill="rgba(26,26,26,.05)"><animate attributeName="r" values="9;20;9" dur="2.8s" begin=".9s" repeatCount="indefinite" /><animate attributeName="opacity" values=".4;0;.4" dur="2.8s" begin=".9s" repeatCount="indefinite" /></circle>
-              <text x="390" y="88" textAnchor="middle" fontSize="7" fill="#1A1A1A" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">MIDDLE EAST</text>
-              <text x="390" y="97" textAnchor="middle" fontSize="6" fill="#535256" fontFamily="DM Sans,sans-serif" letterSpacing="2">TRUST &amp; CAPITAL · JEDDAH</text>
+              <text x="390" y="88" textAnchor="middle" fontSize="7" fill="#1A1A1A" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">{tx(t.corridors.map.middleEast, lang)}</text>
+              <text x="390" y="97" textAnchor="middle" fontSize="6" fill="#535256" fontFamily="DM Sans,sans-serif" letterSpacing="2">{tx(t.corridors.map.middleEastSub, lang)}</text>
               <rect x="340" y="130" width="100" height="22" rx="2" fill="#1A1A1A" />
               <text x="390" y="145" textAnchor="middle" fontSize="6" fill="#CEA437" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">SWAQAR</text>
               <circle cx="776" cy="108" r="9" fill="rgba(26,26,26,.1)" stroke="#1A1A1A" strokeWidth="1.5" />
               <circle cx="776" cy="108" r="4" fill="#1A1A1A" />
               <circle cx="776" cy="108" r="16" fill="rgba(26,26,26,.05)"><animate attributeName="r" values="9;20;9" dur="2.8s" begin="1.8s" repeatCount="indefinite" /><animate attributeName="opacity" values=".4;0;.4" dur="2.8s" begin="1.8s" repeatCount="indefinite" /></circle>
-              <text x="776" y="87" textAnchor="middle" fontSize="7" fill="#1A1A1A" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">ASIA</text>
-              <text x="776" y="96" textAnchor="middle" fontSize="6" fill="#535256" fontFamily="DM Sans,sans-serif" letterSpacing="2">DEMAND &amp; SCALE</text>
+              <text x="776" y="87" textAnchor="middle" fontSize="7" fill="#1A1A1A" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">{tx(t.corridors.map.asia, lang)}</text>
+              <text x="776" y="96" textAnchor="middle" fontSize="6" fill="#535256" fontFamily="DM Sans,sans-serif" letterSpacing="2">{tx(t.corridors.map.asiaSub, lang)}</text>
               <circle r="4" fill="#CEA437" filter="url(#bf)" opacity=".7"><animateMotion dur="3s" repeatCount="indefinite" path="M 110,188 C 200,163 270,133 360,113" /></circle>
               <circle r="3.5" fill="#CEA437" filter="url(#bf)" opacity=".55"><animateMotion dur="4s" repeatCount="indefinite" begin="1s" path="M 420,106 C 530,90 640,82 768,108" /></circle>
             </svg>
@@ -321,8 +320,8 @@ export default function Home() {
           <div className="cor-tier r" data-d="1">
             <div className="cor-tier-head">
               <span className="cor-tier-num">01</span>
-              <span className="cor-tier-title">Current Strategic Focus — Phase I Active Pilot Corridor</span>
-              <span className="cor-tier-badge">Active</span>
+              <span className="cor-tier-title">{tx(t.corridors.tier1.title, lang)}</span>
+              <span className="cor-tier-badge">{tx(t.corridors.tier1.badge, lang)}</span>
             </div>
             <div className="cor-card-active">
               <div className="cor-gov-note" style={{marginTop:'28px'}}>
@@ -330,67 +329,37 @@ export default function Home() {
                   <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
                 </div>
                 <div>
-                  <div className="cor-gov-note-tag">Governance Note — Phase I Candidate Corridor</div>
-                  <p className="cor-gov-note-txt">This corridor is SWAQAR Group&apos;s designated Phase I pilot corridor, currently in preparation. No corridor is operationally active. Activation is subject to completion of the Four-Gate Model, counterparty qualification through the Partner Qualification Gate, banking and TIC panel readiness, and Supreme Council mandate. This is a governance-architecture illustration only — subject to counsel-validated legal, regulatory, and governance review before any activation proceeds.</p>
+                  <div className="cor-gov-note-tag">{tx(t.corridors.tier1.govNoteTag, lang)}</div>
+                  <p className="cor-gov-note-txt">{tx(t.corridors.tier1.govNoteTxt, lang)}</p>
                 </div>
               </div>
               <div className="cor-card-active-inner">
                 <div className="cor-active-left">
-                  <div className="cor-phase-label"><div className="cor-phase-dot" /><span className="cor-phase-txt">Agriculture &amp; Food Security · Africa ↔ Middle East ↔ Asia</span></div>
-                  <p className="cor-active-desc">Coordinating agricultural commodity flows between verified African exporters and institutional buyers in the Middle East and Asia. SWAQAR coordinates the institutional conditions — it does not trade, broker, hold title, or act as logistics operator at any stage.</p>
+                  <div className="cor-phase-label"><div className="cor-phase-dot" /><span className="cor-phase-txt">{tx(t.corridors.tier1.phaseLabel, lang)}</span></div>
+                  <p className="cor-active-desc">{tx(t.corridors.tier1.activeDesc, lang)}</p>
                   <div className="cor-active-roles">
-                    <div className="cor-role"><div className="cor-role-region">Africa</div><div className="cor-role-name">Origin &amp; Supply</div><div className="cor-role-desc">Verified agricultural exporters across East and West Africa. Commodity readiness, documentation alignment, and counterparty qualification coordinated through licensed TIC partners.</div></div>
-                    <div className="cor-role"><div className="cor-role-region">Middle East · Jeddah</div><div className="cor-role-name">Trust &amp; Capital Anchor</div><div className="cor-role-desc">Institutional capital depth, Islamic trade finance infrastructure, and GCC sovereign food security demand. SWAQAR&apos;s institutional centre of gravity — coordinating alongside, not within, regional financial institutions.</div></div>
-                    <div className="cor-role"><div className="cor-role-region">Asia</div><div className="cor-role-name">Demand &amp; Industrial Scale</div><div className="cor-role-desc">Institutional buyers, processing entities, and industrial demand anchors across India, China, and Southeast Asia. Counterparty verification and documentation governance coordinated for Asian demand-side engagement.</div></div>
+                    {(t.corridors.tier1.roles[lang] ?? t.corridors.tier1.roles['en']).map((role, i) => (
+                      <div className="cor-role" key={i}><div className="cor-role-region">{role.region}</div><div className="cor-role-name">{role.name}</div><div className="cor-role-desc">{role.desc}</div></div>
+                    ))}
                   </div>
                 </div>
                 <div className="cor-active-right">
                   <div className="cor-coordinates">
-                    <div className="cor-coord-item">
-                      <div className="cor-coord-pip" />
-                      <div className="cor-coord-txt">
-                        <strong>Counterparty verification</strong>
-                        Exporters and buyers qualified through the Partner Qualification Gate via licensed TIC firms — SGS, Bureau Veritas, and Intertek.
+                    {(t.corridors.tier1.coords[lang] ?? t.corridors.tier1.coords['en']).map((coord, i) => (
+                      <div className="cor-coord-item" key={i} style={i === 4 ? {gridColumn:'1 / -1'} : undefined}>
+                        <div className="cor-coord-pip" />
+                        <div className="cor-coord-txt"><strong>{coord.strong}</strong>{coord.rest}</div>
                       </div>
-                    </div>
-                    <div className="cor-coord-item">
-                      <div className="cor-coord-pip" />
-                      <div className="cor-coord-txt">
-                        <strong>Documentation alignment</strong>
-                        Commercial, regulatory, financial, and logistics documentation coordinated across all corridor jurisdictions under a counsel-validated framework.
-                      </div>
-                    </div>
-                    <div className="cor-coord-item">
-                      <div className="cor-coord-pip" />
-                      <div className="cor-coord-txt">
-                        <strong>Banking panel readiness</strong>
-                        Corridor participants aligned with Islamic trade finance instruments — Murabaha, Wakala, L/C under UCP 600 — through ITFC and GCC banking partners.
-                      </div>
-                    </div>
-                    <div className="cor-coord-item">
-                      <div className="cor-coord-pip" />
-                      <div className="cor-coord-txt">
-                        <strong>Stakeholder synchronization</strong>
-                        Banks, TIC firms, exporters, buyers, logistics operators, and regulators sequenced under SWAQAR&apos;s Corridor Operating System.
-                      </div>
-                    </div>
-                    <div className="cor-coord-item" style={{gridColumn:'1 / -1'}}>
-                      <div className="cor-coord-pip" />
-                      <div className="cor-coord-txt">
-                        <strong>Governance oversight</strong>
-                        Every coordinated transaction moves through the full Four-Gate Model under Supreme Council mandate. The escalation path is defined before any execution begins.
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
               </div>
               <div className="cor-active-footer">
-                <p className="cor-active-footer-txt">SWAQAR holds no title, cargo, funds, or physical assets in this corridor at any stage. Licensed parties execute; counterparties contract directly with each other. SWAQAR coordinates the institutional conditions under which they engage.</p>
+                <p className="cor-active-footer-txt">{tx(t.corridors.tier1.footerTxt, lang)}</p>
                 <div className="cor-active-footer-tags">
-                  <span className="cor-tag-gold">Agriculture &amp; Food Security</span>
-                  <span className="cor-tag-gold">Verification-Governed</span>
-                  <span className="cor-tag-gold">Non-Custodial</span>
-                  <span className="cor-tag-gold">Four-Gate Protocol</span>
+                  {(t.corridors.tier1.footerTags[lang] ?? t.corridors.tier1.footerTags['en']).map((tag, i) => (
+                    <span className="cor-tag-gold" key={i}>{tag}</span>
+                  ))}
                 </div>
               </div>
             </div>
@@ -399,41 +368,28 @@ export default function Home() {
           <div className="cor-tier r" data-d="2" style={{marginTop:'2px'}}>
             <div className="cor-tier-head">
               <span className="cor-tier-num">02</span>
-              <span className="cor-tier-title">Corridor Domains Under Strategic Evaluation</span>
-              <span className="cor-tier-badge eval">Phase II+ · Subject to Phase I Proof</span>
+              <span className="cor-tier-title">{tx(t.corridors.tier2.title, lang)}</span>
+              <span className="cor-tier-badge eval">{tx(t.corridors.tier2.badge, lang)}</span>
             </div>
             <div className="cor-eval-grid" data-cols="2" style={{gridTemplateColumns:'1fr 1fr'}}>
-              <div className="cor-eval-card">
-                <div className="cor-eval-reg">Industrial Development</div>
-                <div className="cor-eval-title">Building Materials &amp; Industrial Goods</div>
-                <p className="cor-eval-body">Africa&apos;s infrastructure development — housing, roads, industrial parks, ports — creates structural demand for building materials flowing from Asian manufacturers through Middle Eastern free zone infrastructure to African project developers. Multi-stakeholder verification requirements, cross-jurisdictional documentation complexity, and the absence of a neutral institutional governance layer make this domain a natural fit for SWAQAR&apos;s four-gate coordination architecture.</p>
-                <div className="cor-tags" style={{marginBottom:'14px'}}><span className="cor-tag">Asia → Middle East → Africa</span><span className="cor-tag">Verification</span><span className="cor-tag">Documentation Governance</span><span className="cor-tag">Multi-Stakeholder</span></div>
-                <p className="cor-eval-note">SWAQAR coordinates verification, documentation, and institutional counterparty readiness — it does not act as procurement agent, project developer, contractor, or capital provider in this domain. Evaluation is subject to Phase I proof and Supreme Council mandate. If your institutional interest is in this corridor domain, you may register your interest for Phase II consideration through the Engage section.</p>
-              </div>
-              <div className="cor-eval-card">
-                <div className="cor-eval-reg">Agricultural Value Chain</div>
-                <div className="cor-eval-title">Agricultural Inputs &amp; Commodity Processing</div>
-                <p className="cor-eval-body">Beyond raw agricultural commodity flows, the verified coordination of agricultural inputs — fertilisers, seeds, agrochemicals, processing equipment — and agro-processing capacity represents a natural institutional extension of SWAQAR&apos;s Phase I Agriculture corridor. GCC and Asian demand for processed agricultural products, and Africa&apos;s growing agro-processing sector, create the same multi-stakeholder verification and documentation requirements SWAQAR&apos;s four-gate model is designed to govern.</p>
-                <div className="cor-tags" style={{marginBottom:'14px'}}><span className="cor-tag">Africa ↔ Middle East ↔ Asia</span><span className="cor-tag">Agricultural Inputs</span><span className="cor-tag">Agro-Processing</span><span className="cor-tag">Verification</span></div>
-                <p className="cor-eval-note">SWAQAR coordinates verification readiness, documentation alignment, and institutional counterparty qualification — it does not trade, aggregate, procure, or act as a logistics operator in this domain. Evaluation subject to Phase I proof and Supreme Council mandate. If your institutional interest is in this corridor domain, you may register your interest for Phase II consideration through the Engage section.</p>
-              </div>
+              {(t.corridors.tier2.evalCards[lang] ?? t.corridors.tier2.evalCards['en']).map((card, i) => (
+                <div className="cor-eval-card" key={i}>
+                  <div className="cor-eval-reg">{card.reg}</div>
+                  <div className="cor-eval-title">{card.title}</div>
+                  <p className="cor-eval-body">{card.body}</p>
+                  <div className="cor-tags" style={{marginBottom:'14px'}}>{card.tags.map((tag, j) => <span className="cor-tag" key={j}>{tag}</span>)}</div>
+                  <p className="cor-eval-note">{card.note}</p>
+                </div>
+              ))}
             </div>
             <div className="cor-cap-row">
-              <div className="cor-cap-item">
-                <div className="cor-cap-name">Counterparty Verification</div>
-                <div className="cor-cap-status">Active — Phase I</div>
-                <p className="cor-cap-desc">Licensed TIC panel engaged for all corridor participants. Verification precedes every engagement.</p>
-              </div>
-              <div className="cor-cap-item">
-                <div className="cor-cap-name">Documentation Governance</div>
-                <div className="cor-cap-status">Active — Phase I</div>
-                <p className="cor-cap-desc">Counsel-validated documentation framework per corridor jurisdiction, aligned with ICC standards.</p>
-              </div>
-              <div className="cor-cap-item">
-                <div className="cor-cap-name">Trade Finance Readiness</div>
-                <div className="cor-cap-status">Building toward Phase II</div>
-                <p className="cor-cap-desc">Alignment with ITFC, Afreximbank, and GCC banking panel partners for Islamic and conventional instruments.</p>
-              </div>
+              {(t.corridors.tier2.capItems[lang] ?? t.corridors.tier2.capItems['en']).map((cap, i) => (
+                <div className="cor-cap-item" key={i}>
+                  <div className="cor-cap-name">{cap.name}</div>
+                  <div className="cor-cap-status">{cap.status}</div>
+                  <p className="cor-cap-desc">{cap.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -444,14 +400,14 @@ export default function Home() {
 
       <section className="gates" id="model">
         <div className="wrap">
-          <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">Corridor Entry Protocol</span></div>
-          <h2 className="sec-h r" data-d="1">Every coordinated corridor moves through<br/><em>four governance gates.</em></h2>
-          <p className="sec-p r" data-d="2">No corridor engagement proceeds until all four gates are passed. This is a constitutional governance requirement, not a process preference.</p>
+          <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">{tx(t.gates.sectionTag, lang)}</span></div>
+          <h2 className="sec-h r" data-d="1">{tx(t.gates.heading, lang)}<br/><em>{tx(t.gates.headingEm, lang)}</em></h2>
+          <p className="sec-p r" data-d="2">{tx(t.gates.desc, lang)}</p>
           <div className="gates-grid">
-            <div className="gate r"><div className="gate-n">I</div><div className="gate-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg></div><div className="gate-tag">Gate I</div><div className="gate-name">Counterparty Verification</div><div className="gate-desc">Every participant — exporter, buyer, logistics operator, financial intermediary — passes SWAQAR&apos;s verification protocol before any coordination mandate is issued.</div></div>
-            <div className="gate r" data-d="1"><div className="gate-n">II</div><div className="gate-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 12h6M9 16h6M9 8h6M5 4h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5a1 1 0 011-1z"/></svg></div><div className="gate-tag">Gate II</div><div className="gate-name">Documentation Readiness</div><div className="gate-desc">All trade documentation must meet SWAQAR&apos;s standard prior to corridor activation. A counsel-reviewed documentation package is required in full before Gate II closes.</div></div>
-            <div className="gate r" data-d="2"><div className="gate-n">III</div><div className="gate-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 2l10 5v5c0 5.55-3.84 10.74-10 12C5.84 22.74 2 17.55 2 12V7l10-5z"/></svg></div><div className="gate-tag">Gate III</div><div className="gate-name">Governance Alignment</div><div className="gate-desc">The corridor structure must align to SWAQAR&apos;s governance architecture and applicable legal frameworks across all participating jurisdictions. Supreme Council confirmation required.</div></div>
-            <div className="gate r" data-d="3"><div className="gate-n">IV</div><div className="gate-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><div className="gate-tag">Gate IV</div><div className="gate-name">Execution Mandate</div><div className="gate-desc">Only after Gates I–III are cleared does SWAQAR issue a formal Execution Mandate. This governs the coordination engagement and defines the boundaries of SWAQAR&apos;s role.</div></div>
+            <div className="gate r"><div className="gate-n">I</div><div className="gate-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg></div><div className="gate-tag">{tx(t.gates.gate1.tag, lang)}</div><div className="gate-name">{tx(t.gates.gate1.name, lang)}</div><div className="gate-desc">{tx(t.gates.gate1.desc, lang)}</div></div>
+            <div className="gate r" data-d="1"><div className="gate-n">II</div><div className="gate-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 12h6M9 16h6M9 8h6M5 4h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5a1 1 0 011-1z"/></svg></div><div className="gate-tag">{tx(t.gates.gate2.tag, lang)}</div><div className="gate-name">{tx(t.gates.gate2.name, lang)}</div><div className="gate-desc">{tx(t.gates.gate2.desc, lang)}</div></div>
+            <div className="gate r" data-d="2"><div className="gate-n">III</div><div className="gate-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 2l10 5v5c0 5.55-3.84 10.74-10 12C5.84 22.74 2 17.55 2 12V7l10-5z"/></svg></div><div className="gate-tag">{tx(t.gates.gate3.tag, lang)}</div><div className="gate-name">{tx(t.gates.gate3.name, lang)}</div><div className="gate-desc">{tx(t.gates.gate3.desc, lang)}</div></div>
+            <div className="gate r" data-d="3"><div className="gate-n">IV</div><div className="gate-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><div className="gate-tag">{tx(t.gates.gate4.tag, lang)}</div><div className="gate-name">{tx(t.gates.gate4.name, lang)}</div><div className="gate-desc">{tx(t.gates.gate4.desc, lang)}</div></div>
           </div>
         </div>
       </section>
@@ -462,31 +418,22 @@ export default function Home() {
         <div className="wrap">
           <div className="arms-inner">
             <div>
-              <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">Institutional Architecture</span></div>
-              <h2 className="sec-h r" data-d="1">Seven <em>Institutional Arms.</em> One Architecture.</h2>
+              <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">{tx(t.arms.sectionTag, lang)}</span></div>
+              <h2 className="sec-h r" data-d="1">{tx(t.arms.heading, lang)} <em>{tx(t.arms.headingEm, lang)}</em> {tx(t.arms.headingSuffix, lang)}</h2>
               <div className="arm-list" style={{marginTop:'36px'}}>
-                {[
-                  ['01','SWAQAR Corridors of Trust','Core corridor governance across Africa, the Middle East, and Asia — verification-governed and non-custodial.'],
-                  ['02','SWAQAR Intelligence','Corridor intelligence, market signals, and counterparty risk data — lawfully gathered, ethically sourced.'],
-                  ['03','SWAQAR Capital & Trade Finance Coordination','Facilitating access to licensed trade finance institutions. Never custodial. Never a financial principal.'],
-                  ['04','SWAQAR Verification & Compliance','Counterparty verification through licensed TIC partners. The Partner Qualification Gate is a prerequisite for all corridor activations — maintaining verification integrity as a standing corridor condition, not a one-time gate.'],
-                  ['05','SWAQAR Institutional Relations','Sovereign, government, and ministerial engagement at institutional grade. The dedicated interface for government ministries and sovereign bodies engaging with SWAQAR at institutional standard.'],
-                  ['06','SWAQAR Industrial Corridors','Industrial trade development across SWAQAR\'s corridor regions. Documentation alignment and stakeholder synchronization for licensed logistics operators and qualified industrial counterparties.'],
-                  ['07','SWAQAR Advisory','Strategic advisory on corridor architecture and governance design. Capital and strategic partners engage through this arm at governance level, subject to Supreme Council review.']
-                ].map(([n,name,desc]) => (
-                  <div className="arm r" key={n}><span className="arm-n">{n}</span><div><div className="arm-name">{name}</div><div className="arm-desc">{desc}</div></div></div>
+                {(t.arms.items[lang] ?? t.arms.items['en']).map((arm) => (
+                  <div className="arm r" key={arm.n}><span className="arm-n">{arm.n}</span><div><div className="arm-name">{arm.name}</div><div className="arm-desc">{arm.desc}</div></div></div>
                 ))}
               </div>
             </div>
             <div className="abx r" data-d="2">
-              <div className="abx-tag">Institutional Foundation</div>
-              <div className="abx-h">Built for a multi-decade institutional horizon.</div>
-              <div className="abx-p">SWAQAR is not a startup seeking scale. It is a coordination institution being built to last — verification-governed, governance-anchored, designed to compound institutional credibility over time, not transaction volume.</div>
+              <div className="abx-tag">{tx(t.arms.abx.tag, lang)}</div>
+              <div className="abx-h">{tx(t.arms.abx.heading, lang)}</div>
+              <div className="abx-p">{tx(t.arms.abx.desc, lang)}</div>
               <div className="abx-metrics">
-                <div className="abx-m"><div className="abx-mv">Phase I</div><div className="abx-ml">Foundation Stage</div></div>
-                <div className="abx-m"><div className="abx-mv">IV Gates</div><div className="abx-ml">Entry Protocol</div></div>
-                <div className="abx-m"><div className="abx-mv">3</div><div className="abx-ml">Corridor Regions</div></div>
-                <div className="abx-m"><div className="abx-mv">100%</div><div className="abx-ml">Non-Custodial</div></div>
+                {(t.arms.abx.metrics[lang] ?? t.arms.abx.metrics['en']).map((m, i) => (
+                  <div className="abx-m" key={i}><div className="abx-mv">{m.val}</div><div className="abx-ml">{m.label}</div></div>
+                ))}
               </div>
             </div>
           </div>
@@ -566,17 +513,17 @@ export default function Home() {
               </div>
               <p className="foot-desc">{tx(t.footer.desc, lang)}</p>
             </div>
-            <div className="foot-col"><h5>{tx(t.footer.model, lang)}</h5><ul><li><a href="#corridors">Corridor Architecture</a></li><li><a href="#model">4-Gate Model</a></li><li><a href="#governance">Governance Architecture</a></li><li><a href="#arms">Strategic Arms</a></li></ul></div>
-            <div className="foot-col"><h5>{tx(t.footer.engage, lang)}</h5><ul><li><a href="#contact">Institutional Inquiry</a></li><li><a href="#identity">Identity</a></li><li><a href="#governance">Review Governance</a></li><li style={{color:'rgba(255,255,255,0.32)'}}>Jeddah · Kingdom of Saudi Arabia</li></ul></div>
-            <div className="foot-col"><h5>{tx(t.footer.corridorRegions, lang)}</h5><ul><li><a href="#corridors">Africa ↔ Middle East</a></li><li><a href="#corridors">Middle East ↔ Asia</a></li><li><a href="#corridors">Africa ↔ Asia</a></li><li><a href="#model">4-Gate Process</a></li></ul></div>
+            <div className="foot-col"><h5>{tx(t.footer.model, lang)}</h5><ul><li><a href="#corridors">{tx(t.footer.footerLinks.corridorArch, lang)}</a></li><li><a href="#model">{tx(t.footer.footerLinks.gateModel, lang)}</a></li><li><a href="#governance">{tx(t.footer.footerLinks.govArch, lang)}</a></li><li><a href="#arms">{tx(t.footer.footerLinks.strategicArms, lang)}</a></li></ul></div>
+            <div className="foot-col"><h5>{tx(t.footer.engage, lang)}</h5><ul><li><a href="#contact">{tx(t.footer.footerLinks.instInquiry, lang)}</a></li><li><a href="#identity">{tx(t.footer.footerLinks.identity, lang)}</a></li><li><a href="#governance">{tx(t.footer.footerLinks.reviewGov, lang)}</a></li><li style={{color:'rgba(255,255,255,0.32)'}}>{tx(t.footer.footerLinks.jeddah, lang)}</li></ul></div>
+            <div className="foot-col"><h5>{tx(t.footer.corridorRegions, lang)}</h5><ul><li><a href="#corridors">{tx(t.footer.footerLinks.africaME, lang)}</a></li><li><a href="#corridors">{tx(t.footer.footerLinks.meAsia, lang)}</a></li><li><a href="#corridors">{tx(t.footer.footerLinks.africaAsia, lang)}</a></li><li><a href="#model">{tx(t.footer.footerLinks.gateProcess, lang)}</a></li></ul></div>
           </div>
           <p className="foot-legal">{tx(t.footer.legal, lang)}</p>
           <div className="foot-btm">
             <div style={{display:'flex',gap:'24px',alignItems:'center',flexWrap:'wrap'}}>
               <span className="foot-copy">{tx(t.footer.copyright, lang)}</span>
-              <span className="foot-copy" style={{opacity:.5}}>Counsel-Cleared · Governance-Led · Non-Custodial</span>
+              <span className="foot-copy" style={{opacity:.5}}>{tx(t.footer.secondaryLine, lang)}</span>
             </div>
-            <div className="foot-badges"><span className="foot-badge">Asset-Light</span><span className="foot-badge">Non-Custodial</span><span className="foot-badge">Verification-Governed</span></div>
+            <div className="foot-badges">{(t.footer.badges[lang] ?? t.footer.badges['en']).map((badge, i) => <span className="foot-badge" key={i}>{badge}</span>)}</div>
           </div>
         </div>
       </footer>
