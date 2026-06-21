@@ -6,6 +6,10 @@
 <meta name="theme-color" content="#0E1117" />
 <title>SWAQAR Group — Corridors of Trust</title>
 <meta name="description" content="SWAQAR Group is a governance-led, verification-first, asset-light, non-custodial Trade Coordination Layer coordinating verified cross-regional trade corridors across Africa, the Middle East, and Asia." />
+<link rel="alternate" hreflang="en" href="https://www.swaqar.com/">
+<link rel="alternate" hreflang="ar" href="https://www.swaqar.com/ar/">
+<link rel="alternate" hreflang="fr" href="https://www.swaqar.com/fr/">
+<link rel="alternate" hreflang="x-default" href="https://www.swaqar.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -373,6 +377,12 @@ footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:72px
 /* V2.1 — Arms Prelude */
 .arms-prelude{margin-bottom:36px;padding:22px 28px;border:1px solid var(--border);background:var(--surface-1);border-left:2px solid var(--gold);font-size:0.92rem;color:var(--text);line-height:1.65}
 .arms-prelude strong{color:var(--gold);font-weight:500}
+/* ── LANGUAGE TOGGLE ── */
+.lang-toggle{display:flex;align-items:center;gap:6px;margin-left:24px}
+.lang-btn{font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;padding:4px 6px;transition:color .25s,border-color .25s;border:1px solid transparent}
+.lang-btn:hover{color:var(--gold)}
+.lang-btn.lang-active{color:var(--gold);border:1px solid rgba(184,146,58,.35)}
+.lang-sep{font-family:var(--mono);font-size:.52rem;color:rgba(255,255,255,.2)}
 </style>
 </head>
 <body>
@@ -397,6 +407,14 @@ footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:72px
           <li><a href="#pilot">Candidate Corridor</a></li>
           <li><a href="#engage">Engage</a></li>
         </ul>
+      <!-- LANGUAGE TOGGLE -->
+      <div class="lang-toggle" role="navigation" aria-label="Language selector">
+        <a href="/" class="lang-btn lang-active" hreflang="en" lang="en" aria-current="page">EN</a>
+        <span class="lang-sep">|</span>
+        <a href="/ar/" class="lang-btn" hreflang="ar" lang="ar" aria-label="Arabic">AR</a>
+        <span class="lang-sep">|</span>
+        <a href="/fr/" class="lang-btn" hreflang="fr" lang="fr" aria-label="French">FR</a>
+      </div>
       </nav>
       <div class="nav-region" aria-label="Regional scope">
         <span class="active">EN</span><span class="divider">·</span>
