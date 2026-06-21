@@ -407,13 +407,13 @@ export const t = {
 
   // ── CORRIDORS ──
   corridors: {
-    sectionTag: { en: 'Corridor Architecture', ar: 'هندسة الممرات', fr: 'Architecture des Corridors' },
+    sectionTag: { en: 'Corridor Architecture', ar: 'هيكل الممرات', fr: 'Architecture des Corridors' },
     heading: { en: 'Three Regions.', ar: 'ثلاث مناطق.', fr: 'Trois Régions.' },
     headingEm: { en: 'One Coordination Layer.', ar: 'طبقة تنسيق واحدة.', fr: 'Une Couche de Coordination.' },
-    desc: {
+    subDesc: {
       en: 'SWAQAR coordinates institutional trust, verification, and execution readiness across the Africa ↔ Middle East ↔ Asia corridor system. Each region plays a defined role. SWAQAR\'s coordination layer operates above licensed operators across all three — not within them.',
-      ar: 'تنسق سواقر الثقة المؤسسية والتحقق وجاهزية التنفيذ عبر نظام ممرات أفريقيا ↔ الشرق الأوسط ↔ آسيا. تؤدي كل منطقة دوراً محدداً. تعمل طبقة التنسيق لدى سواقر فوق المشغلين المرخصين في الثلاث — وليس داخلهم.',
-      fr: 'SWAQAR coordonne la confiance institutionnelle, la vérification et la disponibilité d\'exécution à travers le système de corridors Afrique ↔ Moyen-Orient ↔ Asie. Chaque région joue un rôle défini. La couche de coordination de SWAQAR opère au-dessus des opérateurs agréés dans les trois régions — pas en leur sein.',
+      ar: 'تنسق سواقر الثقة المؤسسية والتحقق وجاهزية التنفيذ عبر نظام ممرات أفريقيا ↔ الشرق الأوسط ↔ آسيا. تؤدي كل منطقة دوراً محدداً. تعمل طبقة التنسيق في سواقر فوق المشغلين المرخصين في الثلاثة — وليس ضمنهم.',
+      fr: 'SWAQAR coordonne la confiance institutionnelle, la vérification et la préparation à l\'exécution à travers le système de corridors Afrique ↔ Moyen-Orient ↔ Asie. Chaque région joue un rôle défini. La couche de coordination de SWAQAR opère au-dessus des opérateurs agréés dans les trois régions — pas en leur sein.',
     },
     map: {
       africa: { en: 'AFRICA', ar: 'أفريقيا', fr: 'AFRIQUE' },
@@ -423,204 +423,178 @@ export const t = {
       asia: { en: 'ASIA', ar: 'آسيا', fr: 'ASIE' },
       asiaSub: { en: 'DEMAND & SCALE', ar: 'الطلب والحجم', fr: 'DEMANDE & ÉCHELLE' },
     },
-    tier1: {
-      title: { en: 'Current Strategic Focus — Phase I Active Pilot Corridor', ar: 'التركيز الاستراتيجي الحالي — الممر التجريبي النشط للمرحلة الأولى', fr: 'Axe Stratégique Actuel — Corridor Pilote Actif Phase I' },
-      badge: { en: 'Active', ar: 'نشط', fr: 'Actif' },
-      govNoteTag: { en: 'Governance Note — Phase I Candidate Corridor', ar: 'ملاحظة حوكمة — الممر المرشح للمرحلة الأولى', fr: 'Note de Gouvernance — Corridor Candidat Phase I' },
-      govNoteTxt: {
-        en: 'This corridor is SWAQAR Group\'s designated Phase I pilot corridor, currently in preparation. No corridor is operationally active. Activation is subject to completion of the Four-Gate Model, counterparty qualification through the Partner Qualification Gate, banking and TIC panel readiness, and Supreme Council mandate. This is a governance-architecture illustration only — subject to counsel-validated legal, regulatory, and governance review before any activation proceeds.',
-        ar: 'هذا الممر هو الممر التجريبي المحدد للمرحلة الأولى لمجموعة سواقر، وهو حالياً قيد الإعداد. لا يوجد ممر نشط تشغيلياً. يخضع التفعيل لإتمام نموذج البوابات الأربع وتأهيل الأطراف المقابلة عبر بوابة تأهل الشركاء وجاهزية البنوك ولجنة TIC وتفويض المجلس الأعلى. هذا توضيح لهندسة الحوكمة فقط — خاضع للمراجعة القانونية والتنظيمية وحوكمة المعتمدة من المستشارين قبل أي تفعيل.',
-        fr: 'Ce corridor est le corridor pilote désigné Phase I de SWAQAR Group, actuellement en préparation. Aucun corridor n\'est opérationnellement actif. L\'activation est soumise à l\'achèvement du Modèle à Quatre Portes, à la qualification des contreparties via la Porte de Qualification des Partenaires, à la préparation du panel bancaire et TIC, et au mandat du Conseil Suprême. Il s\'agit uniquement d\'une illustration d\'architecture de gouvernance — soumise à un examen juridique, réglementaire et de gouvernance validé par des conseillers avant toute activation.',
-      },
-      phaseLabel: { en: 'Agriculture & Food Security · Africa ↔ Middle East ↔ Asia', ar: 'الزراعة والأمن الغذائي · أفريقيا ↔ الشرق الأوسط ↔ آسيا', fr: 'Agriculture & Sécurité Alimentaire · Afrique ↔ Moyen-Orient ↔ Asie' },
-      activeDesc: {
-        en: 'Coordinating agricultural commodity flows between verified African exporters and institutional buyers in the Middle East and Asia. SWAQAR coordinates the institutional conditions — it does not trade, broker, hold title, or act as logistics operator at any stage.',
-        ar: 'تنسيق تدفقات السلع الزراعية بين المصدرين الأفارقة الموثقين والمشترين المؤسسيين في الشرق الأوسط وآسيا. تنسق سواقر الشروط المؤسسية — ولا تتاجر أو تتوسط أو تحتفظ بصكوك الملكية أو تتصرف كمشغل لوجستي في أي مرحلة.',
-        fr: 'Coordination des flux de produits agricoles entre les exportateurs africains vérifiés et les acheteurs institutionnels au Moyen-Orient et en Asie. SWAQAR coordonne les conditions institutionnelles — elle ne négocie pas, ne courtage pas, ne détient pas de titres et n\'agit pas comme opérateur logistique à aucune étape.',
-      },
-      roles: {
-        en: [
-          { region: 'Africa', name: 'Origin & Supply', desc: 'Verified agricultural exporters across East and West Africa. Commodity readiness, documentation alignment, and counterparty qualification coordinated through licensed TIC partners.' },
-          { region: 'Middle East · Jeddah', name: 'Trust & Capital Anchor', desc: 'Institutional capital depth, Islamic trade finance infrastructure, and GCC sovereign food security demand. SWAQAR\'s institutional centre of gravity — coordinating alongside, not within, regional financial institutions.' },
-          { region: 'Asia', name: 'Demand & Industrial Scale', desc: 'Institutional buyers, processing entities, and industrial demand anchors across India, China, and Southeast Asia. Counterparty verification and documentation governance coordinated for Asian demand-side engagement.' },
-        ],
-        ar: [
-          { region: 'أفريقيا', name: 'المنشأ والإمداد', desc: 'مصدرون زراعيون موثقون في شرق وغرب أفريقيا. جاهزية السلع ومواءمة الوثائق وتأهيل الأطراف المقابلة منسقة عبر شركاء TIC مرخصين.' },
-          { region: 'الشرق الأوسط · جدة', name: 'مرساة الثقة والرأسمال', desc: 'عمق رأس المال المؤسسي وبنية التمويل التجاري الإسلامي والطلب السيادي على الأمن الغذائي لدول مجلس التعاون الخليجي. مركز ثقل سواقر المؤسسي — تنسق بجانب، وليس داخل، المؤسسات المالية الإقليمية.' },
-          { region: 'آسيا', name: 'الطلب والحجم الصناعي', desc: 'مشترون مؤسسيون وكيانات تجهيز ومراسي الطلب الصناعي في الهند والصين وجنوب شرق آسيا. التحقق من الأطراف المقابلة وحوكمة الوثائق منسقة للانخراط من جانب الطلب الآسيوي.' },
-        ],
-        fr: [
-          { region: 'Afrique', name: 'Origine & Approvisionnement', desc: 'Exportateurs agricoles vérifiés à travers l\'Afrique de l\'Est et de l\'Ouest. Disponibilité des marchandises, alignement documentaire et qualification des contreparties coordonnés via des partenaires TIC agréés.' },
-          { region: 'Moyen-Orient · Djeddah', name: 'Ancre de Confiance & Capital', desc: 'Profondeur du capital institutionnel, infrastructure de financement commercial islamique, et demande souveraine en sécurité alimentaire du CCG. Le centre de gravité institutionnel de SWAQAR — coordonnant aux côtés, et non au sein, des institutions financières régionales.' },
-          { region: 'Asie', name: 'Demande & Échelle Industrielle', desc: 'Acheteurs institutionnels, entités de traitement et ancres de demande industrielle à travers l\'Inde, la Chine et l\'Asie du Sud-Est. Vérification des contreparties et gouvernance documentaire coordonnées pour l\'engagement côté demande asiatique.' },
-        ],
-      },
-      coords: {
-        en: [
-          { strong: 'Counterparty verification', rest: ' Exporters and buyers qualified through the Partner Qualification Gate via licensed TIC firms — SGS, Bureau Veritas, and Intertek.' },
-          { strong: 'Documentation alignment', rest: ' Commercial, regulatory, financial, and logistics documentation coordinated across all corridor jurisdictions under a counsel-validated framework.' },
-          { strong: 'Banking panel readiness', rest: ' Corridor participants aligned with Islamic trade finance instruments — Murabaha, Wakala, L/C under UCP 600 — through ITFC and GCC banking partners.' },
-          { strong: 'Stakeholder synchronization', rest: ' Banks, TIC firms, exporters, buyers, logistics operators, and regulators sequenced under SWAQAR\'s Corridor Operating System.' },
-          { strong: 'Governance oversight', rest: ' Every coordinated transaction moves through the full Four-Gate Model under Supreme Council mandate. The escalation path is defined before any execution begins.' },
-        ],
-        ar: [
-          { strong: 'التحقق من الأطراف المقابلة', rest: ' تأهيل المصدرين والمشترين عبر بوابة تأهل الشركاء من خلال شركات TIC المرخصة — SGS وBureau Veritas وIntertek.' },
-          { strong: 'مواءمة الوثائق', rest: ' الوثائق التجارية والتنظيمية والمالية واللوجستية منسقة عبر جميع ولايات قضاء الممر في إطار معتمد من المستشارين.' },
-          { strong: 'جاهزية اللجنة المصرفية', rest: ' مشاركو الممر منسجمون مع أدوات التمويل التجاري الإسلامي — المرابحة والوكالة وخطاب الاعتماد وفق UCP 600 — من خلال ITFC وشركاء البنوك الخليجية.' },
-          { strong: 'تنسيق أصحاب المصلحة', rest: ' البنوك وشركات TIC والمصدرون والمشترون ومشغلو اللوجستيات والجهات التنظيمية مرتبون وفق نظام تشغيل الممر لدى سواقر.' },
-          { strong: 'الرقابة على الحوكمة', rest: ' كل معاملة منسقة تمر عبر نموذج البوابات الأربع الكامل تحت تفويض المجلس الأعلى. مسار التصعيد محدد قبل بدء أي تنفيذ.' },
-        ],
-        fr: [
-          { strong: 'Vérification des contreparties', rest: ' Exportateurs et acheteurs qualifiés via la Porte de Qualification des Partenaires par des sociétés TIC agréées — SGS, Bureau Veritas et Intertek.' },
-          { strong: 'Alignement documentaire', rest: ' Documentation commerciale, réglementaire, financière et logistique coordonnée dans toutes les juridictions du corridor sous un cadre validé par des conseillers.' },
-          { strong: 'Disponibilité du panel bancaire', rest: ' Participants au corridor alignés avec les instruments de financement commercial islamique — Mourabaha, Wakala, L/C sous UCP 600 — via l\'ITFC et les partenaires bancaires du CCG.' },
-          { strong: 'Synchronisation des parties prenantes', rest: ' Banques, sociétés TIC, exportateurs, acheteurs, opérateurs logistiques et régulateurs séquencés sous le Système d\'Exploitation de Corridor de SWAQAR.' },
-          { strong: 'Supervision de gouvernance', rest: ' Chaque transaction coordonnée passe par le Modèle à Quatre Portes complet sous mandat du Conseil Suprême. Le chemin d\'escalade est défini avant tout début d\'exécution.' },
-        ],
-      },
-      footerTxt: {
-        en: 'SWAQAR holds no title, cargo, funds, or physical assets in this corridor at any stage. Licensed parties execute; counterparties contract directly with each other. SWAQAR coordinates the institutional conditions under which they engage.',
-        ar: 'لا تحتفظ سواقر بأي صكوك ملكية أو بضائع أو أموال أو أصول مادية في هذا الممر في أي مرحلة. تنفذ الأطراف المرخصة؛ ويتعاقد الأطراف المقابلة مباشرة مع بعضهم. تنسق سواقر الشروط المؤسسية التي يتفاعلون في ظلها.',
-        fr: 'SWAQAR ne détient aucun titre, fret, fonds ou actif physique dans ce corridor à aucun stade. Les parties agréées exécutent ; les contreparties contractent directement entre elles. SWAQAR coordonne les conditions institutionnelles dans lesquelles elles s\'engagent.',
-      },
-      footerTags: {
-        en: ['Agriculture & Food Security','Verification-Governed','Non-Custodial','Four-Gate Protocol'],
-        ar: ['الزراعة والأمن الغذائي','تحت حوكمة التحقق','غير وصائي','بروتوكول البوابات الأربع'],
-        fr: ['Agriculture & Sécurité Alimentaire','Vérification-Gouvernée','Non-Dépositaire','Protocole à Quatre Portes'],
-      },
+    tierOneTitle: { en: 'Current Strategic Focus — Phase I Active Pilot Corridor', ar: 'التركيز الاستراتيجي الحالي — ممر تجريبي نشط في المرحلة الأولى', fr: 'Focus Stratégique Actuel — Corridor Pilote Actif Phase I' },
+    tierOneBadge: { en: 'Active', ar: 'نشط', fr: 'Actif' },
+    govNoteTag: { en: 'Governance Note — Phase I Candidate Corridor', ar: 'ملاحظة الحوكمة — ممر مرشح للمرحلة الأولى', fr: 'Note de Gouvernance — Corridor Candidat Phase I' },
+    govNoteTxt: {
+      en: 'This corridor is SWAQAR Group\'s designated Phase I pilot corridor, currently in preparation. No corridor is operationally active. Activation is subject to completion of the Four-Gate Model, counterparty qualification through the Partner Qualification Gate, banking and TIC panel readiness, and Supreme Council mandate. This is a governance-architecture illustration only — subject to counsel-validated legal, regulatory, and governance review before any activation proceeds.',
+      ar: 'هذا الممر هو الممر التجريبي المخصص للمرحلة الأولى لمجموعة سواقر، وهو حالياً قيد الإعداد. لا يوجد ممر نشط تشغيلياً. يخضع التفعيل لاستكمال نموذج البوابات الأربع، وتأهيل الأطراف المقابلة عبر بوابة تأهل الشركاء، وجاهزية لجنة البنوك وTIC، وتفويض المجلس الأعلى. هذا توضيح لهيكل الحوكمة فقط — خاضع للمراجعة القانونية والتنظيمية ومراجعة الحوكمة المعتمدة من المستشارين قبل المضي في أي تفعيل.',
+      fr: 'Ce corridor est le corridor pilote désigné de Phase I de SWAQAR Group, actuellement en préparation. Aucun corridor n\'est opérationnellement actif. L\'activation est soumise à l\'achèvement du Modèle à Quatre Portes, à la qualification des contreparties, à la préparation du panel bancaire et TIC, et au mandat du Conseil Suprême. Il s\'agit uniquement d\'une illustration d\'architecture de gouvernance.',
     },
-    tier2: {
-      title: { en: 'Corridor Domains Under Strategic Evaluation', ar: 'مجالات الممرات قيد التقييم الاستراتيجي', fr: 'Domaines de Corridor sous Évaluation Stratégique' },
-      badge: { en: 'Phase II+ · Subject to Phase I Proof', ar: 'المرحلة الثانية وما بعدها · مشروطة بإثبات المرحلة الأولى', fr: 'Phase II+ · Soumis à la Preuve Phase I' },
-      evalCards: {
-        en: [
-          { reg: 'Industrial Development', title: 'Building Materials & Industrial Goods', body: 'Africa\'s infrastructure development — housing, roads, industrial parks, ports — creates structural demand for building materials flowing from Asian manufacturers through Middle Eastern free zone infrastructure to African project developers. Multi-stakeholder verification requirements, cross-jurisdictional documentation complexity, and the absence of a neutral institutional governance layer make this domain a natural fit for SWAQAR\'s four-gate coordination architecture.', tags: ['Asia → Middle East → Africa','Verification','Documentation Governance','Multi-Stakeholder'], note: 'SWAQAR coordinates verification, documentation, and institutional counterparty readiness — it does not act as procurement agent, project developer, contractor, or capital provider in this domain. Evaluation is subject to Phase I proof and Supreme Council mandate. If your institutional interest is in this corridor domain, you may register your interest for Phase II consideration through the Engage section.' },
-          { reg: 'Agricultural Value Chain', title: 'Agricultural Inputs & Commodity Processing', body: 'Beyond raw agricultural commodity flows, the verified coordination of agricultural inputs — fertilisers, seeds, agrochemicals, processing equipment — and agro-processing capacity represents a natural institutional extension of SWAQAR\'s Phase I Agriculture corridor. GCC and Asian demand for processed agricultural products, and Africa\'s growing agro-processing sector, create the same multi-stakeholder verification and documentation requirements SWAQAR\'s four-gate model is designed to govern.', tags: ['Africa ↔ Middle East ↔ Asia','Agricultural Inputs','Agro-Processing','Verification'], note: 'SWAQAR coordinates verification readiness, documentation alignment, and institutional counterparty qualification — it does not trade, aggregate, procure, or act as a logistics operator in this domain. Evaluation subject to Phase I proof and Supreme Council mandate. If your institutional interest is in this corridor domain, you may register your interest for Phase II consideration through the Engage section.' },
-        ],
-        ar: [
-          { reg: 'التطوير الصناعي', title: 'مواد البناء والسلع الصناعية', body: 'يخلق تطور البنية التحتية في أفريقيا — الإسكان والطرق والمناطق الصناعية والموانئ — طلباً هيكلياً على مواد البناء المتدفقة من المصنعين الآسيويين عبر البنية التحتية لمناطق التجارة الحرة في الشرق الأوسط إلى مطوري المشاريع الأفارقة. متطلبات التحقق متعدد الأطراف وتعقيد التوثيق عبر الولايات القضائية وغياب طبقة حوكمة مؤسسية محايدة تجعل هذا المجال مناسباً طبيعياً لهندسة التنسيق ذات البوابات الأربع لدى سواقر.', tags: ['آسيا → الشرق الأوسط → أفريقيا','التحقق','حوكمة الوثائق','متعدد الأطراف'], note: 'تنسق سواقر التحقق والوثائق وجاهزية الأطراف المقابلة المؤسسية — ولا تتصرف كوكيل مشتريات أو مطور مشاريع أو مقاول أو مزود رأس مال في هذا المجال. يخضع التقييم لإثبات المرحلة الأولى وتفويض المجلس الأعلى.' },
-          { reg: 'سلسلة القيمة الزراعية', title: 'المدخلات الزراعية ومعالجة السلع', body: 'ما وراء تدفقات السلع الزراعية الخام، يمثل التنسيق الموثق للمدخلات الزراعية — الأسمدة والبذور والمواد الكيميائية الزراعية ومعدات المعالجة — وطاقة المعالجة الزراعية امتداداً مؤسسياً طبيعياً لممر الزراعة في المرحلة الأولى لسواقر. يخلق طلب دول مجلس التعاون وآسيا على المنتجات الزراعية المعالجة والقطاع الزراعي المتنامي في أفريقيا نفس متطلبات التحقق والتوثيق متعددة الأطراف التي صُمم نموذج البوابات الأربع لسواقر لحكمها.', tags: ['أفريقيا ↔ الشرق الأوسط ↔ آسيا','مدخلات زراعية','معالجة زراعية','التحقق'], note: 'تنسق سواقر جاهزية التحقق ومواءمة الوثائق وتأهيل الأطراف المقابلة المؤسسية — ولا تتاجر أو تجمع أو تشتري أو تتصرف كمشغل لوجستي في هذا المجال. يخضع التقييم لإثبات المرحلة الأولى وتفويض المجلس الأعلى.' },
-        ],
-        fr: [
-          { reg: 'Développement Industriel', title: 'Matériaux de Construction & Biens Industriels', body: 'Le développement des infrastructures africaines — logements, routes, zones industrielles, ports — crée une demande structurelle de matériaux de construction provenant des fabricants asiatiques via l\'infrastructure des zones franches du Moyen-Orient vers les développeurs de projets africains. Les exigences de vérification multi-parties prenantes, la complexité documentaire inter-juridictionnelle et l\'absence d\'une couche de gouvernance institutionnelle neutre font de ce domaine un candidat naturel pour l\'architecture de coordination à quatre portes de SWAQAR.', tags: ['Asie → Moyen-Orient → Afrique','Vérification','Gouvernance Documentaire','Multi-Parties Prenantes'], note: 'SWAQAR coordonne la vérification, la documentation et la préparation des contreparties institutionnelles — elle n\'agit pas comme agent d\'approvisionnement, développeur de projet, entrepreneur ou fournisseur de capital dans ce domaine. L\'évaluation est soumise à la preuve Phase I et au mandat du Conseil Suprême.' },
-          { reg: 'Chaîne de Valeur Agricole', title: 'Intrants Agricoles & Transformation des Matières Premières', body: 'Au-delà des flux de matières premières agricoles brutes, la coordination vérifiée des intrants agricoles — engrais, semences, agrochimiques, équipements de transformation — et des capacités d\'agro-transformation représente une extension institutionnelle naturelle du corridor Agriculture Phase I de SWAQAR. La demande du CCG et asiatique pour des produits agricoles transformés, et le secteur agro-transformateur africain croissant, créent les mêmes exigences de vérification et de documentation multi-parties prenantes que le modèle à quatre portes de SWAQAR est conçu à gouverner.', tags: ['Afrique ↔ Moyen-Orient ↔ Asie','Intrants Agricoles','Agro-Transformation','Vérification'], note: 'SWAQAR coordonne la préparation à la vérification, l\'alignement documentaire et la qualification des contreparties institutionnelles — elle ne négocie pas, n\'agrège pas, n\'achète pas et n\'agit pas comme opérateur logistique dans ce domaine. Évaluation soumise à la preuve Phase I et au mandat du Conseil Suprême.' },
-        ],
-      },
-      capItems: {
-        en: [
-          { name: 'Counterparty Verification', status: 'Active — Phase I', desc: 'Licensed TIC panel engaged for all corridor participants. Verification precedes every engagement.' },
-          { name: 'Documentation Governance', status: 'Active — Phase I', desc: 'Counsel-validated documentation framework per corridor jurisdiction, aligned with ICC standards.' },
-          { name: 'Trade Finance Readiness', status: 'Building toward Phase II', desc: 'Alignment with ITFC, Afreximbank, and GCC banking panel partners for Islamic and conventional instruments.' },
-        ],
-        ar: [
-          { name: 'التحقق من الأطراف المقابلة', status: 'نشط — المرحلة الأولى', desc: 'لجنة TIC المرخصة مفعّلة لجميع مشاركي الممر. يسبق التحقق كل انخراط.' },
-          { name: 'حوكمة الوثائق', status: 'نشط — المرحلة الأولى', desc: 'إطار وثائق معتمد من المستشارين لكل ولاية قضاء الممر، متوافق مع معايير ICC.' },
-          { name: 'جاهزية تمويل التجارة', status: 'في طور البناء نحو المرحلة الثانية', desc: 'التوافق مع ITFC وAfreximbank وشركاء اللجنة المصرفية الخليجية للأدوات الإسلامية والتقليدية.' },
-        ],
-        fr: [
-          { name: 'Vérification des Contreparties', status: 'Actif — Phase I', desc: 'Panel TIC agréé engagé pour tous les participants au corridor. La vérification précède chaque engagement.' },
-          { name: 'Gouvernance Documentaire', status: 'Actif — Phase I', desc: 'Cadre documentaire validé par des conseillers par juridiction de corridor, aligné avec les normes ICC.' },
-          { name: 'Disponibilité du Financement Commercial', status: 'En construction vers Phase II', desc: 'Alignement avec l\'ITFC, Afreximbank et les partenaires du panel bancaire CCG pour les instruments islamiques et conventionnels.' },
-        ],
-      },
+    phaseLabel: { en: 'Agriculture & Food Security · Africa ↔ Middle East ↔ Asia', ar: 'الزراعة والأمن الغذائي · أفريقيا ↔ الشرق الأوسط ↔ آسيا', fr: 'Agriculture & Sécurité Alimentaire · Afrique ↔ Moyen-Orient ↔ Asie' },
+    activeDesc: {
+      en: 'Coordinating agricultural commodity flows between verified African exporters and institutional buyers in the Middle East and Asia. SWAQAR coordinates the institutional conditions — it does not trade, broker, hold title, or act as logistics operator at any stage.',
+      ar: 'تنسيق تدفقات السلع الزراعية بين المصدرين الأفارقة الموثقين والمشترين المؤسسيين في الشرق الأوسط وآسيا. تنسق سواقر الشروط المؤسسية — فهي لا تتاجر أو تتوسط أو تحمل الملكية أو تتصرف كمشغل لوجستي في أي مرحلة.',
+      fr: 'Coordination des flux de matières premières agricoles entre des exportateurs africains vérifiés et des acheteurs institutionnels au Moyen-Orient et en Asie. SWAQAR coordonne les conditions institutionnelles — elle ne négocie pas, ne courtise pas, ne détient pas de titre, ni n\'agit comme opérateur logistique.',
+    },
+    roles: {
+      en: [
+        { region: 'Africa', name: 'Origin & Supply', desc: 'Verified agricultural exporters across East and West Africa. Commodity readiness, documentation alignment, and counterparty qualification coordinated through licensed TIC partners.' },
+        { region: 'Middle East · Jeddah', name: 'Trust & Capital Anchor', desc: 'Institutional capital depth, Islamic trade finance infrastructure, and GCC sovereign food security demand. SWAQAR\'s institutional centre of gravity — coordinating alongside, not within, regional financial institutions.' },
+        { region: 'Asia', name: 'Demand & Industrial Scale', desc: 'Institutional buyers, processing entities, and industrial demand anchors across India, China, and Southeast Asia. Counterparty verification and documentation governance coordinated for Asian demand-side engagement.' },
+      ],
+      ar: [
+        { region: 'أفريقيا', name: 'المنشأ والإمداد', desc: 'مصدرون زراعيون موثقون في شرق أفريقيا وغربها. جاهزية السلع ومواءمة التوثيق وتأهيل الأطراف المقابلة منسقة عبر شركاء TIC المرخصين.' },
+        { region: 'الشرق الأوسط · جدة', name: 'مرساة الثقة ورأس المال', desc: 'عمق رأس المال المؤسسي وبنية التمويل التجاري الإسلامي والطلب السيادي على الأمن الغذائي لدول مجلس التعاون الخليجي. مركز ثقل سواقر المؤسسي — ينسق بجانب المؤسسات المالية الإقليمية، وليس ضمنها.' },
+        { region: 'آسيا', name: 'الطلب والحجم الصناعي', desc: 'مشترون مؤسسيون وكيانات معالجة ومراسي الطلب الصناعي عبر الهند والصين وجنوب شرق آسيا. التحقق من الأطراف المقابلة وحوكمة التوثيق منسقة للانخراط من جانب الطلب الآسيوي.' },
+      ],
+      fr: [
+        { region: 'Afrique', name: 'Origine & Approvisionnement', desc: 'Exportateurs agricoles vérifiés en Afrique de l\'Est et de l\'Ouest. Préparation des matières premières, alignement de la documentation et qualification des contreparties coordonnés via des partenaires TIC agréés.' },
+        { region: 'Moyen-Orient · Djeddah', name: 'Ancre de Confiance & Capital', desc: 'Profondeur du capital institutionnel, infrastructure de financement commercial islamique et demande souveraine de sécurité alimentaire du CCG. Centre de gravité institutionnel de SWAQAR — coordonnant aux côtés des institutions financières régionales.' },
+        { region: 'Asie', name: 'Demande & Échelle Industrielle', desc: 'Acheteurs institutionnels, entités de traitement et ancres de demande industrielle en Inde, Chine et Asie du Sud-Est. Vérification des contreparties et gouvernance documentaire coordonnées pour l\'engagement côté demande asiatique.' },
+      ],
+    },
+    coordinates: {
+      en: [
+        { strong: 'Counterparty verification', rest: 'Exporters and buyers qualified through the Partner Qualification Gate via licensed TIC firms — SGS, Bureau Veritas, and Intertek.' },
+        { strong: 'Documentation alignment', rest: 'Commercial, regulatory, financial, and logistics documentation coordinated across all corridor jurisdictions under a counsel-validated framework.' },
+        { strong: 'Banking panel readiness', rest: 'Corridor participants aligned with Islamic trade finance instruments — Murabaha, Wakala, L/C under UCP 600 — through ITFC and GCC banking partners.' },
+        { strong: 'Stakeholder synchronization', rest: 'Banks, TIC firms, exporters, buyers, logistics operators, and regulators sequenced under SWAQAR\'s Corridor Operating System.' },
+        { strong: 'Governance oversight', rest: 'Every coordinated transaction moves through the full Four-Gate Model under Supreme Council mandate. The escalation path is defined before any execution begins.' },
+      ],
+      ar: [
+        { strong: 'التحقق من الأطراف المقابلة', rest: 'تأهيل المصدرين والمشترين عبر بوابة تأهل الشركاء من خلال شركات TIC المرخصة — SGS وBureau Veritas وIntertek.' },
+        { strong: 'مواءمة التوثيق', rest: 'توثيق تجاري وتنظيمي ومالي ولوجستي منسق عبر جميع ولايات قضائية الممر في إطار معتمد من المستشارين.' },
+        { strong: 'جاهزية لجنة البنوك', rest: 'مشاركو الممر متوافقون مع أدوات التمويل التجاري الإسلامي — المرابحة، الوكالة، خطاب الاعتماد وفق UCP 600 — عبر ITFC وشركاء البنوك الخليجية.' },
+        { strong: 'تنسيق أصحاب المصلحة', rest: 'البنوك وشركات TIC والمصدرون والمشترون والمشغلون اللوجستيون والجهات التنظيمية متسلسلون تحت نظام تشغيل ممرات سواقر.' },
+        { strong: 'الرقابة على الحوكمة', rest: 'كل معاملة منسقة تمر عبر نموذج البوابات الأربع الكامل تحت تفويض المجلس الأعلى. مسار التصعيد محدد قبل بدء أي تنفيذ.' },
+      ],
+      fr: [
+        { strong: 'Vérification des contreparties', rest: 'Exportateurs et acheteurs qualifiés via la Porte de Qualification des Partenaires par des firmes TIC agréées — SGS, Bureau Veritas et Intertek.' },
+        { strong: 'Alignement de la documentation', rest: 'Documentation commerciale, réglementaire, financière et logistique coordonnée dans toutes les juridictions du corridor sous un cadre validé par des conseillers.' },
+        { strong: 'Préparation du panel bancaire', rest: 'Participants du corridor alignés avec les instruments de financement commercial islamique — Mourabaha, Wakala, L/C sous UCP 600 — via ITFC et les partenaires bancaires du CCG.' },
+        { strong: 'Synchronisation des parties prenantes', rest: 'Banques, firmes TIC, exportateurs, acheteurs, opérateurs logistiques et régulateurs séquencés sous le Système d\'Exploitation de Corridor de SWAQAR.' },
+        { strong: 'Supervision de gouvernance', rest: 'Chaque transaction coordonnée passe par le Modèle à Quatre Portes complet sous mandat du Conseil Suprême. Le chemin d\'escalade est défini avant tout début d\'exécution.' },
+      ],
+    },
+    activeFooterTxt: {
+      en: 'SWAQAR holds no title, cargo, funds, or physical assets in this corridor at any stage. Licensed parties execute; counterparties contract directly with each other. SWAQAR coordinates the institutional conditions under which they engage.',
+      ar: 'لا تحتفظ سواقر بأي ملكية أو شحنات أو أموال أو أصول مادية في هذا الممر في أي مرحلة. تنفذ الأطراف المرخصة؛ تتعاقد الأطراف المقابلة مباشرة مع بعضها. تنسق سواقر الشروط المؤسسية التي بموجبها تتعامل.',
+      fr: 'SWAQAR ne détient aucun titre, fret, fonds ou actif physique dans ce corridor à aucun stade. Les parties agréées exécutent ; les contreparties contractent directement entre elles. SWAQAR coordonne les conditions institutionnelles dans lesquelles elles s\'engagent.',
+    },
+    tierTwoTitle: { en: 'Corridor Domains Under Strategic Evaluation', ar: 'مجالات الممرات تحت التقييم الاستراتيجي', fr: 'Domaines de Corridors en Évaluation Stratégique' },
+    tierTwoBadge: { en: 'Phase II+ · Subject to Phase I Proof', ar: 'المرحلة الثانية+ · رهن بإثبات المرحلة الأولى', fr: 'Phase II+ · Soumis à la Preuve de Phase I' },
+    evalCards: {
+      en: [
+        { reg: 'Industrial Development', title: 'Building Materials & Industrial Goods', body: 'Africa\'s infrastructure development — housing, roads, industrial parks, ports — creates structural demand for building materials flowing from Asian manufacturers through Middle Eastern free zone infrastructure to African project developers. Multi-stakeholder verification requirements, cross-jurisdictional documentation complexity, and the absence of a neutral institutional governance layer make this domain a natural fit for SWAQAR\'s four-gate coordination architecture.', tags: ['Asia → Middle East → Africa','Verification','Documentation Governance','Multi-Stakeholder'], note: 'SWAQAR coordinates verification, documentation, and institutional counterparty readiness — it does not act as procurement agent, project developer, contractor, or capital provider in this domain. Evaluation is subject to Phase I proof and Supreme Council mandate. If your institutional interest is in this corridor domain, you may register your interest for Phase II consideration through the Engage section.' },
+        { reg: 'Agricultural Value Chain', title: 'Agricultural Inputs & Commodity Processing', body: 'Beyond raw agricultural commodity flows, the verified coordination of agricultural inputs — fertilisers, seeds, agrochemicals, processing equipment — and agro-processing capacity represents a natural institutional extension of SWAQAR\'s Phase I Agriculture corridor. GCC and Asian demand for processed agricultural products, and Africa\'s growing agro-processing sector, create the same multi-stakeholder verification and documentation requirements SWAQAR\'s four-gate model is designed to govern.', tags: ['Africa ↔ Middle East ↔ Asia','Agricultural Inputs','Agro-Processing','Verification'], note: 'SWAQAR coordinates verification readiness, documentation alignment, and institutional counterparty qualification — it does not trade, aggregate, procure, or act as a logistics operator in this domain. Evaluation subject to Phase I proof and Supreme Council mandate. If your institutional interest is in this corridor domain, you may register your interest for Phase II consideration through the Engage section.' },
+      ],
+      ar: [
+        { reg: 'التطوير الصناعي', title: 'مواد البناء والسلع الصناعية', body: 'يخلق التطوير البنية التحتية في أفريقيا — الإسكان والطرق والمناطق الصناعية والموانئ — طلباً هيكلياً على مواد البناء المتدفقة من المصنعين الآسيويين عبر بنية المناطق الحرة في الشرق الأوسط إلى مطوري المشاريع في أفريقيا.', tags: ['آسيا → الشرق الأوسط → أفريقيا','التحقق','حوكمة التوثيق','متعدد أصحاب المصلحة'], note: 'تنسق سواقر التحقق والتوثيق وجاهزية الأطراف المقابلة المؤسسية — فهي لا تعمل وكيلاً للمشتريات أو مطوراً للمشاريع أو مقاولاً أو مزوداً لرأس المال في هذا المجال.' },
+        { reg: 'سلسلة القيمة الزراعية', title: 'المدخلات الزراعية ومعالجة السلع', body: 'يمثل التنسيق الموثق للمدخلات الزراعية — الأسمدة والبذور والمواد الكيميائية الزراعية ومعدات التجهيز — وطاقة التجهيز الزراعي امتداداً مؤسسياً طبيعياً لممر الزراعة في المرحلة الأولى لسواقر.', tags: ['أفريقيا ↔ الشرق الأوسط ↔ آسيا','المدخلات الزراعية','التجهيز الزراعي','التحقق'], note: 'تنسق سواقر جاهزية التحقق ومواءمة التوثيق وتأهيل الأطراف المقابلة المؤسسية — فهي لا تتاجر أو تجمع أو تشتري أو تتصرف كمشغل لوجستي في هذا المجال.' },
+      ],
+      fr: [
+        { reg: 'Développement Industriel', title: 'Matériaux de Construction & Biens Industriels', body: 'Le développement des infrastructures en Afrique — logements, routes, parcs industriels, ports — crée une demande structurelle de matériaux de construction provenant de fabricants asiatiques via l\'infrastructure des zones franches du Moyen-Orient vers les promoteurs de projets africains.', tags: ['Asie → Moyen-Orient → Afrique','Vérification','Gouvernance Documentaire','Multi-Parties Prenantes'], note: 'SWAQAR coordonne la vérification, la documentation et la préparation des contreparties institutionnelles — elle n\'agit pas en tant qu\'agent d\'approvisionnement, promoteur de projet, entrepreneur ou fournisseur de capital dans ce domaine.' },
+        { reg: 'Chaîne de Valeur Agricole', title: 'Intrants Agricoles & Transformation des Matières Premières', body: 'Au-delà des flux bruts de matières premières agricoles, la coordination vérifiée des intrants agricoles — engrais, semences, produits agrochimiques, équipements de transformation — représente une extension institutionnelle naturelle du corridor Agriculture Phase I de SWAQAR.', tags: ['Afrique ↔ Moyen-Orient ↔ Asie','Intrants Agricoles','Agro-Transformation','Vérification'], note: 'SWAQAR coordonne la préparation à la vérification, l\'alignement de la documentation et la qualification des contreparties institutionnelles — elle ne négocie pas, n\'agrège pas, ne procure pas et n\'agit pas comme opérateur logistique dans ce domaine.' },
+      ],
+    },
+    capRow: {
+      en: [
+        { name: 'Counterparty Verification', status: 'Active — Phase I', desc: 'Licensed TIC panel engaged for all corridor participants. Verification precedes every engagement.' },
+        { name: 'Documentation Governance', status: 'Active — Phase I', desc: 'Counsel-validated documentation framework per corridor jurisdiction, aligned with ICC standards.' },
+        { name: 'Trade Finance Readiness', status: 'Building toward Phase II', desc: 'Alignment with ITFC, Afreximbank, and GCC banking panel partners for Islamic and conventional instruments.' },
+      ],
+      ar: [
+        { name: 'التحقق من الأطراف المقابلة', status: 'نشط — المرحلة الأولى', desc: 'لجنة TIC المرخصة منخرطة لجميع مشاركي الممر. التحقق يسبق كل انخراط.' },
+        { name: 'حوكمة التوثيق', status: 'نشط — المرحلة الأولى', desc: 'إطار توثيق معتمد من المستشارين لكل ولاية قضائية للممر، متوافق مع معايير ICC.' },
+        { name: 'جاهزية التمويل التجاري', status: 'في طريق المرحلة الثانية', desc: 'التوافق مع ITFC وAfreximbank وشركاء لجنة البنوك الخليجية للأدوات الإسلامية والتقليدية.' },
+      ],
+      fr: [
+        { name: 'Vérification des Contreparties', status: 'Actif — Phase I', desc: 'Panel TIC agréé engagé pour tous les participants du corridor. La vérification précède chaque engagement.' },
+        { name: 'Gouvernance Documentaire', status: 'Actif — Phase I', desc: 'Cadre documentaire validé par des conseillers par juridiction de corridor, aligné sur les normes ICC.' },
+        { name: 'Préparation au Financement Commercial', status: 'En construction vers la Phase II', desc: 'Alignement avec ITFC, Afreximbank et les partenaires du panel bancaire CCG pour les instruments islamiques et conventionnels.' },
+      ],
     },
   },
 
   // ── GATES ──
   gates: {
-    sectionTag: { en: 'Corridor Entry Protocol', ar: 'بروتوكول دخول الممر', fr: 'Protocole d\'Entrée au Corridor' },
+    sectionTag: { en: 'Corridor Entry Protocol', ar: 'بروتوكول دخول الممر', fr: 'Protocole d\'Entrée du Corridor' },
     heading: { en: 'Every coordinated corridor moves through', ar: 'كل ممر منسق يمر عبر', fr: 'Chaque corridor coordonné passe par' },
     headingEm: { en: 'four governance gates.', ar: 'أربع بوابات حوكمة.', fr: 'quatre portes de gouvernance.' },
-    desc: {
+    subDesc: {
       en: 'No corridor engagement proceeds until all four gates are passed. This is a constitutional governance requirement, not a process preference.',
-      ar: 'لا ينتقل أي انخراط في الممر إلى الأمام حتى تُستكمل جميع البوابات الأربع. هذا متطلب حوكمة دستوري، وليس تفضيلاً إجرائياً.',
-      fr: 'Aucun engagement de corridor ne se poursuit tant que les quatre portes n\'ont pas été franchies. Il s\'agit d\'une exigence constitutionnelle de gouvernance, non d\'une préférence de processus.',
+      ar: 'لا يتقدم أي انخراط في الممر حتى يتم اجتياز البوابات الأربع. هذا شرط حوكمة دستوري، وليس تفضيلاً إجرائياً.',
+      fr: 'Aucun engagement de corridor ne progresse tant que les quatre portes n\'ont pas été franchies. Il s\'agit d\'une exigence de gouvernance constitutionnelle, pas d\'une préférence de processus.',
     },
-    gate1: {
-      tag: { en: 'Gate I', ar: 'البوابة الأولى', fr: 'Porte I' },
-      name: { en: 'Counterparty Verification', ar: 'التحقق من الأطراف المقابلة', fr: 'Vérification des Contreparties' },
-      desc: { en: 'Every participant — exporter, buyer, logistics operator, financial intermediary — passes SWAQAR\'s verification protocol before any coordination mandate is issued.', ar: 'كل مشارك — مصدر أو مشترٍ أو مشغل لوجستي أو وسيط مالي — يجتاز بروتوكول التحقق لدى سواقر قبل إصدار أي تفويض تنسيق.', fr: 'Chaque participant — exportateur, acheteur, opérateur logistique, intermédiaire financier — passe le protocole de vérification de SWAQAR avant toute émission de mandat de coordination.' },
-    },
-    gate2: {
-      tag: { en: 'Gate II', ar: 'البوابة الثانية', fr: 'Porte II' },
-      name: { en: 'Documentation Readiness', ar: 'جاهزية الوثائق', fr: 'Disponibilité Documentaire' },
-      desc: { en: 'All trade documentation must meet SWAQAR\'s standard prior to corridor activation. A counsel-reviewed documentation package is required in full before Gate II closes.', ar: 'يجب أن تلبي جميع وثائق التجارة معيار سواقر قبل تفعيل الممر. يُشترط وجود حزمة وثائق مراجعة من المستشارين بالكامل قبل إغلاق البوابة الثانية.', fr: 'Toute la documentation commerciale doit répondre au standard de SWAQAR avant l\'activation du corridor. Un dossier documentaire revu par des conseillers est requis en totalité avant la clôture de la Porte II.' },
-    },
-    gate3: {
-      tag: { en: 'Gate III', ar: 'البوابة الثالثة', fr: 'Porte III' },
-      name: { en: 'Governance Alignment', ar: 'التوافق مع الحوكمة', fr: 'Alignement de Gouvernance' },
-      desc: { en: 'The corridor structure must align to SWAQAR\'s governance architecture and applicable legal frameworks across all participating jurisdictions. Supreme Council confirmation required.', ar: 'يجب أن يتوافق هيكل الممر مع هندسة الحوكمة لدى سواقر والأطر القانونية المطبقة في جميع الولايات القضائية المشاركة. يُشترط تأكيد المجلس الأعلى.', fr: 'La structure du corridor doit s\'aligner avec l\'architecture de gouvernance de SWAQAR et les cadres juridiques applicables dans toutes les juridictions participantes. Confirmation du Conseil Suprême requise.' },
-    },
-    gate4: {
-      tag: { en: 'Gate IV', ar: 'البوابة الرابعة', fr: 'Porte IV' },
-      name: { en: 'Execution Mandate', ar: 'تفويض التنفيذ', fr: 'Mandat d\'Exécution' },
-      desc: { en: 'Only after Gates I–III are cleared does SWAQAR issue a formal Execution Mandate. This governs the coordination engagement and defines the boundaries of SWAQAR\'s role.', ar: 'فقط بعد اجتياز البوابات I–III تُصدر سواقر تفويض تنفيذ رسمياً. يحكم هذا التفويض انخراط التنسيق ويحدد حدود دور سواقر.', fr: 'Ce n\'est qu\'après le franchissement des Portes I–III que SWAQAR émet un Mandat d\'Exécution formel. Il régit l\'engagement de coordination et définit les limites du rôle de SWAQAR.' },
+    gatesList: {
+      en: [
+        { tag: 'Gate I', name: 'Counterparty Verification', desc: 'Every participant — exporter, buyer, logistics operator, financial intermediary — passes SWAQAR\'s verification protocol before any coordination mandate is issued.' },
+        { tag: 'Gate II', name: 'Documentation Readiness', desc: 'All trade documentation must meet SWAQAR\'s standard prior to corridor activation. A counsel-reviewed documentation package is required in full before Gate II closes.' },
+        { tag: 'Gate III', name: 'Governance Alignment', desc: 'The corridor structure must align to SWAQAR\'s governance architecture and applicable legal frameworks across all participating jurisdictions. Supreme Council confirmation required.' },
+        { tag: 'Gate IV', name: 'Execution Mandate', desc: 'Only after Gates I–III are cleared does SWAQAR issue a formal Execution Mandate. This governs the coordination engagement and defines the boundaries of SWAQAR\'s role.' },
+      ],
+      ar: [
+        { tag: 'البوابة الأولى', name: 'التحقق من الأطراف المقابلة', desc: 'كل مشارك — مُصدِّر، مشترٍ، مشغل لوجستي، وسيط مالي — يجتاز بروتوكول التحقق من سواقر قبل إصدار أي تفويض تنسيق.' },
+        { tag: 'البوابة الثانية', name: 'جاهزية التوثيق', desc: 'يجب أن تستوفي جميع وثائق التجارة معيار سواقر قبل تفعيل الممر. يُشترط تقديم حزمة توثيق مراجعة من المستشار بالكامل قبل إغلاق البوابة الثانية.' },
+        { tag: 'البوابة الثالثة', name: 'مواءمة الحوكمة', desc: 'يجب أن يتوافق هيكل الممر مع هيكل حوكمة سواقر والأطر القانونية المعمول بها عبر جميع الولايات القضائية المشاركة. يُشترط تأكيد المجلس الأعلى.' },
+        { tag: 'البوابة الرابعة', name: 'تفويض التنفيذ', desc: 'فقط بعد اجتياز البوابات الأولى والثانية والثالثة تُصدر سواقر تفويض تنفيذ رسمياً. يحكم هذا الانخراط التنسيقي ويحدد حدود دور سواقر.' },
+      ],
+      fr: [
+        { tag: 'Porte I', name: 'Vérification des Contreparties', desc: 'Chaque participant — exportateur, acheteur, opérateur logistique, intermédiaire financier — passe le protocole de vérification de SWAQAR avant tout mandat de coordination.' },
+        { tag: 'Porte II', name: 'Préparation de la Documentation', desc: 'Toute documentation commerciale doit répondre aux normes de SWAQAR avant l\'activation du corridor. Un dossier documentaire validé par un conseiller est requis intégralement avant la fermeture de la Porte II.' },
+        { tag: 'Porte III', name: 'Alignement de Gouvernance', desc: 'La structure du corridor doit s\'aligner sur l\'architecture de gouvernance de SWAQAR et les cadres juridiques applicables dans toutes les juridictions participantes. Confirmation du Conseil Suprême requise.' },
+        { tag: 'Porte IV', name: 'Mandat d\'Exécution', desc: 'Ce n\'est qu\'après l\'obtention des Portes I à III que SWAQAR émet un Mandat d\'Exécution formel. Celui-ci régit l\'engagement de coordination et définit les limites du rôle de SWAQAR.' },
+      ],
     },
   },
 
   // ── ARMS ──
   arms: {
-    sectionTag: { en: 'Institutional Architecture', ar: 'الهندسة المؤسسية', fr: 'Architecture Institutionnelle' },
+    sectionTag: { en: 'Institutional Architecture', ar: 'الهيكل المؤسسي', fr: 'Architecture Institutionnelle' },
     heading: { en: 'Seven', ar: 'سبعة', fr: 'Sept' },
     headingEm: { en: 'Institutional Arms.', ar: 'أذرع مؤسسية.', fr: 'Bras Institutionnels.' },
-    headingSuffix: { en: 'One Architecture.', ar: 'هندسة واحدة.', fr: 'Une Architecture.' },
-    items: {
+    headingLine2: { en: 'One Architecture.', ar: 'هيكل واحد.', fr: 'Une Architecture.' },
+    abxTag: { en: 'Institutional Foundation', ar: 'الأساس المؤسسي', fr: 'Fondation Institutionnelle' },
+    abxH: { en: 'Built for a multi-decade institutional horizon.', ar: 'مبنية لأفق مؤسسي متعدد العقود.', fr: 'Construite pour un horizon institutionnel pluridécennal.' },
+    abxP: {
+      en: 'SWAQAR is not a startup seeking scale. It is a coordination institution being built to last — verification-governed, governance-anchored, designed to compound institutional credibility over time, not transaction volume.',
+      ar: 'سواقر ليست شركة ناشئة تسعى للنمو. إنها مؤسسة تنسيق مبنية للاستمرار — محكومة بالتحقق، راسخة في الحوكمة، مصممة لتراكم المصداقية المؤسسية بمرور الوقت، وليس حجم المعاملات.',
+      fr: 'SWAQAR n\'est pas une startup cherchant à se développer. C\'est une institution de coordination construite pour durer — gouvernée par la vérification, ancrée dans la gouvernance, conçue pour accumuler la crédibilité institutionnelle au fil du temps.',
+    },
+    abxMetrics: {
+      en: [['Phase I','Foundation Stage'],['IV Gates','Entry Protocol'],['3','Corridor Regions'],['100%','Non-Custodial']],
+      ar: [['المرحلة الأولى','مرحلة التأسيس'],['أربع بوابات','بروتوكول الدخول'],['٣','مناطق الممرات'],['١٠٠٪','غير وصائي']],
+      fr: [['Phase I','Étape Fondatrice'],['IV Portes','Protocole d\'Entrée'],['3','Régions de Corridors'],['100%','Non-Dépositaire']],
+    },
+    armsList: {
       en: [
-        { n: '01', name: 'SWAQAR Corridors of Trust', desc: 'Core corridor governance across Africa, the Middle East, and Asia — verification-governed and non-custodial.' },
-        { n: '02', name: 'SWAQAR Intelligence', desc: 'Corridor intelligence, market signals, and counterparty risk data — lawfully gathered, ethically sourced.' },
-        { n: '03', name: 'SWAQAR Capital & Trade Finance Coordination', desc: 'Facilitating access to licensed trade finance institutions. Never custodial. Never a financial principal.' },
-        { n: '04', name: 'SWAQAR Verification & Compliance', desc: 'Counterparty verification through licensed TIC partners. The Partner Qualification Gate is a prerequisite for all corridor activations — maintaining verification integrity as a standing corridor condition, not a one-time gate.' },
-        { n: '05', name: 'SWAQAR Institutional Relations', desc: 'Sovereign, government, and ministerial engagement at institutional grade. The dedicated interface for government ministries and sovereign bodies engaging with SWAQAR at institutional standard.' },
-        { n: '06', name: 'SWAQAR Industrial Corridors', desc: 'Industrial trade development across SWAQAR\'s corridor regions. Documentation alignment and stakeholder synchronization for licensed logistics operators and qualified industrial counterparties.' },
-        { n: '07', name: 'SWAQAR Advisory', desc: 'Strategic advisory on corridor architecture and governance design. Capital and strategic partners engage through this arm at governance level, subject to Supreme Council review.' },
+        ['01','SWAQAR Corridors of Trust','Core corridor governance across Africa, the Middle East, and Asia — verification-governed and non-custodial.'],
+        ['02','SWAQAR Intelligence','Corridor intelligence, market signals, and counterparty risk data — lawfully gathered, ethically sourced.'],
+        ['03','SWAQAR Capital & Trade Finance Coordination','Facilitating access to licensed trade finance institutions. Never custodial. Never a financial principal.'],
+        ['04','SWAQAR Verification & Compliance','Counterparty verification through licensed TIC partners. The Partner Qualification Gate is a prerequisite for all corridor activations — maintaining verification integrity as a standing corridor condition, not a one-time gate.'],
+        ['05','SWAQAR Institutional Relations','Sovereign, government, and ministerial engagement at institutional grade. The dedicated interface for government ministries and sovereign bodies engaging with SWAQAR at institutional standard.'],
+        ['06','SWAQAR Industrial Corridors','Industrial trade development across SWAQAR\'s corridor regions. Documentation alignment and stakeholder synchronization for licensed logistics operators and qualified industrial counterparties.'],
+        ['07','SWAQAR Advisory','Strategic advisory on corridor architecture and governance design. Capital and strategic partners engage through this arm at governance level, subject to Supreme Council review.'],
       ],
       ar: [
-        { n: '01', name: 'سواقر — ممرات الثقة', desc: 'حوكمة الممر الأساسية عبر أفريقيا والشرق الأوسط وآسيا — محكومة بالتحقق وغير وصائية.' },
-        { n: '02', name: 'سواقر للاستخبارات', desc: 'استخبارات الممر وإشارات السوق وبيانات مخاطر الأطراف المقابلة — مجمعة قانونياً ومصدرها أخلاقي.' },
-        { n: '03', name: 'سواقر لتنسيق رأس المال والتمويل التجاري', desc: 'تيسير الوصول إلى مؤسسات تمويل التجارة المرخصة. غير وصائي دائماً. لا يكون أصيلاً مالياً أبداً.' },
-        { n: '04', name: 'سواقر للتحقق والامتثال', desc: 'التحقق من الأطراف المقابلة عبر شركاء TIC مرخصين. بوابة تأهل الشركاء شرط أساسي لجميع تفعيلات الممر — تحافظ على نزاهة التحقق كشرط دائم للممر، وليس بوابة لمرة واحدة.' },
-        { n: '05', name: 'سواقر للعلاقات المؤسسية', desc: 'الانخراط السيادي والحكومي والوزاري بمستوى مؤسسي. الواجهة المخصصة للوزارات الحكومية والهيئات السيادية المتفاعلة مع سواقر بالمعيار المؤسسي.' },
-        { n: '06', name: 'سواقر للممرات الصناعية', desc: 'تطوير التجارة الصناعية عبر مناطق ممرات سواقر. مواءمة الوثائق وتنسيق أصحاب المصلحة للمشغلين اللوجستيين المرخصين والأطراف المقابلة الصناعية المؤهلة.' },
-        { n: '07', name: 'سواقر للاستشارات', desc: 'استشارات استراتيجية حول هندسة الممرات وتصميم الحوكمة. يتفاعل شركاء رأس المال والاستراتيجيون عبر هذا الذراع على مستوى الحوكمة، خاضعاً لمراجعة المجلس الأعلى.' },
+        ['٠١','ممرات الثقة سواقر','حوكمة الممرات الأساسية عبر أفريقيا والشرق الأوسط وآسيا — محكومة بالتحقق وغير وصائية.'],
+        ['٠٢','سواقر للاستخبارات','استخبارات الممرات وإشارات السوق وبيانات مخاطر الأطراف المقابلة — مجموعة بشكل قانوني، مصدرها أخلاقي.'],
+        ['٠٣','سواقر لتنسيق رأس المال والتمويل التجاري','تيسير الوصول إلى مؤسسات التمويل التجاري المرخصة. لا وصاية أبداً. لا مدير مالي أبداً.'],
+        ['٠٤','سواقر للتحقق والامتثال','التحقق من الأطراف المقابلة عبر شركاء TIC المرخصين. بوابة تأهل الشركاء شرط أساسي لجميع تفعيلات الممرات — للحفاظ على نزاهة التحقق كشرط دائم للممر، وليس بوابة لمرة واحدة.'],
+        ['٠٥','سواقر للعلاقات المؤسسية','انخراط سيادي وحكومي ووزاري على المستوى المؤسسي. الواجهة المخصصة للوزارات الحكومية والهيئات السيادية المنخرطة مع سواقر بالمعيار المؤسسي.'],
+        ['٠٦','سواقر للممرات الصناعية','تطوير التجارة الصناعية عبر مناطق ممرات سواقر. مواءمة التوثيق وتنسيق أصحاب المصلحة للمشغلين اللوجستيين المرخصين والأطراف المقابلة الصناعية المؤهلة.'],
+        ['٠٧','سواقر للاستشارات','الاستشارات الاستراتيجية في هيكل الممرات وتصميم الحوكمة. يتعامل شركاء رأس المال والشركاء الاستراتيجيون عبر هذا الذراع على مستوى الحوكمة، خاضعاً لمراجعة المجلس الأعلى.'],
       ],
       fr: [
-        { n: '01', name: 'SWAQAR Corridors de Confiance', desc: 'Gouvernance de corridor fondamentale à travers l\'Afrique, le Moyen-Orient et l\'Asie — vérification-gouvernée et non-dépositaire.' },
-        { n: '02', name: 'SWAQAR Intelligence', desc: 'Renseignement de corridor, signaux de marché et données de risque des contreparties — collectés légalement, d\'origine éthique.' },
-        { n: '03', name: 'SWAQAR Coordination Capital & Financement Commercial', desc: 'Facilitation de l\'accès aux institutions de financement commercial agréées. Jamais dépositaire. Jamais un principal financier.' },
-        { n: '04', name: 'SWAQAR Vérification & Conformité', desc: 'Vérification des contreparties via des partenaires TIC agréés. La Porte de Qualification des Partenaires est un prérequis pour toutes les activations de corridor — maintenant l\'intégrité de vérification comme condition permanente du corridor, non une porte unique.' },
-        { n: '05', name: 'SWAQAR Relations Institutionnelles', desc: 'Engagement souverain, gouvernemental et ministériel au grade institutionnel. L\'interface dédiée pour les ministères gouvernementaux et les organismes souverains engageant SWAQAR au standard institutionnel.' },
-        { n: '06', name: 'SWAQAR Corridors Industriels', desc: 'Développement du commerce industriel dans les régions de corridor de SWAQAR. Alignement documentaire et synchronisation des parties prenantes pour les opérateurs logistiques agréés et les contreparties industrielles qualifiées.' },
-        { n: '07', name: 'SWAQAR Advisory', desc: 'Conseil stratégique sur l\'architecture des corridors et la conception de gouvernance. Les partenaires en capital et stratégiques s\'engagent via ce bras au niveau de gouvernance, soumis à l\'examen du Conseil Suprême.' },
+        ['01','SWAQAR Corridors de Confiance','Gouvernance des corridors centraux à travers l\'Afrique, le Moyen-Orient et l\'Asie — vérification-gouvernée et non-dépositaire.'],
+        ['02','SWAQAR Intelligence','Intelligence des corridors, signaux de marché et données de risque des contreparties — collectées légalement, sourcées éthiquement.'],
+        ['03','SWAQAR Coordination Capital & Finance Commerciale','Faciliter l\'accès aux institutions de financement commercial agréées. Jamais dépositaire. Jamais principal financier.'],
+        ['04','SWAQAR Vérification & Conformité','Vérification des contreparties par des partenaires TIC agréés. La Porte de Qualification des Partenaires est un prérequis pour toutes les activations de corridor.'],
+        ['05','SWAQAR Relations Institutionnelles','Engagement souverain, gouvernemental et ministériel au niveau institutionnel. L\'interface dédiée aux ministères gouvernementaux et aux organes souverains.'],
+        ['06','SWAQAR Corridors Industriels','Développement du commerce industriel dans les régions de corridors de SWAQAR. Alignement de la documentation et synchronisation des parties prenantes.'],
+        ['07','SWAQAR Advisory','Conseil stratégique sur l\'architecture des corridors et la conception de la gouvernance. Les partenaires en capital et stratégiques s\'engagent via ce bras au niveau de la gouvernance.'],
       ],
-    },
-    abx: {
-      tag: { en: 'Institutional Foundation', ar: 'الأساس المؤسسي', fr: 'Fondation Institutionnelle' },
-      heading: { en: 'Built for a multi-decade institutional horizon.', ar: 'مبني لأفق مؤسسي متعدد العقود.', fr: 'Construit pour un horizon institutionnel pluridécennal.' },
-      desc: {
-        en: 'SWAQAR is not a startup seeking scale. It is a coordination institution being built to last — verification-governed, governance-anchored, designed to compound institutional credibility over time, not transaction volume.',
-        ar: 'سواقر ليست شركة ناشئة تسعى للتوسع. إنها مؤسسة تنسيق مبنية للاستمرار — محكومة بالتحقق ومرتكزة على الحوكمة، مصممة لتراكم المصداقية المؤسسية بمرور الوقت، لا حجم المعاملات.',
-        fr: 'SWAQAR n\'est pas une startup cherchant la croissance. C\'est une institution de coordination construite pour durer — vérification-gouvernée, ancrée dans la gouvernance, conçue pour accumuler la crédibilité institutionnelle au fil du temps, non le volume des transactions.',
-      },
-      metrics: {
-        en: [
-          { val: 'Phase I', label: 'Foundation Stage' },
-          { val: 'IV Gates', label: 'Entry Protocol' },
-          { val: '3', label: 'Corridor Regions' },
-          { val: '100%', label: 'Non-Custodial' },
-        ],
-        ar: [
-          { val: 'المرحلة الأولى', label: 'مرحلة التأسيس' },
-          { val: 'IV بوابات', label: 'بروتوكول الدخول' },
-          { val: '3', label: 'مناطق الممرات' },
-          { val: '100%', label: 'غير وصائي' },
-        ],
-        fr: [
-          { val: 'Phase I', label: 'Étape Fondatrice' },
-          { val: 'IV Portes', label: 'Protocole d\'Entrée' },
-          { val: '3', label: 'Régions de Corridors' },
-          { val: '100%', label: 'Non-Dépositaire' },
-        ],
-      },
     },
   },
 } as const;

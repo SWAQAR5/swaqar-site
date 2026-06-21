@@ -282,7 +282,7 @@ export default function Home() {
               <div className="sec-tag r"><div className="sec-tag-line" /><span className="sec-tag-txt">{tx(t.corridors.sectionTag, lang)}</span></div>
               <h2 className="sec-h r" data-d="1">{tx(t.corridors.heading, lang)} <em>{tx(t.corridors.headingEm, lang)}</em></h2>
             </div>
-            <p className="sec-p r" data-d="2">{tx(t.corridors.desc, lang)}</p>
+            <p className="sec-p r" data-d="2">{tx(t.corridors.subDesc, lang)}</p>
           </div>
 
           <div className="cor-map-box r">
@@ -320,8 +320,8 @@ export default function Home() {
           <div className="cor-tier r" data-d="1">
             <div className="cor-tier-head">
               <span className="cor-tier-num">01</span>
-              <span className="cor-tier-title">{tx(t.corridors.tier1.title, lang)}</span>
-              <span className="cor-tier-badge">{tx(t.corridors.tier1.badge, lang)}</span>
+              <span className="cor-tier-title">{tx(t.corridors.tierOneTitle, lang)}</span>
+              <span className="cor-tier-badge">{tx(t.corridors.tierOneBadge, lang)}</span>
             </div>
             <div className="cor-card-active">
               <div className="cor-gov-note" style={{marginTop:'28px'}}>
@@ -329,23 +329,23 @@ export default function Home() {
                   <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
                 </div>
                 <div>
-                  <div className="cor-gov-note-tag">{tx(t.corridors.tier1.govNoteTag, lang)}</div>
-                  <p className="cor-gov-note-txt">{tx(t.corridors.tier1.govNoteTxt, lang)}</p>
+                  <div className="cor-gov-note-tag">{tx(t.corridors.govNoteTag, lang)}</div>
+                  <p className="cor-gov-note-txt">{tx(t.corridors.govNoteTxt, lang)}</p>
                 </div>
               </div>
               <div className="cor-card-active-inner">
                 <div className="cor-active-left">
-                  <div className="cor-phase-label"><div className="cor-phase-dot" /><span className="cor-phase-txt">{tx(t.corridors.tier1.phaseLabel, lang)}</span></div>
-                  <p className="cor-active-desc">{tx(t.corridors.tier1.activeDesc, lang)}</p>
+                  <div className="cor-phase-label"><div className="cor-phase-dot" /><span className="cor-phase-txt">{tx(t.corridors.phaseLabel, lang)}</span></div>
+                  <p className="cor-active-desc">{tx(t.corridors.activeDesc, lang)}</p>
                   <div className="cor-active-roles">
-                    {(t.corridors.tier1.roles[lang] ?? t.corridors.tier1.roles['en']).map((role, i) => (
+                    {(t.corridors.roles[lang] ?? t.corridors.roles['en']).map((role, i) => (
                       <div className="cor-role" key={i}><div className="cor-role-region">{role.region}</div><div className="cor-role-name">{role.name}</div><div className="cor-role-desc">{role.desc}</div></div>
                     ))}
                   </div>
                 </div>
                 <div className="cor-active-right">
                   <div className="cor-coordinates">
-                    {(t.corridors.tier1.coords[lang] ?? t.corridors.tier1.coords['en']).map((coord, i) => (
+                    {(t.corridors.coordinates[lang] ?? t.corridors.coordinates['en']).map((coord, i) => (
                       <div className="cor-coord-item" key={i} style={i === 4 ? {gridColumn:'1 / -1'} : undefined}>
                         <div className="cor-coord-pip" />
                         <div className="cor-coord-txt"><strong>{coord.strong}</strong>{coord.rest}</div>
@@ -355,11 +355,12 @@ export default function Home() {
                 </div>
               </div>
               <div className="cor-active-footer">
-                <p className="cor-active-footer-txt">{tx(t.corridors.tier1.footerTxt, lang)}</p>
+                <p className="cor-active-footer-txt">{tx(t.corridors.activeFooterTxt, lang)}</p>
                 <div className="cor-active-footer-tags">
-                  {(t.corridors.tier1.footerTags[lang] ?? t.corridors.tier1.footerTags['en']).map((tag, i) => (
-                    <span className="cor-tag-gold" key={i}>{tag}</span>
-                  ))}
+                  <span className="cor-tag-gold">Agriculture &amp; Food Security</span>
+                  <span className="cor-tag-gold">Verification-Governed</span>
+                  <span className="cor-tag-gold">Non-Custodial</span>
+                  <span className="cor-tag-gold">Four-Gate Protocol</span>
                 </div>
               </div>
             </div>
@@ -368,11 +369,11 @@ export default function Home() {
           <div className="cor-tier r" data-d="2" style={{marginTop:'2px'}}>
             <div className="cor-tier-head">
               <span className="cor-tier-num">02</span>
-              <span className="cor-tier-title">{tx(t.corridors.tier2.title, lang)}</span>
-              <span className="cor-tier-badge eval">{tx(t.corridors.tier2.badge, lang)}</span>
+              <span className="cor-tier-title">{tx(t.corridors.tierTwoTitle, lang)}</span>
+              <span className="cor-tier-badge eval">{tx(t.corridors.tierTwoBadge, lang)}</span>
             </div>
             <div className="cor-eval-grid" data-cols="2" style={{gridTemplateColumns:'1fr 1fr'}}>
-              {(t.corridors.tier2.evalCards[lang] ?? t.corridors.tier2.evalCards['en']).map((card, i) => (
+              {(t.corridors.evalCards[lang] ?? t.corridors.evalCards['en']).map((card, i) => (
                 <div className="cor-eval-card" key={i}>
                   <div className="cor-eval-reg">{card.reg}</div>
                   <div className="cor-eval-title">{card.title}</div>
@@ -383,7 +384,7 @@ export default function Home() {
               ))}
             </div>
             <div className="cor-cap-row">
-              {(t.corridors.tier2.capItems[lang] ?? t.corridors.tier2.capItems['en']).map((cap, i) => (
+              {(t.corridors.capRow[lang] ?? t.corridors.capRow['en']).map((cap, i) => (
                 <div className="cor-cap-item" key={i}>
                   <div className="cor-cap-name">{cap.name}</div>
                   <div className="cor-cap-status">{cap.status}</div>
@@ -402,12 +403,22 @@ export default function Home() {
         <div className="wrap">
           <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">{tx(t.gates.sectionTag, lang)}</span></div>
           <h2 className="sec-h r" data-d="1">{tx(t.gates.heading, lang)}<br/><em>{tx(t.gates.headingEm, lang)}</em></h2>
-          <p className="sec-p r" data-d="2">{tx(t.gates.desc, lang)}</p>
+          <p className="sec-p r" data-d="2">{tx(t.gates.subDesc, lang)}</p>
           <div className="gates-grid">
-            <div className="gate r"><div className="gate-n">I</div><div className="gate-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg></div><div className="gate-tag">{tx(t.gates.gate1.tag, lang)}</div><div className="gate-name">{tx(t.gates.gate1.name, lang)}</div><div className="gate-desc">{tx(t.gates.gate1.desc, lang)}</div></div>
-            <div className="gate r" data-d="1"><div className="gate-n">II</div><div className="gate-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 12h6M9 16h6M9 8h6M5 4h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5a1 1 0 011-1z"/></svg></div><div className="gate-tag">{tx(t.gates.gate2.tag, lang)}</div><div className="gate-name">{tx(t.gates.gate2.name, lang)}</div><div className="gate-desc">{tx(t.gates.gate2.desc, lang)}</div></div>
-            <div className="gate r" data-d="2"><div className="gate-n">III</div><div className="gate-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 2l10 5v5c0 5.55-3.84 10.74-10 12C5.84 22.74 2 17.55 2 12V7l10-5z"/></svg></div><div className="gate-tag">{tx(t.gates.gate3.tag, lang)}</div><div className="gate-name">{tx(t.gates.gate3.name, lang)}</div><div className="gate-desc">{tx(t.gates.gate3.desc, lang)}</div></div>
-            <div className="gate r" data-d="3"><div className="gate-n">IV</div><div className="gate-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><div className="gate-tag">{tx(t.gates.gate4.tag, lang)}</div><div className="gate-name">{tx(t.gates.gate4.name, lang)}</div><div className="gate-desc">{tx(t.gates.gate4.desc, lang)}</div></div>
+            {(t.gates.gatesList[lang] ?? t.gates.gatesList['en']).map((gate, i) => (
+              <div className="gate r" key={i} data-d={i}>
+                <div className="gate-n">{['I','II','III','IV'][i]}</div>
+                <div className="gate-ico">
+                  {i === 0 && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>}
+                  {i === 1 && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 12h6M9 16h6M9 8h6M5 4h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5a1 1 0 011-1z"/></svg>}
+                  {i === 2 && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 2l10 5v5c0 5.55-3.84 10.74-10 12C5.84 22.74 2 17.55 2 12V7l10-5z"/></svg>}
+                  {i === 3 && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>}
+                </div>
+                <div className="gate-tag">{gate.tag}</div>
+                <div className="gate-name">{gate.name}</div>
+                <div className="gate-desc">{gate.desc}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -419,20 +430,20 @@ export default function Home() {
           <div className="arms-inner">
             <div>
               <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">{tx(t.arms.sectionTag, lang)}</span></div>
-              <h2 className="sec-h r" data-d="1">{tx(t.arms.heading, lang)} <em>{tx(t.arms.headingEm, lang)}</em> {tx(t.arms.headingSuffix, lang)}</h2>
+              <h2 className="sec-h r" data-d="1">{tx(t.arms.heading, lang)} <em>{tx(t.arms.headingEm, lang)}</em> {tx(t.arms.headingLine2, lang)}</h2>
               <div className="arm-list" style={{marginTop:'36px'}}>
-                {(t.arms.items[lang] ?? t.arms.items['en']).map((arm) => (
-                  <div className="arm r" key={arm.n}><span className="arm-n">{arm.n}</span><div><div className="arm-name">{arm.name}</div><div className="arm-desc">{arm.desc}</div></div></div>
+                {(t.arms.armsList[lang] ?? t.arms.armsList['en']).map(([n, name, desc]) => (
+                  <div className="arm r" key={n}><span className="arm-n">{n}</span><div><div className="arm-name">{name}</div><div className="arm-desc">{desc}</div></div></div>
                 ))}
               </div>
             </div>
             <div className="abx r" data-d="2">
-              <div className="abx-tag">{tx(t.arms.abx.tag, lang)}</div>
-              <div className="abx-h">{tx(t.arms.abx.heading, lang)}</div>
-              <div className="abx-p">{tx(t.arms.abx.desc, lang)}</div>
+              <div className="abx-tag">{tx(t.arms.abxTag, lang)}</div>
+              <div className="abx-h">{tx(t.arms.abxH, lang)}</div>
+              <div className="abx-p">{tx(t.arms.abxP, lang)}</div>
               <div className="abx-metrics">
-                {(t.arms.abx.metrics[lang] ?? t.arms.abx.metrics['en']).map((m, i) => (
-                  <div className="abx-m" key={i}><div className="abx-mv">{m.val}</div><div className="abx-ml">{m.label}</div></div>
+                {(t.arms.abxMetrics[lang] ?? t.arms.abxMetrics['en']).map(([val, lbl], i) => (
+                  <div className="abx-m" key={i}><div className="abx-mv">{val}</div><div className="abx-ml">{lbl}</div></div>
                 ))}
               </div>
             </div>
