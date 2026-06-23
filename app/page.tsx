@@ -4,6 +4,13 @@ import { t, tx, type Lang } from '@/lib/translations';
 
 export default function Home() {
   const [lang, setLang] = useState<Lang>('en');
+  const [formData, setFormData] = useState({
+    organisation: '',
+    representative: '',
+    category: '',
+    inquiry: '',
+  });
+  const [formStatus, setFormStatus] = useState<'idle'|'sending'|'success'|'error'>('idle');
 
   useEffect(() => {
     if (lang === 'ar') {
@@ -482,10 +489,10 @@ export default function Home() {
             <div>
               <h2 className="sec-h r" data-d="1" style={{color:'#fff'}}>{tx(t.contact.heading, lang)}<br/><em>{tx(t.contact.headingEm, lang)}</em></h2>
               <p className="sec-p r" data-d="2" style={{color:'rgba(255,255,255,0.45)',marginBottom:'40px'}}>{tx(t.contact.subDesc, lang)}</p>
-              <div className="con-grp r" data-d="2"><label className="con-lbl">{tx(t.contact.orgLabel, lang)}</label><input className="con-input" type="text" placeholder={tx(t.contact.orgPlaceholder, lang)}/></div>
-              <div className="con-grp r" data-d="2"><label className="con-lbl">{tx(t.contact.repLabel, lang)}</label><input className="con-input" type="text" placeholder={tx(t.contact.repPlaceholder, lang)}/></div>
-              <div className="con-grp r" data-d="3"><label className="con-lbl">{tx(t.contact.categoryLabel, lang)}</label><select className="con-sel"><option value="">{tx(t.contact.categoryDefault, lang)}</option>{(t.contact.categories[lang] ?? t.contact.categories['en']).map((opt, i) => (<option key={i}>{opt}</option>))}</select></div>
-              <div className="con-grp r" data-d="3"><label className="con-lbl">{tx(t.contact.inquiryLabel, lang)}</label><textarea className="con-area" placeholder={tx(t.contact.inquiryPlaceholder, lang)}></textarea></div>
+              <div className="con-grp r" data-d="2"><label className="con-lbl">{tx(t.contact.orgLabel, lang)}</label><input className="con-input" type="text" placeholder={tx(t.contact.orgPlaceholder, lang)} value={formData.organisation} onChange={(e) => setFormData({...formData, organisation: e.target.value})}/></div>
+              <div className="con-grp r" data-d="2"><label className="con-lbl">{tx(t.contact.repLabel, lang)}</label><input className="con-input" type="text" placeholder={tx(t.contact.repPlaceholder, lang)} value={formData.representative} onChange={(e) => setFormData({...formData, representative: e.target.value})}/></div>
+              <div className="con-grp r" data-d="3"><label className="con-lbl">{tx(t.contact.categoryLabel, lang)}</label><select className="con-sel" value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})}><option value="">{tx(t.contact.categoryDefault, lang)}</option>{(t.contact.categories[lang] ?? t.contact.categories['en']).map((opt, i) => (<option key={i}>{opt}</option>))}</select></div>
+              <div className="con-grp r" data-d="3"><label className="con-lbl">{tx(t.contact.inquiryLabel, lang)}</label><textarea className="con-area" placeholder={tx(t.contact.inquiryPlaceholder, lang)} value={formData.inquiry} onChange={(e) => setFormData({...formData, inquiry: e.target.value})}></textarea></div>
               <div style={{marginBottom:'24px',padding:'20px 22px',background:'var(--stone)',border:'1px solid var(--rule)',borderLeft:'2px solid var(--gold)'}}>
                 <div style={{fontSize:'.54rem',letterSpacing:'.28em',textTransform:'uppercase' as const,color:'var(--gold)',fontWeight:600,marginBottom:'12px'}}>{tx(t.contact.processTag, lang)}</div>
                 <div style={{display:'flex',flexDirection:'column' as const,gap:'10px'}}>
@@ -498,7 +505,49 @@ export default function Home() {
                 </div>
               </div>
               <p className="con-disc r" data-d="4">{tx(t.contact.disclaimer, lang)}</p>
-              <button className="btn-gold r" data-d="4" style={{width:'100%',justifyContent:'center'}}>{tx(t.contact.submitBtn, lang)}</button>
+              <button
+                className="btn-gold r"
+                data-d="4"
+                style={{width:'100%',justifyContent:'center'}}
+                onClick={async () => {
+                  if (!formData.organisation || !formData.representative ||
+                      !formData.category || !formData.inquiry) {
+                    setFormStatus('error');
+                    return;
+                  }
+                  setFormStatus('sending');
+                  try {
+                    const res = await fetch('/api/contact', {
+                      method: 'POST',
+                      headers: {'Content-Type': 'application/json'},
+                      body: JSON.stringify(formData),
+                    });
+                    if (res.ok) {
+                      setFormStatus('success');
+                      setFormData({organisation:'',representative:'',category:'',inquiry:''});
+                    } else {
+                      setFormStatus('error');
+                    }
+                  } catch {
+                    setFormStatus('error');
+                  }
+                }}
+                disabled={formStatus === 'sending'}
+              >
+                {formStatus === 'sending' ? 'Submitting...' :
+                 formStatus === 'success' ? 'Inquiry Submitted ✓' :
+                 'Submit Institutional Inquiry'}
+              </button>
+              {formStatus === 'success' && (
+                <div style={{marginTop:'16px',padding:'14px 18px',background:'rgba(206,164,55,0.1)',borderLeft:'2px solid #CEA437',fontSize:'.8rem',color:'rgba(255,255,255,0.7)',lineHeight:'1.6'}}>
+                  Your inquiry has been received. An acknowledgement has been sent. SWAQAR will review your submission against counterparty eligibility criteria before any response is issued.
+                </div>
+              )}
+              {formStatus === 'error' && (
+                <div style={{marginTop:'16px',padding:'14px 18px',background:'rgba(255,255,255,0.05)',borderLeft:'2px solid rgba(255,255,255,0.2)',fontSize:'.8rem',color:'rgba(255,255,255,0.5)',lineHeight:'1.6'}}>
+                  Please complete all fields before submitting. If the issue persists, contact support@swaqar.com directly.
+                </div>
+              )}
             </div>
             <div className="r" data-d="2">
               <div className="con-info-h">{tx(t.contact.infoH, lang)}</div>
