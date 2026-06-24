@@ -265,6 +265,16 @@ export const t = {
     orgPlaceholder: { en: 'Full registered legal entity name', ar: 'الاسم القانوني الكامل للكيان المسجل', fr: 'Nom complet de l\'entité juridique enregistrée' },
     repLabel: { en: 'Authorised Representative Name', ar: 'اسم الممثل المفوض', fr: 'Nom du Représentant Autorisé' },
     repPlaceholder: { en: 'Full name of authorised representative', ar: 'الاسم الكامل للممثل المفوض', fr: 'Nom complet du représentant autorisé' },
+    emailLabel: {
+      en: 'Institutional Email Address',
+      ar: 'عنوان البريد الإلكتروني المؤسسي',
+      fr: 'Adresse E-mail Institutionnelle',
+    },
+    emailPlaceholder: {
+      en: 'Authorised institutional email address',
+      ar: 'عنوان البريد الإلكتروني المؤسسي المفوض',
+      fr: 'Adresse e-mail institutionnelle autorisée',
+    },
     categoryLabel: { en: 'Engagement Category', ar: 'فئة الانخراط', fr: 'Catégorie d\'Engagement' },
     categoryDefault: { en: 'Select inquiry category', ar: 'اختر فئة الاستفسار', fr: 'Sélectionner la catégorie' },
     categories: {

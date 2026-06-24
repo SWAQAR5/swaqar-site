@@ -5,9 +5,9 @@ export async function POST(request: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY);
   try {
     const body = await request.json();
-    const { organisation, representative, category, inquiry } = body;
+    const { organisation, representative, email, category, inquiry } = body;
 
-    if (!organisation || !representative || !category || !inquiry) {
+    if (!organisation || !representative || !email || !category || !inquiry) {
       return NextResponse.json(
         { error: 'All fields are required.' },
         { status: 400 }
@@ -35,6 +35,10 @@ export async function POST(request: Request) {
               <td style="padding: 14px 0; font-size: 14px; color: #1A1A1A;">${representative}</td>
             </tr>
             <tr style="border-bottom: 1px solid #D4D0CA;">
+              <td style="padding: 14px 0; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #535256; width: 40%;">Email</td>
+              <td style="padding: 14px 0; font-size: 14px; color: #1A1A1A;">${email}</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #D4D0CA;">
               <td style="padding: 14px 0; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #535256;">Category</td>
               <td style="padding: 14px 0; font-size: 14px; color: #CEA437; font-weight: 600;">${category}</td>
             </tr>
@@ -55,7 +59,7 @@ export async function POST(request: Request) {
     // Email 2 — Auto-acknowledgement to submitter
     await resend.emails.send({
       from: 'SWAQAR Group <support@swaqar.com>',
-      to: [representative],
+      to: [email],
       subject: 'SWAQAR Group — Institutional Inquiry Received',
       html: `
         <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px; background: #FAFAF6; border-top: 3px solid #CEA437;">

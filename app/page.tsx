@@ -7,6 +7,7 @@ export default function Home() {
   const [formData, setFormData] = useState({
     organisation: '',
     representative: '',
+    email: '',
     category: '',
     inquiry: '',
   });
@@ -491,6 +492,7 @@ export default function Home() {
               <p className="sec-p r" data-d="2" style={{color:'rgba(255,255,255,0.45)',marginBottom:'40px'}}>{tx(t.contact.subDesc, lang)}</p>
               <div className="con-grp r" data-d="2"><label className="con-lbl">{tx(t.contact.orgLabel, lang)}</label><input className="con-input" type="text" placeholder={tx(t.contact.orgPlaceholder, lang)} value={formData.organisation} onChange={(e) => setFormData({...formData, organisation: e.target.value})}/></div>
               <div className="con-grp r" data-d="2"><label className="con-lbl">{tx(t.contact.repLabel, lang)}</label><input className="con-input" type="text" placeholder={tx(t.contact.repPlaceholder, lang)} value={formData.representative} onChange={(e) => setFormData({...formData, representative: e.target.value})}/></div>
+              <div className="con-grp r" data-d="2"><label className="con-lbl">{tx(t.contact.emailLabel, lang)}</label><input className="con-input" type="email" placeholder={tx(t.contact.emailPlaceholder, lang)} value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})}/></div>
               <div className="con-grp r" data-d="3"><label className="con-lbl">{tx(t.contact.categoryLabel, lang)}</label><select className="con-sel" value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})}><option value="">{tx(t.contact.categoryDefault, lang)}</option>{(t.contact.categories[lang] ?? t.contact.categories['en']).map((opt, i) => (<option key={i}>{opt}</option>))}</select></div>
               <div className="con-grp r" data-d="3"><label className="con-lbl">{tx(t.contact.inquiryLabel, lang)}</label><textarea className="con-area" placeholder={tx(t.contact.inquiryPlaceholder, lang)} value={formData.inquiry} onChange={(e) => setFormData({...formData, inquiry: e.target.value})}></textarea></div>
               <div style={{marginBottom:'24px',padding:'20px 22px',background:'var(--stone)',border:'1px solid var(--rule)',borderLeft:'2px solid var(--gold)'}}>
@@ -511,7 +513,7 @@ export default function Home() {
                 style={{width:'100%',justifyContent:'center'}}
                 onClick={async () => {
                   if (!formData.organisation || !formData.representative ||
-                      !formData.category || !formData.inquiry) {
+                      !formData.email || !formData.category || !formData.inquiry) {
                     setFormStatus('error');
                     return;
                   }
@@ -524,7 +526,7 @@ export default function Home() {
                     });
                     if (res.ok) {
                       setFormStatus('success');
-                      setFormData({organisation:'',representative:'',category:'',inquiry:''});
+                      setFormData({organisation:'',representative:'',email:'',category:'',inquiry:''});
                     } else {
                       setFormStatus('error');
                     }
