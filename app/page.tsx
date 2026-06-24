@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { t, tx, type Lang } from '@/lib/translations';
 
 export default function Home() {
@@ -590,6 +591,7 @@ export default function Home() {
               <span className="foot-copy" style={{opacity:.5}}>{tx(t.footer.secondaryLine, lang)}</span>
             </div>
             <div className="foot-badges">{(t.footer.badges[lang] ?? t.footer.badges['en']).map((badge, i) => <span className="foot-badge" key={i}>{badge}</span>)}</div>
+            <Link href="/privacy" style={{fontSize:'.62rem',letterSpacing:'.1em',color:'rgba(255,255,255,.35)',textDecoration:'none',marginLeft:'auto'}}>{tx(t.footer.privacyPolicy, lang)}</Link>
           </div>
         </div>
       </footer>

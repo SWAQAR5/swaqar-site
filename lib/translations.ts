@@ -369,6 +369,7 @@ export const t = {
       africaAsia: { en: 'Africa ↔ Asia', ar: 'أفريقيا ↔ آسيا', fr: 'Afrique ↔ Asie' },
       gateProcess: { en: '4-Gate Process', ar: 'عملية البوابات الأربع', fr: 'Processus à 4 Portes' },
     },
+    privacyPolicy: { en: 'Privacy Policy', ar: 'سياسة الخصوصية', fr: 'Politique de Confidentialité' },
     secondaryLine: { en: 'Counsel-Cleared · Governance-Led · Non-Custodial', ar: 'معتمد من المستشارين · بقيادة الحوكمة · غير وصائي', fr: 'Validé par des Conseillers · Gouvernance-Led · Non-Dépositaire' },
     badges: {
       en: ['Asset-Light', 'Non-Custodial', 'Verification-Governed'],
