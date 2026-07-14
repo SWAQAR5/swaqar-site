@@ -51,7 +51,7 @@ export async function POST(request: Request) {
             <div style="font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #535256;">Governance Note</div>
             <div style="font-size: 12px; color: #3D3C41; margin-top: 6px; line-height: 1.6;">This inquiry has entered SWAQAR's institutional review queue. Review against counterparty eligibility criteria before any response is issued.</div>
           </div>
-          <div style="margin-top: 32px; font-size: 10px; color: #535256; letter-spacing: 1px;">SWAQAR Group · Jeddah, Kingdom of Saudi Arabia · support@swaqar.com</div>
+          <div style="margin-top: 32px; font-size: 10px; color: #535256; letter-spacing: 1px;">SWAQAR Group · Buea, Cameroon · support@swaqar.com</div>
         </div>
       `,
     });
@@ -78,7 +78,7 @@ export async function POST(request: Request) {
           </div>
           <p style="font-size: 12px; color: #535256; line-height: 1.75; margin-bottom: 24px;">This acknowledgement confirms receipt only. It does not initiate an engagement, create contractual obligation, or constitute regulated advice of any kind. SWAQAR Group is currently in Phase I — Foundation Stage and is not yet operationally active.</p>
           <div style="border-top: 1px solid #D4D0CA; padding-top: 20px; font-size: 10px; color: #535256; letter-spacing: 1px;">
-            SWAQAR Group · Jeddah, Kingdom of Saudi Arabia<br/>
+            SWAQAR Group · Buea, Cameroon<br/>
             support@swaqar.com · swaqar.com<br/>
             Governance-Led · Verification-First · Non-Custodial
           </div>

@@ -26,7 +26,7 @@ const CONTACT_DETAILS = [
     {
         icon: "✦",
         label: "Headquarters",
-        value: "Jeddah, Kingdom of Saudi Arabia",
+        value: "Buea, Cameroon",
     },
     {
         icon: "→",

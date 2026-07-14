@@ -330,7 +330,7 @@ export const t = {
       fr: 'SWAQAR Group opère sous des protocoles stricts de vérification des contreparties et d\'engagement. L\'engagement institutionnel commence par la vérification, progresse à travers le Modèle à Quatre Portes et est régi à chaque étape par le mandat du Conseil Suprême.',
     },
     details: {
-      hq: { label: { en: 'Headquarters', ar: 'المقر الرئيسي', fr: 'Siège Social' }, val: { en: 'Jeddah, Kingdom of Saudi Arabia', ar: 'جدة، المملكة العربية السعودية', fr: 'Djeddah, Royaume d\'Arabie Saoudite' } },
+      hq: { label: { en: 'Headquarters', ar: 'المقر الرئيسي', fr: 'Siège Social' }, val: { en: 'Buea, Cameroon', ar: 'بويا، الكاميرون', fr: 'Buea, Cameroun' } },
       engType: { label: { en: 'Engagement Type', ar: 'نوع الانخراط', fr: 'Type d\'Engagement' }, val: { en: 'Institutional counterparts only. No retail engagement accepted.', ar: 'الأطراف المؤسسية فقط. لا يُقبل الانخراط التجزئي.', fr: 'Contreparties institutionnelles uniquement. Aucun engagement de détail accepté.' } },
       stage: { label: { en: 'Current Stage', ar: 'المرحلة الحالية', fr: 'Étape Actuelle' }, val: { en: 'Phase I — Foundation. Not yet operationally active.', ar: 'المرحلة الأولى — التأسيس. غير نشطة تشغيلياً بعد.', fr: 'Phase I — Fondation. Pas encore opérationnellement active.' } },
       contact: { label: { en: 'Institutional Contact', ar: 'جهة الاتصال المؤسسية', fr: 'Contact Institutionnel' }, val: { en: 'support@swaqar.com', ar: 'support@swaqar.com', fr: 'support@swaqar.com' } },
@@ -363,7 +363,7 @@ export const t = {
       instInquiry: { en: 'Institutional Inquiry', ar: 'استفسار مؤسسي', fr: 'Demande Institutionnelle' },
       identity: { en: 'Identity', ar: 'الهوية', fr: 'Identité' },
       reviewGov: { en: 'Review Governance', ar: 'مراجعة الحوكمة', fr: 'Réviser la Gouvernance' },
-      jeddah: { en: 'Jeddah · Kingdom of Saudi Arabia', ar: 'جدة · المملكة العربية السعودية', fr: 'Djeddah · Royaume d\'Arabie Saoudite' },
+      jeddah: { en: 'Buea · Cameroon', ar: 'بويا، الكاميرون', fr: 'Buea, Cameroun' },
       africaME: { en: 'Africa ↔ Middle East', ar: 'أفريقيا ↔ الشرق الأوسط', fr: 'Afrique ↔ Moyen-Orient' },
       meAsia: { en: 'Middle East ↔ Asia', ar: 'الشرق الأوسط ↔ آسيا', fr: 'Moyen-Orient ↔ Asie' },
       africaAsia: { en: 'Africa ↔ Asia', ar: 'أفريقيا ↔ آسيا', fr: 'Afrique ↔ Asie' },

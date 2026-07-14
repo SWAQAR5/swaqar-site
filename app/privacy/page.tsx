@@ -26,7 +26,7 @@ export default function PrivacyPolicy() {
           </div>
 
           <div style={{padding:'20px 24px',background:'var(--stone)',borderLeft:'3px solid var(--gold)',marginBottom:'48px'}}>
-            <p style={{fontSize:'.85rem',lineHeight:1.75,color:'var(--body)'}}>This Privacy Policy applies to personal data collected through the SWAQAR Group institutional website at <strong>swaqar.com</strong>. SWAQAR Group is a governance-led, asset-light, non-custodial Trade Coordination Layer headquartered in Jeddah, Kingdom of Saudi Arabia. This site is operated for institutional audiences only.</p>
+            <p style={{fontSize:'.85rem',lineHeight:1.75,color:'var(--body)'}}>This Privacy Policy applies to personal data collected through the SWAQAR Group institutional website at <strong>swaqar.com</strong>. SWAQAR Group is a governance-led, asset-light, non-custodial Trade Coordination Layer headquartered in Buea, Cameroon. This site is operated for institutional audiences only.</p>
           </div>
 
           {[
@@ -83,7 +83,7 @@ export default function PrivacyPolicy() {
             {
               num: '11',
               title: 'International Transfers',
-              body: 'SWAQAR Group is headquartered in Jeddah, Kingdom of Saudi Arabia. Our email delivery infrastructure (Resend) operates in the United States (North Virginia region). Where personal data is transferred outside your jurisdiction, we ensure appropriate safeguards are in place in accordance with applicable data protection law, including standard contractual clauses where required under GDPR.'
+              body: 'SWAQAR Group is headquartered in Buea, Cameroon. Our email delivery infrastructure (Resend) operates in the United States (North Virginia region). Where personal data is transferred outside your jurisdiction, we ensure appropriate safeguards are in place in accordance with applicable data protection law, including standard contractual clauses where required under GDPR.'
             },
             {
               num: '12',
@@ -93,7 +93,7 @@ export default function PrivacyPolicy() {
             {
               num: '13',
               title: 'Contact',
-              body: 'For any questions regarding this Privacy Policy or your personal data, contact SWAQAR Group at: support@swaqar.com · SWAQAR Group, Jeddah, Kingdom of Saudi Arabia · swaqar.com'
+              body: 'For any questions regarding this Privacy Policy or your personal data, contact SWAQAR Group at: support@swaqar.com · SWAQAR Group, Buea, Cameroon · swaqar.com'
             }
           ].map(({ num, title, body }) => (
             <div key={num} style={{marginBottom:'40px',paddingBottom:'40px',borderBottom:'1px solid var(--rule)'}}>
