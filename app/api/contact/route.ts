@@ -22,7 +22,7 @@ export async function POST(request: Request) {
       html: `
         <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px; background: #FAFAF6; border-top: 3px solid #CEA437;">
           <div style="margin-bottom: 32px;">
-            <div style="font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: #CEA437; margin-bottom: 8px;">SWAQAR GROUP — INSTITUTIONAL INQUIRY</div>
+            <div style="font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: #CEA437; margin-bottom: 8px;">SWAQAR TRADE — INSTITUTIONAL INQUIRY</div>
             <div style="font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #535256;">Governance Intake System · Phase I Foundation Stage</div>
           </div>
           <table style="width: 100%; border-collapse: collapse;">
@@ -51,23 +51,23 @@ export async function POST(request: Request) {
             <div style="font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #535256;">Governance Note</div>
             <div style="font-size: 12px; color: #3D3C41; margin-top: 6px; line-height: 1.6;">This inquiry has entered SWAQAR's institutional review queue. Review against counterparty eligibility criteria before any response is issued.</div>
           </div>
-          <div style="margin-top: 32px; font-size: 10px; color: #535256; letter-spacing: 1px;">SWAQAR Group · Buea, Cameroon · support@swaqar.com</div>
+          <div style="margin-top: 32px; font-size: 10px; color: #535256; letter-spacing: 1px;">SWAQAR Trade · Buea, Cameroon · support@swaqar.com</div>
         </div>
       `,
     });
 
     // Email 2 — Auto-acknowledgement to submitter
     await resend.emails.send({
-      from: 'SWAQAR Group <support@swaqar.com>',
+      from: 'SWAQAR Trade <support@swaqar.com>',
       to: [email],
-      subject: 'SWAQAR Group — Institutional Inquiry Received',
+      subject: 'SWAQAR Trade — Institutional Inquiry Received',
       html: `
         <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px; background: #FAFAF6; border-top: 3px solid #CEA437;">
           <div style="margin-bottom: 32px;">
-            <div style="font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: #CEA437; margin-bottom: 8px;">SWAQAR GROUP</div>
+            <div style="font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: #CEA437; margin-bottom: 8px;">SWAQAR TRADE</div>
             <div style="font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #535256;">Corridors of Trust · Institutional Acknowledgement</div>
           </div>
-          <p style="font-size: 15px; color: #1A1A1A; line-height: 1.8; margin-bottom: 24px;">Your institutional inquiry has been received and entered into SWAQAR Group's review queue.</p>
+          <p style="font-size: 15px; color: #1A1A1A; line-height: 1.8; margin-bottom: 24px;">Your institutional inquiry has been received and entered into SWAQAR Trade's review queue.</p>
           <div style="padding: 20px 24px; background: #EDEBE4; border-left: 2px solid #CEA437; margin-bottom: 24px;">
             <div style="font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #CEA437; margin-bottom: 12px;">What Happens Next</div>
             <div style="font-size: 13px; color: #3D3C41; line-height: 1.75;">
@@ -76,9 +76,9 @@ export async function POST(request: Request) {
               <div><strong style="color: #1A1A1A;">03 — Written outcome.</strong> All outcomes are communicated in writing. SWAQAR does not proceed without a confirmed governance-compliant engagement framework in place.</div>
             </div>
           </div>
-          <p style="font-size: 12px; color: #535256; line-height: 1.75; margin-bottom: 24px;">This acknowledgement confirms receipt only. It does not initiate an engagement, create contractual obligation, or constitute regulated advice of any kind. SWAQAR Group is currently in Phase I — Foundation Stage and is not yet operationally active.</p>
+          <p style="font-size: 12px; color: #535256; line-height: 1.75; margin-bottom: 24px;">This acknowledgement confirms receipt only. It does not initiate an engagement, create contractual obligation, or constitute regulated advice of any kind. SWAQAR Trade is currently in Phase I — Foundation Stage and is not yet operationally active.</p>
           <div style="border-top: 1px solid #D4D0CA; padding-top: 20px; font-size: 10px; color: #535256; letter-spacing: 1px;">
-            SWAQAR Group · Buea, Cameroon<br/>
+            SWAQAR Trade · Buea, Cameroon<br/>
             support@swaqar.com · swaqar.com<br/>
             Governance-Led · Verification-First · Non-Custodial
           </div>

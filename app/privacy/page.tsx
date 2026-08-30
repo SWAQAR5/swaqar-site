@@ -9,7 +9,7 @@ export default function PrivacyPolicy() {
         <Link className="nav-brand" href="/">
           <div className="nav-text">
             <span className="nav-name">SWAQAR</span>
-            <span className="nav-sub">Group · Corridors of Trust</span>
+            <span className="nav-sub">Trade · Corridors of Trust</span>
           </div>
         </Link>
         <Link href="/" style={{fontSize:'.66rem',letterSpacing:'.16em',textTransform:'uppercase',color:'var(--muted)',fontFamily:'var(--sans)',textDecoration:'none'}}>← Return to Site</Link>
