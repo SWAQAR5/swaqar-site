@@ -11,6 +11,7 @@ export default function Home() {
     email: '',
     category: '',
     inquiry: '',
+    fax_number: '', // honeypot — must stay empty; hidden from real users, see input below
   });
   const [formStatus, setFormStatus] = useState<'idle'|'sending'|'success'|'error'>('idle');
 
@@ -496,6 +497,18 @@ export default function Home() {
               <div className="con-grp r" data-d="2"><label className="con-lbl">{tx(t.contact.emailLabel, lang)}</label><input className="con-input" type="email" placeholder={tx(t.contact.emailPlaceholder, lang)} value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})}/></div>
               <div className="con-grp r" data-d="3"><label className="con-lbl">{tx(t.contact.categoryLabel, lang)}</label><select className="con-sel" value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})}><option value="">{tx(t.contact.categoryDefault, lang)}</option>{(t.contact.categories[lang] ?? t.contact.categories['en']).map((opt, i) => (<option key={i}>{opt}</option>))}</select></div>
               <div className="con-grp r" data-d="3"><label className="con-lbl">{tx(t.contact.inquiryLabel, lang)}</label><textarea className="con-area" placeholder={tx(t.contact.inquiryPlaceholder, lang)} value={formData.inquiry} onChange={(e) => setFormData({...formData, inquiry: e.target.value})}></textarea></div>
+              {/* Honeypot spam trap — invisible to real users and screen readers. Real visitors
+                  never fill this in; if it arrives non-empty the API route silently discards it. */}
+              <input
+                type="text"
+                name="fax_number"
+                value={formData.fax_number}
+                onChange={(e) => setFormData({...formData, fax_number: e.target.value})}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                style={{position:'absolute',left:'-9999px',width:'1px',height:'1px',overflow:'hidden'}}
+              />
               <div style={{marginBottom:'24px',padding:'20px 22px',background:'var(--stone)',border:'1px solid var(--rule)',borderLeft:'2px solid var(--gold)'}}>
                 <div style={{fontSize:'.54rem',letterSpacing:'.28em',textTransform:'uppercase' as const,color:'var(--gold)',fontWeight:600,marginBottom:'12px'}}>{tx(t.contact.processTag, lang)}</div>
                 <div style={{display:'flex',flexDirection:'column' as const,gap:'10px'}}>
@@ -527,7 +540,7 @@ export default function Home() {
                     });
                     if (res.ok) {
                       setFormStatus('success');
-                      setFormData({organisation:'',representative:'',email:'',category:'',inquiry:''});
+                      setFormData({organisation:'',representative:'',email:'',category:'',inquiry:'',fax_number:''});
                     } else {
                       setFormStatus('error');
                     }

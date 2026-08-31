@@ -1,18 +1,48 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
+// Loose but sufficient email-shape check — not full RFC 5322, just enough to reject obvious garbage.
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export async function POST(request: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY);
   try {
     const body = await request.json();
-    const { organisation, representative, email, category, inquiry } = body;
+    const { organisation, representative, email, category, inquiry, fax_number } = body;
 
-    if (!organisation || !representative || !email || !category || !inquiry) {
+    // Honeypot: "fax_number" is a hidden field real users and screen readers never populate.
+    // If it arrives non-empty, it's a bot. Report success and send nothing — no Resend call,
+    // no error detail, so automated submitters get no signal they were caught.
+    if (typeof fax_number === 'string' && fax_number.trim() !== '') {
+      return NextResponse.json({ success: true });
+    }
+
+    // Server-side validation — mirrors the fields the form already treats as required.
+    // Client-side checks alone aren't sufficient since this route is a public POST endpoint.
+    const org = typeof organisation === 'string' ? organisation.trim() : '';
+    const rep = typeof representative === 'string' ? representative.trim() : '';
+    const mail = typeof email === 'string' ? email.trim() : '';
+    const cat = typeof category === 'string' ? category.trim() : '';
+    const msg = typeof inquiry === 'string' ? inquiry.trim() : '';
+
+    if (!org || !rep || !mail || !cat || !msg) {
       return NextResponse.json(
         { error: 'All fields are required.' },
         { status: 400 }
       );
     }
+
+    if (!EMAIL_RE.test(mail)) {
+      return NextResponse.json(
+        { error: 'Please provide a valid email address.' },
+        { status: 400 }
+      );
+    }
+
+    // TODO(rate limit): an in-memory limiter doesn't work across Vercel's stateless serverless
+    // invocations — each request can hit a cold instance with no shared memory. If abuse shows up,
+    // add a distributed limiter (e.g. Upstash Redis) here, keyed on IP and/or email, before the
+    // Resend calls below. Deliberately left out of this change.
 
     // Email 1 — Notification to SWAQAR
     await resend.emails.send({
