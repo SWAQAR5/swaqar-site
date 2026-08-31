@@ -26,7 +26,7 @@ export default function PrivacyPolicy() {
           </div>
 
           <div style={{padding:'20px 24px',background:'var(--stone)',borderLeft:'3px solid var(--gold)',marginBottom:'48px'}}>
-            <p style={{fontSize:'.85rem',lineHeight:1.75,color:'var(--body)'}}>This Privacy Policy applies to personal data collected through the SWAQAR Group institutional website at <strong>swaqar.com</strong>. SWAQAR Group is a governance-led, asset-light, non-custodial Trade Coordination Layer headquartered in Buea, Cameroon. This site is operated for institutional audiences only.</p>
+            <p style={{fontSize:'.85rem',lineHeight:1.75,color:'var(--body)'}}>This Privacy Policy applies to personal data collected through the SWAQAR Group institutional website at <strong>swaqar.com</strong>. swaqar.com is operated by SWAQAR Trade — the governance-led, asset-light, non-custodial Trade Coordination Layer, part of SWAQAR Group, headquartered in Buea, Cameroon. This site is operated for institutional audiences only.</p>
           </div>
 
           {[
