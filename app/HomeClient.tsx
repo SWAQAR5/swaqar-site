@@ -14,6 +14,11 @@ export default function HomeClient() {
     fax_number: '', // honeypot — must stay empty; hidden from real users, see input below
   });
   const [formStatus, setFormStatus] = useState<'idle'|'sending'|'success'|'error'>('idle');
+  // Strategic Arms accordion — first arm open by default, rest collapsed. Panels stay mounted
+  // in the DOM at all times (visibility is CSS-driven) so every description remains readable
+  // by search engines and screen readers regardless of open/closed state.
+  const [openArms, setOpenArms] = useState<boolean[]>([true, false, false, false, false, false, false]);
+  const toggleArm = (i: number) => setOpenArms((prev) => prev.map((v, idx) => (idx === i ? !v : v)));
 
   useEffect(() => {
     if (lang === 'ar') {
@@ -446,9 +451,36 @@ export default function HomeClient() {
               <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">{tx(t.arms.sectionTag, lang)}</span></div>
               <h2 className="sec-h r" data-d="1">{tx(t.arms.heading, lang)} <em>{tx(t.arms.headingEm, lang)}</em> {tx(t.arms.headingLine2, lang)}</h2>
               <div className="arm-list" style={{marginTop:'36px'}}>
-                {(t.arms.armsList[lang] ?? t.arms.armsList['en']).map(([n, name, desc]) => (
-                  <div className="arm r" key={n}><span className="arm-n">{n}</span><div><div className="arm-name">{name}</div><div className="arm-desc">{desc}</div></div></div>
-                ))}
+                {(t.arms.armsList[lang] ?? t.arms.armsList['en']).map(([n, name, desc], i) => {
+                  const isOpen = openArms[i] ?? false;
+                  const btnId = `arm-btn-${i}`;
+                  const panelId = `arm-panel-${i}`;
+                  return (
+                    <div className="arm r" key={n}>
+                      <span className="arm-n">{n}</span>
+                      <div className="arm-body">
+                        <button
+                          type="button"
+                          id={btnId}
+                          className="arm-toggle"
+                          aria-expanded={isOpen}
+                          aria-controls={panelId}
+                          onClick={() => toggleArm(i)}
+                        >
+                          <span className="arm-name">{name}</span>
+                          <svg className="arm-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                            <path d="M9 18l6-6-6-6" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </button>
+                        <div className="arm-panel" id={panelId} role="region" aria-labelledby={btnId} data-open={isOpen}>
+                          <div className="arm-panel-inner">
+                            <div className="arm-desc">{desc}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
             <div className="abx r" data-d="2">
