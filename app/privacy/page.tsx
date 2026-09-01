@@ -1,6 +1,27 @@
-'use client';
 import Link from 'next/link';
 import '../../app/swaqar.css';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy — SWAQAR Trade',
+  description: 'How SWAQAR Trade handles personal data collected through swaqar.com.',
+  alternates: {
+    canonical: 'https://www.swaqar.com/privacy',
+  },
+  openGraph: {
+    title: 'Privacy Policy — SWAQAR Trade',
+    description: 'How SWAQAR Trade handles personal data collected through swaqar.com.',
+    url: 'https://www.swaqar.com/privacy',
+    siteName: 'SWAQAR Trade',
+    type: 'website',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Privacy Policy — SWAQAR Trade',
+    description: 'How SWAQAR Trade handles personal data collected through swaqar.com.',
+  },
+};
 
 export default function PrivacyPolicy() {
   return (
