@@ -156,8 +156,8 @@ export default function HomeClient() {
           <svg viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice">
             <defs><pattern id="g" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M 80 0 L 0 0 0 80" fill="none" stroke="rgba(184,146,58,0.045)" strokeWidth="0.5"/></pattern></defs>
             <rect width="100%" height="100%" fill="url(#g)"/>
-            <path d="M 100,620 Q 340,490 560,380 Q 750,272 910,212" fill="none" stroke="rgba(184,146,58,0.22)" strokeWidth="1.1" strokeDasharray="6 12"><animate attributeName="stroke-dashoffset" from="0" to="-144" dur="4s" repeatCount="indefinite"/></path>
-            <path d="M 910,212 Q 1060,175 1200,235 Q 1318,292 1378,372" fill="none" stroke="rgba(184,146,58,0.15)" strokeWidth="1" strokeDasharray="6 12"><animate attributeName="stroke-dashoffset" from="0" to="-144" dur="5.5s" repeatCount="indefinite"/></path>
+            <path d="M 100,620 Q 340,490 560,380 Q 750,272 910,212" fill="none" stroke="rgba(184,146,58,0.28)" strokeWidth="1.1" strokeDasharray="6 12"><animate attributeName="stroke-dashoffset" from="0" to="-144" dur="4s" repeatCount="indefinite"/></path>
+            <path d="M 910,212 Q 1060,175 1200,235 Q 1318,292 1378,372" fill="none" stroke="rgba(184,146,58,0.19)" strokeWidth="1" strokeDasharray="6 12"><animate attributeName="stroke-dashoffset" from="0" to="-144" dur="5.5s" repeatCount="indefinite"/></path>
             <circle r="3" fill="rgba(184,146,58,0.75)"><animateMotion dur="4s" repeatCount="indefinite" path="M 100,620 Q 340,490 560,380 Q 750,272 910,212"/></circle>
             <circle r="2.5" fill="rgba(184,146,58,0.55)"><animateMotion dur="5.5s" repeatCount="indefinite" begin="1.5s" path="M 910,212 Q 1060,175 1200,235 Q 1318,292 1378,372"/></circle>
             <text x="95" y="658" fontSize="8.5" fill="rgba(184,146,58,0.28)" letterSpacing="4" fontFamily="DM Sans,sans-serif" textAnchor="middle">AFRICA</text>
@@ -167,21 +167,21 @@ export default function HomeClient() {
         </div>
         <div className="hero-orb"></div>
         <svg className="mer" viewBox="0 0 600 600" style={{position:'absolute',right:'-8vw',top:'50%',transform:'translateY(-50%)',width:'54vw',height:'54vw',pointerEvents:'none'}}>
-          <ellipse cx="300" cy="300" rx="198" ry="295" fill="none" stroke="rgba(184,146,58,0.06)" strokeWidth="0.8"/>
-          <ellipse cx="300" cy="300" rx="118" ry="295" fill="none" stroke="rgba(184,146,58,0.045)" strokeWidth="0.8"/>
-          <ellipse cx="300" cy="300" rx="295" ry="118" fill="none" stroke="rgba(184,146,58,0.04)" strokeWidth="0.8"/>
+          <ellipse cx="300" cy="300" rx="198" ry="295" fill="none" stroke="rgba(184,146,58,0.075)" strokeWidth="0.8"/>
+          <ellipse cx="300" cy="300" rx="118" ry="295" fill="none" stroke="rgba(184,146,58,0.056)" strokeWidth="0.8"/>
+          <ellipse cx="300" cy="300" rx="295" ry="118" fill="none" stroke="rgba(184,146,58,0.05)" strokeWidth="0.8"/>
         </svg>
         <svg className="mer mer2" viewBox="0 0 600 600" style={{position:'absolute',right:'-8vw',top:'50%',transform:'translateY(-50%)',width:'54vw',height:'54vw',pointerEvents:'none'}}>
-          <ellipse cx="300" cy="300" rx="52" ry="295" fill="none" stroke="rgba(184,146,58,0.035)" strokeWidth="0.6"/>
-          <ellipse cx="300" cy="300" rx="295" ry="52" fill="none" stroke="rgba(184,146,58,0.035)" strokeWidth="0.6"/>
+          <ellipse cx="300" cy="300" rx="52" ry="295" fill="none" stroke="rgba(184,146,58,0.044)" strokeWidth="0.6"/>
+          <ellipse cx="300" cy="300" rx="295" ry="52" fill="none" stroke="rgba(184,146,58,0.044)" strokeWidth="0.6"/>
         </svg>
         <div className="hero-body">
           <div className="eyebrow r"><div className="eyebrow-line"></div><span className="eyebrow-text">{tx(t.hero.eyebrow, lang)}</span></div>
           <h1 className="hero-h1 r" data-d="1">{tx(t.hero.h1line1, lang)}<br/>{tx(t.hero.h1line2, lang)} <em>{tx(t.hero.h1em, lang)}</em></h1>
           <p className="hero-desc r" data-d="3">{tx(t.hero.desc, lang)}</p>
           <div className="hero-btns r" data-d="4">
-            <a href="#corridors" className="btn-gold"><span>{tx(t.hero.btnExplore, lang)}</span><svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></a>
-            <a href="#contact" className="btn-ghost-light">{tx(t.hero.btnInquiry, lang)}</a>
+            <a href="#contact" className="btn-gold"><span>{tx(t.hero.btnInquiry, lang)}</span><svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></a>
+            <a href="#corridors" className="btn-ghost-light">{tx(t.hero.btnExplore, lang)}</a>
           </div>
         </div>
         <div className="hero-scroll"><div className="hero-scroll-line"></div><span className="hero-scroll-txt">{tx(t.hero.scroll, lang)}</span></div>
@@ -554,9 +554,8 @@ export default function HomeClient() {
               </div>
               <p className="con-disc r" data-d="4">{tx(t.contact.disclaimer, lang)}</p>
               <button
-                className="btn-gold r"
+                className="btn-gold btn-submit r"
                 data-d="4"
-                style={{width:'100%',justifyContent:'center'}}
                 onClick={async () => {
                   if (!formData.organisation || !formData.representative ||
                       !formData.email || !formData.category || !formData.inquiry) {

@@ -42,9 +42,9 @@ export const t = {
       fr: 'Une Couche de Coordination Commerciale à gouvernance structurée, à actifs légers, non-dépositaire — régissant la vérification, l\'exécution, la confiance institutionnelle et la discipline des corridors à travers l\'Afrique, le Moyen-Orient et l\'Asie.',
     },
     btnExplore: {
-      en: 'Explore Corridors',
-      ar: 'استكشف الممرات',
-      fr: 'Explorer les Corridors',
+      en: 'Understand the Coordination Model',
+      ar: 'فهم نموذج التنسيق',
+      fr: 'Comprendre le Modèle de Coordination',
     },
     btnInquiry: {
       en: 'Institutional Inquiry',
