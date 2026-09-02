@@ -265,6 +265,7 @@ footer{background:var(--ink-deep);border-top:1px solid var(--gold-a18);padding:7
 .foot-inner{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:52px;margin-bottom:52px}
 .foot-mark{display:flex;align-items:center;gap:12px;margin-bottom:16px}
 .foot-mark-svg{width:32px;height:32px;flex-shrink:0}
+.foot-mark-img{height:32px;width:auto;flex-shrink:0}
 .foot-name{font-family:var(--serif);font-size:1.15rem;font-weight:700;letter-spacing:.22em;color:var(--white);text-transform:uppercase}
 .foot-sub{font-size:.48rem;letter-spacing:.36em;text-transform:uppercase;color:var(--gold)}
 .foot-desc{font-size:.86rem;line-height:1.75;color:var(--rule);max-width:none;text-align:left}
