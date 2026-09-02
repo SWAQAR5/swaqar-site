@@ -40,7 +40,7 @@ export default function PrivacyPolicy() {
         <div className="wrap" style={{maxWidth:'860px',margin:'0 auto',padding:'0 60px'}}>
 
           <div style={{marginBottom:'48px'}}>
-            <div style={{fontSize:'.56rem',letterSpacing:'.36em',textTransform:'uppercase',color:'var(--gold)',fontWeight:600,marginBottom:'16px'}}>Legal · Data Protection</div>
+            <div style={{fontSize:'.56rem',letterSpacing:'.36em',textTransform:'uppercase',color:'var(--ink)',fontWeight:600,marginBottom:'16px'}}>Legal · Data Protection</div>
             <h1 style={{fontFamily:'var(--serif)',fontSize:'clamp(28px,3.2vw,48px)',fontWeight:700,color:'var(--ink)',lineHeight:1.1,marginBottom:'16px'}}>Privacy Policy</h1>
             <p style={{fontSize:'.9rem',color:'var(--muted)',lineHeight:1.7}}>SWAQAR Group · Last updated: June 2026 · Version 1.0</p>
             <div style={{height:'2px',background:'linear-gradient(to right, var(--gold), transparent)',marginTop:'24px',width:'120px'}}></div>
@@ -119,7 +119,7 @@ export default function PrivacyPolicy() {
           ].map(({ num, title, body }) => (
             <div key={num} style={{marginBottom:'40px',paddingBottom:'40px',borderBottom:'1px solid var(--rule)'}}>
               <div style={{display:'flex',alignItems:'flex-start',gap:'20px',marginBottom:'12px'}}>
-                <span style={{fontFamily:'var(--serif)',fontSize:'1rem',color:'var(--gold)',opacity:.7,flexShrink:0,marginTop:'3px'}}>{num}</span>
+                <span style={{fontFamily:'var(--serif)',fontSize:'1rem',color:'var(--ink)',opacity:.7,flexShrink:0,marginTop:'3px'}}>{num}</span>
                 <h2 style={{fontFamily:'var(--serif)',fontSize:'1.25rem',fontWeight:700,color:'var(--ink)',margin:0}}>{title}</h2>
               </div>
               <p style={{fontSize:'.92rem',lineHeight:1.85,color:'var(--body)',textAlign:'justify',paddingLeft:'36px'}}>{body}</p>
@@ -134,7 +134,7 @@ export default function PrivacyPolicy() {
         </div>
       </main>
 
-      <footer style={{background:'var(--ink-deep)',borderTop:'1px solid rgba(206,164,55,.18)',padding:'32px 0'}}>
+      <footer style={{background:'var(--ink-deep)',borderTop:'1px solid rgba(184,146,58,.18)',padding:'32px 0'}}>
         <div className="wrap" style={{maxWidth:'860px',margin:'0 auto',padding:'0 60px',display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:'12px'}}>
           <span style={{fontSize:'.62rem',letterSpacing:'.1em',color:'rgba(255,255,255,.22)'}}>© {new Date().getFullYear()} SWAQAR Group · All rights reserved</span>
           <div style={{display:'flex',gap:'24px'}}>

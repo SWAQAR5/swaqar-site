@@ -154,26 +154,26 @@ export default function HomeClient() {
       <section className="hero" id="home">
         <div className="hero-grid">
           <svg viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice">
-            <defs><pattern id="g" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M 80 0 L 0 0 0 80" fill="none" stroke="rgba(206,164,55,0.045)" strokeWidth="0.5"/></pattern></defs>
+            <defs><pattern id="g" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M 80 0 L 0 0 0 80" fill="none" stroke="rgba(184,146,58,0.045)" strokeWidth="0.5"/></pattern></defs>
             <rect width="100%" height="100%" fill="url(#g)"/>
-            <path d="M 100,620 Q 340,490 560,380 Q 750,272 910,212" fill="none" stroke="rgba(206,164,55,0.22)" strokeWidth="1.1" strokeDasharray="6 12"><animate attributeName="stroke-dashoffset" from="0" to="-144" dur="4s" repeatCount="indefinite"/></path>
-            <path d="M 910,212 Q 1060,175 1200,235 Q 1318,292 1378,372" fill="none" stroke="rgba(206,164,55,0.15)" strokeWidth="1" strokeDasharray="6 12"><animate attributeName="stroke-dashoffset" from="0" to="-144" dur="5.5s" repeatCount="indefinite"/></path>
-            <circle r="3" fill="rgba(206,164,55,0.75)"><animateMotion dur="4s" repeatCount="indefinite" path="M 100,620 Q 340,490 560,380 Q 750,272 910,212"/></circle>
-            <circle r="2.5" fill="rgba(206,164,55,0.55)"><animateMotion dur="5.5s" repeatCount="indefinite" begin="1.5s" path="M 910,212 Q 1060,175 1200,235 Q 1318,292 1378,372"/></circle>
-            <text x="95" y="658" fontSize="8.5" fill="rgba(206,164,55,0.28)" letterSpacing="4" fontFamily="DM Sans,sans-serif" textAnchor="middle">AFRICA</text>
-            <text x="910" y="192" fontSize="8.5" fill="rgba(206,164,55,0.28)" letterSpacing="4" fontFamily="DM Sans,sans-serif" textAnchor="middle">MIDDLE EAST</text>
-            <text x="1338" y="356" fontSize="8.5" fill="rgba(206,164,55,0.28)" letterSpacing="4" fontFamily="DM Sans,sans-serif" textAnchor="middle">ASIA</text>
+            <path d="M 100,620 Q 340,490 560,380 Q 750,272 910,212" fill="none" stroke="rgba(184,146,58,0.22)" strokeWidth="1.1" strokeDasharray="6 12"><animate attributeName="stroke-dashoffset" from="0" to="-144" dur="4s" repeatCount="indefinite"/></path>
+            <path d="M 910,212 Q 1060,175 1200,235 Q 1318,292 1378,372" fill="none" stroke="rgba(184,146,58,0.15)" strokeWidth="1" strokeDasharray="6 12"><animate attributeName="stroke-dashoffset" from="0" to="-144" dur="5.5s" repeatCount="indefinite"/></path>
+            <circle r="3" fill="rgba(184,146,58,0.75)"><animateMotion dur="4s" repeatCount="indefinite" path="M 100,620 Q 340,490 560,380 Q 750,272 910,212"/></circle>
+            <circle r="2.5" fill="rgba(184,146,58,0.55)"><animateMotion dur="5.5s" repeatCount="indefinite" begin="1.5s" path="M 910,212 Q 1060,175 1200,235 Q 1318,292 1378,372"/></circle>
+            <text x="95" y="658" fontSize="8.5" fill="rgba(184,146,58,0.28)" letterSpacing="4" fontFamily="DM Sans,sans-serif" textAnchor="middle">AFRICA</text>
+            <text x="910" y="192" fontSize="8.5" fill="rgba(184,146,58,0.28)" letterSpacing="4" fontFamily="DM Sans,sans-serif" textAnchor="middle">MIDDLE EAST</text>
+            <text x="1338" y="356" fontSize="8.5" fill="rgba(184,146,58,0.28)" letterSpacing="4" fontFamily="DM Sans,sans-serif" textAnchor="middle">ASIA</text>
           </svg>
         </div>
         <div className="hero-orb"></div>
         <svg className="mer" viewBox="0 0 600 600" style={{position:'absolute',right:'-8vw',top:'50%',transform:'translateY(-50%)',width:'54vw',height:'54vw',pointerEvents:'none'}}>
-          <ellipse cx="300" cy="300" rx="198" ry="295" fill="none" stroke="rgba(206,164,55,0.06)" strokeWidth="0.8"/>
-          <ellipse cx="300" cy="300" rx="118" ry="295" fill="none" stroke="rgba(206,164,55,0.045)" strokeWidth="0.8"/>
-          <ellipse cx="300" cy="300" rx="295" ry="118" fill="none" stroke="rgba(206,164,55,0.04)" strokeWidth="0.8"/>
+          <ellipse cx="300" cy="300" rx="198" ry="295" fill="none" stroke="rgba(184,146,58,0.06)" strokeWidth="0.8"/>
+          <ellipse cx="300" cy="300" rx="118" ry="295" fill="none" stroke="rgba(184,146,58,0.045)" strokeWidth="0.8"/>
+          <ellipse cx="300" cy="300" rx="295" ry="118" fill="none" stroke="rgba(184,146,58,0.04)" strokeWidth="0.8"/>
         </svg>
         <svg className="mer mer2" viewBox="0 0 600 600" style={{position:'absolute',right:'-8vw',top:'50%',transform:'translateY(-50%)',width:'54vw',height:'54vw',pointerEvents:'none'}}>
-          <ellipse cx="300" cy="300" rx="52" ry="295" fill="none" stroke="rgba(206,164,55,0.035)" strokeWidth="0.6"/>
-          <ellipse cx="300" cy="300" rx="295" ry="52" fill="none" stroke="rgba(206,164,55,0.035)" strokeWidth="0.6"/>
+          <ellipse cx="300" cy="300" rx="52" ry="295" fill="none" stroke="rgba(184,146,58,0.035)" strokeWidth="0.6"/>
+          <ellipse cx="300" cy="300" rx="295" ry="52" fill="none" stroke="rgba(184,146,58,0.035)" strokeWidth="0.6"/>
         </svg>
         <div className="hero-body">
           <div className="eyebrow r"><div className="eyebrow-line"></div><span className="eyebrow-text">{tx(t.hero.eyebrow, lang)}</span></div>
@@ -209,7 +209,7 @@ export default function HomeClient() {
       <section className="mission" id="mission">
         <div className="wrap">
           <div className="sec-tag r"><div className="sec-tag-line" /><span className="sec-tag-txt">{tx(t.mission.sectionTag, lang)}</span></div>
-          <h2 className="sec-h r" data-d="1" style={{color:'#fff'}}>{tx(t.mission.heading, lang)}<br /><em>{tx(t.mission.headingEm, lang)}</em></h2>
+          <h2 className="sec-h r" data-d="1" style={{color:'var(--white)'}}>{tx(t.mission.heading, lang)}<br /><em>{tx(t.mission.headingEm, lang)}</em></h2>
           <div className="mv-inner">
             <div className="mv-block r" data-d="1">
               <div className="mv-block-tag">{tx(t.mission.missionTag, lang)}</div>
@@ -265,7 +265,7 @@ export default function HomeClient() {
             <div className="id-card r" data-d="2">
               <div className="id-quote">{tx(t.identity.quote, lang)}</div>
               <div className="id-meta">
-                <div className="id-badge-circle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#CEA437" strokeWidth="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+                <div className="id-badge-circle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B8923A" strokeWidth="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
                 <div><div className="id-badge-name">{tx(t.identity.badgeName, lang)}</div><div className="id-badge-role">{tx(t.identity.badgeRole, lang)}</div></div>
               </div>
               <div className="id-medallion"><span className="id-medallion-n">I</span><span className="id-medallion-t">{tx(t.identity.medallionT, lang)}</span></div>
@@ -307,32 +307,32 @@ export default function HomeClient() {
           <div className="cor-map-box r">
             <svg viewBox="0 0 900 295" fill="none" style={{width:'100%',display:'block'}}>
               <defs><filter id="bf"><feGaussianBlur stdDeviation="3" /></filter></defs>
-              <line x1="0" y1="74" x2="900" y2="74" stroke="rgba(26,26,26,.06)" strokeWidth=".5" strokeDasharray="4 8" />
-              <line x1="0" y1="148" x2="900" y2="148" stroke="rgba(26,26,26,.06)" strokeWidth=".5" strokeDasharray="4 8" />
-              <line x1="0" y1="222" x2="900" y2="222" stroke="rgba(26,26,26,.06)" strokeWidth=".5" strokeDasharray="4 8" />
-              <path d="M 110,188 C 200,163 270,133 360,113" stroke="#D4D0CA" strokeWidth="1" strokeDasharray="4 8" />
-              <path d="M 420,106 C 530,90 640,82 768,108" stroke="#D4D0CA" strokeWidth="1" strokeDasharray="4 8" />
-              <path d="M 110,188 C 200,163 270,133 360,113" stroke="#CEA437" strokeWidth="1.2" strokeDasharray="3 7" opacity=".5"><animate attributeName="stroke-dashoffset" from="0" to="-60" dur="3s" repeatCount="indefinite" /></path>
-              <path d="M 420,106 C 530,90 640,82 768,108" stroke="#CEA437" strokeWidth="1.2" strokeDasharray="3 7" opacity=".35"><animate attributeName="stroke-dashoffset" from="0" to="-60" dur="4.5s" repeatCount="indefinite" /></path>
-              <circle cx="110" cy="188" r="9" fill="rgba(26,26,26,.1)" stroke="#1A1A1A" strokeWidth="1.5" />
-              <circle cx="110" cy="188" r="4" fill="#1A1A1A" />
-              <circle cx="110" cy="188" r="16" fill="rgba(26,26,26,.05)"><animate attributeName="r" values="9;20;9" dur="2.8s" repeatCount="indefinite" /><animate attributeName="opacity" values=".4;0;.4" dur="2.8s" repeatCount="indefinite" /></circle>
-              <text x="110" y="212" textAnchor="middle" fontSize="7" fill="#1A1A1A" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">{tx(t.corridors.map.africa, lang)}</text>
-              <text x="110" y="221" textAnchor="middle" fontSize="6" fill="#535256" fontFamily="DM Sans,sans-serif" letterSpacing="2">{tx(t.corridors.map.africaSub, lang)}</text>
-              <circle cx="390" cy="109" r="9" fill="rgba(26,26,26,.1)" stroke="#1A1A1A" strokeWidth="1.5" />
-              <circle cx="390" cy="109" r="4" fill="#1A1A1A" />
-              <circle cx="390" cy="109" r="16" fill="rgba(26,26,26,.05)"><animate attributeName="r" values="9;20;9" dur="2.8s" begin=".9s" repeatCount="indefinite" /><animate attributeName="opacity" values=".4;0;.4" dur="2.8s" begin=".9s" repeatCount="indefinite" /></circle>
-              <text x="390" y="88" textAnchor="middle" fontSize="7" fill="#1A1A1A" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">{tx(t.corridors.map.middleEast, lang)}</text>
-              <text x="390" y="97" textAnchor="middle" fontSize="6" fill="#535256" fontFamily="DM Sans,sans-serif" letterSpacing="2">{tx(t.corridors.map.middleEastSub, lang)}</text>
-              <rect x="340" y="130" width="100" height="22" rx="2" fill="#1A1A1A" />
-              <text x="390" y="145" textAnchor="middle" fontSize="6" fill="#CEA437" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">SWAQAR</text>
-              <circle cx="776" cy="108" r="9" fill="rgba(26,26,26,.1)" stroke="#1A1A1A" strokeWidth="1.5" />
-              <circle cx="776" cy="108" r="4" fill="#1A1A1A" />
-              <circle cx="776" cy="108" r="16" fill="rgba(26,26,26,.05)"><animate attributeName="r" values="9;20;9" dur="2.8s" begin="1.8s" repeatCount="indefinite" /><animate attributeName="opacity" values=".4;0;.4" dur="2.8s" begin="1.8s" repeatCount="indefinite" /></circle>
-              <text x="776" y="87" textAnchor="middle" fontSize="7" fill="#1A1A1A" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">{tx(t.corridors.map.asia, lang)}</text>
-              <text x="776" y="96" textAnchor="middle" fontSize="6" fill="#535256" fontFamily="DM Sans,sans-serif" letterSpacing="2">{tx(t.corridors.map.asiaSub, lang)}</text>
-              <circle r="4" fill="#CEA437" filter="url(#bf)" opacity=".7"><animateMotion dur="3s" repeatCount="indefinite" path="M 110,188 C 200,163 270,133 360,113" /></circle>
-              <circle r="3.5" fill="#CEA437" filter="url(#bf)" opacity=".55"><animateMotion dur="4s" repeatCount="indefinite" begin="1s" path="M 420,106 C 530,90 640,82 768,108" /></circle>
+              <line x1="0" y1="74" x2="900" y2="74" stroke="rgba(11,31,58,.06)" strokeWidth=".5" strokeDasharray="4 8" />
+              <line x1="0" y1="148" x2="900" y2="148" stroke="rgba(11,31,58,.06)" strokeWidth=".5" strokeDasharray="4 8" />
+              <line x1="0" y1="222" x2="900" y2="222" stroke="rgba(11,31,58,.06)" strokeWidth=".5" strokeDasharray="4 8" />
+              <path d="M 110,188 C 200,163 270,133 360,113" stroke="#D1D5DB" strokeWidth="1" strokeDasharray="4 8" />
+              <path d="M 420,106 C 530,90 640,82 768,108" stroke="#D1D5DB" strokeWidth="1" strokeDasharray="4 8" />
+              <path d="M 110,188 C 200,163 270,133 360,113" stroke="#B8923A" strokeWidth="1.2" strokeDasharray="3 7" opacity=".5"><animate attributeName="stroke-dashoffset" from="0" to="-60" dur="3s" repeatCount="indefinite" /></path>
+              <path d="M 420,106 C 530,90 640,82 768,108" stroke="#B8923A" strokeWidth="1.2" strokeDasharray="3 7" opacity=".35"><animate attributeName="stroke-dashoffset" from="0" to="-60" dur="4.5s" repeatCount="indefinite" /></path>
+              <circle cx="110" cy="188" r="9" fill="rgba(11,31,58,.1)" stroke="#0B1F3A" strokeWidth="1.5" />
+              <circle cx="110" cy="188" r="4" fill="#0B1F3A" />
+              <circle cx="110" cy="188" r="16" fill="rgba(11,31,58,.05)"><animate attributeName="r" values="9;20;9" dur="2.8s" repeatCount="indefinite" /><animate attributeName="opacity" values=".4;0;.4" dur="2.8s" repeatCount="indefinite" /></circle>
+              <text x="110" y="212" textAnchor="middle" fontSize="7" fill="#0B1F3A" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">{tx(t.corridors.map.africa, lang)}</text>
+              <text x="110" y="221" textAnchor="middle" fontSize="6" fill="#718096" fontFamily="DM Sans,sans-serif" letterSpacing="2">{tx(t.corridors.map.africaSub, lang)}</text>
+              <circle cx="390" cy="109" r="9" fill="rgba(11,31,58,.1)" stroke="#0B1F3A" strokeWidth="1.5" />
+              <circle cx="390" cy="109" r="4" fill="#0B1F3A" />
+              <circle cx="390" cy="109" r="16" fill="rgba(11,31,58,.05)"><animate attributeName="r" values="9;20;9" dur="2.8s" begin=".9s" repeatCount="indefinite" /><animate attributeName="opacity" values=".4;0;.4" dur="2.8s" begin=".9s" repeatCount="indefinite" /></circle>
+              <text x="390" y="88" textAnchor="middle" fontSize="7" fill="#0B1F3A" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">{tx(t.corridors.map.middleEast, lang)}</text>
+              <text x="390" y="97" textAnchor="middle" fontSize="6" fill="#718096" fontFamily="DM Sans,sans-serif" letterSpacing="2">{tx(t.corridors.map.middleEastSub, lang)}</text>
+              <rect x="340" y="130" width="100" height="22" rx="2" fill="#0B1F3A" />
+              <text x="390" y="145" textAnchor="middle" fontSize="6" fill="#B8923A" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">SWAQAR</text>
+              <circle cx="776" cy="108" r="9" fill="rgba(11,31,58,.1)" stroke="#0B1F3A" strokeWidth="1.5" />
+              <circle cx="776" cy="108" r="4" fill="#0B1F3A" />
+              <circle cx="776" cy="108" r="16" fill="rgba(11,31,58,.05)"><animate attributeName="r" values="9;20;9" dur="2.8s" begin="1.8s" repeatCount="indefinite" /><animate attributeName="opacity" values=".4;0;.4" dur="2.8s" begin="1.8s" repeatCount="indefinite" /></circle>
+              <text x="776" y="87" textAnchor="middle" fontSize="7" fill="#0B1F3A" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">{tx(t.corridors.map.asia, lang)}</text>
+              <text x="776" y="96" textAnchor="middle" fontSize="6" fill="#718096" fontFamily="DM Sans,sans-serif" letterSpacing="2">{tx(t.corridors.map.asiaSub, lang)}</text>
+              <circle r="4" fill="#B8923A" filter="url(#bf)" opacity=".7"><animateMotion dur="3s" repeatCount="indefinite" path="M 110,188 C 200,163 270,133 360,113" /></circle>
+              <circle r="3.5" fill="#B8923A" filter="url(#bf)" opacity=".55"><animateMotion dur="4s" repeatCount="indefinite" begin="1s" path="M 420,106 C 530,90 640,82 768,108" /></circle>
             </svg>
           </div>
 
@@ -522,7 +522,7 @@ export default function HomeClient() {
           <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">{tx(t.contact.sectionTag, lang)}</span></div>
           <div className="con-inner">
             <div>
-              <h2 className="sec-h r" data-d="1" style={{color:'#fff'}}>{tx(t.contact.heading, lang)}<br/><em>{tx(t.contact.headingEm, lang)}</em></h2>
+              <h2 className="sec-h r" data-d="1" style={{color:'var(--white)'}}>{tx(t.contact.heading, lang)}<br/><em>{tx(t.contact.headingEm, lang)}</em></h2>
               <p className="sec-p r" data-d="2" style={{color:'rgba(255,255,255,0.45)',marginBottom:'40px'}}>{tx(t.contact.subDesc, lang)}</p>
               <div className="con-grp r" data-d="2"><label className="con-lbl">{tx(t.contact.orgLabel, lang)}</label><input className="con-input" type="text" placeholder={tx(t.contact.orgPlaceholder, lang)} value={formData.organisation} onChange={(e) => setFormData({...formData, organisation: e.target.value})}/></div>
               <div className="con-grp r" data-d="2"><label className="con-lbl">{tx(t.contact.repLabel, lang)}</label><input className="con-input" type="text" placeholder={tx(t.contact.repPlaceholder, lang)} value={formData.representative} onChange={(e) => setFormData({...formData, representative: e.target.value})}/></div>
@@ -542,11 +542,11 @@ export default function HomeClient() {
                 style={{position:'absolute',left:'-9999px',width:'1px',height:'1px',overflow:'hidden'}}
               />
               <div style={{marginBottom:'24px',padding:'20px 22px',background:'var(--stone)',border:'1px solid var(--rule)',borderLeft:'2px solid var(--gold)'}}>
-                <div style={{fontSize:'.54rem',letterSpacing:'.28em',textTransform:'uppercase' as const,color:'var(--gold)',fontWeight:600,marginBottom:'12px'}}>{tx(t.contact.processTag, lang)}</div>
+                <div style={{fontSize:'.54rem',letterSpacing:'.28em',textTransform:'uppercase' as const,color:'var(--ink)',fontWeight:600,marginBottom:'12px'}}>{tx(t.contact.processTag, lang)}</div>
                 <div style={{display:'flex',flexDirection:'column' as const,gap:'10px'}}>
                   {(t.contact.processSteps[lang] ?? t.contact.processSteps['en']).map((step, i) => (
                     <div key={i} style={{display:'flex',gap:'12px',alignItems:'flex-start'}}>
-                      <span style={{fontFamily:'var(--serif)',fontSize:'.75rem',color:'var(--gold)',flexShrink:0,marginTop:'1px'}}>{String(i+1).padStart(2,'0')}</span>
+                      <span style={{fontFamily:'var(--serif)',fontSize:'.75rem',color:'var(--ink)',flexShrink:0,marginTop:'1px'}}>{String(i+1).padStart(2,'0')}</span>
                       <span style={{fontSize:'.8rem',lineHeight:'1.65',color:'var(--body)'}}><strong style={{color:'var(--ink)'}}>{step.strong}</strong>{step.rest}</span>
                     </div>
                   ))}
@@ -587,7 +587,7 @@ export default function HomeClient() {
                  'Submit Institutional Inquiry'}
               </button>
               {formStatus === 'success' && (
-                <div style={{marginTop:'16px',padding:'14px 18px',background:'rgba(206,164,55,0.1)',borderLeft:'2px solid #CEA437',fontSize:'.8rem',color:'rgba(255,255,255,0.7)',lineHeight:'1.6'}}>
+                <div style={{marginTop:'16px',padding:'14px 18px',background:'rgba(184,146,58,0.1)',borderLeft:'2px solid #B8923A',fontSize:'.8rem',color:'rgba(255,255,255,0.7)',lineHeight:'1.6'}}>
                   Your inquiry has been received. An acknowledgement has been sent. SWAQAR will review your submission against counterparty eligibility criteria before any response is issued.
                 </div>
               )}
