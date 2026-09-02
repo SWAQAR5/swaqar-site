@@ -561,7 +561,7 @@ export const t = {
   arms: {
     sectionTag: { en: 'Institutional Architecture', ar: 'الهيكل المؤسسي', fr: 'Architecture Institutionnelle' },
     heading: { en: 'Seven', ar: 'سبعة', fr: 'Sept' },
-    headingEm: { en: 'Institutional Arms.', ar: 'أذرع مؤسسية.', fr: 'Bras Institutionnels.' },
+    headingEm: { en: 'Strategic Arms.', ar: 'الأذرع الاستراتيجية.', fr: 'Bras Stratégiques.' },
     headingLine2: { en: 'One Architecture.', ar: 'هيكل واحد.', fr: 'Une Architecture.' },
     abxTag: { en: 'Institutional Foundation', ar: 'الأساس المؤسسي', fr: 'Fondation Institutionnelle' },
     abxH: { en: 'Built for a multi-decade institutional horizon.', ar: 'مبنية لأفق مؤسسي متعدد العقود.', fr: 'Construite pour un horizon institutionnel pluridécennal.' },
