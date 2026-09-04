@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import '../../app/swaqar.css';
+import '../../swaqar.css';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {

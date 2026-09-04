@@ -1,10 +1,23 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import { t, tx, type Lang } from '@/lib/translations';
 
-export default function HomeClient() {
-  const [lang, setLang] = useState<Lang>('en');
+export default function HomeClient({ locale }: { locale: string }) {
+  // Job 6 · Stage 1 is locale ROUTING only — every locale renders this same
+  // English content (lib/translations.ts already has full AR/FR strings from
+  // earlier work, but wiring the URL locale into content selection is
+  // deliberately deferred to a later stage). `lang` stays fixed so every
+  // existing tx(t.x, lang) call below is untouched and always resolves English.
+  const lang: Lang = 'en';
+  const pathname = usePathname();
+  const router = useRouter();
+  const switchLocale = (target: string) => {
+    const segments = pathname.split('/');
+    segments[1] = target; // ['', <locale>, ...rest] — replace the locale segment
+    router.push(segments.join('/') || `/${target}`);
+  };
   const [formData, setFormData] = useState({
     organisation: '',
     representative: '',
@@ -19,16 +32,6 @@ export default function HomeClient() {
   // by search engines and screen readers regardless of open/closed state.
   const [openArms, setOpenArms] = useState<boolean[]>([true, false, false, false, false, false, false]);
   const toggleArm = (i: number) => setOpenArms((prev) => prev.map((v, idx) => (idx === i ? !v : v)));
-
-  useEffect(() => {
-    if (lang === 'ar') {
-      document.documentElement.setAttribute('dir', 'rtl');
-      document.body.classList.add('lang-ar');
-    } else {
-      document.documentElement.removeAttribute('dir');
-      document.body.classList.remove('lang-ar');
-    }
-  }, [lang]);
 
   useEffect(() => {
     const dot = document.getElementById('cur-dot');
@@ -132,11 +135,13 @@ export default function HomeClient() {
           <li><a href="#contact" className="nav-cta">{tx(t.nav.engage, lang)}</a></li>
         </ul>
         <div className="lang-toggle" aria-label="Language selection">
-          <button className={`lang-btn${lang==='en'?' active':''}`} onClick={()=>setLang('en')} aria-label="Switch to English" aria-pressed={lang==='en'}>EN</button>
+          <button className={`lang-btn${locale==='en'?' active':''}`} onClick={()=>switchLocale('en')} aria-label="Switch to English" aria-pressed={locale==='en'}>EN</button>
           <span className="lang-sep" aria-hidden="true">|</span>
-          <button className={`lang-btn${lang==='ar'?' active':''}`} onClick={()=>setLang('ar')} aria-label="Switch to Arabic" aria-pressed={lang==='ar'}>AR</button>
+          <button className={`lang-btn${locale==='ar'?' active':''}`} onClick={()=>switchLocale('ar')} aria-label="Switch to Arabic" aria-pressed={locale==='ar'}>AR</button>
           <span className="lang-sep" aria-hidden="true">|</span>
-          <button className={`lang-btn${lang==='fr'?' active':''}`} onClick={()=>setLang('fr')} aria-label="Switch to French" aria-pressed={lang==='fr'}>FR</button>
+          <button className={`lang-btn${locale==='fr'?' active':''}`} onClick={()=>switchLocale('fr')} aria-label="Switch to French" aria-pressed={locale==='fr'}>FR</button>
+          <span className="lang-sep" aria-hidden="true">|</span>
+          <button className={`lang-btn${locale==='zh'?' active':''}`} onClick={()=>switchLocale('zh')} aria-label="Switch to Chinese" aria-pressed={locale==='zh'}>ZH</button>
         </div>
         <button className="burger" id="burger" aria-label="Open menu" aria-expanded="false">
           <span></span><span></span><span></span>

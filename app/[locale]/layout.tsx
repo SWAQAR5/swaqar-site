@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
-import './swaqar.css';
+import { notFound } from 'next/navigation';
+import { routing } from '@/i18n/routing';
+import '../swaqar.css';
 
 export const metadata: Metadata = {
   title: 'SWAQAR Trade — Corridors of Trust',
@@ -19,9 +21,29 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export default async function RootLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
+  // Stage 1 is routing-only: any locale outside the configured set 404s via
+  // the nearest not-found boundary rather than silently falling back.
+  if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
+    notFound();
+  }
+
+  const dir = locale === 'ar' ? 'rtl' : 'ltr';
+
   return (
-    <html lang="en">
+    <html lang={locale} dir={dir}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
