@@ -195,8 +195,8 @@ export default function HomeClient({ locale }: { locale: string }) {
       <div className="stats">
         <div className="stat r"><span className="stat-n">3</span><span className="stat-l">{tx(t.stats.corridorRegions, lang)}</span></div>
         <div className="stat r" data-d="1"><span className="stat-n">4</span><span className="stat-l">{tx(t.stats.institutionalGates, lang)}</span></div>
-        <div className="stat r" data-d="2"><span className="stat-n">100%</span><span className="stat-l">{tx(t.stats.nonCustodial, lang)}</span></div>
-        <div className="stat r" data-d="3"><span className="stat-n">7</span><span className="stat-l">{tx(t.stats.strategicArms, lang)}</span></div>
+        <div className="stat r" data-d="2"><span className="stat-n">Phase I</span><span className="stat-l">{tx(t.stats.phaseFoundation, lang)}</span></div>
+        <div className="stat r" data-d="3"><span className="stat-n">Non-custodial</span><span className="stat-l">{tx(t.stats.nonCustodialByDesign, lang)}</span></div>
       </div>
 
       <div className="marquee">
@@ -210,6 +210,25 @@ export default function HomeClient({ locale }: { locale: string }) {
           ))}
         </div>
       </div>
+
+      {/* NEW — V2.0 copy lock: "The Coordination Gap". Built from existing sitewide components
+          (.sec-tag/.sec-h/.pillars/.gov-note) per instruction — no new styling invented. */}
+      <section className="gap" id="gap">
+        <div className="wrap">
+          <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">{tx(t.gap.sectionTag, lang)}</span></div>
+          <h2 className="sec-h r" data-d="1">{tx(t.gap.heading, lang)} <em>{tx(t.gap.headingEm, lang)}</em></h2>
+          <div className="pillars r" data-d="2">
+            {(t.gap.items[lang] ?? t.gap.items['en']).map((item, i) => (
+              <div className="pillar" key={i}><div className="pillar-name">{item.name}</div><div className="pillar-desc">{item.state}</div></div>
+            ))}
+          </div>
+          <div className="gov-note r" data-d="3" style={{marginTop:'32px'}}>
+            <p className="gov-note-txt">{tx(t.gap.closing, lang)}</p>
+          </div>
+        </div>
+      </section>
+
+      <div className="gold-rule" />
 
       <section className="mission" id="mission">
         <div className="wrap">
@@ -381,40 +400,11 @@ export default function HomeClient({ locale }: { locale: string }) {
               <div className="cor-active-footer">
                 <p className="cor-active-footer-txt">{tx(t.corridors.activeFooterTxt, lang)}</p>
                 <div className="cor-active-footer-tags">
-                  <span className="cor-tag-gold">Agriculture &amp; Food Security</span>
-                  <span className="cor-tag-gold">Verification-Governed</span>
-                  <span className="cor-tag-gold">Non-Custodial</span>
-                  <span className="cor-tag-gold">Four-Gate Protocol</span>
+                  {(t.corridors.activeFooterTags[lang] ?? t.corridors.activeFooterTags['en']).map((tag, i) => (
+                    <span className="cor-tag-gold" key={i}>{tag}</span>
+                  ))}
                 </div>
               </div>
-            </div>
-          </div>
-
-          <div className="cor-tier r" data-d="2" style={{marginTop:'2px'}}>
-            <div className="cor-tier-head">
-              <span className="cor-tier-num">02</span>
-              <span className="cor-tier-title">{tx(t.corridors.tierTwoTitle, lang)}</span>
-              <span className="cor-tier-badge eval">{tx(t.corridors.tierTwoBadge, lang)}</span>
-            </div>
-            <div className="cor-eval-grid" data-cols="2" style={{gridTemplateColumns:'1fr 1fr'}}>
-              {(t.corridors.evalCards[lang] ?? t.corridors.evalCards['en']).map((card, i) => (
-                <div className="cor-eval-card" key={i}>
-                  <div className="cor-eval-reg">{card.reg}</div>
-                  <div className="cor-eval-title">{card.title}</div>
-                  <p className="cor-eval-body">{card.body}</p>
-                  <div className="cor-tags" style={{marginBottom:'14px'}}>{card.tags.map((tag, j) => <span className="cor-tag" key={j}>{tag}</span>)}</div>
-                  <p className="cor-eval-note">{card.note}</p>
-                </div>
-              ))}
-            </div>
-            <div className="cor-cap-row">
-              {(t.corridors.capRow[lang] ?? t.corridors.capRow['en']).map((cap, i) => (
-                <div className="cor-cap-item" key={i}>
-                  <div className="cor-cap-name">{cap.name}</div>
-                  <div className="cor-cap-status">{cap.status}</div>
-                  <p className="cor-cap-desc">{cap.desc}</p>
-                </div>
-              ))}
             </div>
           </div>
 
@@ -431,7 +421,7 @@ export default function HomeClient({ locale }: { locale: string }) {
           <div className="gates-grid">
             {(t.gates.gatesList[lang] ?? t.gates.gatesList['en']).map((gate, i) => (
               <div className="gate r" key={i} data-d={i}>
-                <div className="gate-n">{['I','II','III','IV'][i]}</div>
+                <div className="gate-n">{['01','02','03','04'][i]}</div>
                 <div className="gate-ico">
                   {i === 0 && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>}
                   {i === 1 && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 12h6M9 16h6M9 8h6M5 4h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5a1 1 0 011-1z"/></svg>}
@@ -443,6 +433,25 @@ export default function HomeClient({ locale }: { locale: string }) {
                 <div className="gate-desc">{gate.desc}</div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <div className="gold-rule"></div>
+
+      {/* NEW — V2.0 copy lock: readiness states. Built from existing sitewide components
+          (.sec-tag/.sec-h/.pillars/.gov-note) per instruction — no new styling invented. */}
+      <section className="reality" id="reality">
+        <div className="wrap">
+          <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">{tx(t.reality.sectionTag, lang)}</span></div>
+          <h2 className="sec-h r" data-d="1">{tx(t.reality.heading, lang)} <em>{tx(t.reality.headingEm, lang)}</em></h2>
+          <div className="pillars r" data-d="2">
+            {(t.reality.items[lang] ?? t.reality.items['en']).map((item, i) => (
+              <div className="pillar" key={i}><div className="pillar-name">{item.name}</div></div>
+            ))}
+          </div>
+          <div className="gov-note r" data-d="3" style={{marginTop:'32px'}}>
+            <p className="gov-note-txt">{tx(t.reality.closing, lang)}</p>
           </div>
         </div>
       </section>
@@ -508,6 +517,7 @@ export default function HomeClient({ locale }: { locale: string }) {
         <div className="wrap">
           <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">{tx(t.governance.sectionTag, lang)}</span></div>
           <h2 className="sec-h r" data-d="1">{tx(t.governance.heading, lang)} <em>{tx(t.governance.headingEm, lang)}</em></h2>
+          <p className="sec-p r" data-d="2">{tx(t.governance.leadLine, lang)}</p>
           <div className="gov-grid">
             <div className="gov-card r"><div className="gov-name">{tx(t.governance.supremeCouncil.name, lang)}</div><div className="gov-desc">{tx(t.governance.supremeCouncil.desc, lang)}</div></div>
             <div className="gov-card r" data-d="1"><div className="gov-name">{tx(t.governance.ethicsCouncil.name, lang)}</div><div className="gov-desc">{tx(t.governance.ethicsCouncil.desc, lang)}</div></div>
@@ -586,18 +596,18 @@ export default function HomeClient({ locale }: { locale: string }) {
                 }}
                 disabled={formStatus === 'sending'}
               >
-                {formStatus === 'sending' ? 'Submitting...' :
-                 formStatus === 'success' ? 'Inquiry Submitted ✓' :
-                 'Submit Institutional Inquiry'}
+                {formStatus === 'sending' ? tx(t.contact.submitBtnSending, lang) :
+                 formStatus === 'success' ? tx(t.contact.submitBtnSuccess, lang) :
+                 tx(t.contact.submitBtn, lang)}
               </button>
               {formStatus === 'success' && (
                 <div style={{marginTop:'16px',padding:'14px 18px',background:'rgba(184,146,58,0.1)',borderLeft:'2px solid #B8923A',fontSize:'.8rem',color:'rgba(255,255,255,0.7)',lineHeight:'1.6'}}>
-                  Your inquiry has been received. An acknowledgement has been sent. SWAQAR will review your submission against counterparty eligibility criteria before any response is issued.
+                  {tx(t.contact.successMsg, lang)}
                 </div>
               )}
               {formStatus === 'error' && (
                 <div style={{marginTop:'16px',padding:'14px 18px',background:'rgba(255,255,255,0.05)',borderLeft:'2px solid rgba(255,255,255,0.2)',fontSize:'.8rem',color:'rgba(255,255,255,0.5)',lineHeight:'1.6'}}>
-                  Please complete all fields before submitting. If the issue persists, contact support@swaqar.com directly.
+                  {tx(t.contact.errorMsg, lang)}
                 </div>
               )}
             </div>
