@@ -5,10 +5,10 @@ import '../swaqar.css';
 
 export const metadata: Metadata = {
   title: 'SWAQAR Trade — Corridors of Trust',
-  description: 'SWAQAR Trade is the governance-led, asset-light, non-custodial Trade Coordination Layer of SWAQAR Group, connecting Africa, the Middle East, and Asia through verification, institutional trust, and disciplined execution.',
+  description: 'A governance-led, asset-light, non-custodial Trade Coordination Layer for Africa, the Middle East and Asia. SWAQAR coordinates verified corridor readiness — it does not trade, broker or hold funds.',
   openGraph: {
     title: 'SWAQAR Trade — Corridors of Trust',
-    description: 'SWAQAR Trade is the governance-led, asset-light, non-custodial Trade Coordination Layer of SWAQAR Group, connecting Africa, the Middle East, and Asia through verification, institutional trust, and disciplined execution.',
+    description: 'A governance-led, asset-light, non-custodial Trade Coordination Layer for Africa, the Middle East and Asia. SWAQAR coordinates verified corridor readiness — it does not trade, broker or hold funds.',
     url: 'https://www.swaqar.com',
     siteName: 'SWAQAR Trade',
     type: 'website',
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'SWAQAR Trade — Corridors of Trust',
-    description: 'A governance-led, non-custodial Trade Coordination Layer. Verification-first. Non-custodial. Africa — Middle East — Asia.',
+    description: 'A governance-led, asset-light, non-custodial Trade Coordination Layer for Africa, the Middle East and Asia. SWAQAR coordinates verified corridor readiness — it does not trade, broker or hold funds.',
   },
 };
 
