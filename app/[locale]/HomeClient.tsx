@@ -219,7 +219,11 @@ export default function HomeClient({ locale }: { locale: string }) {
           <h2 className="sec-h r" data-d="1">{tx(t.gap.heading, lang)} <em>{tx(t.gap.headingEm, lang)}</em></h2>
           <div className="pillars r" data-d="2">
             {(t.gap.items[lang] ?? t.gap.items['en']).map((item, i) => (
-              <div className="pillar" key={i}><div className="pillar-name">{item.name}</div><div className="pillar-desc">{item.state}</div></div>
+              <div className="pillar" key={i}>
+                <div className="pillar-name">{item.name}</div>
+                <div className="pillar-desc">{item.state}</div>
+                <div className="pillar-desc">{item.desc}</div>
+              </div>
             ))}
           </div>
           <div className="gov-note r" data-d="3" style={{marginTop:'32px'}}>
@@ -431,6 +435,11 @@ export default function HomeClient({ locale }: { locale: string }) {
                 <div className="gate-tag">{gate.tag}</div>
                 <div className="gate-name">{gate.name}</div>
                 <div className="gate-desc">{gate.desc}</div>
+                {'chips' in gate && gate.chips.length > 0 && (
+                  <div className="foot-badges" style={{marginTop:'16px'}}>
+                    {gate.chips.map((chip, j) => <span className="foot-badge" key={j}>{chip}</span>)}
+                  </div>
+                )}
               </div>
             ))}
           </div>

@@ -524,15 +524,16 @@ export const t = {
       fr: 'Aucun engagement de corridor ne progresse tant que les quatre portes n\'ont pas été franchies. Il s\'agit d\'une exigence de gouvernance constitutionnelle, pas d\'une préférence de processus.',
     },
     // V2.0: renamed from the old Gate I–IV names (Counterparty Verification / Documentation
-    // Readiness / Governance Alignment / Execution Mandate) to the locked lifecycle stages. No
-    // locked description/chip copy was supplied for these four stages — desc left blank rather
-    // than invented or left stale under the new names; see report.
+    // Readiness / Governance Alignment / Execution Mandate) to the locked lifecycle stages.
+    // desc/chips now filled with locked copy (previously blank — no locked text existed yet).
+    // NEW field on each `en` item: `chips` (string[]) — did not exist before; ar/fr items are
+    // left as tag/name/desc only, per instruction to leave ar/fr untouched.
     gatesList: {
       en: [
-        { tag: '01', name: 'Pre-Activation', desc: '' },
-        { tag: '02', name: 'Activation', desc: '' },
-        { tag: '03', name: 'Live Coordination', desc: '' },
-        { tag: '04', name: 'Renewal or Disengagement', desc: '' },
+        { tag: '01', name: 'Pre-Activation', desc: 'Qualify readiness.', chips: ['Counterparties', 'Verification', 'Framework'] },
+        { tag: '02', name: 'Activation', desc: 'Governance authorises coordination.', chips: ['Approval', 'Defined Scope'] },
+        { tag: '03', name: 'Live Coordination', desc: 'Coordinate the corridor.', chips: ['Verification', 'Documentation', 'Synchronisation', 'Oversight'] },
+        { tag: '04', name: 'Renewal or Disengagement', desc: 'Review what happens next.', chips: ['Renew', 'Reset', 'Disengage'] },
       ],
       ar: [
         { tag: 'البوابة الأولى', name: 'التحقق من الأطراف المقابلة', desc: 'كل مشارك — مُصدِّر، مشترٍ، مشغل لوجستي، وسيط مالي — يجتاز بروتوكول التحقق من سواقر قبل إصدار أي تفويض تنسيق.' },
@@ -606,12 +607,14 @@ export const t = {
     sectionTag: { en: 'The Coordination Gap', ar: '', fr: '' },
     heading: { en: 'The Coordination', ar: '', fr: '' },
     headingEm: { en: 'Gap.', ar: '', fr: '' },
+    // NEW field on each item: `desc` — the sub-line under name+state. Added this pass; did not
+    // exist before (items only had name/state, and the JSX only rendered those two lines).
     items: {
       en: [
-        { name: 'Verification', state: 'Repeated' },
-        { name: 'Documentation', state: 'Misaligned' },
-        { name: 'Stakeholders', state: 'Disconnected' },
-        { name: 'Trust', state: 'Harder to sustain' },
+        { name: 'Verification', state: 'Repeated', desc: 'Counterparties may be verified separately by multiple institutions.' },
+        { name: 'Documentation', state: 'Misaligned', desc: 'Records can diverge across parties and jurisdictions.' },
+        { name: 'Stakeholders', state: 'Disconnected', desc: 'Banks, operators and counterparties often work through separate processes.' },
+        { name: 'Trust', state: 'Harder to sustain', desc: 'Cross-regional corridors require discipline beyond bilateral relationships.' },
       ],
       ar: [],
       fr: [],
