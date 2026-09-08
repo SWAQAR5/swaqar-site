@@ -3,7 +3,7 @@ export type Lang = 'en' | 'ar' | 'fr';
 export const t = {
   // ── BANNER ──
   banner: {
-    en: 'Phase I — Foundation Stage · Not yet operationally active. All corridor activation subject to Four-Gate Model completion and Supreme Council mandate.',
+    en: 'Phase I — Foundation Stage · Not yet operationally active.',
     ar: 'المرحلة الأولى — مرحلة التأسيس · غير نشطة تشغيلياً بعد. يخضع تفعيل جميع الممرات لاستكمال نموذج البوابات الأربع وتفويض المجلس الأعلى.',
     fr: 'Phase I — Étape Fondatrice · Pas encore opérationnellement active. Toute activation de corridor est soumise à l\'achèvement du Modèle à Quatre Portes et au mandat du Conseil Suprême.',
   },
