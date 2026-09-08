@@ -421,7 +421,7 @@ export const t = {
   // ── MARQUEE ──
   marquee: {
     items: {
-      en: ['Governance-Led','Verification-First','Asset-Light','Non-Custodial','Africa ⇄ Middle East ⇄ Asia','Four-Gate Protocol','Phase I — Foundation Stage','Counsel-Validated','Supreme Council Governed'],
+      en: ['Governance-Led','Verification-First','Asset-Light','Non-Custodial','Africa ⇄ Middle East ⇄ Asia','Four-Gate Model','Phase I — Foundation Stage','Counsel-Validated','Supreme Council Governed'],
       ar: ['بقيادة الحوكمة','التحقق أولاً','خفيف الأصول','غير وصائي','أفريقيا ⇄ الشرق الأوسط ⇄ آسيا','بروتوكول البوابات الأربع','المرحلة الأولى — مرحلة التأسيس','معتمد من المستشارين','تحت حوكمة المجلس الأعلى'],
       fr: ['Gouvernance-Led','Vérification-First','Actifs Légers','Non-Dépositaire','Afrique ⇄ Moyen-Orient ⇄ Asie','Protocole à Quatre Portes','Phase I — Étape Fondatrice','Validé par des Conseillers','Régi par le Conseil Suprême'],
     },
