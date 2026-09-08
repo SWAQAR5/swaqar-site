@@ -519,7 +519,7 @@ export const t = {
     heading: { en: 'Every coordinated corridor moves through', ar: 'كل ممر منسق يمر عبر', fr: 'Chaque corridor coordonné passe par' },
     headingEm: { en: 'four governance gates.', ar: 'أربع بوابات حوكمة.', fr: 'quatre portes de gouvernance.' },
     subDesc: {
-      en: 'No corridor engagement proceeds until all four gates are passed. This is a constitutional governance requirement, not a process preference.',
+      en: 'SWAQAR coordinates the conditions for disciplined corridor execution; it does not guarantee commercial, financial or operational outcomes.',
       ar: 'لا يتقدم أي انخراط في الممر حتى يتم اجتياز البوابات الأربع. هذا شرط حوكمة دستوري، وليس تفضيلاً إجرائياً.',
       fr: 'Aucun engagement de corridor ne progresse tant que les quatre portes n\'ont pas été franchies. Il s\'agit d\'une exigence de gouvernance constitutionnelle, pas d\'une préférence de processus.',
     },
