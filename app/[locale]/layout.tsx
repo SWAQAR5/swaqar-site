@@ -1,7 +1,20 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { Noto_Naskh_Arabic } from 'next/font/google';
 import { routing } from '@/i18n/routing';
 import '../swaqar.css';
+
+// Arabic body+heading face. Loaded via next/font/google (self-hosted, no extra request-chain
+// hop) since Google's 'arabic' subset is fully supported here — unlike Noto Sans SC below.
+// Weights match the four actually used across swaqar.css (400/500/600/700). The resulting
+// --font-ar custom property is wired into --serif/--sans only under html[lang="ar"] (see
+// swaqar.css) so nothing changes for en/fr.
+const notoNaskhArabic = Noto_Naskh_Arabic({
+  subsets: ['arabic'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-ar',
+});
 
 export const metadata: Metadata = {
   title: 'SWAQAR Trade — Corridors of Trust',
@@ -43,11 +56,16 @@ export default async function RootLayout({
   const dir = locale === 'ar' ? 'rtl' : 'ltr';
 
   return (
-    <html lang={locale} dir={dir}>
+    <html lang={locale} dir={dir} className={notoNaskhArabic.variable}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=IBM+Plex+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet" />
+        {/* Noto Sans SC (zh) loaded here, not via next/font/google: next/font's Google metadata
+            for "Noto Sans SC" only lists latin/latin-ext/cyrillic/vietnamese subsets — no
+            Simplified Chinese subset is exposed through it in this Next.js version, so
+            next/font can serve Latin glyphs only, not Chinese ones. The plain CSS2 endpoint
+            (used here, same as the other three faces already were) subsets CJK correctly. */}
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>

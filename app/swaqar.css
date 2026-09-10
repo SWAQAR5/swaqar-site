@@ -14,6 +14,12 @@
   --sans:'DM Sans',system-ui,sans-serif;
   --ease:cubic-bezier(0.16,1,0.3,1);
 }
+/* Locale-aware type — every rule in this file reaches its font through var(--serif)/var(--sans),
+   so overriding the two custom properties per locale re-fonts the whole page without touching
+   any individual font-family declaration. en/fr keep the :root Latin stack above unchanged.
+   --font-ar is the next/font/google-generated variable set on <html> in layout.tsx. */
+html[lang="ar"]{--serif:var(--font-ar);--sans:var(--font-ar)}
+html[lang="zh"]{--serif:'Noto Sans SC',sans-serif;--sans:'Noto Sans SC',sans-serif}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{background:var(--parchment);color:var(--body);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -315,7 +321,6 @@ p{text-align:justify}
 .cor-cap-status{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);font-weight:600;margin-bottom:8px}
 .cor-cap-desc{font-size:.8rem;line-height:1.6;color:var(--body);text-align:left}
 /* ── ARABIC RTL LAYOUT ── */
-html[dir="rtl"] body{font-family:'IBM Plex Arabic','Noto Naskh Arabic','Arial',sans-serif}
 html[dir="rtl"] .banner{flex-direction:row-reverse}
 html[dir="rtl"] nav{flex-direction:row-reverse}
 html[dir="rtl"] .nav-links{flex-direction:row-reverse}
