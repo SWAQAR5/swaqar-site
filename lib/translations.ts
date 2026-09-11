@@ -673,10 +673,13 @@ export const t = {
         { tag: '04', name: 'Renouvellement ou Désengagement', desc: 'Examiner la suite à donner.' },
       ],
       zh: [
-        { tag: '01', name: 'Pre-Activation', desc: '资格就绪评估。', chips: ['交易对手', '核验', '框架'] },
-        { tag: '02', name: 'Activation', desc: '治理机构授权协调。', chips: ['批准', '界定范围'] },
-        { tag: '03', name: 'Live Coordination', desc: '协调通道运行。', chips: ['核验', '单证', '同步', '监督'] },
-        { tag: '04', name: 'Renewal or Disengagement', desc: '审议后续走向。', chips: ['续期', '重置', '退出'] },
+        { tag: '01', name: '预激活', desc: '资格就绪评估。', chips: ['交易对手', '核验', '框架'] },
+        { tag: '02', name: '激活', desc: '治理机构授权协调。', chips: ['批准', '界定范围'] },
+        // REVIEW: "Live Coordination" rendered as "持续协调" (ongoing/continuous coordination),
+        // matching the "active/ongoing" reading chosen for ar/fr rather than a literal "实时协调"
+        // (real-time), which reads closer to broadcast/streaming — translator may prefer the latter.
+        { tag: '03', name: '持续协调', desc: '协调通道运行。', chips: ['核验', '单证', '同步', '监督'] },
+        { tag: '04', name: '续期或退出', desc: '审议后续走向。', chips: ['续期', '重置', '退出'] },
       ],
     },
   },
