@@ -41,13 +41,15 @@ export const t = {
       fr: 'Coordination Commerciale · Afrique · Moyen-Orient · Asie',
       zh: '贸易协调 · 非洲 · 中东 · 亚洲',
     },
-    // REVIEW: "Corridors of Trust" is split across h1line1/h1line2/h1em and fully translated here
-    // (matching the pre-existing AR/FR pattern) rather than kept verbatim as the brand-name rule
-    // would otherwise require — recombining it as one untranslated string would need a JSX change
-    // to the hero heading markup, out of scope for this translation-only pass.
-    h1line1: { en: 'Corridors', ar: 'ممرات', fr: 'Corridors', zh: '信任' },
-    h1line2: { en: 'of', ar: 'من', fr: 'de', zh: '的' },
-    h1em: { en: 'Trust', ar: 'الثقة', fr: 'Confiance', zh: '通道' },
+    // RESOLVED (was REVIEW): "Corridors of Trust" is the flagship brand name — kept verbatim in
+    // English across every locale, matching the English headline exactly. No JSX change was
+    // needed: HomeClient.tsx already renders whatever value sits in each key via tx(), so setting
+    // ar/fr/zh equal to the English words is sufficient for the name to render identically in
+    // every locale. No transcreated subtitle was added near it — none was supplied as locked
+    // copy, and inventing one would violate the no-invented-copy rule.
+    h1line1: { en: 'Corridors', ar: 'Corridors', fr: 'Corridors', zh: 'Corridors' },
+    h1line2: { en: 'of', ar: 'of', fr: 'of', zh: 'of' },
+    h1em: { en: 'Trust', ar: 'Trust', fr: 'Trust', zh: 'Trust' },
     desc: {
       en: 'A governance-led Trade Coordination Layer for Africa, the Middle East and Asia. Coordinates verified corridor readiness — without trading, brokering or holding funds.',
       ar: 'طبقة تنسيق تجاري رائدة بالحوكمة لأفريقيا والشرق الأوسط وآسيا. تنسق جاهزية الممرات الموثقة — دون تداول أو وساطة أو حيازة أموال.',
@@ -257,9 +259,8 @@ export const t = {
     ethicsCouncil: {
       name: { en: 'Ethics & Oversight Council', ar: 'مجلس الأخلاقيات والرقابة', fr: 'Conseil d\'Éthique et de Supervision', zh: '道德与监督理事会' },
       desc: {
-        // REVIEW: "FATF" and "GCC" kept as bare acronyms per your no-translate list, rather than
-        // the file's existing convention (spelled-out AR / "GAFI" FR) or the standard local
-        // acronym. Flagging in case the reviewer prefers the localized institutional term.
+        // REVIEW: French "GAFI" is the correct local name for FATF and "CCG" for GCC — translator
+        // may localize these; left verbatim pending their call.
         en: 'Independent institutional review body responsible for ethical governance, mission alignment, and counterparty conduct standards across all corridor engagements. KYC/AML discipline aligned with FATF guidance per jurisdiction.',
         ar: 'هيئة مراجعة مؤسسية مستقلة مسؤولة عن الحوكمة الأخلاقية ومواءمة المهمة ومعايير سلوك الأطراف المقابلة عبر جميع انخراطات الممرات. تلتزم انضباطية KYC/AML بإرشادات FATF وفق كل ولاية قضائية.',
         fr: 'Organe de révision institutionnelle indépendant responsable de la gouvernance éthique, de l\'alignement de la mission et des normes de conduite des contreparties dans tous les engagements de corridor. La discipline KYC/AML est alignée sur les lignes directrices du FATF, selon chaque juridiction.',
@@ -643,13 +644,9 @@ export const t = {
       fr: 'SWAQAR coordonne les conditions d\'une exécution disciplinée des corridors ; elle ne garantit aucun résultat commercial, financier ou opérationnel.',
       zh: 'SWAQAR 协调实现通道纪律性执行所需的各项条件；但不对任何商业、财务或运营结果作出保证。',
     },
-    // Gate names already correct (Pre-Activation → Renewal or Disengagement, not translated here
-    // — see REVIEW below); desc/chips are new V2.0 copy translated fresh. ar/fr items keep their
-    // existing tag/name/desc shape only (no chips field), per instruction to leave ar/fr structure
-    // as-is; zh follows the new en shape with chips included.
-    // REVIEW: gate `name` (Pre-Activation/Activation/Live Coordination/Renewal or Disengagement)
-    // was left in English in ar/fr per the existing file convention of NOT translating these once
-    // they were locked as the V2.0 stage names — flag if you actually want them translated too.
+    // RESOLVED (was REVIEW): gate stage names are descriptive, not brand names — now translated
+    // in ar/fr (zh still has the English stage names from the prior pass; not touched here since
+    // only ar/fr were named in this decision — flagging in the report for your call on zh too).
     gatesList: {
       en: [
         { tag: '01', name: 'Pre-Activation', desc: 'Qualify readiness.', chips: ['Counterparties', 'Verification', 'Framework'] },
@@ -658,16 +655,22 @@ export const t = {
         { tag: '04', name: 'Renewal or Disengagement', desc: 'Review what happens next.', chips: ['Renew', 'Reset', 'Disengage'] },
       ],
       ar: [
-        { tag: '01', name: 'Pre-Activation', desc: 'تأهيل الجاهزية.' },
-        { tag: '02', name: 'Activation', desc: 'تأذن الحوكمة بالتنسيق.' },
-        { tag: '03', name: 'Live Coordination', desc: 'تنسيق الممر.' },
-        { tag: '04', name: 'Renewal or Disengagement', desc: 'مراجعة الخطوة التالية.' },
+        { tag: '01', name: 'ما قبل التفعيل', desc: 'تأهيل الجاهزية.' },
+        { tag: '02', name: 'التفعيل', desc: 'تأذن الحوكمة بالتنسيق.' },
+        // REVIEW: "Live Coordination" rendered as "التنسيق المباشر" (direct/ongoing coordination)
+        // — a reasonable reading of "live" here as "active/ongoing" rather than broadcast-live;
+        // translator may prefer an alternative such as "التنسيق الجاري".
+        { tag: '03', name: 'التنسيق المباشر', desc: 'تنسيق الممر.' },
+        { tag: '04', name: 'التجديد أو الانسحاب', desc: 'مراجعة الخطوة التالية.' },
       ],
       fr: [
-        { tag: '01', name: 'Pre-Activation', desc: 'Qualifier la préparation.' },
+        { tag: '01', name: 'Pré-Activation', desc: 'Qualifier la préparation.' },
         { tag: '02', name: 'Activation', desc: 'La gouvernance autorise la coordination.' },
-        { tag: '03', name: 'Live Coordination', desc: 'Coordonner le corridor.' },
-        { tag: '04', name: 'Renewal or Disengagement', desc: 'Examiner la suite à donner.' },
+        // REVIEW: "Live Coordination" rendered as "Coordination Active" (ongoing/active
+        // coordination) rather than a literal "en direct" (which reads as broadcast-live in
+        // French) — translator may prefer "Coordination en Cours" instead.
+        { tag: '03', name: 'Coordination Active', desc: 'Coordonner le corridor.' },
+        { tag: '04', name: 'Renouvellement ou Désengagement', desc: 'Examiner la suite à donner.' },
       ],
       zh: [
         { tag: '01', name: 'Pre-Activation', desc: '资格就绪评估。', chips: ['交易对手', '核验', '框架'] },
@@ -710,37 +713,35 @@ export const t = {
         ['06','SWAQAR Institutional Advisory','Counsel-validated advisory on corridor architecture, governance design, and institutional positioning. Governance-level engagement, not transaction-level.'],
         ['07','SWAQAR Industrial & Trade Development','Coordination support for industrial and trade-development ecosystems across corridor regions. Partnership-led; no asset ownership.'],
       ],
-      // REVIEW: arm titles ("SWAQAR Corridors of Trust", "SWAQAR Intelligence", etc.) are
-      // themselves brand names for each business line, similar in kind to "Corridors of Trust" —
-      // translated here (matching the file's existing convention for arm titles, e.g. AR already
-      // rendered "SWAQAR Corridors of Trust" as "ممرات الثقة سواقر") rather than kept verbatim.
-      // Flag if these should instead stay in English like the flagship product name.
+      // RESOLVED (was REVIEW): arm titles are brand names for each business line, same category
+      // as "Corridors of Trust" — the full "SWAQAR ___" name is kept verbatim in English across
+      // every locale; only the description (3rd element) is localized.
       ar: [
-        ['٠١','ممرات الثقة سواقر','حوكمة أساسية للممرات عبر أفريقيا والشرق الأوسط وآسيا — تحت حوكمة التحقق وغير وصائية.'],
-        ['٠٢','سواقر للاستخبارات','استخبارات الممرات وإشارات السوق وبيانات مخاطر الأطراف المقابلة — مجمَعة بشكل قانوني ومصدرها أخلاقي.'],
-        ['٠٣','سواقر لتنسيق رأس المال والتمويل التجاري','تنسيق الوصول إلى مؤسسات التمويل التجاري المرخصة. لا وصاية أبداً، ولا صفة مدير مالي أبداً.'],
-        ['٠٤','سواقر لتنسيق البنية التحتية واللوجستيات','مواءمة التوثيق وتزامن أصحاب المصلحة مع مشغلي اللوجستيات والبنية التحتية المرخصين. لا ملكية للأصول، ولا لوجستيات تشغيلية.'],
-        ['٠٥','سواقر للأنظمة الرقمية','أنظمة رقمية داعمة للحوكمة لتنسيق الممرات. لا منصة، ولا سوق، ولا تنفيذ ذاتي.'],
-        ['٠٦','سواقر للاستشارات المؤسسية','استشارات معتمدة من المستشارين حول هيكل الممرات وتصميم الحوكمة والتموضع المؤسسي. انخراط على مستوى الحوكمة، لا على مستوى المعاملات.'],
-        ['٠٧','سواقر للتنمية الصناعية والتجارية','دعم تنسيقي لمنظومات التنمية الصناعية والتجارية عبر مناطق الممرات. بقيادة الشراكة؛ دون ملكية للأصول.'],
+        ['٠١','SWAQAR Corridors of Trust','حوكمة أساسية للممرات عبر أفريقيا والشرق الأوسط وآسيا — تحت حوكمة التحقق وغير وصائية.'],
+        ['٠٢','SWAQAR Intelligence','استخبارات الممرات وإشارات السوق وبيانات مخاطر الأطراف المقابلة — مجمَعة بشكل قانوني ومصدرها أخلاقي.'],
+        ['٠٣','SWAQAR Capital & Trade Finance Coordination','تنسيق الوصول إلى مؤسسات التمويل التجاري المرخصة. لا وصاية أبداً، ولا صفة مدير مالي أبداً.'],
+        ['٠٤','SWAQAR Infrastructure & Logistics Coordination','مواءمة التوثيق وتزامن أصحاب المصلحة مع مشغلي اللوجستيات والبنية التحتية المرخصين. لا ملكية للأصول، ولا لوجستيات تشغيلية.'],
+        ['٠٥','SWAQAR Digital Systems','أنظمة رقمية داعمة للحوكمة لتنسيق الممرات. لا منصة، ولا سوق، ولا تنفيذ ذاتي.'],
+        ['٠٦','SWAQAR Institutional Advisory','استشارات معتمدة من المستشارين حول هيكل الممرات وتصميم الحوكمة والتموضع المؤسسي. انخراط على مستوى الحوكمة، لا على مستوى المعاملات.'],
+        ['٠٧','SWAQAR Industrial & Trade Development','دعم تنسيقي لمنظومات التنمية الصناعية والتجارية عبر مناطق الممرات. بقيادة الشراكة؛ دون ملكية للأصول.'],
       ],
       fr: [
-        ['01','SWAQAR Corridors de Confiance','Gouvernance centrale des corridors à travers l\'Afrique, le Moyen-Orient et l\'Asie — gouvernée par la vérification et non-dépositaire.'],
+        ['01','SWAQAR Corridors of Trust','Gouvernance centrale des corridors à travers l\'Afrique, le Moyen-Orient et l\'Asie — gouvernée par la vérification et non-dépositaire.'],
         ['02','SWAQAR Intelligence','Renseignement sur les corridors, signaux de marché et données de risque des contreparties — collectés légalement et sourcés de manière éthique.'],
-        ['03','SWAQAR Coordination Capital & Financement Commercial','Coordination de l\'accès aux institutions de financement commercial agréées. Jamais dépositaire. Jamais principal financier.'],
-        ['04','SWAQAR Coordination Infrastructure & Logistique','Alignement de la documentation et synchronisation des parties prenantes avec des opérateurs logistiques et d\'infrastructure agréés. Aucune propriété d\'actifs, aucune logistique opérationnelle.'],
-        ['05','SWAQAR Systèmes Numériques','Systèmes numériques au service de la gouvernance pour la coordination des corridors. Aucune plateforme, aucune place de marché, aucune exécution autonome.'],
-        ['06','SWAQAR Conseil Institutionnel','Conseil validé par des conseillers sur l\'architecture des corridors, la conception de la gouvernance et le positionnement institutionnel. Engagement au niveau de la gouvernance, non au niveau transactionnel.'],
-        ['07','SWAQAR Développement Industriel & Commercial','Soutien à la coordination des écosystèmes de développement industriel et commercial à travers les régions de corridors. Piloté par le partenariat ; aucune propriété d\'actifs.'],
+        ['03','SWAQAR Capital & Trade Finance Coordination','Coordination de l\'accès aux institutions de financement commercial agréées. Jamais dépositaire. Jamais principal financier.'],
+        ['04','SWAQAR Infrastructure & Logistics Coordination','Alignement de la documentation et synchronisation des parties prenantes avec des opérateurs logistiques et d\'infrastructure agréés. Aucune propriété d\'actifs, aucune logistique opérationnelle.'],
+        ['05','SWAQAR Digital Systems','Systèmes numériques au service de la gouvernance pour la coordination des corridors. Aucune plateforme, aucune place de marché, aucune exécution autonome.'],
+        ['06','SWAQAR Institutional Advisory','Conseil validé par des conseillers sur l\'architecture des corridors, la conception de la gouvernance et le positionnement institutionnel. Engagement au niveau de la gouvernance, non au niveau transactionnel.'],
+        ['07','SWAQAR Industrial & Trade Development','Soutien à la coordination des écosystèmes de développement industriel et commercial à travers les régions de corridors. Piloté par le partenariat ; aucune propriété d\'actifs.'],
       ],
       zh: [
-        ['01','SWAQAR 信任通道','覆盖非洲、中东与亚洲的核心通道治理——以核验为治理基础，非托管。'],
-        ['02','SWAQAR 情报', '通道情报、市场信号及交易对手风险数据——合法采集，来源合乎道德规范。'],
-        ['03','SWAQAR 资本与贸易融资协调','协调机构获取持牌贸易融资机构的渠道。绝不托管，绝不充当金融主体。'],
-        ['04','SWAQAR 基础设施与物流协调','与持牌物流及基础设施运营方进行单证对接与相关方同步。不持有资产所有权，不从事实际物流运营。'],
-        ['05','SWAQAR 数字系统','为通道协调提供支持治理的数字系统。没有平台，没有交易市场，没有自主执行。'],
-        ['06','SWAQAR 机构咨询','就通道架构、治理设计与机构定位提供经顾问核验的咨询意见。属于治理层面的参与，而非交易层面的参与。'],
-        ['07','SWAQAR 工业与贸易发展','为通道各区域的工业与贸易发展生态体系提供协调支持。以合作伙伴关系为主导；不持有资产所有权。'],
+        ['01','SWAQAR Corridors of Trust','覆盖非洲、中东与亚洲的核心通道治理——以核验为治理基础，非托管。'],
+        ['02','SWAQAR Intelligence', '通道情报、市场信号及交易对手风险数据——合法采集，来源合乎道德规范。'],
+        ['03','SWAQAR Capital & Trade Finance Coordination','协调机构获取持牌贸易融资机构的渠道。绝不托管，绝不充当金融主体。'],
+        ['04','SWAQAR Infrastructure & Logistics Coordination','与持牌物流及基础设施运营方进行单证对接与相关方同步。不持有资产所有权，不从事实际物流运营。'],
+        ['05','SWAQAR Digital Systems','为通道协调提供支持治理的数字系统。没有平台，没有交易市场，没有自主执行。'],
+        ['06','SWAQAR Institutional Advisory','就通道架构、治理设计与机构定位提供经顾问核验的咨询意见。属于治理层面的参与，而非交易层面的参与。'],
+        ['07','SWAQAR Industrial & Trade Development','为通道各区域的工业与贸易发展生态体系提供协调支持。以合作伙伴关系为主导；不持有资产所有权。'],
       ],
     },
   },
