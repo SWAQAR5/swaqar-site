@@ -69,6 +69,10 @@ export const t = {
       zh: '提交机构咨询',
     },
     scroll: { en: 'Scroll', ar: 'مرر', fr: 'Défiler', zh: '向下滚动' },
+    // NEW key — hero tag rendered beneath the sub-paragraph, above the CTA buttons (Placement A).
+    // en from main; no prior ar/fr/zh existed on either branch for this key, so left "" (not
+    // invented) rather than guessed — pending translation like other untranslated new keys.
+    tag: { en: 'Non-custodial by design', ar: '', fr: '', zh: '' },
   },
 
   // ── STATS ── // draft
@@ -79,8 +83,12 @@ export const t = {
     // stat tile, which V2.0 removes. This key now pairs with stat-n "Phase I" to read "Phase I Foundation".
     phaseFoundation: { en: 'Foundation', ar: 'التأسيس', fr: 'Fondation', zh: '基础建设期' },
     // Renamed from `strategicArms` — old key held "Strategic Arms" paired with a "7" stat tile,
-    // which V2.0 removes. This key now pairs with stat-n "Non-custodial" to read "Non-custodial by design".
-    nonCustodialByDesign: { en: 'by design', ar: 'بالتصميم', fr: 'par conception', zh: '设计使然' },
+    // which V2.0 removes. This key now pairs with stat-n "Non-custodial" to read "Non-custodial
+    // structure" (was "by design" — changed on main so the exact phrase "Non-custodial by design"
+    // isn't repeated verbatim now that the hero also carries it as a tag).
+    // MERGE NOTE: en taken from main ("structure"); ar/fr/zh kept from this branch, which still
+    // translate the old "by design" wording — stale until re-translated to match "structure".
+    nonCustodialByDesign: { en: 'structure', ar: 'بالتصميم', fr: 'par conception', zh: '设计使然' },
   },
 
   // ── MISSION ── // draft
@@ -143,11 +151,13 @@ export const t = {
       },
     },
     intentLabel: { en: 'Strategic Intent:', ar: 'النية الاستراتيجية:', fr: 'Intention Stratégique :', zh: '战略意图：' },
+    // draft v2.1 - re-translated, needs review (en shortened by main's v2.1 trim; ar/fr/zh below
+    // redrafted to match, dropping the "infrastructure layer..." clause the English also dropped)
     intentTxt: {
-      en: 'SWAQAR intends to become the institutional reference point for corridor coordination governance across Africa, the Middle East, and Asia — the infrastructure layer that makes trade between these regions more verified, more trusted, and more executable. This is a multi-decade intention, subject to evidence, governance discipline, and counsel-validated milestones.',
-      ar: 'تعتزم سواقر أن تصبح المرجع المؤسسي لحوكمة تنسيق الممرات عبر أفريقيا والشرق الأوسط وآسيا — الطبقة التحتية التي تجعل التجارة بين هذه المناطق أكثر توثيقاً وثقة وقابلية للتنفيذ. هذه نية تمتد لعقود، خاضعة للأدلة وانضباط الحوكمة والمعالم المعتمدة من المستشارين.',
-      fr: 'SWAQAR a pour intention de devenir le point de référence institutionnel pour la gouvernance de la coordination des corridors à travers l\'Afrique, le Moyen-Orient et l\'Asie — la couche d\'infrastructure qui rend le commerce entre ces régions plus vérifié, plus fiable et plus exécutable. Il s\'agit d\'une intention pluridécennale, soumise à des preuves, à la discipline de gouvernance et à des jalons validés par des conseillers.',
-      zh: 'SWAQAR 志在成为非洲、中东与亚洲通道协调治理的机构性基准——成为使这些区域间贸易更经核验、更值得信赖、更可执行的基础层。这是一项跨越数十年的意图，须以证据、治理纪律及经顾问核验的里程碑为准绳。',
+      en: 'SWAQAR intends to become the institutional reference point for corridor coordination governance across Africa, the Middle East, and Asia — a multi-decade intention, subject to governance discipline and counsel-validated milestones.',
+      ar: 'تعتزم سواقر أن تصبح المرجع المؤسسي لحوكمة تنسيق الممرات عبر أفريقيا والشرق الأوسط وآسيا — نية تمتد لعقود، خاضعة لانضباط الحوكمة وللمعالم المعتمدة من المستشارين.',
+      fr: 'SWAQAR a pour intention de devenir le point de référence institutionnel pour la gouvernance de la coordination des corridors à travers l\'Afrique, le Moyen-Orient et l\'Asie — une intention pluridécennale, soumise à la discipline de gouvernance et à des jalons validés par des conseillers.',
+      zh: 'SWAQAR 志在成为非洲、中东与亚洲通道协调治理的机构性基准——这是一项跨越数十年的意图，须以治理纪律及经顾问核验的里程碑为准绳。',
     },
   },
 
@@ -328,30 +338,32 @@ export const t = {
       zh: '请描述机构参与的具体目的，内容应尽量详实明确。',
     },
     processTag: { en: 'What Happens After You Submit', ar: 'ماذا يحدث بعد تقديم الطلب', fr: 'Ce qui se Passe Après la Soumission', zh: '提交后的流程' },
+    // draft v2.1 - re-translated, needs review (en tightened by main's v2.1 trim — both the
+    // strong labels and rest text shortened; ar/fr/zh below redrafted to match)
     processSteps: {
       en: [
-        { strong: 'Inquiry received', rest: ' — your submission enters SWAQAR\'s institutional review queue. All inquiries are acknowledged.' },
-        { strong: 'Eligibility review', rest: ' — your inquiry is assessed against SWAQAR\'s counterparty eligibility criteria and engagement category requirements.' },
-        { strong: 'Qualification gate initiated', rest: ' — eligible counterparties are invited to begin the Partner Qualification Gate process under SWAQAR\'s governance framework.' },
-        { strong: 'Engagement confirmed or declined', rest: ' — all outcomes are communicated in writing. SWAQAR does not proceed without a confirmed governance-compliant engagement framework in place.' },
+        { strong: 'Inquiry received', rest: ' — enters SWAQAR\'s institutional review queue.' },
+        { strong: 'Eligibility review', rest: ' — assessed against counterparty criteria.' },
+        { strong: 'Qualification gate', rest: ' — eligible counterparties begin the Partner Qualification process.' },
+        { strong: 'Confirmed or declined', rest: ' — all outcomes communicated in writing.' },
       ],
       ar: [
-        { strong: 'استلام الاستفسار', rest: ' — يدخل طلبك في قائمة المراجعة المؤسسية لدى سواقر. يُقرّ استلام جميع الاستفسارات.' },
-        { strong: 'مراجعة الأهلية', rest: ' — يُقيَّم استفسارك وفق معايير أهلية الأطراف المقابلة ومتطلبات فئة الانخراط لدى سواقر.' },
-        { strong: 'بدء بوابة التأهل', rest: ' — تُدعى الأطراف المؤهلة لبدء عملية بوابة تأهل الشركاء ضمن إطار حوكمة سواقر.' },
-        { strong: 'تأكيد الانخراط أو رفضه', rest: ' — تُبلَّغ جميع النتائج كتابياً. لا تمضي سواقر دون إطار انخراط مؤكَّد ومتوافق مع الحوكمة.' },
+        { strong: 'استلام الاستفسار', rest: ' — يدخل ضمن قائمة المراجعة المؤسسية لدى سواقر.' },
+        { strong: 'مراجعة الأهلية', rest: ' — يُقيَّم وفق معايير أهلية الأطراف المقابلة.' },
+        { strong: 'بوابة التأهل', rest: ' — تبدأ الأطراف المؤهلة عملية تأهل الشركاء.' },
+        { strong: 'التأكيد أو الرفض', rest: ' — تُبلَّغ جميع النتائج كتابياً.' },
       ],
       fr: [
-        { strong: 'Demande reçue', rest: ' — votre soumission entre dans la file d\'examen institutionnel de SWAQAR. Toutes les demandes font l\'objet d\'un accusé de réception.' },
-        { strong: 'Examen d\'éligibilité', rest: ' — votre demande est évaluée selon les critères d\'éligibilité des contreparties et les exigences de catégorie d\'engagement de SWAQAR.' },
-        { strong: 'Porte de qualification initiée', rest: ' — les contreparties éligibles sont invitées à entamer le processus de Porte de Qualification des Partenaires, dans le cadre de gouvernance de SWAQAR.' },
-        { strong: 'Engagement confirmé ou refusé', rest: ' — tous les résultats sont communiqués par écrit. SWAQAR ne procède pas sans un cadre d\'engagement confirmé et conforme à la gouvernance.' },
+        { strong: 'Demande reçue', rest: ' — entre dans la file d\'examen institutionnel de SWAQAR.' },
+        { strong: 'Examen d\'éligibilité', rest: ' — évaluée selon les critères d\'éligibilité des contreparties.' },
+        { strong: 'Porte de qualification', rest: ' — les contreparties éligibles entament le processus de Qualification des Partenaires.' },
+        { strong: 'Confirmé ou refusé', rest: ' — tous les résultats sont communiqués par écrit.' },
       ],
       zh: [
-        { strong: '咨询接收', rest: '——您的提交将进入 SWAQAR 的机构审查队列。所有咨询均会收到确认回执。' },
-        { strong: '资格审查', rest: '——您的咨询将依据 SWAQAR 的交易对手资格标准及参与类别要求进行评估。' },
-        { strong: '启动资格认证关口', rest: '——符合条件的交易对手将获邀在 SWAQAR 治理框架下启动合作伙伴资格认证关口流程。' },
-        { strong: '参与确认或婉拒', rest: '——所有结果均以书面形式告知。若未确立符合治理要求的参与框架，SWAQAR 不会推进后续流程。' },
+        { strong: '咨询接收', rest: '——进入 SWAQAR 的机构审查队列。' },
+        { strong: '资格审查', rest: '——依据交易对手资格标准进行评估。' },
+        { strong: '资格认证关口', rest: '——符合条件的交易对手启动合作伙伴资格认证流程。' },
+        { strong: '确认或婉拒', rest: '——所有结果均以书面形式告知。' },
       ],
     },
     disclaimer: {
@@ -563,60 +575,10 @@ export const t = {
       fr: 'Coordination des flux de matières premières agricoles entre des exportateurs africains vérifiés et des acheteurs institutionnels au Moyen-Orient et en Asie. SWAQAR coordonne les conditions institutionnelles — elle ne négocie pas, n\'agit pas comme courtier, ne détient aucun titre de propriété et n\'agit comme opérateur logistique à aucun stade.',
       zh: '协调经核验的非洲出口商与中东、亚洲机构买家之间的农产品流动。SWAQAR 协调的是机构层面的条件——在任何阶段均不从事交易、不担任经纪方、不持有所有权，也不充当物流运营方。',
     },
-    // `name` fields regenerated to match current .en ("" — region role labels were removed from
-    // English in V2.0; old ar/fr still had the pre-removal role labels, now cleared to match).
-    roles: {
-      en: [
-        { region: 'Africa', name: '', desc: 'Verified agricultural exporters across East and West Africa. Commodity readiness, documentation alignment, and counterparty qualification coordinated through licensed TIC partners.' },
-        { region: 'Middle East · Jeddah', name: '', desc: 'Institutional capital depth, Islamic trade finance infrastructure, and GCC sovereign food security demand. SWAQAR\'s institutional centre of gravity — coordinating alongside, not within, regional financial institutions.' },
-        { region: 'Asia', name: '', desc: 'Institutional buyers, processing entities, and industrial demand anchors across India, China, and Southeast Asia. Counterparty verification and documentation governance coordinated for Asian demand-side engagement.' },
-      ],
-      ar: [
-        { region: 'أفريقيا', name: '', desc: 'مصدرون زراعيون موثقون في شرق أفريقيا وغربها. جاهزية السلع ومواءمة التوثيق وتأهيل الأطراف المقابلة منسقة عبر شركاء TIC المرخصين.' },
-        { region: 'الشرق الأوسط · جدة', name: '', desc: 'عمق رأس المال المؤسسي، وبنية التمويل التجاري الإسلامي، والطلب السيادي على الأمن الغذائي لدول GCC. مركز الثقل المؤسسي لسواقر — ينسق إلى جانب المؤسسات المالية الإقليمية، وليس ضمنها.' },
-        { region: 'آسيا', name: '', desc: 'مشترون مؤسسيون وكيانات معالجة ومراسي طلب صناعي عبر الهند والصين وجنوب شرق آسيا. التحقق من الأطراف المقابلة وحوكمة التوثيق منسقان لانخراط جانب الطلب الآسيوي.' },
-      ],
-      fr: [
-        { region: 'Afrique', name: '', desc: 'Exportateurs agricoles vérifiés en Afrique de l\'Est et de l\'Ouest. Préparation des matières premières, alignement de la documentation et qualification des contreparties coordonnés via des partenaires TIC agréés.' },
-        { region: 'Moyen-Orient · Djeddah', name: '', desc: 'Profondeur du capital institutionnel, infrastructure de financement commercial islamique et demande souveraine de sécurité alimentaire du GCC. Centre de gravité institutionnel de SWAQAR — coordonnant aux côtés des institutions financières régionales, non en leur sein.' },
-        { region: 'Asie', name: '', desc: 'Acheteurs institutionnels, entités de transformation et ancres de demande industrielle en Inde, en Chine et en Asie du Sud-Est. Vérification des contreparties et gouvernance documentaire coordonnées pour l\'engagement côté demande asiatique.' },
-      ],
-      zh: [
-        { region: '非洲', name: '', desc: '遍及东非与西非的经核验农产品出口商。大宗商品就绪状态、单证一致性及交易对手资格认定，均通过持牌 TIC 合作伙伴协调完成。' },
-        { region: '中东 · 吉达', name: '', desc: '深厚的机构资本、伊斯兰贸易融资基础设施，以及 GCC 主权层面的粮食安全需求。这里是 SWAQAR 的机构重心所在——与区域金融机构并肩协调，而非置身其中。' },
-        { region: '亚洲', name: '', desc: '遍及印度、中国及东南亚的机构买家、加工实体与工业需求支点。交易对手核验与单证治理，均为亚洲需求侧参与而协调。' },
-      ],
-    },
-    coordinates: {
-      en: [
-        { strong: 'Counterparty verification', rest: 'Exporters and buyers qualified through the Partner Qualification Gate via licensed TIC firms — SGS, Bureau Veritas, and Intertek.' },
-        { strong: 'Documentation alignment', rest: 'Commercial, regulatory, financial, and logistics documentation coordinated across all corridor jurisdictions under a counsel-validated framework.' },
-        { strong: 'Banking panel readiness', rest: 'Corridor participants aligned with Islamic trade finance instruments — Murabaha, Wakala, L/C under UCP 600 — through ITFC and GCC banking partners.' },
-        { strong: 'Stakeholder synchronization', rest: 'Banks, TIC firms, exporters, buyers, logistics operators, and regulators sequenced under SWAQAR\'s Corridor Operating System.' },
-        { strong: 'Governance oversight', rest: 'Every coordinated transaction moves through the full Four-Gate Model under Supreme Council mandate. The escalation path is defined before any execution begins.' },
-      ],
-      ar: [
-        { strong: 'التحقق من الأطراف المقابلة', rest: 'تأهيل المصدرين والمشترين عبر بوابة تأهل الشركاء من خلال شركات TIC مرخصة — SGS وBureau Veritas وIntertek.' },
-        { strong: 'مواءمة التوثيق', rest: 'توثيق تجاري وتنظيمي ومالي ولوجستي منسق عبر جميع الولايات القضائية للممر ضمن إطار معتمد من المستشارين.' },
-        { strong: 'جاهزية لجنة البنوك', rest: 'مشاركو الممر متوافقون مع أدوات التمويل التجاري الإسلامي — المرابحة، الوكالة، خطاب الاعتماد وفق UCP 600 — عبر ITFC وشركاء بنوك GCC.' },
-        { strong: 'تزامن أصحاب المصلحة', rest: 'البنوك وشركات TIC والمصدرون والمشترون والمشغلون اللوجستيون والجهات التنظيمية، مرتبون تسلسلياً ضمن نظام تشغيل الممرات لدى سواقر.' },
-        { strong: 'الرقابة على الحوكمة', rest: 'تمر كل معاملة منسقة عبر نموذج البوابات الأربع الكامل تحت تفويض المجلس الأعلى. مسار التصعيد محدد قبل بدء أي تنفيذ.' },
-      ],
-      fr: [
-        { strong: 'Vérification des contreparties', rest: 'Exportateurs et acheteurs qualifiés via la Porte de Qualification des Partenaires par des firmes TIC agréées — SGS, Bureau Veritas et Intertek.' },
-        { strong: 'Alignement de la documentation', rest: 'Documentation commerciale, réglementaire, financière et logistique coordonnée dans toutes les juridictions du corridor, selon un cadre validé par des conseillers.' },
-        { strong: 'Préparation du panel bancaire', rest: 'Participants du corridor alignés avec les instruments de financement commercial islamique — Mourabaha, Wakala, lettre de crédit selon les UCP 600 — via l\'ITFC et les partenaires bancaires du GCC.' },
-        { strong: 'Synchronisation des parties prenantes', rest: 'Banques, firmes TIC, exportateurs, acheteurs, opérateurs logistiques et régulateurs séquencés sous le système d\'exploitation de corridor de SWAQAR.' },
-        { strong: 'Supervision de gouvernance', rest: 'Chaque transaction coordonnée passe par le Modèle à Quatre Portes dans son intégralité, sous mandat du Conseil Suprême. Le chemin d\'escalade est défini avant tout début d\'exécution.' },
-      ],
-      zh: [
-        { strong: '交易对手核验', rest: '出口商与买方通过合作伙伴资格认证关口，由持牌 TIC 机构——SGS、必维国际检验集团（Bureau Veritas）及天祥集团（Intertek）——完成资格认定。' },
-        { strong: '单证一致性', rest: '商业、监管、金融与物流单证在经顾问核验的框架下，于通道所涉全部司法管辖区内协调一致。' },
-        { strong: '银行小组就绪', rest: '通道参与方通过 ITFC 及 GCC 银行合作伙伴，与伊斯兰贸易融资工具（穆拉巴哈 Murabaha、瓦卡拉 Wakala、UCP 600 项下信用证）对接一致。' },
-        { strong: '相关方同步', rest: '银行、TIC 机构、出口商、买方、物流运营方及监管机构，在 SWAQAR 通道运行体系下按序衔接。' },
-        { strong: '治理监督', rest: '每一笔经协调的交易均须在最高理事会授权下，完整经历四关协调模型。升级路径在任何执行开始之前即已明确界定。' },
-      ],
-    },
+    // MERGE NOTE: corridors.roles and corridors.coordinates were deleted here, following main —
+    // main removed both keys (and their JSX) in the v2.1 trim; this branch's fully-translated
+    // ar/fr/zh for them are discarded along with the English, since the content no longer renders
+    // anywhere.
     activeFooterTxt: {
       en: 'SWAQAR holds no title, cargo, funds, or physical assets in this corridor at any stage. Licensed parties execute; counterparties contract directly with each other. SWAQAR coordinates the institutional conditions under which they engage.',
       ar: 'لا تحتفظ سواقر بأي حق ملكية أو شحنات أو أموال أو أصول مادية في هذا الممر في أي مرحلة. تنفذ الأطراف المرخصة؛ وتتعاقد الأطراف المقابلة مباشرة فيما بينها. تنسق سواقر الشروط المؤسسية التي بموجبها تتعامل.',
