@@ -184,6 +184,7 @@ export default function HomeClient({ locale }: { locale: string }) {
           <div className="eyebrow r"><div className="eyebrow-line"></div><span className="eyebrow-text">{tx(t.hero.eyebrow, lang)}</span></div>
           <h1 className="hero-h1 r" data-d="1">{tx(t.hero.h1line1, lang)}<br/>{tx(t.hero.h1line2, lang)} <em>{tx(t.hero.h1em, lang)}</em></h1>
           <p className="hero-desc r" data-d="3">{tx(t.hero.desc, lang)}</p>
+          <div className="eyebrow r" data-d="3"><div className="eyebrow-line"></div><span className="eyebrow-text">{tx(t.hero.tag, lang)}</span></div>
           <div className="hero-btns r" data-d="4">
             <a href="#contact" className="btn-gold"><span>{tx(t.hero.btnInquiry, lang)}</span><svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></a>
             <a href="#corridors" className="btn-ghost-light">{tx(t.hero.btnExplore, lang)}</a>

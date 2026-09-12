@@ -52,6 +52,8 @@ export const t = {
       fr: 'Demande Institutionnelle',
     },
     scroll: { en: 'Scroll', ar: 'مرر', fr: 'Défiler' },
+    // NEW key — hero tag rendered beneath the sub-paragraph, above the CTA buttons (Placement A).
+    tag: { en: 'Non-custodial by design', ar: '', fr: '' },
   },
 
   // ── STATS ──
@@ -62,8 +64,11 @@ export const t = {
     // stat tile, which V2.0 removes. This key now pairs with stat-n "Phase I" to read "Phase I Foundation".
     phaseFoundation: { en: 'Foundation', ar: '', fr: '' },
     // Renamed from `strategicArms` — old key held "Strategic Arms" paired with a "7" stat tile,
-    // which V2.0 removes. This key now pairs with stat-n "Non-custodial" to read "Non-custodial by design".
-    nonCustodialByDesign: { en: 'by design', ar: '', fr: '' },
+    // which V2.0 removes. This key now pairs with stat-n "Non-custodial" to read "Non-custodial
+    // structure" (was "by design" — changed so the exact phrase "Non-custodial by design" isn't
+    // repeated verbatim now that the hero also carries it as a tag; key name kept for continuity
+    // even though it no longer literally matches its value).
+    nonCustodialByDesign: { en: 'structure', ar: '', fr: '' },
   },
 
   // ── MISSION ──
