@@ -4,13 +4,12 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { t, tx, type Lang } from '@/lib/translations';
 
+const SUPPORTED_LOCALES: Lang[] = ['en', 'ar', 'fr', 'zh'];
+
 export default function HomeClient({ locale }: { locale: string }) {
-  // Job 6 · Stage 1 is locale ROUTING only — every locale renders this same
-  // English content (lib/translations.ts already has full AR/FR strings from
-  // earlier work, but wiring the URL locale into content selection is
-  // deliberately deferred to a later stage). `lang` stays fixed so every
-  // existing tx(t.x, lang) call below is untouched and always resolves English.
-  const lang: Lang = 'en';
+  // Derive lang from the URL locale prop. Only fall back to 'en' if `locale` isn't one of the
+  // locales lib/translations.ts actually has data for — never override a valid non-en locale.
+  const lang: Lang = SUPPORTED_LOCALES.includes(locale as Lang) ? (locale as Lang) : 'en';
   const pathname = usePathname();
   const router = useRouter();
   const switchLocale = (target: string) => {
