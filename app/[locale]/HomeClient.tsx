@@ -32,6 +32,11 @@ export default function HomeClient({ locale }: { locale: string }) {
   // by search engines and screen readers regardless of open/closed state.
   const [openArms, setOpenArms] = useState<boolean[]>([true, false, false, false, false, false, false]);
   const toggleArm = (i: number) => setOpenArms((prev) => prev.map((v, idx) => (idx === i ? !v : v)));
+  // Two new disclosures (copy trim v2.1) — same collapse/expand mechanism as the arms accordion
+  // above (.arm-toggle/.arm-panel/.arm-chevron), reused rather than a new component. Both start
+  // collapsed, since the point of collapsing this legal/governance text is to shorten the page.
+  const [corGovNoteOpen, setCorGovNoteOpen] = useState(false);
+  const [govPositionOpen, setGovPositionOpen] = useState(false);
 
   useEffect(() => {
     const dot = document.getElementById('cur-dot');
@@ -376,32 +381,29 @@ export default function HomeClient({ locale }: { locale: string }) {
                 <div className="cor-gov-note-icon">
                   <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
                 </div>
-                <div>
-                  <div className="cor-gov-note-tag">{tx(t.corridors.govNoteTag, lang)}</div>
-                  <p className="cor-gov-note-txt">{tx(t.corridors.govNoteTxt, lang)}</p>
-                </div>
-              </div>
-              <div className="cor-card-active-inner">
-                <div className="cor-active-left">
-                  <div className="cor-phase-label"><div className="cor-phase-dot" /><span className="cor-phase-txt">{tx(t.corridors.phaseLabel, lang)}</span></div>
-                  <p className="cor-active-desc">{tx(t.corridors.activeDesc, lang)}</p>
-                  <div className="cor-active-roles">
-                    {(t.corridors.roles[lang] ?? t.corridors.roles['en']).map((role, i) => (
-                      <div className="cor-role" key={i}><div className="cor-role-region">{role.region}</div><div className="cor-role-name">{role.name}</div><div className="cor-role-desc">{role.desc}</div></div>
-                    ))}
-                  </div>
-                </div>
-                <div className="cor-active-right">
-                  <div className="cor-coordinates">
-                    {(t.corridors.coordinates[lang] ?? t.corridors.coordinates['en']).map((coord, i) => (
-                      <div className="cor-coord-item" key={i} style={i === 4 ? {gridColumn:'1 / -1'} : undefined}>
-                        <div className="cor-coord-pip" />
-                        <div className="cor-coord-txt"><strong>{coord.strong}</strong>{coord.rest}</div>
-                      </div>
-                    ))}
+                <div style={{flex:1}}>
+                  <button
+                    type="button"
+                    id="cor-gov-note-btn"
+                    className="arm-toggle"
+                    aria-expanded={corGovNoteOpen}
+                    aria-controls="cor-gov-note-panel"
+                    onClick={() => setCorGovNoteOpen(v => !v)}
+                  >
+                    <span className="cor-gov-note-tag">{tx(t.corridors.govNoteTag, lang)}</span>
+                    <svg className="arm-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                      <path d="M9 18l6-6-6-6" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                  <div className="arm-panel" id="cor-gov-note-panel" role="region" aria-labelledby="cor-gov-note-btn" data-open={corGovNoteOpen}>
+                    <div className="arm-panel-inner">
+                      <p className="cor-gov-note-txt">{tx(t.corridors.govNoteTxt, lang)}</p>
+                    </div>
                   </div>
                 </div>
               </div>
+              <div className="cor-phase-label" style={{marginTop:'28px'}}><div className="cor-phase-dot" /><span className="cor-phase-txt">{tx(t.corridors.phaseLabel, lang)}</span></div>
+              <p className="cor-active-desc">{tx(t.corridors.activeDesc, lang)}</p>
               <div className="cor-active-footer">
                 <p className="cor-active-footer-txt">{tx(t.corridors.activeFooterTxt, lang)}</p>
                 <div className="cor-active-footer-tags">
@@ -535,7 +537,25 @@ export default function HomeClient({ locale }: { locale: string }) {
           </div>
           <div className="gov-note r">
             <div className="gov-note-tag">{tx(t.governance.noteTag, lang)}</div>
-            <div className="gov-note-txt">{tx(t.governance.noteTxt, lang)}</div>
+            <button
+              type="button"
+              id="gov-position-btn"
+              className="arm-toggle"
+              aria-expanded={govPositionOpen}
+              aria-controls="gov-position-panel"
+              onClick={() => setGovPositionOpen(v => !v)}
+              style={{marginTop:'8px'}}
+            >
+              <span className="arm-name">{tx(t.footer.footerLinks.reviewGov, lang)}</span>
+              <svg className="arm-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                <path d="M9 18l6-6-6-6" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+            <div className="arm-panel" id="gov-position-panel" role="region" aria-labelledby="gov-position-btn" data-open={govPositionOpen}>
+              <div className="arm-panel-inner">
+                <div className="gov-note-txt">{tx(t.governance.noteTxt, lang)}</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

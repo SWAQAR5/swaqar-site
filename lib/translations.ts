@@ -126,7 +126,7 @@ export const t = {
     },
     intentLabel: { en: 'Strategic Intent:', ar: 'النية الاستراتيجية:', fr: 'Intention Stratégique :' },
     intentTxt: {
-      en: 'SWAQAR intends to become the institutional reference point for corridor coordination governance across Africa, the Middle East, and Asia — the infrastructure layer that makes trade between these regions more verified, more trusted, and more executable. This is a multi-decade intention, subject to evidence, governance discipline, and counsel-validated milestones.',
+      en: 'SWAQAR intends to become the institutional reference point for corridor coordination governance across Africa, the Middle East, and Asia — a multi-decade intention, subject to governance discipline and counsel-validated milestones.',
       ar: 'تعتزم سواقر أن تصبح نقطة المرجع المؤسسية لحوكمة تنسيق الممرات عبر أفريقيا والشرق الأوسط وآسيا — الطبقة التحتية التي تجعل التجارة بين هذه المناطق أكثر توثيقاً وثقة وقابلية للتنفيذ. هذه نية متعددة العقود، خاضعة للأدلة وانضباط الحوكمة والمعالم المعتمدة من المستشارين.',
       fr: 'SWAQAR a l\'intention de devenir le point de référence institutionnel pour la gouvernance de coordination des corridors à travers l\'Afrique, le Moyen-Orient et l\'Asie — la couche d\'infrastructure qui rend le commerce entre ces régions plus vérifié, plus fiable et plus exécutable. Il s\'agit d\'une intention pluridécennale, soumise à des preuves, à la discipline de gouvernance et à des jalons validés par des conseillers.',
     },
@@ -295,10 +295,10 @@ export const t = {
     processTag: { en: 'What Happens After You Submit', ar: 'ماذا يحدث بعد تقديم الطلب', fr: 'Ce qui se Passe Après la Soumission' },
     processSteps: {
       en: [
-        { strong: 'Inquiry received', rest: ' — your submission enters SWAQAR\'s institutional review queue. All inquiries are acknowledged.' },
-        { strong: 'Eligibility review', rest: ' — your inquiry is assessed against SWAQAR\'s counterparty eligibility criteria and engagement category requirements.' },
-        { strong: 'Qualification gate initiated', rest: ' — eligible counterparties are invited to begin the Partner Qualification Gate process under SWAQAR\'s governance framework.' },
-        { strong: 'Engagement confirmed or declined', rest: ' — all outcomes are communicated in writing. SWAQAR does not proceed without a confirmed governance-compliant engagement framework in place.' },
+        { strong: 'Inquiry received', rest: ' — enters SWAQAR\'s institutional review queue.' },
+        { strong: 'Eligibility review', rest: ' — assessed against counterparty criteria.' },
+        { strong: 'Qualification gate', rest: ' — eligible counterparties begin the Partner Qualification process.' },
+        { strong: 'Confirmed or declined', rest: ' — all outcomes communicated in writing.' },
       ],
       ar: [
         { strong: 'استلام الاستفسار', rest: ' — يدخل طلبك في قائمة المراجعة المؤسسية لسواقر. يُقر جميع الاستفسارات.' },
@@ -463,46 +463,6 @@ export const t = {
       en: 'Coordinating agricultural commodity flows between verified African exporters and institutional buyers in the Middle East and Asia. SWAQAR coordinates the institutional conditions — it does not trade, broker, hold title, or act as logistics operator at any stage.',
       ar: 'تنسيق تدفقات السلع الزراعية بين المصدرين الأفارقة الموثقين والمشترين المؤسسيين في الشرق الأوسط وآسيا. تنسق سواقر الشروط المؤسسية — فهي لا تتاجر أو تتوسط أو تحمل الملكية أو تتصرف كمشغل لوجستي في أي مرحلة.',
       fr: 'Coordination des flux de matières premières agricoles entre des exportateurs africains vérifiés et des acheteurs institutionnels au Moyen-Orient et en Asie. SWAQAR coordonne les conditions institutionnelles — elle ne négocie pas, ne courtise pas, ne détient pas de titre, ni n\'agit comme opérateur logistique.',
-    },
-    roles: {
-      en: [
-        { region: 'Africa', name: '', desc: 'Verified agricultural exporters across East and West Africa. Commodity readiness, documentation alignment, and counterparty qualification coordinated through licensed TIC partners.' },
-        { region: 'Middle East · Jeddah', name: '', desc: 'Institutional capital depth, Islamic trade finance infrastructure, and GCC sovereign food security demand. SWAQAR\'s institutional centre of gravity — coordinating alongside, not within, regional financial institutions.' },
-        { region: 'Asia', name: '', desc: 'Institutional buyers, processing entities, and industrial demand anchors across India, China, and Southeast Asia. Counterparty verification and documentation governance coordinated for Asian demand-side engagement.' },
-      ],
-      ar: [
-        { region: 'أفريقيا', name: 'المنشأ والإمداد', desc: 'مصدرون زراعيون موثقون في شرق أفريقيا وغربها. جاهزية السلع ومواءمة التوثيق وتأهيل الأطراف المقابلة منسقة عبر شركاء TIC المرخصين.' },
-        { region: 'الشرق الأوسط · جدة', name: 'مرساة الثقة ورأس المال', desc: 'عمق رأس المال المؤسسي وبنية التمويل التجاري الإسلامي والطلب السيادي على الأمن الغذائي لدول مجلس التعاون الخليجي. مركز ثقل سواقر المؤسسي — ينسق بجانب المؤسسات المالية الإقليمية، وليس ضمنها.' },
-        { region: 'آسيا', name: 'الطلب والحجم الصناعي', desc: 'مشترون مؤسسيون وكيانات معالجة ومراسي الطلب الصناعي عبر الهند والصين وجنوب شرق آسيا. التحقق من الأطراف المقابلة وحوكمة التوثيق منسقة للانخراط من جانب الطلب الآسيوي.' },
-      ],
-      fr: [
-        { region: 'Afrique', name: 'Origine & Approvisionnement', desc: 'Exportateurs agricoles vérifiés en Afrique de l\'Est et de l\'Ouest. Préparation des matières premières, alignement de la documentation et qualification des contreparties coordonnés via des partenaires TIC agréés.' },
-        { region: 'Moyen-Orient · Djeddah', name: 'Ancre de Confiance & Capital', desc: 'Profondeur du capital institutionnel, infrastructure de financement commercial islamique et demande souveraine de sécurité alimentaire du CCG. Centre de gravité institutionnel de SWAQAR — coordonnant aux côtés des institutions financières régionales.' },
-        { region: 'Asie', name: 'Demande & Échelle Industrielle', desc: 'Acheteurs institutionnels, entités de traitement et ancres de demande industrielle en Inde, Chine et Asie du Sud-Est. Vérification des contreparties et gouvernance documentaire coordonnées pour l\'engagement côté demande asiatique.' },
-      ],
-    },
-    coordinates: {
-      en: [
-        { strong: 'Counterparty verification', rest: 'Exporters and buyers qualified through the Partner Qualification Gate via licensed TIC firms — SGS, Bureau Veritas, and Intertek.' },
-        { strong: 'Documentation alignment', rest: 'Commercial, regulatory, financial, and logistics documentation coordinated across all corridor jurisdictions under a counsel-validated framework.' },
-        { strong: 'Banking panel readiness', rest: 'Corridor participants aligned with Islamic trade finance instruments — Murabaha, Wakala, L/C under UCP 600 — through ITFC and GCC banking partners.' },
-        { strong: 'Stakeholder synchronization', rest: 'Banks, TIC firms, exporters, buyers, logistics operators, and regulators sequenced under SWAQAR\'s Corridor Operating System.' },
-        { strong: 'Governance oversight', rest: 'Every coordinated transaction moves through the full Four-Gate Model under Supreme Council mandate. The escalation path is defined before any execution begins.' },
-      ],
-      ar: [
-        { strong: 'التحقق من الأطراف المقابلة', rest: 'تأهيل المصدرين والمشترين عبر بوابة تأهل الشركاء من خلال شركات TIC المرخصة — SGS وBureau Veritas وIntertek.' },
-        { strong: 'مواءمة التوثيق', rest: 'توثيق تجاري وتنظيمي ومالي ولوجستي منسق عبر جميع ولايات قضائية الممر في إطار معتمد من المستشارين.' },
-        { strong: 'جاهزية لجنة البنوك', rest: 'مشاركو الممر متوافقون مع أدوات التمويل التجاري الإسلامي — المرابحة، الوكالة، خطاب الاعتماد وفق UCP 600 — عبر ITFC وشركاء البنوك الخليجية.' },
-        { strong: 'تنسيق أصحاب المصلحة', rest: 'البنوك وشركات TIC والمصدرون والمشترون والمشغلون اللوجستيون والجهات التنظيمية متسلسلون تحت نظام تشغيل ممرات سواقر.' },
-        { strong: 'الرقابة على الحوكمة', rest: 'كل معاملة منسقة تمر عبر نموذج البوابات الأربع الكامل تحت تفويض المجلس الأعلى. مسار التصعيد محدد قبل بدء أي تنفيذ.' },
-      ],
-      fr: [
-        { strong: 'Vérification des contreparties', rest: 'Exportateurs et acheteurs qualifiés via la Porte de Qualification des Partenaires par des firmes TIC agréées — SGS, Bureau Veritas et Intertek.' },
-        { strong: 'Alignement de la documentation', rest: 'Documentation commerciale, réglementaire, financière et logistique coordonnée dans toutes les juridictions du corridor sous un cadre validé par des conseillers.' },
-        { strong: 'Préparation du panel bancaire', rest: 'Participants du corridor alignés avec les instruments de financement commercial islamique — Mourabaha, Wakala, L/C sous UCP 600 — via ITFC et les partenaires bancaires du CCG.' },
-        { strong: 'Synchronisation des parties prenantes', rest: 'Banques, firmes TIC, exportateurs, acheteurs, opérateurs logistiques et régulateurs séquencés sous le Système d\'Exploitation de Corridor de SWAQAR.' },
-        { strong: 'Supervision de gouvernance', rest: 'Chaque transaction coordonnée passe par le Modèle à Quatre Portes complet sous mandat du Conseil Suprême. Le chemin d\'escalade est défini avant tout début d\'exécution.' },
-      ],
     },
     activeFooterTxt: {
       en: 'SWAQAR holds no title, cargo, funds, or physical assets in this corridor at any stage. Licensed parties execute; counterparties contract directly with each other. SWAQAR coordinates the institutional conditions under which they engage.',
