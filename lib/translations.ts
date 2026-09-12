@@ -70,9 +70,10 @@ export const t = {
     },
     scroll: { en: 'Scroll', ar: 'مرر', fr: 'Défiler', zh: '向下滚动' },
     // NEW key — hero tag rendered beneath the sub-paragraph, above the CTA buttons (Placement A).
-    // en from main; no prior ar/fr/zh existed on either branch for this key, so left "" (not
-    // invented) rather than guessed — pending translation like other untranslated new keys.
-    tag: { en: 'Non-custodial by design', ar: '', fr: '', zh: '' },
+    // draft v2.1 - re-translated, needs review (ar/fr/zh drafted fresh; reuses this site's
+    // established terms for "Non-custodial" and "by design" from elsewhere, e.g. footer.badges
+    // and the old stats.nonCustodialByDesign wording, for consistency)
+    tag: { en: 'Non-custodial by design', ar: 'غير وصائي بالتصميم', fr: 'Non-dépositaire par conception', zh: '非托管 · 设计使然' },
   },
 
   // ── STATS ── // draft
@@ -86,9 +87,10 @@ export const t = {
     // which V2.0 removes. This key now pairs with stat-n "Non-custodial" to read "Non-custodial
     // structure" (was "by design" — changed on main so the exact phrase "Non-custodial by design"
     // isn't repeated verbatim now that the hero also carries it as a tag).
-    // MERGE NOTE: en taken from main ("structure"); ar/fr/zh kept from this branch, which still
-    // translate the old "by design" wording — stale until re-translated to match "structure".
-    nonCustodialByDesign: { en: 'structure', ar: 'بالتصميم', fr: 'par conception', zh: '设计使然' },
+    // draft v2.1 - re-translated, needs review (en changed on main to "structure", was "by
+    // design" — ar/fr/zh below redrafted to match; fr "structure" is the correct French word
+    // itself, an identical cognate, not left untranslated)
+    nonCustodialByDesign: { en: 'structure', ar: 'بنية', fr: 'structure', zh: '结构' },
   },
 
   // ── MISSION ── // draft
