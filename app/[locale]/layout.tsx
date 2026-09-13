@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Noto_Naskh_Arabic } from 'next/font/google';
 import { routing } from '@/i18n/routing';
@@ -16,23 +15,9 @@ const notoNaskhArabic = Noto_Naskh_Arabic({
   variable: '--font-ar',
 });
 
-export const metadata: Metadata = {
-  title: 'SWAQAR Trade — Corridors of Trust',
-  description: 'A governance-led, asset-light, non-custodial Trade Coordination Layer for Africa, the Middle East and Asia. SWAQAR coordinates verified corridor readiness — it does not trade, broker or hold funds.',
-  openGraph: {
-    title: 'SWAQAR Trade — Corridors of Trust',
-    description: 'A governance-led, asset-light, non-custodial Trade Coordination Layer for Africa, the Middle East and Asia. SWAQAR coordinates verified corridor readiness — it does not trade, broker or hold funds.',
-    url: 'https://www.swaqar.com',
-    siteName: 'SWAQAR Trade',
-    type: 'website',
-    locale: 'en_US',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'SWAQAR Trade — Corridors of Trust',
-    description: 'A governance-led, asset-light, non-custodial Trade Coordination Layer for Africa, the Middle East and Asia. SWAQAR coordinates verified corridor readiness — it does not trade, broker or hold funds.',
-  },
-};
+// No metadata here — every real route (page.tsx, privacy/page.tsx) now defines its own
+// generateMetadata() with locale-aware title/description/canonical/hreflang (see lib/seo.ts).
+// Keeping a second static English-only copy at this layer was pure duplication.
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -47,8 +32,8 @@ export default async function RootLayout({
 }) {
   const { locale } = await params;
 
-  // Stage 1 is routing-only: any locale outside the configured set 404s via
-  // the nearest not-found boundary rather than silently falling back.
+  // Any locale outside the configured set 404s via the nearest not-found boundary rather
+  // than silently falling back.
   if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
     notFound();
   }

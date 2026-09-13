@@ -15,7 +15,11 @@ export default function HomeClient({ locale }: { locale: string }) {
   const switchLocale = (target: string) => {
     const segments = pathname.split('/');
     segments[1] = target; // ['', <locale>, ...rest] — replace the locale segment
-    router.push(segments.join('/') || `/${target}`);
+    // usePathname() never includes the hash, so an in-page anchor (e.g. #governance) was
+    // silently dropped on switch, landing on the new locale's page top instead of the same
+    // section. window.location.hash preserves it.
+    const hash = typeof window !== 'undefined' ? window.location.hash : '';
+    router.push((segments.join('/') || `/${target}`) + hash);
   };
   const [formData, setFormData] = useState({
     organisation: '',
@@ -138,27 +142,19 @@ export default function HomeClient({ locale }: { locale: string }) {
           <li><a href="#governance">{tx(t.nav.governance, lang)}</a></li>
           <li><a href="#contact" className="nav-cta">{tx(t.nav.engage, lang)}</a></li>
         </ul>
-        <div className="lang-toggle" aria-label="Language selection">
-          <button className={`lang-btn${locale==='en'?' active':''}`} onClick={()=>switchLocale('en')} aria-label="Switch to English" aria-pressed={locale==='en'}>EN</button>
+        <div className="lang-toggle" aria-label={tx(t.a11y.langSelection, lang)}>
+          <button className={`lang-btn${locale==='en'?' active':''}`} onClick={()=>switchLocale('en')} aria-label={tx(t.a11y.switchToEnglish, lang)} aria-pressed={locale==='en'}>EN</button>
           <span className="lang-sep" aria-hidden="true">|</span>
-          <button className={`lang-btn${locale==='ar'?' active':''}`} onClick={()=>switchLocale('ar')} aria-label="Switch to Arabic" aria-pressed={locale==='ar'}>AR</button>
+          <button className={`lang-btn${locale==='ar'?' active':''}`} onClick={()=>switchLocale('ar')} aria-label={tx(t.a11y.switchToArabic, lang)} aria-pressed={locale==='ar'}>AR</button>
           <span className="lang-sep" aria-hidden="true">|</span>
-          <button className={`lang-btn${locale==='fr'?' active':''}`} onClick={()=>switchLocale('fr')} aria-label="Switch to French" aria-pressed={locale==='fr'}>FR</button>
+          <button className={`lang-btn${locale==='fr'?' active':''}`} onClick={()=>switchLocale('fr')} aria-label={tx(t.a11y.switchToFrench, lang)} aria-pressed={locale==='fr'}>FR</button>
           <span className="lang-sep" aria-hidden="true">|</span>
-          <button className={`lang-btn${locale==='zh'?' active':''}`} onClick={()=>switchLocale('zh')} aria-label="Switch to Chinese" aria-pressed={locale==='zh'}>ZH</button>
+          <button className={`lang-btn${locale==='zh'?' active':''}`} onClick={()=>switchLocale('zh')} aria-label={tx(t.a11y.switchToChinese, lang)} aria-pressed={locale==='zh'}>ZH</button>
         </div>
-        <button className="burger" id="burger" aria-label="Open menu" aria-expanded="false">
+        <button className="burger" id="burger" aria-label={tx(t.a11y.openMenu, lang)} aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
       </nav>
-      {lang !== 'en' && (
-        <div className="banner">
-          <div className="banner-dot"></div>
-          <p className="banner-txt">
-            {tx(t.translationPending, lang)}
-          </p>
-        </div>
-      )}
 
       <section className="hero" id="home">
         <div className="hero-grid">
@@ -574,7 +570,13 @@ export default function HomeClient({ locale }: { locale: string }) {
               <div className="con-grp r" data-d="3"><label className="con-lbl">{tx(t.contact.categoryLabel, lang)}</label><select className="con-sel" value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})}><option value="">{tx(t.contact.categoryDefault, lang)}</option>{(t.contact.categories[lang] ?? t.contact.categories['en']).map((opt, i) => (<option key={i}>{opt}</option>))}</select></div>
               <div className="con-grp r" data-d="3"><label className="con-lbl">{tx(t.contact.inquiryLabel, lang)}</label><textarea className="con-area" placeholder={tx(t.contact.inquiryPlaceholder, lang)} value={formData.inquiry} onChange={(e) => setFormData({...formData, inquiry: e.target.value})}></textarea></div>
               {/* Honeypot spam trap — invisible to real users and screen readers. Real visitors
-                  never fill this in; if it arrives non-empty the API route silently discards it. */}
+                  never fill this in; if it arrives non-empty the API route silently discards it.
+                  No off-canvas offset (previously a physical `left:-9999px`): under dir="rtl" that
+                  produced a ~9999px leftward scrollWidth blowout on this whole section (a documented
+                  browser quirk — RTL scrollWidth accounts for leftward overflow, LTR doesn't), which
+                  is exactly the kind of physical-property-under-RTL bug the logical-properties rule
+                  exists to avoid. The 1x1px size + overflow:hidden + aria-hidden + tabIndex={-1}
+                  already fully hide and disable it without needing an offset in either direction. */}
               <input
                 type="text"
                 name="fax_number"
@@ -583,7 +585,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                 tabIndex={-1}
                 autoComplete="off"
                 aria-hidden="true"
-                style={{position:'absolute',left:'-9999px',width:'1px',height:'1px',overflow:'hidden'}}
+                style={{position:'absolute',width:'1px',height:'1px',overflow:'hidden'}}
               />
               <div style={{marginBottom:'24px',padding:'20px 22px',background:'var(--stone)',border:'1px solid var(--rule)',borderLeft:'2px solid var(--gold)'}}>
                 <div style={{fontSize:'.54rem',letterSpacing:'.28em',textTransform:'uppercase' as const,color:'var(--ink)',fontWeight:600,marginBottom:'12px'}}>{tx(t.contact.processTag, lang)}</div>
@@ -666,9 +668,9 @@ export default function HomeClient({ locale }: { locale: string }) {
               </div>
               <p className="foot-desc">{tx(t.footer.desc, lang)}</p>
             </div>
-            <div className="foot-col"><h5>{tx(t.footer.model, lang)}</h5><ul><li><a href="#corridors">{tx(t.footer.footerLinks.corridorArch, lang)}</a></li><li><a href="#model">{tx(t.footer.footerLinks.gateModel, lang)}</a></li><li><a href="#governance">{tx(t.footer.footerLinks.govArch, lang)}</a></li><li><a href="#arms">{tx(t.footer.footerLinks.strategicArms, lang)}</a></li></ul></div>
-            <div className="foot-col"><h5>{tx(t.footer.engage, lang)}</h5><ul><li><a href="#contact">{tx(t.footer.footerLinks.instInquiry, lang)}</a></li><li><a href="#identity">{tx(t.footer.footerLinks.identity, lang)}</a></li><li><a href="#governance">{tx(t.footer.footerLinks.reviewGov, lang)}</a></li><li style={{color:'rgba(255,255,255,0.32)'}}>{tx(t.footer.footerLinks.jeddah, lang)}</li></ul></div>
-            <div className="foot-col"><h5>{tx(t.footer.corridorRegions, lang)}</h5><ul><li><a href="#corridors">{tx(t.footer.footerLinks.africaME, lang)}</a></li><li><a href="#corridors">{tx(t.footer.footerLinks.meAsia, lang)}</a></li><li><a href="#corridors">{tx(t.footer.footerLinks.africaAsia, lang)}</a></li><li><a href="#model">{tx(t.footer.footerLinks.gateProcess, lang)}</a></li></ul></div>
+            <div className="foot-col"><h3>{tx(t.footer.model, lang)}</h3><ul><li><a href="#corridors">{tx(t.footer.footerLinks.corridorArch, lang)}</a></li><li><a href="#model">{tx(t.footer.footerLinks.gateModel, lang)}</a></li><li><a href="#governance">{tx(t.footer.footerLinks.govArch, lang)}</a></li><li><a href="#arms">{tx(t.footer.footerLinks.strategicArms, lang)}</a></li></ul></div>
+            <div className="foot-col"><h3>{tx(t.footer.engage, lang)}</h3><ul><li><a href="#contact">{tx(t.footer.footerLinks.instInquiry, lang)}</a></li><li><a href="#identity">{tx(t.footer.footerLinks.identity, lang)}</a></li><li><a href="#governance">{tx(t.footer.footerLinks.reviewGov, lang)}</a></li><li style={{color:'rgba(255,255,255,0.32)'}}>{tx(t.footer.footerLinks.jeddah, lang)}</li></ul></div>
+            <div className="foot-col"><h3>{tx(t.footer.corridorRegions, lang)}</h3><ul><li><a href="#corridors">{tx(t.footer.footerLinks.africaME, lang)}</a></li><li><a href="#corridors">{tx(t.footer.footerLinks.meAsia, lang)}</a></li><li><a href="#corridors">{tx(t.footer.footerLinks.africaAsia, lang)}</a></li><li><a href="#model">{tx(t.footer.footerLinks.gateProcess, lang)}</a></li></ul></div>
           </div>
           <p className="foot-legal">{tx(t.footer.legal, lang)}</p>
           <div className="foot-btm">

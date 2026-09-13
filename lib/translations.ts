@@ -27,11 +27,19 @@ export const t = {
     lockupSub: { en: 'Trade · Corridors of Trust', ar: 'Trade · Corridors of Trust', fr: 'Trade · Corridors of Trust', zh: 'Trade · Corridors of Trust' },
   },
 
-  // ── TRANSLATION PENDING BANNER ──
-  translationPending: {
-    ar: 'الترجمة العربية قيد الإعداد — تم تعيين مترجم مؤسسي معتمد. المحتوى معروض حالياً باللغة العربية.',
-    fr: 'Traduction française en cours de préparation — traducteur institutionnel agréé désigné. Le contenu est actuellement affiché en français.',
+  // ── ACCESSIBILITY LABELS (NEW — QA stage 7) ──
+  // Screen-reader-only aria-label text, previously hardcoded English in HomeClient.tsx
+  // regardless of locale. New, unreviewed micro-copy — not yet through the same reviewer
+  // pass as the rest of the site; flagging for eventual translator sign-off.
+  a11y: {
+    langSelection: { en: 'Language selection', ar: 'اختيار اللغة', fr: 'Sélection de la langue', zh: '语言选择' },
+    switchToEnglish: { en: 'Switch to English', ar: 'التبديل إلى الإنجليزية', fr: 'Passer à l\'anglais', zh: '切换到英语' },
+    switchToArabic: { en: 'Switch to Arabic', ar: 'التبديل إلى العربية', fr: 'Passer à l\'arabe', zh: '切换到阿拉伯语' },
+    switchToFrench: { en: 'Switch to French', ar: 'التبديل إلى الفرنسية', fr: 'Passer au français', zh: '切换到法语' },
+    switchToChinese: { en: 'Switch to Chinese', ar: 'التبديل إلى الصينية', fr: 'Passer au chinois', zh: '切换到中文' },
+    openMenu: { en: 'Open menu', ar: 'فتح القائمة', fr: 'Ouvrir le menu', zh: '打开菜单' },
   },
+
 
   // ── HERO ── // reviewed
   hero: {

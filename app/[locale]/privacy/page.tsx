@@ -1,27 +1,31 @@
 import Link from 'next/link';
 import '../../swaqar.css';
 import type { Metadata } from 'next';
+import { routing, type AppLocale } from '@/i18n/routing';
+import { buildMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy — SWAQAR Trade',
-  description: 'How SWAQAR Trade handles personal data collected through swaqar.com.',
-  alternates: {
-    canonical: 'https://www.swaqar.com/privacy',
-  },
-  openGraph: {
+function toAppLocale(locale: string): AppLocale {
+  return (routing.locales as readonly string[]).includes(locale) ? (locale as AppLocale) : routing.defaultLocale;
+}
+
+// Title/description stay English-only in every locale — this page's body content itself is
+// not translated (legal/Privacy wording is locked, out of scope for translation work), so a
+// localized title would promise translated content that doesn't exist. Canonical + hreflang
+// are still correctly per-locale, since /en/privacy, /ar/privacy, /fr/privacy, /zh/privacy are
+// four distinct, real, crawlable URLs even though their content is currently identical.
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const locale = toAppLocale((await params).locale);
+  return buildMetadata({
+    locale,
+    path: '/privacy',
     title: 'Privacy Policy — SWAQAR Trade',
     description: 'How SWAQAR Trade handles personal data collected through swaqar.com.',
-    url: 'https://www.swaqar.com/privacy',
-    siteName: 'SWAQAR Trade',
-    type: 'website',
-    locale: 'en_US',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Privacy Policy — SWAQAR Trade',
-    description: 'How SWAQAR Trade handles personal data collected through swaqar.com.',
-  },
-};
+  });
+}
 
 export default function PrivacyPolicy() {
   return (
