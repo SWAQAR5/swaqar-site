@@ -566,7 +566,13 @@ export default function HomeClient({ locale }: { locale: string }) {
               <div className="con-grp r" data-d="3"><label className="con-lbl">{tx(t.contact.categoryLabel, lang)}</label><select className="con-sel" value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})}><option value="">{tx(t.contact.categoryDefault, lang)}</option>{(t.contact.categories[lang] ?? t.contact.categories['en']).map((opt, i) => (<option key={i}>{opt}</option>))}</select></div>
               <div className="con-grp r" data-d="3"><label className="con-lbl">{tx(t.contact.inquiryLabel, lang)}</label><textarea className="con-area" placeholder={tx(t.contact.inquiryPlaceholder, lang)} value={formData.inquiry} onChange={(e) => setFormData({...formData, inquiry: e.target.value})}></textarea></div>
               {/* Honeypot spam trap — invisible to real users and screen readers. Real visitors
-                  never fill this in; if it arrives non-empty the API route silently discards it. */}
+                  never fill this in; if it arrives non-empty the API route silently discards it.
+                  No off-canvas offset (previously a physical `left:-9999px`): under dir="rtl" that
+                  produced a ~9999px leftward scrollWidth blowout on this whole section (a documented
+                  browser quirk — RTL scrollWidth accounts for leftward overflow, LTR doesn't), which
+                  is exactly the kind of physical-property-under-RTL bug the logical-properties rule
+                  exists to avoid. The 1x1px size + overflow:hidden + aria-hidden + tabIndex={-1}
+                  already fully hide and disable it without needing an offset in either direction. */}
               <input
                 type="text"
                 name="fax_number"
@@ -575,7 +581,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                 tabIndex={-1}
                 autoComplete="off"
                 aria-hidden="true"
-                style={{position:'absolute',left:'-9999px',width:'1px',height:'1px',overflow:'hidden'}}
+                style={{position:'absolute',width:'1px',height:'1px',overflow:'hidden'}}
               />
               <div style={{marginBottom:'24px',padding:'20px 22px',background:'var(--stone)',border:'1px solid var(--rule)',borderLeft:'2px solid var(--gold)'}}>
                 <div style={{fontSize:'.54rem',letterSpacing:'.28em',textTransform:'uppercase' as const,color:'var(--ink)',fontWeight:600,marginBottom:'12px'}}>{tx(t.contact.processTag, lang)}</div>
