@@ -3,11 +3,11 @@ import { useEffect } from 'react';
 import type { Lang } from '@/lib/translations';
 
 // Shared page-chrome behaviour used by every locale page (home, /model, /arms — Stage 3 split).
-// Extracted verbatim from the original single-page HomeClient so every page gets identical
-// interactive behaviour: the custom cursor dot/ring, the nav "scrolled" shadow, the mobile
-// burger open/close wiring, the animated stat-counter roll-up, the hero-orb parallax, and the
-// scroll-reveal (.r -> .up) IntersectionObserver. Effects that target elements a given page
-// doesn't have (e.g. .stat-n or .hero-orb on /model and /arms) are harmless no-ops — the
+// Extracted from the original single-page HomeClient so every page gets identical interactive
+// behaviour: the custom cursor dot/ring, the nav "scrolled" shadow, the animated stat-counter
+// roll-up, and the scroll-reveal (.r -> .up) IntersectionObserver. (The mobile burger/menu open
+// state moved to React state in SiteHeader — see the comment there.) Effects that target
+// elements a given page doesn't have (e.g. .stat-n outside home) are harmless no-ops — the
 // querySelector/getElementById calls simply find nothing.
 export function useSiteChrome(lang: Lang) {
   useEffect(() => {
@@ -55,13 +55,9 @@ export function useSiteChrome(lang: Lang) {
       }, { threshold: 0.5 });
       io2.observe(c as Element);
     });
-    const orb = document.querySelector('.hero-orb') as HTMLElement;
-    const onScrollOrb = () => { if (orb) orb.style.transform = `translateY(calc(-50% + ${window.scrollY * 0.08}px))`; };
-    window.addEventListener('scroll', onScrollOrb, { passive: true });
     return () => {
       document.removeEventListener('mousemove', onMove);
       window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('scroll', onScrollOrb);
     };
   }, []);
 
