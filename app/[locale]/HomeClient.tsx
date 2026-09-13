@@ -1,8 +1,10 @@
 'use client';
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { t, tx, type Lang } from '@/lib/translations';
+import { useSiteChrome } from '@/lib/useSiteChrome';
+import SiteHeader from './SiteHeader';
+import SiteFooter from './SiteFooter';
 
 const SUPPORTED_LOCALES: Lang[] = ['en', 'ar', 'fr', 'zh'];
 
@@ -10,17 +12,7 @@ export default function HomeClient({ locale }: { locale: string }) {
   // Derive lang from the URL locale prop. Only fall back to 'en' if `locale` isn't one of the
   // locales lib/translations.ts actually has data for — never override a valid non-en locale.
   const lang: Lang = SUPPORTED_LOCALES.includes(locale as Lang) ? (locale as Lang) : 'en';
-  const pathname = usePathname();
   const router = useRouter();
-  const switchLocale = (target: string) => {
-    const segments = pathname.split('/');
-    segments[1] = target; // ['', <locale>, ...rest] — replace the locale segment
-    // usePathname() never includes the hash, so an in-page anchor (e.g. #governance) was
-    // silently dropped on switch, landing on the new locale's page top instead of the same
-    // section. window.location.hash preserves it.
-    const hash = typeof window !== 'undefined' ? window.location.hash : '';
-    router.push((segments.join('/') || `/${target}`) + hash);
-  };
   const [formData, setFormData] = useState({
     organisation: '',
     representative: '',
@@ -30,131 +22,31 @@ export default function HomeClient({ locale }: { locale: string }) {
     fax_number: '', // honeypot — must stay empty; hidden from real users, see input below
   });
   const [formStatus, setFormStatus] = useState<'idle'|'sending'|'success'|'error'>('idle');
-  // Strategic Arms accordion — first arm open by default, rest collapsed. Panels stay mounted
-  // in the DOM at all times (visibility is CSS-driven) so every description remains readable
-  // by search engines and screen readers regardless of open/closed state.
-  const [openArms, setOpenArms] = useState<boolean[]>([true, false, false, false, false, false, false]);
-  const toggleArm = (i: number) => setOpenArms((prev) => prev.map((v, idx) => (idx === i ? !v : v)));
-  // Two new disclosures (copy trim v2.1) — same collapse/expand mechanism as the arms accordion
-  // above (.arm-toggle/.arm-panel/.arm-chevron), reused rather than a new component. Both start
+  // Two disclosures (copy trim v2.1) — same collapse/expand mechanism the old arms accordion
+  // used (.arm-toggle/.arm-panel/.arm-chevron), reused rather than a new component. Both start
   // collapsed, since the point of collapsing this legal/governance text is to shorten the page.
   const [corGovNoteOpen, setCorGovNoteOpen] = useState(false);
   const [govPositionOpen, setGovPositionOpen] = useState(false);
 
-  useEffect(() => {
-    const dot = document.getElementById('cur-dot');
-    const ring = document.getElementById('cur-ring');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-    const onMove = (e: MouseEvent) => {
-      mx = e.clientX; my = e.clientY;
-      if (dot) { dot.style.left = mx + 'px'; dot.style.top = my + 'px'; }
-    };
-    const animRing = () => {
-      rx += (mx - rx) * 0.14; ry += (my - ry) * 0.14;
-      if (ring) { ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; }
-      requestAnimationFrame(animRing);
-    };
-    document.addEventListener('mousemove', onMove);
-    animRing();
-    document.querySelectorAll('a,button,.arm,.pillar,.gate,.cor-card,.gov-card,.partner').forEach(el => {
-      el.addEventListener('mouseenter', () => document.body.classList.add('hov'));
-      el.addEventListener('mouseleave', () => document.body.classList.remove('hov'));
-    });
-    const nav = document.getElementById('nav');
-    const onScroll = () => { if (nav) nav.classList.toggle('scrolled', window.scrollY > 10); };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    const burger = document.getElementById('burger');
-    const navLinks = document.getElementById('navLinks');
-    burger?.addEventListener('click', () => {
-      if (!navLinks || !burger) return;
-      const open = navLinks.classList.toggle('open');
-      burger.setAttribute('aria-expanded', String(open));
-    });
-    navLinks?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
-    document.querySelectorAll('.stat-n').forEach(c => {
-      const tgt = c.textContent || '';
-      const num = parseFloat(tgt);
-      if (isNaN(num)) return;
-      c.textContent = '0';
-      const io2 = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          if (!e.isIntersecting) return;
-          let s = 0; const step = num / 40;
-          const timer = setInterval(() => {
-            s += step;
-            if (s >= num) { c.textContent = tgt; clearInterval(timer); }
-            else c.textContent = tgt.includes('%') ? Math.round(s) + '%' : Math.round(s) + tgt.replace(/[0-9.]/g, '');
-          }, 30);
-          io2.unobserve(e.target);
-        });
-      }, { threshold: 0.5 });
-      io2.observe(c as Element);
-    });
-    const orb = document.querySelector('.hero-orb') as HTMLElement;
-    const onScrollOrb = () => { if (orb) orb.style.transform = `translateY(calc(-50% + ${window.scrollY * 0.08}px))`; };
-    window.addEventListener('scroll', onScrollOrb, { passive: true });
-    return () => {
-      document.removeEventListener('mousemove', onMove);
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('scroll', onScrollOrb);
-    };
-  }, []);
+  useSiteChrome(lang);
 
+  // Stage 3 old-link safety: The Model and Strategic Arms moved off the home page onto their
+  // own routes (/model, /arms). #model and #arms were never separate crawlable URLs (nothing
+  // for search engines to redirect), but a real person with an old bookmarked or shared
+  // /{locale}#model or /{locale}#arms link would otherwise silently land at the top of the
+  // home page with no explanation. Send them on to the real page instead. One-time check on
+  // mount against a fixed set of two hashes — cannot loop (the destination pages carry no
+  // matching effect of their own).
   useEffect(() => {
-    if (!('IntersectionObserver' in window)) {
-      document.querySelectorAll('.r').forEach(el => el.classList.add('up'));
-      return;
-    }
-    const io = new IntersectionObserver(
-      entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('up'); io.unobserve(e.target); } }); },
-      { rootMargin: '0px 0px -6% 0px', threshold: 0.06 }
-    );
-    document.querySelectorAll('.r:not(.up)').forEach(el => io.observe(el));
-    return () => io.disconnect();
-  }, [lang]);
+    const hash = window.location.hash;
+    if (hash === '#model') router.replace(`/${lang}/model`);
+    else if (hash === '#arms') router.replace(`/${lang}/arms`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
-      <div id="cur"><div id="cur-dot"></div><div id="cur-ring"></div></div>
-
-      <div className="banner">
-        <div className="banner-dot"></div>
-        <p className="banner-txt">{tx(t.banner, lang)}</p>
-      </div>
-
-      <nav id="nav">
-        <a className="nav-brand" href="#home">
-          <svg className="nav-mark" viewBox="508 252 1024 900" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path fill="#CEA437" d="M917.74,952.98c4.78-0.46,9.55-0.93,14.33-1.39c6.44-0.49,12.88-1.11,19.33-1.43c25.94-1.31,51.9-2.34,77.88-2.62c47.48-0.51,94.95,0.16,142.38,2.41c22.77,1.08,45.55,2.3,68.28,4.07c21.07,1.64,42.08,3.97,63.01,7.01c3.94,0.95,7.88,1.9,11.82,2.85c-3.55-2.77-7.73-3.62-11.85-4.67c-6.68-2.03-13.36-4.1-20.05-6.1c-22.04-6.58-44.49-11.42-67.18-15.06c-4.25-0.68-5.69-2.26-5.49-6.66c0.37-8.31,0.03-16.66,0.03-24.99c-0.02-51.99-0.05-103.99,0.04-155.98c0.01-3.5-0.49-4.93-4.52-4.76c-8.48,0.37-17,0.33-25.48-0.04c-3.96-0.17-4.63,1.18-4.59,4.75c0.19,15,0.08,29.99,0.08,44.99c-0.01,44.33-0.02,88.65-0.05,132.98c0,2.01,0.69,4.89-3.06,3.86c-2.52-0.69-6.79,1.58-6.51-4.13c0.31-6.48,0.02-12.99,0.03-19.49c0.09-52.82,0.15-105.65,0.35-158.47c0.01-3.42-0.81-4.5-4.33-4.39c-8.16,0.26-16.34,0.3-24.49-0.06c-4.46-0.2-5.77,1.01-5.76,5.66c0.21,57.49,0.12,114.98,0.35,172.48c0.02,4.57-1.16,5.53-5.47,5.25c-29.78-1.94-59.6-1.9-89.42-1.93c-3.65,0-7.3-0.16-10.95-0.25c2.43-1.03,4.81-2.18,7.29-3.06c20.54-7.3,40.69-15.49,58.76-27.94c14.43-9.95,25.93-21.26,24.23-41.39c-1.47-17.44-14.89-33.77-32.83-36.73c-11.76-5.64-24.32-9-36.65-13.02c-8.88-2.9-17.63-6.15-25.46-11.34c-9.31-6.16-9.94-14.45-1.6-21.81c5.27-4.65,11.41-8.04,17.86-10.84c19.76-8.56,40.31-14.55,61.23-19.54c39.29-9.38,78.92-14.05,119.28-9.65c3.69,0.4,3.99-0.95,3.96-3.97c-0.11-14.16-0.04-28.32,0-42.48c0.01-3-0.58-6.12,1.71-8.8c-8.87,5.69-18.19,10.05-27.51,14.34c-38.47,17.69-78.65,30.69-118.97,43.34c-26.16,8.21-52.77,15.03-78.29,25.26c-11.99,4.8-23.28,10.75-32.42,20.11c-10.9,11.15-11.62,24.96-1.83,36.31c4.98,5.77,11.36,9.73,18.14,13.03c12.01,5.85,24.86,9.4,37.51,13.5c9.16,2.97,18.5,5.84,25.72,12.72c5.91,5.63,5.92,12.06,0.36,18.04c-4.13,4.44-9.14,7.74-14.37,10.69c-11.92,6.74-24.65,11.62-37.53,16.13c-14.14,4.95-28.54,9.01-43.01,12.84c-5.69,1.51-5.74,1.32-5.78-4.5c-0.05-9.33-0.13-18.66-0.15-27.99c-0.07-42.98-0.17-85.96-0.1-128.95c0.01-3.62-0.71-4.83-4.61-4.65c-7.64,0.37-15.34,0.34-22.98-0.07c-4.14-0.22-5.26,0.82-5.25,5.06c0.12,53.31,0.04,106.63-0.03,159.94c-0.01,9.07-0.1,9.07-9.87,10.23c0-10.69,0-21.34,0-31.98c0.01-45.82-0.02-91.63,0.13-137.45c0.01-4.3-0.74-6.13-5.59-5.84c-7.8,0.47-15.67,0.47-23.48,0.03c-4.9-0.28-5.96,1.24-5.95,6.01c0.21,57.64,0.14,115.29,0.26,172.93c0.01,3.49-0.68,4.98-4.5,5.96c-24.49,6.26-48.92,12.76-73.26,19.57c-12.77,3.57-25.64,6.98-37.63,12.87l0.07,0.15l-0.01-0.24c15.44-2.5,30.88-4.99,46.33-7.49c-0.91,3.5,0.79,4.18,3.95,4.23c12.67,0.18,25.25-1.49,37.88-1.59c16.99-0.13,33.93-1.22,50.87-2.25C898.58,955.15,908.15,953.92,917.74,952.98z"/>
-            <path fill="#E5C97A" d="M1074.04,881.79c0.22,1.4-1.06,2.28-1.6,3.49c11.7,1.87,36.72-19.2,41.05-34.5c2.5,6.8-0.26,12.02-3.87,17.03c-6.76,9.36-16.55,14.7-26.39,20.01c-30.82,16.63-63.94,26.96-97.5,36.28c-33.2,9.22-67,15.63-100.88,21.5c-23.72,4.11-47.66,6.96-71.55,9.99c-3.77,0.48-8.05,1.74-11.76-0.93c30.24-6.3,60.52-12.43,90.71-18.95c42.23-9.13,84.38-18.65,125.67-31.57C1037.18,898.13,1056.21,891.45,1074.04,881.79z"/>
-          </svg>
-          <div className="nav-text">
-            <span className="nav-name">SWAQAR</span>
-            <span className="nav-sub">{tx(t.nav.lockupSub, lang)}</span>
-          </div>
-        </a>
-        <ul className="nav-links" id="navLinks">
-          <li><a href="#mission">{tx(t.nav.mission, lang)}</a></li>
-          <li><a href="#identity">{tx(t.nav.identity, lang)}</a></li>
-          <li><a href="#corridors">{tx(t.nav.corridors, lang)}</a></li>
-          <li><a href="#model">{tx(t.nav.model, lang)}</a></li>
-          <li><a href="#arms">{tx(t.nav.arms, lang)}</a></li>
-          <li><a href="#governance">{tx(t.nav.governance, lang)}</a></li>
-          <li><a href="#contact" className="nav-cta">{tx(t.nav.engage, lang)}</a></li>
-        </ul>
-        <div className="lang-toggle" aria-label={tx(t.a11y.langSelection, lang)}>
-          <button className={`lang-btn${locale==='en'?' active':''}`} onClick={()=>switchLocale('en')} aria-label={tx(t.a11y.switchToEnglish, lang)} aria-pressed={locale==='en'}>EN</button>
-          <span className="lang-sep" aria-hidden="true">|</span>
-          <button className={`lang-btn${locale==='ar'?' active':''}`} onClick={()=>switchLocale('ar')} aria-label={tx(t.a11y.switchToArabic, lang)} aria-pressed={locale==='ar'}>AR</button>
-          <span className="lang-sep" aria-hidden="true">|</span>
-          <button className={`lang-btn${locale==='fr'?' active':''}`} onClick={()=>switchLocale('fr')} aria-label={tx(t.a11y.switchToFrench, lang)} aria-pressed={locale==='fr'}>FR</button>
-          <span className="lang-sep" aria-hidden="true">|</span>
-          <button className={`lang-btn${locale==='zh'?' active':''}`} onClick={()=>switchLocale('zh')} aria-label={tx(t.a11y.switchToChinese, lang)} aria-pressed={locale==='zh'}>ZH</button>
-        </div>
-        <button className="burger" id="burger" aria-label={tx(t.a11y.openMenu, lang)} aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
-      </nav>
+      <SiteHeader locale={locale} />
 
       <section className="hero" id="home">
         <div className="hero-grid">
@@ -415,37 +307,6 @@ export default function HomeClient({ locale }: { locale: string }) {
 
       <div className="gold-rule"></div>
 
-      <section className="gates" id="model">
-        <div className="wrap">
-          <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">{tx(t.gates.sectionTag, lang)}</span></div>
-          <h2 className="sec-h r" data-d="1">{tx(t.gates.heading, lang)}<br/><em>{tx(t.gates.headingEm, lang)}</em></h2>
-          <p className="sec-p r" data-d="2">{tx(t.gates.subDesc, lang)}</p>
-          <div className="gates-grid">
-            {(t.gates.gatesList[lang] ?? t.gates.gatesList['en']).map((gate, i) => (
-              <div className="gate r" key={i} data-d={i}>
-                <div className="gate-n">{['01','02','03','04'][i]}</div>
-                <div className="gate-ico">
-                  {i === 0 && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>}
-                  {i === 1 && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 12h6M9 16h6M9 8h6M5 4h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5a1 1 0 011-1z"/></svg>}
-                  {i === 2 && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 2l10 5v5c0 5.55-3.84 10.74-10 12C5.84 22.74 2 17.55 2 12V7l10-5z"/></svg>}
-                  {i === 3 && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>}
-                </div>
-                <div className="gate-tag">{gate.tag}</div>
-                <div className="gate-name">{gate.name}</div>
-                <div className="gate-desc">{gate.desc}</div>
-                {'chips' in gate && gate.chips.length > 0 && (
-                  <div className="foot-badges" style={{marginTop:'16px'}}>
-                    {gate.chips.map((chip, j) => <span className="foot-badge" key={j}>{chip}</span>)}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <div className="gold-rule"></div>
-
       {/* NEW — V2.0 copy lock: readiness states. Built from existing sitewide components
           (.sec-tag/.sec-h/.pillars/.gov-note) per instruction — no new styling invented. */}
       <section className="reality" id="reality">
@@ -459,61 +320,6 @@ export default function HomeClient({ locale }: { locale: string }) {
           </div>
           <div className="gov-note r" data-d="3" style={{marginTop:'32px'}}>
             <p className="gov-note-txt">{tx(t.reality.closing, lang)}</p>
-          </div>
-        </div>
-      </section>
-
-      <div className="gold-rule"></div>
-
-      <section className="arms" id="arms">
-        <div className="wrap">
-          <div className="arms-inner">
-            <div>
-              <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">{tx(t.arms.sectionTag, lang)}</span></div>
-              <h2 className="sec-h r" data-d="1">{tx(t.arms.heading, lang)} <em>{tx(t.arms.headingEm, lang)}</em> {tx(t.arms.headingLine2, lang)}</h2>
-              <div className="arm-list" style={{marginTop:'36px'}}>
-                {(t.arms.armsList[lang] ?? t.arms.armsList['en']).map(([n, name, desc], i) => {
-                  const isOpen = openArms[i] ?? false;
-                  const btnId = `arm-btn-${i}`;
-                  const panelId = `arm-panel-${i}`;
-                  return (
-                    <div className="arm r" key={n}>
-                      <span className="arm-n">{n}</span>
-                      <div className="arm-body">
-                        <button
-                          type="button"
-                          id={btnId}
-                          className="arm-toggle"
-                          aria-expanded={isOpen}
-                          aria-controls={panelId}
-                          onClick={() => toggleArm(i)}
-                        >
-                          <span className="arm-name">{name}</span>
-                          <svg className="arm-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                            <path d="M9 18l6-6-6-6" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                        </button>
-                        <div className="arm-panel" id={panelId} role="region" aria-labelledby={btnId} data-open={isOpen}>
-                          <div className="arm-panel-inner">
-                            <div className="arm-desc">{desc}</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-            <div className="abx r" data-d="2">
-              <div className="abx-tag">{tx(t.arms.abxTag, lang)}</div>
-              <div className="abx-h">{tx(t.arms.abxH, lang)}</div>
-              <div className="abx-p">{tx(t.arms.abxP, lang)}</div>
-              <div className="abx-metrics">
-                {(t.arms.abxMetrics[lang] ?? t.arms.abxMetrics['en']).map(([val, lbl], i) => (
-                  <div className="abx-m" key={i}><div className="abx-mv">{val}</div><div className="abx-ml">{lbl}</div></div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -658,32 +464,7 @@ export default function HomeClient({ locale }: { locale: string }) {
         </div>
       </section>
 
-      <footer>
-        <div className="wrap">
-          <div className="foot-inner">
-            <div>
-              <div className="foot-mark">
-                <img className="foot-mark-img" src="/emblem_reversed.png" alt="SWAQAR Trade" />
-                <div><div className="foot-name">SWAQAR</div><div className="foot-sub">{tx(t.nav.lockupSub, lang)}</div></div>
-              </div>
-              <p className="foot-desc">{tx(t.footer.desc, lang)}</p>
-            </div>
-            <div className="foot-col"><h3>{tx(t.footer.model, lang)}</h3><ul><li><a href="#corridors">{tx(t.footer.footerLinks.corridorArch, lang)}</a></li><li><a href="#model">{tx(t.footer.footerLinks.gateModel, lang)}</a></li><li><a href="#governance">{tx(t.footer.footerLinks.govArch, lang)}</a></li><li><a href="#arms">{tx(t.footer.footerLinks.strategicArms, lang)}</a></li></ul></div>
-            <div className="foot-col"><h3>{tx(t.footer.engage, lang)}</h3><ul><li><a href="#contact">{tx(t.footer.footerLinks.instInquiry, lang)}</a></li><li><a href="#identity">{tx(t.footer.footerLinks.identity, lang)}</a></li><li><a href="#governance">{tx(t.footer.footerLinks.reviewGov, lang)}</a></li><li style={{color:'rgba(255,255,255,0.32)'}}>{tx(t.footer.footerLinks.jeddah, lang)}</li></ul></div>
-            <div className="foot-col"><h3>{tx(t.footer.corridorRegions, lang)}</h3><ul><li><a href="#corridors">{tx(t.footer.footerLinks.africaME, lang)}</a></li><li><a href="#corridors">{tx(t.footer.footerLinks.meAsia, lang)}</a></li><li><a href="#corridors">{tx(t.footer.footerLinks.africaAsia, lang)}</a></li><li><a href="#model">{tx(t.footer.footerLinks.gateProcess, lang)}</a></li></ul></div>
-          </div>
-          <p className="foot-legal">{tx(t.footer.legal, lang)}</p>
-          <div className="foot-btm">
-            <div style={{display:'flex',gap:'24px',alignItems:'center',flexWrap:'wrap'}}>
-              <span className="foot-copy">© {new Date().getFullYear()} {tx(t.footer.copyright, lang)}</span>
-              <span className="foot-copy" style={{opacity:.5}}>{tx(t.footer.secondaryLine, lang)}</span>
-            </div>
-            <div className="foot-badges">{(t.footer.badges[lang] ?? t.footer.badges['en']).map((badge, i) => <span className="foot-badge" key={i}>{badge}</span>)}</div>
-            <a href="https://swaqargroup.com" target="_blank" rel="noopener noreferrer" style={{fontSize:'.62rem',letterSpacing:'.1em',color:'rgba(255,255,255,.35)',textDecoration:'none',marginLeft:'auto'}}>{tx(t.footer.parentLink, lang)}</a>
-            <Link href="/privacy" style={{fontSize:'.62rem',letterSpacing:'.1em',color:'rgba(255,255,255,.35)',textDecoration:'none'}}>{tx(t.footer.privacyPolicy, lang)}</Link>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter locale={locale} />
     </>
   );
 }

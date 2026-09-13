@@ -279,7 +279,20 @@ footer{background:var(--ink-deep);border-top:1px solid var(--gold-a18);padding:7
 .foot-badges{display:flex;gap:10px;flex-wrap:wrap}
 .foot-badge{font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rule);border:1px solid rgba(255,255,255,.1);padding:4px 12px}
 @media(max-width:1024px){.stats{grid-template-columns:repeat(2,1fr)}.id-inner{grid-template-columns:1fr;gap:52px}.cor-cards{grid-template-columns:1fr}.gates-grid{grid-template-columns:repeat(2,1fr)}.arms-inner{grid-template-columns:1fr}.gov-grid{grid-template-columns:1fr 1fr}.con-inner{grid-template-columns:1fr}.foot-inner{grid-template-columns:1fr 1fr}.id-grid{grid-template-columns:1fr}}
-@media(max-width:768px){.banner{padding:9px 24px}nav{padding:0 24px}.nav-links{display:none;position:fixed;inset:72px 0 0;background:var(--parchment);flex-direction:column;padding:32px 24px;gap:22px;border-top:1px solid var(--rule);z-index:999}.nav-links.open{display:flex}.burger{display:flex}.lang-btn:not(.active){display:none}.lang-sep{display:none}.hero-body{padding:0 24px}.hero-scroll{display:none}.wrap{padding:0 24px}section{padding:76px 0}.arm-list{grid-template-columns:1fr}.cor-cap-row{grid-template-columns:1fr}.gates-grid{grid-template-columns:1fr}.gov-grid{grid-template-columns:1fr}.foot-inner{grid-template-columns:1fr}.abx-metrics{grid-template-columns:1fr}.stat{padding:20px 24px}}
+@media(max-width:768px){.banner{padding:9px 24px}nav{padding:0 24px}.nav-links{display:none;position:fixed;inset:72px 0 0;background:var(--parchment);flex-direction:column;padding:32px 24px;gap:22px;border-top:1px solid var(--rule);z-index:999;overflow-y:auto}.nav-links.open{display:flex}.burger{display:flex}.hero-body{padding:0 24px}.hero-scroll{display:none}.wrap{padding:0 24px}section{padding:76px 0}.arm-list{grid-template-columns:1fr}.cor-cap-row{grid-template-columns:1fr}.gates-grid{grid-template-columns:1fr}.gov-grid{grid-template-columns:1fr}.foot-inner{grid-template-columns:1fr}.abx-metrics{grid-template-columns:1fr}.stat{padding:20px 24px}
+  /* Stage 3 mobile-language-toggle fix — the header .lang-toggle used to survive onto phone
+     widths but with `.lang-btn:not(.active){display:none}` hiding 3 of its 4 buttons, leaving
+     only the current language both visible and reachable (the other three were unreachable,
+     not just hidden — no way to open them). Now the header toggle is hidden outright on
+     mobile, and a full-size, all-four-buttons row (.lang-toggle-mobile) renders instead at the
+     top of the slide-down menu — reusing only existing palette tokens, no new colours. */
+  .lang-toggle{display:none}
+  .lang-toggle-mobile-item{border-bottom:1px solid var(--rule);padding-bottom:20px;margin-bottom:4px;width:100%}
+  .lang-toggle-mobile{display:flex;flex-wrap:wrap;gap:10px}
+  .lang-toggle-mobile .lang-btn{border:1px solid var(--rule);padding:11px 18px;min-width:44px;min-height:44px;font-size:.68rem;letter-spacing:.14em}
+  .lang-toggle-mobile .lang-btn.active{border-color:var(--gold);color:var(--ink)}
+  .lang-toggle-mobile .lang-sep{display:none}
+}
 @media(max-width:900px){.pillars{grid-template-columns:1fr 1fr}}
 @media(max-width:500px){.pillars{grid-template-columns:1fr}}
 .mission{background:var(--ink);position:relative;overflow:hidden}
@@ -311,7 +324,14 @@ p{text-align:justify}
 /* ── ARABIC RTL LAYOUT ── */
 html[dir="rtl"] .banner{flex-direction:row-reverse}
 html[dir="rtl"] nav{flex-direction:row-reverse}
-html[dir="rtl"] .nav-links{flex-direction:row-reverse}
+/* Desktop-only: mirrors the horizontal nav-links row for RTL reading order. Pre-existing bug
+   found during Stage 3 mobile-toggle testing — this rule's specificity (attribute + class)
+   outranked the plain-class `.nav-links{flex-direction:column}` inside the max-width:768px
+   mobile menu rule, so on /ar at phone widths the "menu" list rendered as a horizontal row
+   instead of stacking, overlapping items (including the new mobile language row) into an
+   unreachable pile. Scoping this to desktop widths only fixes it without touching the
+   intentional desktop RTL mirroring. */
+@media(min-width:769px){html[dir="rtl"] .nav-links{flex-direction:row-reverse}}
 html[dir="rtl"] .nav-brand{flex-direction:row-reverse}
 html[dir="rtl"] .hero-body{text-align:right}
 html[dir="rtl"] .eyebrow{flex-direction:row-reverse}
