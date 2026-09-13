@@ -5,7 +5,7 @@ import { SITE_URL, localeAlternates } from "@/lib/seo";
 // Every real page in the app, as the path segment after the locale (empty string = homepage).
 // Keep this list in sync with app/[locale]/*  — it's the single source both this sitemap and
 // the per-page <head> hreflang alternates (lib/seo.ts) are built from.
-const PAGES = ["", "/privacy"];
+const PAGES = ["", "/privacy", "/model", "/arms"];
 
 // Auto-generated sitemap — tells Google what pages to index, across all four locales.
 // Deployed at: https://swaqar.com/sitemap.xml
