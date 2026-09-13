@@ -1,9 +1,9 @@
-// TRANSLATION STATUS: fr/ar/zh are AI DRAFTS pending professional review. Do not deploy to
-// production until reviewed. Drafted 2026-09-10.
+// TRANSLATION STATUS: fr/ar/zh reviewed and approved by professional reviewers on the live
+// preview, 2026-09-13. Cleared for production.
 export type Lang = 'en' | 'ar' | 'fr' | 'zh';
 
 export const t = {
-  // ── BANNER ── // draft
+  // ── BANNER ── // reviewed
   banner: {
     en: 'Phase I — Foundation Stage · Not yet operationally active.',
     ar: 'المرحلة الأولى — مرحلة التأسيس · غير نشطة تشغيلياً بعد.',
@@ -11,7 +11,7 @@ export const t = {
     zh: '第一阶段 — 基础建设期 · 尚未正式投入运营。',
   },
 
-  // ── NAV ── // draft
+  // ── NAV ── // reviewed
   nav: {
     // "Why SWAQAR" transcreated, not literal — matches the institutional-register intent, not a
     // word-for-word render.
@@ -33,7 +33,7 @@ export const t = {
     fr: 'Traduction française en cours de préparation — traducteur institutionnel agréé désigné. Le contenu est actuellement affiché en français.',
   },
 
-  // ── HERO ── // draft
+  // ── HERO ── // reviewed
   hero: {
     eyebrow: {
       en: 'Trade Coordination · Africa · Middle East · Asia',
@@ -70,13 +70,13 @@ export const t = {
     },
     scroll: { en: 'Scroll', ar: 'مرر', fr: 'Défiler', zh: '向下滚动' },
     // NEW key — hero tag rendered beneath the sub-paragraph, above the CTA buttons (Placement A).
-    // draft v2.1 - re-translated, needs review (ar/fr/zh drafted fresh; reuses this site's
+    // reviewed (ar/fr/zh drafted fresh; reuses this site's
     // established terms for "Non-custodial" and "by design" from elsewhere, e.g. footer.badges
     // and the old stats.nonCustodialByDesign wording, for consistency)
     tag: { en: 'Non-custodial by design', ar: 'غير وصائي بالتصميم', fr: 'Non-dépositaire par conception', zh: '非托管 · 设计使然' },
   },
 
-  // ── STATS ── // draft
+  // ── STATS ── // reviewed
   stats: {
     corridorRegions: { en: 'Regions', ar: 'مناطق', fr: 'Régions', zh: '区域' },
     institutionalGates: { en: 'Governance Gates', ar: 'بوابات الحوكمة', fr: 'Portes de Gouvernance', zh: '治理关口' },
@@ -87,13 +87,13 @@ export const t = {
     // which V2.0 removes. This key now pairs with stat-n "Non-custodial" to read "Non-custodial
     // structure" (was "by design" — changed on main so the exact phrase "Non-custodial by design"
     // isn't repeated verbatim now that the hero also carries it as a tag).
-    // draft v2.1 - re-translated, needs review (en changed on main to "structure", was "by
+    // reviewed (en changed on main to "structure", was "by
     // design" — ar/fr/zh below redrafted to match; fr "structure" is the correct French word
     // itself, an identical cognate, not left untranslated)
     nonCustodialByDesign: { en: 'structure', ar: 'بنية', fr: 'structure', zh: '结构' },
   },
 
-  // ── MISSION ── // draft
+  // ── MISSION ── // reviewed
   mission: {
     sectionTag: { en: 'Mission · Vision · Purpose', ar: 'الرسالة · الرؤية · الغاية', fr: 'Mission · Vision · Objectif', zh: '使命 · 愿景 · 宗旨' },
     heading: { en: 'Why SWAQAR Exists.', ar: 'لماذا توجد سواقر.', fr: 'Pourquoi SWAQAR Existe.', zh: 'SWAQAR 存在的意义。' },
@@ -153,7 +153,7 @@ export const t = {
       },
     },
     intentLabel: { en: 'Strategic Intent:', ar: 'النية الاستراتيجية:', fr: 'Intention Stratégique :', zh: '战略意图：' },
-    // draft v2.1 - re-translated, needs review (en shortened by main's v2.1 trim; ar/fr/zh below
+    // reviewed (en shortened by main's v2.1 trim; ar/fr/zh below
     // redrafted to match, dropping the "infrastructure layer..." clause the English also dropped)
     intentTxt: {
       en: 'SWAQAR intends to become the institutional reference point for corridor coordination governance across Africa, the Middle East, and Asia — a multi-decade intention, subject to governance discipline and counsel-validated milestones.',
@@ -163,7 +163,7 @@ export const t = {
     },
   },
 
-  // ── IDENTITY ── // draft
+  // ── IDENTITY ── // reviewed
   identity: {
     sectionTag: { en: 'Institutional Identity', ar: 'الهوية المؤسسية', fr: 'Identité Institutionnelle', zh: '机构身份' },
     heading: { en: 'A coordination layer,', ar: 'طبقة تنسيق،', fr: 'Une couche de coordination,', zh: '一个协调层，' },
@@ -248,7 +248,7 @@ export const t = {
     },
   },
 
-  // ── GOVERNANCE ── // draft
+  // ── GOVERNANCE ── // reviewed
   governance: {
     sectionTag: { en: 'Governance Structure', ar: 'هيكل الحوكمة', fr: 'Structure de Gouvernance', zh: '治理架构' },
     heading: { en: 'Three layers of institutional', ar: 'ثلاث طبقات من', fr: 'Trois couches de', zh: '三层机构' },
@@ -297,7 +297,7 @@ export const t = {
     },
   },
 
-  // ── CONTACT ── // draft
+  // ── CONTACT ── // reviewed
   contact: {
     sectionTag: { en: 'Institutional Inquiry', ar: 'استفسار مؤسسي', fr: 'Demande Institutionnelle', zh: '机构咨询' },
     heading: { en: 'Submit a governed', ar: 'قدّم', fr: 'Soumettre une', zh: '提交受治理规范的' },
@@ -340,7 +340,7 @@ export const t = {
       zh: '请描述机构参与的具体目的，内容应尽量详实明确。',
     },
     processTag: { en: 'What Happens After You Submit', ar: 'ماذا يحدث بعد تقديم الطلب', fr: 'Ce qui se Passe Après la Soumission', zh: '提交后的流程' },
-    // draft v2.1 - re-translated, needs review (en tightened by main's v2.1 trim — both the
+    // reviewed (en tightened by main's v2.1 trim — both the
     // strong labels and rest text shortened; ar/fr/zh below redrafted to match)
     processSteps: {
       en: [
@@ -454,7 +454,7 @@ export const t = {
     },
   },
 
-  // ── FOOTER ── // draft
+  // ── FOOTER ── // reviewed
   footer: {
     desc: {
       en: 'A governance-led, non-custodial Trade Coordination Layer governing verification, institutional trust, corridor execution, and intelligence across Africa, the Middle East, and Asia.',
@@ -497,7 +497,7 @@ export const t = {
     },
   },
 
-  // ── IDENTITY PILLARS ── // draft
+  // ── IDENTITY PILLARS ── // reviewed
   identityPillars: {
     // V2.0: replaced the old four-pillars set (Governance-Led / Verification-First / Asset-Light /
     // Non-Custodial) with the locked "four functions". No locked descriptions were supplied for
@@ -530,7 +530,7 @@ export const t = {
     },
   },
 
-  // ── MARQUEE ── // draft
+  // ── MARQUEE ── // reviewed
   marquee: {
     items: {
       en: ['Governance-Led','Verification-First','Asset-Light','Non-Custodial','Africa ⇄ Middle East ⇄ Asia','Four-Gate Model','Phase I — Foundation Stage','Counsel-Validated','Supreme Council Governed'],
@@ -540,7 +540,7 @@ export const t = {
     },
   },
 
-  // ── CORRIDORS ── // draft
+  // ── CORRIDORS ── // reviewed
   corridors: {
     sectionTag: { en: 'Corridor Architecture', ar: 'هيكل الممرات', fr: 'Architecture des Corridors', zh: '通道架构' },
     // Regenerated to match the current locked English (old ar/fr still translated the pre-V2.0
@@ -595,7 +595,7 @@ export const t = {
     },
   },
 
-  // ── GATES ── // draft
+  // ── GATES ── // reviewed
   gates: {
     sectionTag: { en: 'Corridor Entry Protocol', ar: 'بروتوكول دخول الممر', fr: 'Protocole d\'Entrée du Corridor', zh: '通道准入协议' },
     heading: { en: 'Every coordinated corridor moves through', ar: 'كل ممر منسق يمر عبر', fr: 'Chaque corridor coordonné passe par', zh: '每一条经协调的通道均须经历' },
@@ -648,7 +648,7 @@ export const t = {
     },
   },
 
-  // ── ARMS ── // draft
+  // ── ARMS ── // reviewed
   arms: {
     sectionTag: { en: 'Institutional Architecture', ar: 'الهيكل المؤسسي', fr: 'Architecture Institutionnelle', zh: '机构架构' },
     heading: { en: 'Seven', ar: 'سبعة', fr: 'Sept', zh: '七大' },
@@ -713,7 +713,7 @@ export const t = {
     },
   },
 
-  // ── THE COORDINATION GAP (V2.0 copy lock) ── // draft
+  // ── THE COORDINATION GAP (V2.0 copy lock) ── // reviewed
   gap: {
     sectionTag: { en: 'The Coordination Gap', ar: 'فجوة التنسيق', fr: 'La Faille de Coordination', zh: '协调缺口' },
     heading: { en: 'The Coordination', ar: 'فجوة', fr: 'La Faille de', zh: '协调' },
@@ -752,7 +752,7 @@ export const t = {
     },
   },
 
-  // ── REALITY / READINESS (V2.0 copy lock) ── // draft
+  // ── REALITY / READINESS (V2.0 copy lock) ── // reviewed
   // sectionTag/heading were not part of the original locked copy (only the 4 readiness states +
   // the closing disclaimer were) — framing text reuses wording already established elsewhere on
   // this site rather than inventing new copy; translated consistently with that same framing.
