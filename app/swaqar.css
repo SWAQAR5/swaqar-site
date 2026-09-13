@@ -56,15 +56,24 @@ nav.scrolled{box-shadow:0 2px 24px rgba(11,31,58,.08)}
 .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
 .burger span{width:22px;height:1.5px;background:var(--ink);display:block;transition:all .3s}
 .hero{position:relative;min-height:92vh;background:var(--ink);display:flex;align-items:center;overflow:hidden}
-.hero-grid{position:absolute;inset:0;pointer-events:none}
-.hero-grid svg{width:100%;height:100%;position:absolute;inset:0}
-.hero-orb{position:absolute;right:-8vw;top:50%;transform:translateY(-50%);width:54vw;height:54vw;border-radius:50%;border:1px solid rgba(184,146,58,.23);animation:orbPulse 9s ease-in-out infinite}
-.hero-orb::before{content:'';position:absolute;inset:9%;border-radius:50%;border:1px solid rgba(184,146,58,.13)}
-.hero-orb::after{content:'';position:absolute;inset:19%;border-radius:50%;border:1px solid rgba(184,146,58,.065)}
-@keyframes orbPulse{0%,100%{opacity:.56;transform:translateY(-50%) scale(1)}50%{opacity:.88;transform:translateY(-50%) scale(1.015)}}
-.mer{position:absolute;right:-8vw;top:50%;transform:translateY(-50%);width:54vw;height:54vw;animation:spin 48s linear infinite}
-.mer2{animation-duration:72s;animation-direction:reverse}
-@keyframes spin{to{transform:translateY(-50%) rotate(360deg)}}
+
+/* Hero globe background (HeroGlobe.tsx) — abstract partial sphere anchored off the right
+   edge, ~60% visible; the left third stays quiet for the headline. */
+.hero-globe{position:absolute;right:-20vw;top:50%;transform:translateY(-50%);width:68vw;max-width:920px;aspect-ratio:1/1;pointer-events:none;z-index:0}
+.hero-globe svg{width:100%;height:100%;display:block}
+/* Barely-there drift: ±1deg over ~54s. Frozen under reduced motion below. */
+.hero-globe-lines{transform-origin:50% 50%;animation:heroGlobeDrift 54s ease-in-out infinite alternate}
+@keyframes heroGlobeDrift{0%{transform:rotate(-1deg)}100%{transform:rotate(1deg)}}
+/* Whole-hero film grain, sits just above the globe, still well under .hero-body's z-index:2. */
+.hero-grain{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;mix-blend-mode:overlay;opacity:.6;z-index:1}
+@media(prefers-reduced-motion:reduce){.hero-globe-lines{animation:none}}
+/* Faint/simplified on mobile — the headline stays legible above all else. */
+@media(max-width:768px){.hero-globe{opacity:.5;width:100vw;right:-42vw}}
+/* RTL: .hero-body sits on the flex row's inline-start edge, which is the RIGHT under
+   dir="rtl" — the same side the globe is anchored to in LTR. Mirror the globe to the left
+   instead so it stays on the side OPPOSITE the headline in every locale, not just en/fr/zh. */
+html[dir="rtl"] .hero-globe{right:auto;left:-20vw}
+@media(max-width:768px){html[dir="rtl"] .hero-globe{left:-42vw;right:auto}}
 .hero-body{position:relative;z-index:2;padding:0 60px;max-width:700px}
 .eyebrow{display:inline-flex;align-items:center;gap:14px;margin-bottom:30px}
 .eyebrow-line{width:36px;height:1px;background:var(--gold)}
