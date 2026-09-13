@@ -27,11 +27,6 @@ export const t = {
     lockupSub: { en: 'Trade · Corridors of Trust', ar: 'Trade · Corridors of Trust', fr: 'Trade · Corridors of Trust', zh: 'Trade · Corridors of Trust' },
   },
 
-  // ── TRANSLATION PENDING BANNER ──
-  translationPending: {
-    ar: 'الترجمة العربية قيد الإعداد — تم تعيين مترجم مؤسسي معتمد. المحتوى معروض حالياً باللغة العربية.',
-    fr: 'Traduction française en cours de préparation — traducteur institutionnel agréé désigné. Le contenu est actuellement affiché en français.',
-  },
 
   // ── HERO ── // reviewed
   hero: {

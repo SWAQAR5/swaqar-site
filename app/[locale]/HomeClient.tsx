@@ -151,14 +151,6 @@ export default function HomeClient({ locale }: { locale: string }) {
           <span></span><span></span><span></span>
         </button>
       </nav>
-      {lang !== 'en' && (
-        <div className="banner">
-          <div className="banner-dot"></div>
-          <p className="banner-txt">
-            {tx(t.translationPending, lang)}
-          </p>
-        </div>
-      )}
 
       <section className="hero" id="home">
         <div className="hero-grid">
