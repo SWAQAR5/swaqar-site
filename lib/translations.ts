@@ -573,11 +573,15 @@ export const t = {
     // "Three Regions." / "One Coordination Layer.").
     heading: { en: 'Three interconnected corridor regions.', ar: 'ثلاث مناطق ممرات مترابطة.', fr: 'Trois régions de corridors interconnectées.', zh: '三大互联通道区域。' },
     headingEm: { en: 'One coordination layer.', ar: 'طبقة تنسيق واحدة.', fr: 'Une seule couche de coordination.', zh: '一个协调层。' },
+    // Stage 4 batch 3-R, item A1 (category-lock fix): "execution readiness" implied SWAQAR
+    // performs execution — it coordinates readiness of the corridor, licensed parties execute.
+    // Fragment-only replacement per locale, rest of each sentence unchanged; ar/fr/zh
+    // replacements founder-approved, not machine-translated.
     subDesc: {
-      en: 'SWAQAR coordinates institutional trust, verification, and execution readiness across the Africa ↔ Middle East ↔ Asia corridor system. Each region plays a defined role. SWAQAR\'s coordination layer operates above licensed operators across all three — not within them.',
-      ar: 'تنسق سواقر الثقة المؤسسية والتحقق وجاهزية التنفيذ عبر نظام ممرات أفريقيا ↔ الشرق الأوسط ↔ آسيا. تؤدي كل منطقة دوراً محدداً. تعمل طبقة تنسيق سواقر فوق المشغلين المرخصين في المناطق الثلاث — وليس ضمنهم.',
-      fr: 'SWAQAR coordonne la confiance institutionnelle, la vérification et la préparation à l\'exécution à travers le système de corridors Afrique ↔ Moyen-Orient ↔ Asie. Chaque région joue un rôle défini. La couche de coordination de SWAQAR opère au-dessus des opérateurs agréés dans les trois régions — non en leur sein.',
-      zh: 'SWAQAR 在非洲 ↔ 中东 ↔ 亚洲通道体系中协调机构信任、核验与执行就绪状态。每个区域承担明确的角色。SWAQAR 的协调层运作于三地持牌运营方之上，而非其内部。',
+      en: 'SWAQAR coordinates institutional trust, verification, and corridor readiness across the Africa ↔ Middle East ↔ Asia corridor system. Each region plays a defined role. SWAQAR\'s coordination layer operates above licensed operators across all three — not within them.',
+      ar: 'تنسق سواقر الثقة المؤسسية والتحقق وجاهزية الممرات عبر نظام ممرات أفريقيا ↔ الشرق الأوسط ↔ آسيا. تؤدي كل منطقة دوراً محدداً. تعمل طبقة تنسيق سواقر فوق المشغلين المرخصين في المناطق الثلاث — وليس ضمنهم.',
+      fr: 'SWAQAR coordonne la confiance institutionnelle, la vérification et la préparation des corridors à travers le système de corridors Afrique ↔ Moyen-Orient ↔ Asie. Chaque région joue un rôle défini. La couche de coordination de SWAQAR opère au-dessus des opérateurs agréés dans les trois régions — non en leur sein.',
+      zh: 'SWAQAR 在非洲 ↔ 中东 ↔ 亚洲通道体系中协调机构信任、核验与通道就绪状态。每个区域承担明确的角色。SWAQAR 的协调层运作于三地持牌运营方之上，而非其内部。',
     },
     map: {
       africa: { en: 'AFRICA', ar: 'أفريقيا', fr: 'AFRIQUE', zh: '非洲' },
@@ -587,8 +591,11 @@ export const t = {
       asia: { en: 'ASIA', ar: 'آسيا', fr: 'ASIE', zh: '亚洲' },
       asiaSub: { en: '', ar: '', fr: '', zh: '' },
     },
-    tierOneTitle: { en: 'Current Strategic Focus — Phase I Active Pilot Corridor', ar: 'التركيز الاستراتيجي الحالي — الممر التجريبي النشط في المرحلة الأولى', fr: 'Focus Stratégique Actuel — Corridor Pilote Actif de Phase I', zh: '当前战略重点——第一阶段活跃试点通道' },
-    tierOneBadge: { en: 'Active', ar: 'نشط', fr: 'Actif', zh: '进行中' },
+    // Stage 4 batch 3-R, item A2 (category-lock fix): "Active Pilot Corridor" / "Active"
+    // stated or implied the corridor is operationally live — it is a Phase I CANDIDATE,
+    // still in preparation. Founder-approved replacements, all four locales.
+    tierOneTitle: { en: 'Phase I Candidate Pilot Corridor', ar: 'الممر التجريبي المرشّح — المرحلة الأولى', fr: 'Corridor pilote candidat — Phase I', zh: '第一阶段候选试点通道' },
+    tierOneBadge: { en: 'In Preparation', ar: 'قيد التحضير', fr: 'En préparation', zh: '筹备中' },
     govNoteTag: { en: 'Governance Note — Phase I Candidate Corridor', ar: 'ملاحظة الحوكمة — ممر مرشح للمرحلة الأولى', fr: 'Note de Gouvernance — Corridor Candidat de Phase I', zh: '治理说明——第一阶段候选通道' },
     govNoteTxt: {
       en: 'This corridor is SWAQAR Trade\'s designated Phase I pilot corridor, currently in preparation. No corridor is operationally active. Activation is subject to completion of the Four-Gate Model, counterparty qualification through the Partner Qualification Gate, banking and TIC panel readiness, and Supreme Council mandate. This is a governance-architecture illustration only — subject to counsel-validated legal, regulatory, and governance review before any activation proceeds.',
