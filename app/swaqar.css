@@ -135,6 +135,17 @@ section{position:relative;padding:104px 0}
 .pillar:hover{border-color:var(--gold);background:var(--stone)}
 .pillar-name{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);font-weight:600;margin-bottom:4px}
 .pillar-desc{font-size:.82rem;color:var(--muted);line-height:1.6}
+
+/* Coordination Gap diagram (Stage 4 batch 1) */
+.gap-diagram{margin-top:44px}
+.gap-diagram-desktop{display:block;width:100%;height:auto}
+.gap-diagram-mobile{display:none;width:100%;height:auto}
+.gap-diagram-captions{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:28px}
+.gap-diagram-caption{display:flex;flex-direction:column;gap:4px}
+.gap-diagram-caption-state{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:600}
+.gap-diagram-caption-desc{font-size:.78rem;color:var(--muted);line-height:1.55}
+@media(max-width:900px){.gap-diagram-desktop{display:none}.gap-diagram-mobile{display:block}.gap-diagram-captions{grid-template-columns:1fr 1fr;gap:20px}}
+@media(max-width:500px){.gap-diagram-captions{grid-template-columns:1fr}}
 .id-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:56px;background:var(--rule);border:1px solid var(--rule)}
 .id-col{padding:36px 32px}
 .id-col-yes{background:var(--charcoal)}
@@ -193,20 +204,41 @@ section{position:relative;padding:104px 0}
 @media(max-width:900px){.cor-eval-grid{grid-template-columns:1fr}}
 @media(max-width:1100px){.cor-eval-grid[data-cols="3"]{grid-template-columns:1fr 1fr}}
 @media(max-width:680px){.cor-eval-grid[data-cols="3"]{grid-template-columns:1fr}.cor-tier-badge{display:none}.cor-active-footer{flex-direction:column;align-items:flex-start}}
-.gates{background:var(--ink)}
-.gates .sec-h{color:var(--white)}
-.gates .sec-p{color:rgba(255,255,255,.52);max-width:70ch;text-align:left}
+/* Stage 4 batch 1, item 3 — background flipped from navy to soft-grey ("calm pause") per the
+   brief; every child colour below was re-tuned for a light background accordingly (was
+   white-on-navy). The old .gates-grid/.gate-* card styles are gone with the card layout they
+   belonged to (superseded by .model-spine-* below), confirmed unused anywhere else first. */
+.gates{background:var(--soft-grey)}
+.gates .sec-h{color:var(--navy)}
+.gates .sec-p{color:var(--body-grey);max-width:70ch;text-align:left}
 .gates .sec-tag-txt{color:var(--gold)}
 .gates .sec-tag-line{background:var(--gold)}
-.gates-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08);margin-top:52px;text-align:left}
-.gate{background:var(--ink);padding:44px 30px;position:relative;border-left:3px solid transparent;transition:background .3s,border-color .3s}
-.gate:hover{background:var(--ink-mid);border-left-color:var(--gold)}
-.gate-n{font-family:var(--serif);font-size:3.5rem;font-weight:700;color:rgba(255,255,255,.04);line-height:1;position:absolute;top:20px;right:20px}
-.gate-ico{width:40px;height:40px;background:var(--gold-a10);border:1px solid var(--gold-a18);display:flex;align-items:center;justify-content:center;margin-bottom:20px;color:var(--gold)}
-.gate-ico svg{width:20px;height:20px}
-.gate-tag{font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:600}
-.gate-name{font-family:var(--serif);font-size:1.2rem;font-weight:500;color:var(--white);margin-bottom:12px;line-height:1.25}
-.gate-desc{font-size:.83rem;line-height:1.75;color:rgba(255,255,255,.48);text-align:left}
+
+/* The Model — four-gate governance-spine diagram */
+.model-spine{margin-top:64px}
+.model-spine-desktop{display:block}
+.model-spine-track{position:relative;height:40px}
+.model-spine-line-svg{position:absolute;inset:0;width:100%;height:100%}
+.model-gates-row{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr)}
+.model-gate-marker{display:flex;align-items:center;justify-content:center}
+.model-gate-marker-svg{width:24px;height:24px}
+.model-gates-text{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:22px;text-align:center}
+.model-gate-numeral{font-family:var(--serif);font-size:1.5rem;font-weight:700;color:var(--navy);margin-bottom:10px}
+.model-gate-title{font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--navy);margin-bottom:8px;line-height:1.4}
+.model-gate-desc{font-size:.82rem;color:var(--body-grey);line-height:1.6}
+.model-spine-mobile-grid{display:none}
+@media(max-width:900px){
+  .model-spine-desktop{display:none}
+  /* grid-template-rows must be explicit: an absolutely-positioned grid item's grid-row only
+     resolves against explicit row tracks, not ones created by auto-placed items, so without
+     this the spine line's "span every row" (1 / -1) below silently collapsed to just row 1. */
+  .model-spine-mobile-grid{display:grid;grid-template-columns:40px 1fr;grid-template-rows:repeat(4,auto);column-gap:20px;row-gap:36px;position:relative}
+  .model-spine-mobile-line{position:absolute;left:20px;top:0;bottom:0;width:1px;background:var(--gold);grid-column:1;grid-row:1/-1}
+  .model-gate-mobile-row{display:contents}
+  .model-gate-marker-mobile{grid-column:1;align-self:center;justify-self:center;z-index:1;background:var(--soft-grey)}
+  .model-gate-mobile-text{grid-column:2;text-align:left}
+  .model-gate-mobile-text .model-gate-numeral,.model-gate-mobile-text .model-gate-title{margin-bottom:6px}
+}
 .arms{background:var(--parchment)}
 .arms-inner{display:grid;grid-template-columns:1fr 1.1fr;gap:80px;align-items:start}
 .arm-list{display:grid;grid-template-columns:1fr;gap:1px;background:var(--rule);border:1px solid var(--rule)}
