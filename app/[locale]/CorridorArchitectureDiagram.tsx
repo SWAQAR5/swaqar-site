@@ -1,21 +1,25 @@
 import type { CSSProperties } from 'react';
 import { t, type Lang } from '@/lib/translations';
 
-// Stage 4 batch 2, item 2 — "Three Regions. One Coordination Layer." NOT a literal map: three
-// calm architectural anchor forms (thin navy stelae, not map pins), thin neutral-grey
-// relationship lines between them (interregional relationship only, never a highlighted trade
-// route), and a partially-open navy frame spanning all three with one restrained gold segment
-// carrying the "SWAQAR — Trade Coordination Layer" label. The frame sits on its own plane
-// above the anchors and their relationship lines — it never touches them, so nothing here
-// reads as trade physically passing through SWAQAR.
+// Stage 4 batch 3-R, item B — REBUILD as a dark focal band (hero-grade depth), replacing the
+// flat/wireframe batch-2 version. Still "Three Regions. One Coordination Layer." — NOT a
+// literal map: three substantial region nodes (gold-rimmed glow, echoing the hero globe's
+// node treatment) sit ON a refined navy frame spanning them, with ONE restrained gold segment
+// at its centre. The frame's outer, neutral-grey segments read as the interregional
+// relationship (Africa<->ME, ME<->Asia) — never a highlighted trade route — while the gold
+// centre segment is SWAQAR's coordination accent. The frame carries the "SWAQAR — Trade
+// Coordination Layer" label on its own line above the nodes; nothing ever routes "through"
+// it as a transaction path.
 //
-// RTL — deliberately fixed, NOT locale-direction-aware (the opposite ruling from item 1):
-// both the desktop and mobile layouts below are raw SVG with hardcoded coordinates, the same
-// technique the Coordination Gap diagram (batch 1) used, specifically because a CSS-grid
-// layout (as item 1 and the Model spine diagram use) auto-reorders under dir="rtl" — which
-// would silently swap Africa and Asia's visual positions on /ar. Only the <text> label content
-// changes per locale via tx(); Africa/Middle East/Asia keep the same x (desktop) / y (mobile)
-// position in every locale.
+// Depth (item B2) comes from three layered background elements, same visual grammar as
+// HeroGlobe.tsx: a soft radial glow anchoring the composition, two ultra-faint curved guide
+// lines (3-4% opacity) echoing the hero's meridian geometry, and blurred halos behind each
+// node. The section's own vignette (dark corners) is CSS on the .corridors band, not SVG —
+// see swaqar.css.
+//
+// RTL — unchanged ruling from batch 2, still deliberately fixed: raw SVG with hardcoded
+// coordinates (not a CSS grid), so dir="rtl" cannot reorder Africa/Middle East/Asia. Only
+// <text> label content localizes.
 export default function CorridorArchitectureDiagram({ locale }: { locale: string }) {
   const lang: Lang = (['en', 'ar', 'fr', 'zh'] as const).includes(locale as Lang) ? (locale as Lang) : 'en';
   const africa = (t.corridors.map.africa[lang] ?? t.corridors.map.africa['en']);
@@ -26,32 +30,36 @@ export default function CorridorArchitectureDiagram({ locale }: { locale: string
   const labelStyle: CSSProperties = {
     fontFamily: 'var(--sans)',
     fontSize: '12px',
-    letterSpacing: '.16em',
+    letterSpacing: '.22em',
     textTransform: 'uppercase',
     fontWeight: 600,
-    fill: 'var(--navy)',
+    fill: 'rgba(255,255,255,.82)',
   };
   const railLabelStyle: CSSProperties = {
     fontFamily: 'var(--sans)',
     fontSize: '11px',
-    letterSpacing: '.22em',
+    letterSpacing: '.26em',
     textTransform: 'uppercase',
     fontWeight: 600,
     fill: 'var(--gold)',
   };
 
-  // Anchor form: a slender upright bar with a small open ring at the top — a calm
-  // "architectural waypoint," deliberately not a map-pin teardrop shape and not a dot.
-  const Anchor = ({ x, y }: { x: number; y: number }) => (
-    <g>
-      <line x1={x} y1={y} x2={x} y2={y + 58} stroke="var(--navy)" strokeWidth="2" strokeOpacity="0.55" />
-      <circle cx={x} cy={y - 8} r="5" fill="none" stroke="var(--navy)" strokeWidth="1.4" strokeOpacity="0.7" />
-    </g>
+  const defs = (
+    <defs>
+      <radialGradient id="corGlow" cx="50%" cy="46%" r="55%">
+        <stop offset="0%" stopColor="#1a3f72" stopOpacity="0.9" />
+        <stop offset="100%" stopColor="#1a3f72" stopOpacity="0" />
+      </radialGradient>
+      <filter id="corNodeHalo"><feGaussianBlur stdDeviation="7" /></filter>
+    </defs>
   );
-  const AnchorVertical = ({ x, y }: { x: number; y: number }) => (
+
+  // Substantial node: blurred gold halo behind a light-filled, gold-rimmed circle — echoes
+  // the hero globe's node/shimmer treatment rather than the old thin open-ring tick mark.
+  const Node = ({ x, y }: { x: number; y: number }) => (
     <g>
-      <line x1={x} y1={y} x2={x + 58} y2={y} stroke="var(--navy)" strokeWidth="2" strokeOpacity="0.55" />
-      <circle cx={x - 8} cy={y} r="5" fill="none" stroke="var(--navy)" strokeWidth="1.4" strokeOpacity="0.7" />
+      <circle cx={x} cy={y} r="17" fill="var(--gold)" opacity="0.28" filter="url(#corNodeHalo)" />
+      <circle cx={x} cy={y} r="7" fill="#0e2444" stroke="var(--gold)" strokeWidth="1.6" />
     </g>
   );
 
@@ -59,57 +67,59 @@ export default function CorridorArchitectureDiagram({ locale }: { locale: string
     <div className="cor-arch-diagram r" data-d="2">
       {/* ── Desktop/tablet: wide horizontal, generous negative space ── */}
       <svg className="cor-arch-desktop" viewBox="0 0 1400 420" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-        {/* At most two ultra-faint curved lines echoing the hero's meridian geometry —
-            texture only, capped well under the ≤4% opacity ceiling. */}
-        <path d="M 100,380 Q 700,280 1300,380" fill="none" stroke="var(--navy)" strokeWidth="1" strokeOpacity="0.035" />
-        <path d="M 150,60 Q 700,140 1250,60" fill="none" stroke="var(--gold)" strokeWidth="1" strokeOpacity="0.03" />
+        {defs}
+        <ellipse className="cor-arch-glow" cx="700" cy="200" rx="520" ry="260" fill="url(#corGlow)" />
 
-        {/* Relationship lines — thin, neutral-grey, interregional relationship only. */}
-        <line x1="260" y1="230" x2="700" y2="230" stroke="var(--rule-grey)" strokeWidth="1.2" />
-        <line x1="700" y1="230" x2="1140" y2="230" stroke="var(--rule-grey)" strokeWidth="1.2" />
+        {/* Two ultra-faint curved guide lines echoing the hero's meridian geometry — texture
+            only, within the 3-5% opacity band. */}
+        <path d="M 100,370 Q 700,270 1300,370" fill="none" stroke="#ffffff" strokeWidth="1" strokeOpacity="0.04" />
+        <path d="M 150,60 Q 700,150 1250,60" fill="none" stroke="var(--gold)" strokeWidth="1" strokeOpacity="0.035" />
 
-        {/* Three anchors — fixed x positions, never reordered by direction. */}
-        <Anchor x={260} y={200} />
-        <Anchor x={700} y={200} />
-        <Anchor x={1140} y={200} />
-        <text x="260" y="300" textAnchor="middle" style={labelStyle}>{africa}</text>
-        <text x="700" y="300" textAnchor="middle" style={labelStyle}>{middleEast}</text>
-        <text x="1140" y="300" textAnchor="middle" style={labelStyle}>{asia}</text>
+        {/* The frame: outer segments are the neutral interregional relationship; the centre
+            segment is SWAQAR's one restrained gold accent. Nodes sit directly on it. */}
+        <line x1="260" y1="210" x2="620" y2="210" stroke="var(--rule-grey)" strokeWidth="1.3" strokeOpacity="0.4" />
+        <line x1="620" y1="210" x2="780" y2="210" stroke="var(--gold)" strokeWidth="1.6" />
+        <line x1="780" y1="210" x2="1140" y2="210" stroke="var(--rule-grey)" strokeWidth="1.3" strokeOpacity="0.4" />
 
-        {/* Partially-open institutional frame — navy, one restrained gold segment, on its own
-            plane above the anchors; never touches the relationship lines below it. */}
-        <path d="M 260,110 L 260,90 L 610,90" fill="none" stroke="var(--navy)" strokeWidth="1.2" />
-        <path d="M 610,90 L 790,90" fill="none" stroke="var(--gold)" strokeWidth="1.4" />
-        <path d="M 790,90 L 1140,90 L 1140,110" fill="none" stroke="var(--navy)" strokeWidth="1.2" />
-        <text x="700" y="62" textAnchor="middle" style={railLabelStyle}>{railName}</text>
+        <Node x={260} y={210} />
+        <Node x={700} y={210} />
+        <Node x={1140} y={210} />
+        <text x="260" y="280" textAnchor="middle" style={labelStyle}>{africa}</text>
+        <text x="700" y="280" textAnchor="middle" style={labelStyle}>{middleEast}</text>
+        <text x="1140" y="280" textAnchor="middle" style={labelStyle}>{asia}</text>
+
+        <text x="700" y="130" textAnchor="middle" style={railLabelStyle}>{railName}</text>
       </svg>
 
       {/* ── Mobile: vertical Africa / Middle East / Asia; SWAQAR as a parallel vertical
           bracket beside them (not a node between them). Same fixed-coordinate approach. ── */}
       <svg className="cor-arch-mobile" viewBox="0 0 420 680" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-        <path d="M 40,80 Q 210,140 380,80" fill="none" stroke="var(--navy)" strokeWidth="1" strokeOpacity="0.035" />
+        {defs}
+        <ellipse className="cor-arch-glow" cx="150" cy="340" rx="220" ry="320" fill="url(#corGlow)" />
+        <path d="M 40,80 Q 210,140 380,80" fill="none" stroke="#ffffff" strokeWidth="1" strokeOpacity="0.04" />
 
-        <line x1="90" y1="150" x2="90" y2="340" stroke="var(--rule-grey)" strokeWidth="1.2" />
-        <line x1="90" y1="340" x2="90" y2="530" stroke="var(--rule-grey)" strokeWidth="1.2" />
+        {/* Main region line — uninterrupted, fully neutral (no gold here): on mobile, SWAQAR
+            is represented ONLY by the separate parallel bracket below, per the brief (B7) —
+            unlike desktop, where the frame and the relationship line are the same element. */}
+        <line x1="90" y1="150" x2="90" y2="530" stroke="var(--rule-grey)" strokeWidth="1.3" strokeOpacity="0.4" />
 
-        <AnchorVertical x={90} y={150} />
-        <AnchorVertical x={90} y={340} />
-        <AnchorVertical x={90} y={530} />
-        <text x="170" y="155" style={labelStyle}>{africa}</text>
-        <text x="170" y="345" style={labelStyle}>{middleEast}</text>
-        <text x="170" y="535" style={labelStyle}>{asia}</text>
+        <Node x={90} y={150} />
+        <Node x={90} y={340} />
+        <Node x={90} y={530} />
+        <text x="150" y="155" style={labelStyle}>{africa}</text>
+        <text x="150" y="345" style={labelStyle}>{middleEast}</text>
+        <text x="150" y="535" style={labelStyle}>{asia}</text>
 
-        {/* Parallel SWAQAR bracket — its own vertical plane, not sitting between the anchors. */}
-        <path d="M 330,150 L 350,150 L 350,320" fill="none" stroke="var(--navy)" strokeWidth="1.2" />
-        <path d="M 350,320 L 350,370" fill="none" stroke="var(--gold)" strokeWidth="1.4" />
-        <path d="M 350,370 L 350,530 L 330,530" fill="none" stroke="var(--navy)" strokeWidth="1.2" />
-        {/* textAnchor="middle" + rotating about the bracket's own vertical midpoint (340) is
-            required, not cosmetic: with the default "start" anchor the un-rotated text ran
-            outward from the pivot in one direction only, so after rotation the longest locale
-            string (French, "SWAQAR — Couche de Coordination Commerciale") measured past the
-            bottom of the viewBox — confirmed via getBBox before this fix. Anchoring to the
-            centre lets it grow equally in both directions from the bracket's midpoint instead. */}
-        <text x="360" y="340" textAnchor="middle" style={{ ...railLabelStyle, fontSize: '9.5px' }} transform="rotate(90 360 340)">{railName}</text>
+        {/* Parallel SWAQAR bracket — its own vertical plane, not sitting between the anchors.
+            Stroked in a light tone (not navy): the whole band is navy now, so a navy-stroked
+            bracket would be invisible against it — a real bug caught before this shipped. */}
+        <path d="M 350,150 L 370,150 L 370,320" fill="none" stroke="rgba(255,255,255,.45)" strokeWidth="1.2" />
+        <path d="M 370,320 L 370,370" fill="none" stroke="var(--gold)" strokeWidth="1.6" />
+        <path d="M 370,370 L 370,530 L 350,530" fill="none" stroke="rgba(255,255,255,.45)" strokeWidth="1.2" />
+        {/* textAnchor="middle" + rotating about the bracket's own vertical midpoint (340) —
+            confirmed via getBBox in batch 2 that the default "start" anchor let the longest
+            locale string (French) overflow the viewBox; centring keeps every locale inside it. */}
+        <text x="380" y="340" textAnchor="middle" style={{ ...railLabelStyle, fontSize: '9.5px' }} transform="rotate(90 380 340)">{railName}</text>
       </svg>
     </div>
   );
