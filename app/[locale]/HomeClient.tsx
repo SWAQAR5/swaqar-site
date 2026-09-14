@@ -7,6 +7,8 @@ import SiteHeader from './SiteHeader';
 import SiteFooter from './SiteFooter';
 import HeroGlobe from './HeroGlobe';
 import CoordinationGapDiagram from './CoordinationGapDiagram';
+import IdentityCorridorDiagram from './IdentityCorridorDiagram';
+import CorridorArchitectureDiagram from './CorridorArchitectureDiagram';
 
 const SUPPORTED_LOCALES: Lang[] = ['en', 'ar', 'fr', 'zh'];
 
@@ -183,6 +185,7 @@ export default function HomeClient({ locale }: { locale: string }) {
               ))}
             </div>
           </div>
+          <IdentityCorridorDiagram locale={locale} />
           <div className="gov-note r" data-d="3" style={{marginTop:'32px'}}>
             <div className="gov-note-tag">{tx(t.identity.revenueTag, lang)}</div>
             <p className="gov-note-txt">{tx(t.identity.revenueTxt, lang)}</p>
@@ -202,37 +205,7 @@ export default function HomeClient({ locale }: { locale: string }) {
             <p className="sec-p r" data-d="2">{tx(t.corridors.subDesc, lang)}</p>
           </div>
 
-          <div className="cor-map-box r">
-            <svg viewBox="0 0 900 295" fill="none" style={{width:'100%',display:'block'}}>
-              <defs><filter id="bf"><feGaussianBlur stdDeviation="3" /></filter></defs>
-              <line x1="0" y1="74" x2="900" y2="74" stroke="rgba(11,31,58,.06)" strokeWidth=".5" strokeDasharray="4 8" />
-              <line x1="0" y1="148" x2="900" y2="148" stroke="rgba(11,31,58,.06)" strokeWidth=".5" strokeDasharray="4 8" />
-              <line x1="0" y1="222" x2="900" y2="222" stroke="rgba(11,31,58,.06)" strokeWidth=".5" strokeDasharray="4 8" />
-              <path d="M 110,188 C 200,163 270,133 360,113" stroke="#D1D5DB" strokeWidth="1" strokeDasharray="4 8" />
-              <path d="M 420,106 C 530,90 640,82 768,108" stroke="#D1D5DB" strokeWidth="1" strokeDasharray="4 8" />
-              <path d="M 110,188 C 200,163 270,133 360,113" stroke="#B8923A" strokeWidth="1.2" strokeDasharray="3 7" opacity=".5"><animate attributeName="stroke-dashoffset" from="0" to="-60" dur="3s" repeatCount="indefinite" /></path>
-              <path d="M 420,106 C 530,90 640,82 768,108" stroke="#B8923A" strokeWidth="1.2" strokeDasharray="3 7" opacity=".35"><animate attributeName="stroke-dashoffset" from="0" to="-60" dur="4.5s" repeatCount="indefinite" /></path>
-              <circle cx="110" cy="188" r="9" fill="rgba(11,31,58,.1)" stroke="#0B1F3A" strokeWidth="1.5" />
-              <circle cx="110" cy="188" r="4" fill="#0B1F3A" />
-              <circle cx="110" cy="188" r="16" fill="rgba(11,31,58,.05)"><animate attributeName="r" values="9;20;9" dur="2.8s" repeatCount="indefinite" /><animate attributeName="opacity" values=".4;0;.4" dur="2.8s" repeatCount="indefinite" /></circle>
-              <text x="110" y="212" textAnchor="middle" fontSize="7" fill="#0B1F3A" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">{tx(t.corridors.map.africa, lang)}</text>
-              <text x="110" y="221" textAnchor="middle" fontSize="6" fill="#718096" fontFamily="DM Sans,sans-serif" letterSpacing="2">{tx(t.corridors.map.africaSub, lang)}</text>
-              <circle cx="390" cy="109" r="9" fill="rgba(11,31,58,.1)" stroke="#0B1F3A" strokeWidth="1.5" />
-              <circle cx="390" cy="109" r="4" fill="#0B1F3A" />
-              <circle cx="390" cy="109" r="16" fill="rgba(11,31,58,.05)"><animate attributeName="r" values="9;20;9" dur="2.8s" begin=".9s" repeatCount="indefinite" /><animate attributeName="opacity" values=".4;0;.4" dur="2.8s" begin=".9s" repeatCount="indefinite" /></circle>
-              <text x="390" y="88" textAnchor="middle" fontSize="7" fill="#0B1F3A" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">{tx(t.corridors.map.middleEast, lang)}</text>
-              <text x="390" y="97" textAnchor="middle" fontSize="6" fill="#718096" fontFamily="DM Sans,sans-serif" letterSpacing="2">{tx(t.corridors.map.middleEastSub, lang)}</text>
-              <rect x="340" y="130" width="100" height="22" rx="2" fill="#0B1F3A" />
-              <text x="390" y="145" textAnchor="middle" fontSize="6" fill="#B8923A" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">SWAQAR</text>
-              <circle cx="776" cy="108" r="9" fill="rgba(11,31,58,.1)" stroke="#0B1F3A" strokeWidth="1.5" />
-              <circle cx="776" cy="108" r="4" fill="#0B1F3A" />
-              <circle cx="776" cy="108" r="16" fill="rgba(11,31,58,.05)"><animate attributeName="r" values="9;20;9" dur="2.8s" begin="1.8s" repeatCount="indefinite" /><animate attributeName="opacity" values=".4;0;.4" dur="2.8s" begin="1.8s" repeatCount="indefinite" /></circle>
-              <text x="776" y="87" textAnchor="middle" fontSize="7" fill="#0B1F3A" fontFamily="DM Sans,sans-serif" letterSpacing="3" fontWeight="600">{tx(t.corridors.map.asia, lang)}</text>
-              <text x="776" y="96" textAnchor="middle" fontSize="6" fill="#718096" fontFamily="DM Sans,sans-serif" letterSpacing="2">{tx(t.corridors.map.asiaSub, lang)}</text>
-              <circle r="4" fill="#B8923A" filter="url(#bf)" opacity=".7"><animateMotion dur="3s" repeatCount="indefinite" path="M 110,188 C 200,163 270,133 360,113" /></circle>
-              <circle r="3.5" fill="#B8923A" filter="url(#bf)" opacity=".55"><animateMotion dur="4s" repeatCount="indefinite" begin="1s" path="M 420,106 C 530,90 640,82 768,108" /></circle>
-            </svg>
-          </div>
+          <CorridorArchitectureDiagram locale={locale} />
 
           <div className="cor-tier r" data-d="1">
             <div className="cor-tier-head">
