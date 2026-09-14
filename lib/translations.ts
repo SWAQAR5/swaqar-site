@@ -58,6 +58,12 @@ export const t = {
     h1line1: { en: 'Corridors', ar: 'Corridors', fr: 'Corridors', zh: 'Corridors' },
     h1line2: { en: 'of', ar: 'of', fr: 'of', zh: 'of' },
     h1em: { en: 'Trust', ar: 'Trust', fr: 'Trust', zh: 'Trust' },
+    // Stage 4 batch 1 — translator-approved subtitle line beneath the brand mark. The mark
+    // itself (h1line1/h1line2/h1em above) stays English in every locale by design; this is the
+    // one localized line under it. en deliberately empty (English mark already reads in
+    // English — no subtitle needed); render nothing when a locale's value is empty, never
+    // invent or machine-translate a filler.
+    subtitle: { en: '', ar: 'ممرات الثقة', fr: 'Corridors de confiance', zh: '信任通道' },
     desc: {
       en: 'A governance-led Trade Coordination Layer for Africa, the Middle East and Asia. Coordinates verified corridor readiness — without trading, brokering or holding funds.',
       ar: 'طبقة تنسيق تجاري رائدة بالحوكمة لأفريقيا والشرق الأوسط وآسيا. تنسق جاهزية الممرات الموثقة — دون تداول أو وساطة أو حيازة أموال.',
