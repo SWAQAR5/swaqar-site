@@ -194,6 +194,18 @@ export const t = {
       fr: '"SWAQAR coordonne sans posséder. Vérifie sans courtage. Connecte sans garde."',
       zh: '"SWAQAR 协调而不持有。核验而不经纪。连接而不托管。"',
     },
+    // Stage 4 batch 2 — new labels for the "coordination layer, not a counterparty" diagram.
+    // Verb distinction is deliberate and must not drift: actors on the corridor PERFORM/EXECUTE
+    // (corridorLabel); SWAQAR, on its separate rail, COORDINATES (railLabel). User-supplied,
+    // translator-approved.
+    actor: {
+      verification: { en: 'Licensed Verification', ar: 'جهات التحقق المرخّصة', fr: 'Organismes de vérification agréés', zh: '持牌验证机构' },
+      banks: { en: 'Banks & Financial Institutions', ar: 'البنوك والمؤسسات المالية', fr: 'Banques et institutions financières', zh: '银行和金融机构' },
+      logistics: { en: 'Logistics Operators', ar: 'مشغلو الخدمات اللوجستية', fr: 'Opérateurs logistiques', zh: '物流运营商' },
+      counterparties: { en: 'Commercial Counterparties', ar: 'الأطراف التجارية', fr: 'Contreparties commerciales', zh: '商业交易对手' },
+    },
+    corridorLabel: { en: 'Licensed institutions perform.', ar: 'المؤسسات المرخّصة تنفّذ.', fr: 'Les institutions agréées exécutent.', zh: '持牌机构执行。' },
+    railLabel: { en: 'SWAQAR coordinates.', ar: 'SWAQAR تنسّق.', fr: 'SWAQAR coordonne.', zh: 'SWAQAR 协调。' },
     badgeName: { en: 'SWAQAR Trade', ar: 'SWAQAR Trade', fr: 'SWAQAR Trade', zh: 'SWAQAR Trade' },
     badgeRole: { en: 'Founding Governance Doctrine', ar: 'عقيدة الحوكمة التأسيسية', fr: 'Doctrine de Gouvernance Fondatrice', zh: '创始治理理念' },
     medallionT: { en: 'Foundation', ar: 'التأسيس', fr: 'Fondation', zh: '基础' },

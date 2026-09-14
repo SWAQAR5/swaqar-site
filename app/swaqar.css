@@ -161,10 +161,55 @@ section{position:relative;padding:104px 0}
 .id-col-no .id-pip{background:var(--rule);color:var(--muted)}
 .id-col-yes .id-txt{font-size:.83rem;color:rgba(255,255,255,.7);line-height:1.5;text-align:left}
 .id-col-no .id-txt{font-size:.83rem;color:var(--body);line-height:1.5;text-align:left}
+
+/* Identity corridor diagram (Stage 4 batch 2, item 1) — CATEGORY-CRITICAL geometry: the rail
+   (SWAQAR) and the corridor (licensed actors) are two separate grid rows/tracks that never
+   touch, matching the non-custodial lock this diagram exists to illustrate. */
+.id-diagram{margin-top:56px}
+.id-diagram-desktop{display:grid;grid-template-columns:repeat(4,1fr);row-gap:10px}
+.id-diagram-rail-label{grid-column:1/-1;text-align:center;font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:6px}
+.id-diagram-rail-track{grid-column:1/-1;height:22px}
+.id-diagram-rail-svg{width:100%;height:100%;display:block}
+.id-diagram-rail-caption{grid-column:1/-1;text-align:center;font-size:.72rem;color:var(--body-grey);font-style:italic;margin:8px 0 18px}
+.id-diagram-connectors-row{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr)}
+.id-diagram-connector{display:flex;align-items:center;justify-content:center}
+.id-diagram-connector-svg{width:10px;height:44px}
+.id-diagram-corridor-track{grid-column:1/-1;position:relative;height:20px;margin-top:4px}
+.id-diagram-corridor-svg{position:absolute;inset:0;width:100%;height:100%}
+.id-diagram-nodes-row{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr)}
+.id-diagram-node{display:flex;align-items:center;justify-content:center}
+.id-diagram-node-svg{width:18px;height:18px}
+.id-diagram-corridor-caption{grid-column:1/-1;text-align:center;font-size:.72rem;color:var(--body-grey);font-style:italic;margin:10px 0 20px}
+.id-diagram-actors-row{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.id-diagram-actor-label{text-align:center;font-size:.68rem;letter-spacing:.05em;text-transform:uppercase;font-weight:600;color:var(--ink);line-height:1.4}
+.id-diagram-mobile-grid{display:none}
+@media(max-width:900px){
+  .id-diagram-desktop{display:none}
+  .id-diagram-mobile-grid{display:grid;grid-template-columns:60px 1fr;grid-template-rows:repeat(4,auto);column-gap:16px;row-gap:32px;position:relative;margin-top:20px}
+  /* bottom:0, not an arbitrary offset: grid-row:1/-1 already bounds this to exactly the 4
+     explicit actor rows (the caption elements below are separate, auto-placed implicit rows
+     outside that span) — an earlier bottom:64px guess cut the line off before the last row. */
+  .id-diagram-mobile-rail-line{position:absolute;left:10px;top:0;bottom:0;width:2px;background:var(--gold);grid-column:1;grid-row:1/-1}
+  .id-diagram-mobile-corridor-line{position:absolute;left:50px;top:0;bottom:0;width:1.4px;background:var(--body-grey);opacity:.55;grid-column:1;grid-row:1/-1}
+  .id-diagram-mobile-row{display:contents}
+  .id-diagram-mobile-marker{grid-column:1;z-index:1}
+  .id-diagram-mobile-marker svg{width:60px;height:40px;display:block}
+  .id-diagram-mobile-text{grid-column:2;align-self:center;font-size:.72rem;letter-spacing:.03em;text-transform:uppercase;font-weight:600;color:var(--ink);line-height:1.4}
+  .id-diagram-mobile-caption{grid-column:1/-1;display:flex;flex-direction:column;gap:4px;margin-top:8px;padding-top:16px;border-top:1px solid var(--rule)}
+  .id-diagram-mobile-caption-rail{border-top:none;padding-top:0;margin-top:-8px}
+  .id-diagram-mobile-caption .id-diagram-rail-label,.id-diagram-mobile-caption .id-diagram-rail-caption,.id-diagram-mobile-caption .id-diagram-corridor-caption{text-align:left;margin:0}
+}
 /* ── CORRIDORS ── */
 .corridors{background:var(--stone);padding:88px 0}
 .cor-head{display:flex;flex-direction:column;margin-bottom:52px;gap:16px}
-.cor-map-box{background:var(--parchment);border:1px solid var(--rule);border-top:3px solid var(--ink);padding:48px}
+/* Corridor Architecture diagram (Stage 4 batch 2, item 2) — replaces the old .cor-map-box
+   literal-map SVG (confirmed unused anywhere else before removing its CSS). Fixed, non-
+   mirrored SVG coordinates (see the component's own comment for why), so no dir-based rules
+   are needed here — only sizing/visibility per breakpoint. */
+.cor-arch-diagram{background:var(--parchment);border:1px solid var(--rule);border-top:3px solid var(--ink);padding:32px}
+.cor-arch-desktop{display:block;width:100%;height:auto}
+.cor-arch-mobile{display:none;width:100%;height:auto}
+@media(max-width:700px){.cor-arch-desktop{display:none}.cor-arch-mobile{display:block}}
 .cor-phase-label{display:inline-flex;align-items:center;gap:10px;margin-bottom:24px}
 .cor-phase-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;flex-shrink:0;animation:pulse 2s ease-in-out infinite}
 .cor-phase-txt{font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--ink);font-weight:600}
