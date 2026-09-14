@@ -6,6 +6,7 @@ import { useSiteChrome } from '@/lib/useSiteChrome';
 import SiteHeader from './SiteHeader';
 import SiteFooter from './SiteFooter';
 import HeroGlobe from './HeroGlobe';
+import CoordinationGapDiagram from './CoordinationGapDiagram';
 
 const SUPPORTED_LOCALES: Lang[] = ['en', 'ar', 'fr', 'zh'];
 
@@ -94,15 +95,7 @@ export default function HomeClient({ locale }: { locale: string }) {
         <div className="wrap">
           <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">{tx(t.gap.sectionTag, lang)}</span></div>
           <h2 className="sec-h r" data-d="1">{tx(t.gap.heading, lang)} <em>{tx(t.gap.headingEm, lang)}</em></h2>
-          <div className="pillars r" data-d="2">
-            {(t.gap.items[lang] ?? t.gap.items['en']).map((item, i) => (
-              <div className="pillar" key={i}>
-                <div className="pillar-name">{item.name}</div>
-                <div className="pillar-desc">{item.state}</div>
-                <div className="pillar-desc">{item.desc}</div>
-              </div>
-            ))}
-          </div>
+          <CoordinationGapDiagram locale={locale} />
           <div className="gov-note r" data-d="3" style={{marginTop:'32px'}}>
             <p className="gov-note-txt">{tx(t.gap.closing, lang)}</p>
           </div>
