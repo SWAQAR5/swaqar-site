@@ -195,6 +195,10 @@ export default function HomeClient({ locale }: { locale: string }) {
 
       <div className="gold-rule" />
 
+      {/* Stage 4 batch 3-R — dark focal band (item B). Heading + intro + diagram only; the
+          Candidate Pilot module moved into its own light section immediately after (item C),
+          restoring the page's alternating dark/light rhythm this stretch had lost since the
+          Model/Arms sections moved to their own routes in Stage 3. */}
       <section className="corridors" id="corridors">
         <div className="wrap">
           <div className="cor-head">
@@ -206,52 +210,79 @@ export default function HomeClient({ locale }: { locale: string }) {
           </div>
 
           <CorridorArchitectureDiagram locale={locale} />
+        </div>
+      </section>
 
-          <div className="cor-tier r" data-d="1">
-            <div className="cor-tier-head">
-              <span className="cor-tier-num">01</span>
-              <span className="cor-tier-title">{tx(t.corridors.tierOneTitle, lang)}</span>
-              <span className="cor-tier-badge">{tx(t.corridors.tierOneBadge, lang)}</span>
+      <div className="gold-rule" />
+
+      {/* Candidate Pilot — one unified editorial module (item C), light beat after the dark
+          band above. phaseLabel/activeDesc/govNoteTxt (existing approved copy, not in the
+          brief's 4-part visual spec) preserved as a collapsible governance note at the end
+          rather than dropped silently. */}
+      <section className="cor-pilot">
+        <div className="wrap">
+          <div className="cor-pilot-module r" data-d="1">
+            <div className="cor-pilot-header">
+              <span className="cor-pilot-header-label">{tx(t.corridors.tierOneTitle, lang)}</span>
+              <span className="cor-pilot-capsule">{tx(t.corridors.tierOneBadge, lang)}</span>
             </div>
-            <div className="cor-card-active">
-              <div className="cor-gov-note" style={{marginTop:'28px'}}>
-                <div className="cor-gov-note-icon">
-                  <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
-                </div>
-                <div style={{flex:1}}>
-                  <button
-                    type="button"
-                    id="cor-gov-note-btn"
-                    className="arm-toggle"
-                    aria-expanded={corGovNoteOpen}
-                    aria-controls="cor-gov-note-panel"
-                    onClick={() => setCorGovNoteOpen(v => !v)}
-                  >
-                    <span className="cor-gov-note-tag">{tx(t.corridors.govNoteTag, lang)}</span>
-                    <svg className="arm-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                      <path d="M9 18l6-6-6-6" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </button>
-                  <div className="arm-panel" id="cor-gov-note-panel" role="region" aria-labelledby="cor-gov-note-btn" data-open={corGovNoteOpen}>
-                    <div className="arm-panel-inner">
-                      <p className="cor-gov-note-txt">{tx(t.corridors.govNoteTxt, lang)}</p>
-                    </div>
-                  </div>
-                </div>
+            <p className="cor-pilot-phase">{tx(t.corridors.phaseLabel, lang)}</p>
+
+            <div className="cor-pilot-relationship">
+              <div className="cor-pilot-node">
+                <span className="cor-pilot-node-dot" />
+                <span className="cor-pilot-node-label">{tx(t.corridors.map.africa, lang)}</span>
               </div>
-              <div className="cor-phase-label" style={{marginTop:'28px'}}><div className="cor-phase-dot" /><span className="cor-phase-txt">{tx(t.corridors.phaseLabel, lang)}</span></div>
-              <p className="cor-active-desc">{tx(t.corridors.activeDesc, lang)}</p>
-              <div className="cor-active-footer">
-                <p className="cor-active-footer-txt">{tx(t.corridors.activeFooterTxt, lang)}</p>
-                <div className="cor-active-footer-tags">
-                  {(t.corridors.activeFooterTags[lang] ?? t.corridors.activeFooterTags['en']).map((tag, i) => (
-                    <span className="cor-tag-gold" key={i}>{tag}</span>
-                  ))}
+              <svg className="cor-pilot-dash-line" viewBox="0 0 200 4" preserveAspectRatio="none" aria-hidden="true">
+                <line x1="0" y1="2" x2="200" y2="2" stroke="var(--gold)" strokeWidth="1.4" strokeDasharray="6 6" />
+              </svg>
+              <div className="cor-pilot-node">
+                <span className="cor-pilot-node-dot" />
+                {/* "GCC" is a locked, untranslated acronym — same category as SWAQAR itself,
+                    never transcreated per the site's copy rules. */}
+                <span className="cor-pilot-node-label">GCC</span>
+              </div>
+            </div>
+
+            <div className="cor-pilot-readiness">
+              {(t.reality.items[lang] ?? t.reality.items['en']).map((item, i) => (
+                <div className="cor-pilot-readiness-row" key={i}>
+                  <span className="cor-pilot-readiness-marker" aria-hidden="true" />
+                  <span className="cor-pilot-readiness-label">{item.name}</span>
+                </div>
+              ))}
+            </div>
+
+            <p className="cor-pilot-honesty">{tx(t.corridors.activeFooterTxt, lang)}</p>
+
+            <div className="cor-pilot-tags">
+              {(t.corridors.activeFooterTags[lang] ?? t.corridors.activeFooterTags['en']).map((tag, i) => (
+                <span className="cor-pilot-tag" key={i}>{tag}</span>
+              ))}
+            </div>
+
+            <div className="cor-pilot-govnote">
+              <button
+                type="button"
+                id="cor-gov-note-btn"
+                className="arm-toggle"
+                aria-expanded={corGovNoteOpen}
+                aria-controls="cor-gov-note-panel"
+                onClick={() => setCorGovNoteOpen(v => !v)}
+              >
+                <span className="cor-gov-note-tag">{tx(t.corridors.govNoteTag, lang)}</span>
+                <svg className="arm-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                  <path d="M9 18l6-6-6-6" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+              <div className="arm-panel" id="cor-gov-note-panel" role="region" aria-labelledby="cor-gov-note-btn" data-open={corGovNoteOpen}>
+                <div className="arm-panel-inner">
+                  <p className="cor-gov-note-txt">{tx(t.corridors.activeDesc, lang)}</p>
+                  <p className="cor-gov-note-txt" style={{marginTop:'12px'}}>{tx(t.corridors.govNoteTxt, lang)}</p>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
       </section>
 
