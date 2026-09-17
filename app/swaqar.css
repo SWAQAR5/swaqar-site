@@ -53,6 +53,11 @@ nav.scrolled{box-shadow:0 2px 24px rgba(11,31,58,.08)}
 .lang-btn.active{color:var(--ink)}
 .lang-btn:hover:not(.active){color:var(--ink)}
 .lang-sep{font-size:.58rem;color:var(--rule);line-height:1;user-select:none}
+/* Hidden by default (desktop) — the mobile-only language row previously had no base state at
+   all outside the mobile media query below, so it fell back to display:list-item/block and
+   rendered, unhidden, on every desktop width. The mobile media query already restores the
+   display values this component needs; this just gives it an explicit "off" state to override. */
+.lang-toggle-mobile,.lang-toggle-mobile-item{display:none}
 .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
 .burger span{width:22px;height:1.5px;background:var(--ink);display:block;transition:all .3s}
 .hero{position:relative;min-height:92vh;background:var(--ink);display:flex;align-items:center;overflow:hidden}
@@ -369,19 +374,34 @@ footer{background:var(--ink-deep);border-top:1px solid var(--gold-a18);padding:7
 .foot-badges{display:flex;gap:10px;flex-wrap:wrap}
 .foot-badge{font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rule);border:1px solid rgba(255,255,255,.1);padding:4px 12px}
 @media(max-width:1024px){.stats{grid-template-columns:repeat(2,1fr)}.id-inner{grid-template-columns:1fr;gap:52px}.arms-inner{grid-template-columns:1fr}.gov-grid{grid-template-columns:1fr 1fr}.con-inner{grid-template-columns:1fr}.foot-inner{grid-template-columns:1fr 1fr}.id-grid{grid-template-columns:1fr}}
-@media(max-width:768px){.banner{padding:9px 24px}nav{padding:0 24px}.nav-links{display:none;position:fixed;inset:72px 0 0;background:var(--parchment);flex-direction:column;padding:32px 24px;gap:22px;border-top:1px solid var(--rule);z-index:999;overflow-y:auto}.nav-links.open{display:flex}.burger{display:flex}.hero-body{padding:0 24px}.hero-scroll{display:none}.wrap{padding:0 24px}section{padding:76px 0}.arm-list{grid-template-columns:1fr}.gov-grid{grid-template-columns:1fr}.foot-inner{grid-template-columns:1fr}.abx-metrics{grid-template-columns:1fr}.stat{padding:20px 24px}
+/* Navigation show/hide breakpoint — deliberately separate from the general mobile layout
+   block below. Raised from 768px to 1499px (Finding #1 breakpoint validation): measured
+   directly in-browser across en/ar/fr/zh at 1150-1440px, French's "Pourquoi SWAQAR" / "Le
+   Modèle" / "Bras Stratégiques" labels still wrapped onto two lines at every one of those
+   widths — the true safe point (zero wrapping, zero shrink-compression, in all four locales)
+   is 1480px; 1499/1500 keeps a small margin for cross-browser font-metric variance. Only
+   nav-visibility rules move here — .banner/.hero-body/.wrap/section/grid-collapse rules below
+   are unrelated to nav and intentionally stay at their original 768px threshold. */
+@media(max-width:1499px){
+  .nav-links{display:none;position:fixed;inset:72px 0 0;background:var(--parchment);flex-direction:column;padding:32px 24px;gap:22px;border-top:1px solid var(--rule);z-index:999;overflow-y:auto}
+  .nav-links.open{display:flex}
+  .burger{display:flex}
   /* Stage 3 mobile-language-toggle fix — the header .lang-toggle used to survive onto phone
      widths but with `.lang-btn:not(.active){display:none}` hiding 3 of its 4 buttons, leaving
      only the current language both visible and reachable (the other three were unreachable,
-     not just hidden — no way to open them). Now the header toggle is hidden outright on
-     mobile, and a full-size, all-four-buttons row (.lang-toggle-mobile) renders instead at the
-     top of the slide-down menu — reusing only existing palette tokens, no new colours. */
+     not just hidden — no way to open them). Now the header toggle is hidden outright below
+     the nav breakpoint, and a full-size, all-four-buttons row (.lang-toggle-mobile) renders
+     instead at the top of the slide-down menu — reusing only existing palette tokens, no new
+     colours. Restores the display values .lang-toggle-mobile/.lang-toggle-mobile-item are
+     given `display:none` for by default, above. */
   .lang-toggle{display:none}
-  .lang-toggle-mobile-item{border-bottom:1px solid var(--rule);padding-bottom:20px;margin-bottom:4px;width:100%}
+  .lang-toggle-mobile-item{display:block;border-bottom:1px solid var(--rule);padding-bottom:20px;margin-bottom:4px;width:100%}
   .lang-toggle-mobile{display:flex;flex-wrap:wrap;gap:10px}
   .lang-toggle-mobile .lang-btn{border:1px solid var(--rule);padding:11px 18px;min-width:44px;min-height:44px;font-size:.68rem;letter-spacing:.14em}
   .lang-toggle-mobile .lang-btn.active{border-color:var(--gold);color:var(--ink)}
   .lang-toggle-mobile .lang-sep{display:none}
+}
+@media(max-width:768px){.banner{padding:9px 24px}nav{padding:0 24px}.hero-body{padding:0 24px}.hero-scroll{display:none}.wrap{padding:0 24px}section{padding:76px 0}.arm-list{grid-template-columns:1fr}.gov-grid{grid-template-columns:1fr}.foot-inner{grid-template-columns:1fr}.abx-metrics{grid-template-columns:1fr}.stat{padding:20px 24px}
 }
 @media(max-width:900px){.pillars{grid-template-columns:1fr 1fr}}
 @media(max-width:500px){.pillars{grid-template-columns:1fr}}
@@ -415,12 +435,14 @@ html[dir="rtl"] .banner{flex-direction:row-reverse}
 html[dir="rtl"] nav{flex-direction:row-reverse}
 /* Desktop-only: mirrors the horizontal nav-links row for RTL reading order. Pre-existing bug
    found during Stage 3 mobile-toggle testing — this rule's specificity (attribute + class)
-   outranked the plain-class `.nav-links{flex-direction:column}` inside the max-width:768px
-   mobile menu rule, so on /ar at phone widths the "menu" list rendered as a horizontal row
-   instead of stacking, overlapping items (including the new mobile language row) into an
-   unreachable pile. Scoping this to desktop widths only fixes it without touching the
-   intentional desktop RTL mirroring. */
-@media(min-width:769px){html[dir="rtl"] .nav-links{flex-direction:row-reverse}}
+   outranked the plain-class `.nav-links{flex-direction:column}` inside the mobile menu rule,
+   so on /ar below the nav breakpoint the "menu" list rendered as a horizontal row instead of
+   stacking, overlapping items (including the mobile language row) into an unreachable pile.
+   Scoping this to desktop widths only fixes it without touching the intentional desktop RTL
+   mirroring. Threshold raised from 769px to 1500px in lockstep with the nav breakpoint above
+   (Finding #1) — this guard must always match the exact width where the horizontal desktop
+   nav actually takes over, or the mobile menu could mis-render under RTL again. */
+@media(min-width:1500px){html[dir="rtl"] .nav-links{flex-direction:row-reverse}}
 html[dir="rtl"] .nav-brand{flex-direction:row-reverse}
 html[dir="rtl"] .hero-body{text-align:right}
 html[dir="rtl"] .eyebrow{flex-direction:row-reverse}
