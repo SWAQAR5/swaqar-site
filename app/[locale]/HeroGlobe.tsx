@@ -95,6 +95,13 @@ const BASE_ROT_Y = (-150 * Math.PI) / 180;
 const ROTATE_SPEED = (2 * Math.PI) / 150; // one full turn every ~150s
 const X_TILT = (23 * Math.PI) / 180;
 
+// Photographic Earth texture (progressive enhancement — see mount() below). Pinned to a
+// specific three-globe release, not a floating "latest" path, so the served file can't change
+// under us; the SRI hash below was computed directly from the bytes this exact pinned URL
+// serves, so a fetch only succeeds if jsdelivr returns those exact bytes.
+const PHOTO_TEXTURE_URL = 'https://cdn.jsdelivr.net/npm/three-globe@2.45.2/example/img/earth-blue-marble.jpg';
+const PHOTO_TEXTURE_SRI = 'sha384-WYiguPtKwuPEK83DE9Mqd1R5lyFaETsDP4D++ot+fAjbjwmg0v+6gelxSOTyCOH2';
+
 // ---- token-derived colour helpers (no new brand hex values — everything below is mixed
 // from the locked --ink/--gold custom properties read live off the document) ----
 function readToken(name: string, fallback: string): string {
@@ -299,34 +306,50 @@ export default function HeroGlobe({ lang }: { lang: Lang }) {
     const core = new THREE.Mesh(coreGeo, coreMat);
     globeGroup.add(core);
 
-    // Progressive enhancement only: if a real photographic world map can be fetched, swap it
-    // in for extra fidelity. If it can't (offline, restrictive network, or a visitor on a
-    // metered connection), the hand-painted texture above already stands as a complete,
-    // on-brand map — never a blank/solid sphere.
+    // Progressive enhancement only: if a real photographic world map can be fetched AND its
+    // integrity verified, swap it in for extra fidelity. If it can't (offline, restrictive
+    // network, a visitor on a metered connection, or the fetched bytes don't match the pinned
+    // SRI hash — e.g. a compromised or altered CDN response), the hand-painted texture above
+    // already stands as a complete, on-brand map — never a blank/solid sphere, and never a
+    // surfaced error either way. Loaded via fetch() rather than THREE.TextureLoader because
+    // TextureLoader (backed by a plain <img> element) has no way to attach an integrity check;
+    // fetch()'s own `integrity` option enforces the SRI hash before the response ever reaches
+    // this code, so a mismatched response is rejected by the browser itself.
     const saveData = (navigator as unknown as { connection?: { saveData?: boolean } }).connection?.saveData;
     if (!saveData) {
-      const loader = new THREE.TextureLoader();
-      loader.crossOrigin = 'anonymous';
-      loader.load(
-        'https://cdn.jsdelivr.net/npm/three-globe/example/img/earth-blue-marble.jpg',
-        (tex) => {
-          if (disposed) {
-            tex.dispose();
-            return;
-          }
-          const enc = (THREE as unknown as { sRGBEncoding?: number }).sRGBEncoding;
-          if (enc !== undefined) (tex as unknown as { encoding: number }).encoding = enc;
-          const maxAniso = renderer.capabilities?.getMaxAnisotropy ? renderer.capabilities.getMaxAnisotropy() : 1;
-          tex.anisotropy = maxAniso;
-          track(tex);
-          coreMat.map = tex;
-          coreMat.needsUpdate = true;
-        },
-        undefined,
-        () => {
-          /* silent — the procedural texture already applied stands */
-        }
-      );
+      fetch(PHOTO_TEXTURE_URL, { integrity: PHOTO_TEXTURE_SRI, mode: 'cors', credentials: 'omit' })
+        .then((res) => {
+          if (!res.ok) throw new Error(`photo texture fetch failed: ${res.status}`);
+          return res.blob();
+        })
+        .then((blob) => {
+          if (disposed) return;
+          const objectUrl = URL.createObjectURL(blob);
+          const img = new Image();
+          img.crossOrigin = 'anonymous';
+          img.onload = () => {
+            URL.revokeObjectURL(objectUrl);
+            if (disposed) return;
+            const tex = track(new THREE.Texture(img));
+            tex.needsUpdate = true;
+            const enc = (THREE as unknown as { sRGBEncoding?: number }).sRGBEncoding;
+            if (enc !== undefined) (tex as unknown as { encoding: number }).encoding = enc;
+            const maxAniso = renderer.capabilities?.getMaxAnisotropy ? renderer.capabilities.getMaxAnisotropy() : 1;
+            tex.anisotropy = maxAniso;
+            coreMat.map = tex;
+            coreMat.needsUpdate = true;
+          };
+          img.onerror = () => {
+            URL.revokeObjectURL(objectUrl);
+            /* silent — decode failure on an already-fetched blob; the procedural texture
+               already applied stands */
+          };
+          img.src = objectUrl;
+        })
+        .catch(() => {
+          /* silent — network failure, non-OK status, or an SRI hash mismatch: the procedural
+             texture already applied stands, same as any other load failure */
+        });
     }
 
     const wireGeo = track(new THREE.SphereGeometry(RADIUS * 1.002, 36, 22));
