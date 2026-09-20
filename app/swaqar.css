@@ -60,25 +60,36 @@ nav.scrolled{box-shadow:0 2px 24px rgba(11,31,58,.08)}
 .lang-toggle-mobile,.lang-toggle-mobile-item{display:none}
 .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
 .burger span{width:22px;height:1.5px;background:var(--ink);display:block;transition:all .3s}
-.hero{position:relative;min-height:92vh;background:var(--ink);display:flex;align-items:center;overflow:hidden}
+/* Stage 5 — hero rebuild (brand exception, hero-only): the hero now pins for 2.6 screen-
+   heights of scroll while a rotating 3D globe (HeroGlobe.tsx, Three.js) sinks behind a rising
+   "horizon", before handing off to .stats below. Ported from the approved preview; everywhere
+   else on the site the flat/no-3D convention is untouched. */
+.hero-scroll-wrapper{position:relative;height:260vh}
+.hero{position:sticky;top:0;height:100vh;background:var(--ink);display:flex;align-items:center;overflow:hidden}
 
-/* Hero globe background (HeroGlobe.tsx) — abstract partial sphere anchored off the right
-   edge, ~60% visible; the left third stays quiet for the headline. */
-.hero-globe{position:absolute;right:-20vw;top:50%;transform:translateY(-50%);width:68vw;max-width:920px;aspect-ratio:1/1;pointer-events:none;z-index:0}
-.hero-globe svg{width:100%;height:100%;display:block}
-/* Barely-there drift: ±1deg over ~54s. Frozen under reduced motion below. */
-.hero-globe-lines{transform-origin:50% 50%;animation:heroGlobeDrift 54s ease-in-out infinite alternate}
-@keyframes heroGlobeDrift{0%{transform:rotate(-1deg)}100%{transform:rotate(1deg)}}
-/* Whole-hero film grain, sits just above the globe, still well under .hero-body's z-index:2. */
-.hero-grain{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;mix-blend-mode:overlay;opacity:.6;z-index:1}
-@media(prefers-reduced-motion:reduce){.hero-globe-lines{animation:none}}
-/* Faint/simplified on mobile — the headline stays legible above all else. */
-@media(max-width:768px){.hero-globe{opacity:.5;width:100vw;right:-42vw}}
-/* RTL: .hero-body sits on the flex row's inline-start edge, which is the RIGHT under
-   dir="rtl" — the same side the globe is anchored to in LTR. Mirror the globe to the left
-   instead so it stays on the side OPPOSITE the headline in every locale, not just en/fr/zh. */
-html[dir="rtl"] .hero-globe{right:auto;left:-20vw}
-@media(max-width:768px){html[dir="rtl"] .hero-globe{left:-42vw;right:auto}}
+/* Full-bleed globe canvas + its projected city/region labels (HeroGlobe.tsx). */
+.hero-globe-stage{position:absolute;inset:0;width:100%;height:100%;z-index:0;will-change:transform}
+.hero-globe-stage canvas{display:block;width:100%;height:100%}
+.hero-label-layer{position:absolute;inset:0;pointer-events:none;z-index:0;transform:translateZ(0)}
+.hero-node-label{position:absolute;transform:translate(10px,-52%);font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#f5f1e4;white-space:nowrap;text-shadow:0 0 3px rgba(0,0,0,.95),0 0 7px rgba(0,0,0,.85),0 1px 2px rgba(0,0,0,1);transition:opacity .25s ease}
+.hero-region-label{position:absolute;transform:translate(-50%,-50%);font-family:var(--sans);font-size:13px;font-weight:500;letter-spacing:.34em;text-transform:uppercase;color:rgba(224,230,241,.6);white-space:nowrap;text-shadow:0 1px 4px rgba(0,0,0,.85),0 0 10px rgba(0,0,0,.5);transition:opacity .2s ease}
+/* Scrim: keeps the corridor network from ever competing with the hero copy for legibility —
+   dark toward the copy, fading to transparent toward the globe. .hero-body sits on the LEFT
+   in LTR and the RIGHT under RTL (see that rule below), so the scrim mirrors to match. */
+.hero-text-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(100deg,rgba(8,17,36,.74) 0%,rgba(8,17,36,.54) 30%,rgba(8,17,36,.24) 52%,rgba(8,17,36,0) 68%),linear-gradient(to bottom,rgba(6,15,34,.30) 0%,rgba(6,15,34,0) 14%,rgba(6,15,34,0) 78%,rgba(6,15,34,.45) 100%)}
+html[dir="rtl"] .hero-text-scrim{background:linear-gradient(260deg,rgba(8,17,36,.74) 0%,rgba(8,17,36,.54) 30%,rgba(8,17,36,.24) 52%,rgba(8,17,36,0) 68%),linear-gradient(to bottom,rgba(6,15,34,.30) 0%,rgba(6,15,34,0) 14%,rgba(6,15,34,0) 78%,rgba(6,15,34,.45) 100%)}
+/* Rising "horizon" floor that swallows the lower globe as the visitor scrolls, and the
+   glowing seam where globe meets it — both driven by scroll progress in HeroGlobe.tsx. */
+.hero-horizon-mask{position:absolute;left:0;right:0;bottom:0;top:100%;background:var(--ink);z-index:1;will-change:top}
+.hero-horizon-glow{position:absolute;left:0;right:0;top:100%;height:2px;z-index:1;pointer-events:none;background:linear-gradient(90deg,transparent 0%,rgba(184,146,58,.05) 12%,rgba(184,146,58,.9) 50%,rgba(184,146,58,.05) 88%,transparent 100%);box-shadow:0 0 40px 10px rgba(184,146,58,.55),0 0 120px 40px rgba(184,146,58,.25);opacity:0;will-change:top,opacity}
+/* Reduced motion: collapse back to the original plain single-viewport hero — no scroll-pin,
+   no rising horizon. HeroGlobe.tsx checks the same media query and renders one still frame
+   (rotation and the traveling corridor pulses frozen) instead of looping. */
+@media(prefers-reduced-motion:reduce){
+  .hero-scroll-wrapper{height:auto}
+  .hero{position:relative;top:auto;height:auto;min-height:92vh}
+  .hero-horizon-mask,.hero-horizon-glow{display:none}
+}
 .hero-body{position:relative;z-index:2;padding:0 60px;max-width:700px}
 .eyebrow{display:inline-flex;align-items:center;gap:14px;margin-bottom:30px}
 .eyebrow-line{width:36px;height:1px;background:var(--gold)}

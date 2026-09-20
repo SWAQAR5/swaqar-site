@@ -52,25 +52,27 @@ export default function HomeClient({ locale }: { locale: string }) {
     <>
       <SiteHeader locale={locale} />
 
-      <section className="hero" id="home">
-        <HeroGlobe />
-        <div className="hero-body">
-          <div className="eyebrow r"><div className="eyebrow-line"></div><span className="eyebrow-text">{tx(t.hero.eyebrow, lang)}</span></div>
-          <h1 className="hero-h1 r" data-d="1">{tx(t.hero.h1line1, lang)}<br/>{tx(t.hero.h1line2, lang)} <em>{tx(t.hero.h1em, lang)}</em></h1>
-          {/* Stage 4 batch 1 — .hero-sub already existed in swaqar.css (italic serif, gold-
-              tinted, generous margin) but was never wired to any JSX until now: exactly the
-              "clearly secondary" treatment this subtitle needs, so reused rather than
-              inventing new styling. */}
-          {tx(t.hero.subtitle, lang) && <p className="hero-sub r" data-d="2">{tx(t.hero.subtitle, lang)}</p>}
-          <p className="hero-desc r" data-d="3">{tx(t.hero.desc, lang)}</p>
-          <div className="eyebrow r" data-d="3"><div className="eyebrow-line"></div><span className="eyebrow-text">{tx(t.hero.tag, lang)}</span></div>
-          <div className="hero-btns r" data-d="4">
-            <a href="#contact" className="btn-gold"><span>{tx(t.hero.btnInquiry, lang)}</span><svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></a>
-            <a href="#corridors" className="btn-ghost-light">{tx(t.hero.btnExplore, lang)}</a>
+      <div className="hero-scroll-wrapper" id="home">
+        <section className="hero">
+          <HeroGlobe lang={lang} />
+          <div className="hero-body">
+            <div className="eyebrow r"><div className="eyebrow-line"></div><span className="eyebrow-text">{tx(t.hero.eyebrow, lang)}</span></div>
+            <h1 className="hero-h1 r" data-d="1">{tx(t.hero.h1line1, lang)}<br/>{tx(t.hero.h1line2, lang)} <em>{tx(t.hero.h1em, lang)}</em></h1>
+            {/* Stage 4 batch 1 — .hero-sub already existed in swaqar.css (italic serif, gold-
+                tinted, generous margin) but was never wired to any JSX until now: exactly the
+                "clearly secondary" treatment this subtitle needs, so reused rather than
+                inventing new styling. */}
+            {tx(t.hero.subtitle, lang) && <p className="hero-sub r" data-d="2">{tx(t.hero.subtitle, lang)}</p>}
+            <p className="hero-desc r" data-d="3">{tx(t.hero.desc, lang)}</p>
+            <div className="eyebrow r" data-d="3"><div className="eyebrow-line"></div><span className="eyebrow-text">{tx(t.hero.tag, lang)}</span></div>
+            <div className="hero-btns r" data-d="4">
+              <a href="#contact" className="btn-gold"><span>{tx(t.hero.btnInquiry, lang)}</span><svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></a>
+              <a href="#corridors" className="btn-ghost-light">{tx(t.hero.btnExplore, lang)}</a>
+            </div>
           </div>
-        </div>
-        <div className="hero-scroll"><div className="hero-scroll-line"></div><span className="hero-scroll-txt">{tx(t.hero.scroll, lang)}</span></div>
-      </section>
+          <div className="hero-scroll"><div className="hero-scroll-line"></div><span className="hero-scroll-txt">{tx(t.hero.scroll, lang)}</span></div>
+        </section>
+      </div>
 
       <div className="stats">
         <div className="stat r"><span className="stat-n">3</span><span className="stat-l">{tx(t.stats.corridorRegions, lang)}</span></div>
