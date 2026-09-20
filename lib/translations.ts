@@ -88,6 +88,31 @@ export const t = {
     // established terms for "Non-custodial" and "by design" from elsewhere, e.g. footer.badges
     // and the old stats.nonCustodialByDesign wording, for consistency)
     tag: { en: 'Non-custodial by design', ar: 'غير وصائي بالتصميم', fr: 'Non-dépositaire par conception', zh: '非托管 · 设计使然' },
+    // City/region labels for the hero globe (HeroGlobe.tsx, Three.js). Region names reuse
+    // corridors.map.africa/middleEast/asia verbatim (same real-world concept, same key already
+    // localized for the Corridor Architecture diagram) rather than duplicating that copy here —
+    // only "Europe" is new, since the corridor diagram doesn't carry that region. City names are
+    // standard, current Arabic/French/Chinese renderings (not machine-transliterated):
+    // ar — official/common-usage Arabic place names (e.g. القاهرة for Cairo, not a phonetic
+    //   transliteration of the English); fr — accented French spellings where a distinct French
+    //   form exists (Le Caire, Téhéran, Dubaï, Singapour), English spelling otherwise; zh —
+    //   standard Chinese place names (Shanghai renders in its own name, not a transliteration).
+    // FLAG for founder/brand review: Shanghai's Arabic has two names in real-world use —
+    // شنغهاي (used here; the more common current spelling, e.g. Al Jazeera/Wikipedia Arabic)
+    // and شانغهاي (an alternate transliteration also seen). Not guessed — flagging the choice
+    // per the standing instruction to surface ambiguous transliterations rather than pick
+    // silently. Every other name below is unambiguous in current usage.
+    globe: {
+      istanbul: { en: 'Istanbul', ar: 'إسطنبول', fr: 'Istanbul', zh: '伊斯坦布尔' },
+      cairo: { en: 'Cairo', ar: 'القاهرة', fr: 'Le Caire', zh: '开罗' },
+      tehran: { en: 'Tehran', ar: 'طهران', fr: 'Téhéran', zh: '德黑兰' },
+      dubai: { en: 'Dubai', ar: 'دبي', fr: 'Dubaï', zh: '迪拜' },
+      mumbai: { en: 'Mumbai', ar: 'مومباي', fr: 'Mumbai', zh: '孟买' },
+      nairobi: { en: 'Nairobi', ar: 'نيروبي', fr: 'Nairobi', zh: '内罗毕' },
+      shanghai: { en: 'Shanghai', ar: 'شنغهاي', fr: 'Shanghai', zh: '上海' },
+      singapore: { en: 'Singapore', ar: 'سنغافورة', fr: 'Singapour', zh: '新加坡' },
+      europe: { en: 'Europe', ar: 'أوروبا', fr: 'Europe', zh: '欧洲' },
+    },
   },
 
   // ── STATS ── // reviewed
