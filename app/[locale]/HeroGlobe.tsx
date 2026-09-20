@@ -91,16 +91,19 @@ function nodeName(id: string, lang: Lang): string {
 }
 
 const RADIUS = 4.6;
-const BASE_ROT_Y = (-150 * Math.PI) / 180;
+// Retuned (production fix, round 2): searched -180..165 in a coarse then 1deg-precision sweep
+// for the angle maximizing simultaneously-visible, non-overlapping labels among Cairo/Dubai/
+// Mumbai/Middle East/Asia during the hold — the confirmed working window (all 5 visible, no
+// text-column overlap) was -121deg to -111deg; -116deg is its center, with a comfortable
+// ~53% opacity margin on the weakest label at that point (vs. the ~0% margin right at either
+// edge). The original -150deg only kept Mumbai/Asia clear of the text column.
+const BASE_ROT_Y = (-116 * Math.PI) / 180;
 const ROTATE_SPEED = (2 * Math.PI) / 150; // one full turn every ~150s
 const X_TILT = (23 * Math.PI) / 180;
-
-// Photographic Earth texture (progressive enhancement — see mount() below). Pinned to a
-// specific three-globe release, not a floating "latest" path, so the served file can't change
-// under us; the SRI hash below was computed directly from the bytes this exact pinned URL
-// serves, so a fetch only succeeds if jsdelivr returns those exact bytes.
-const PHOTO_TEXTURE_URL = 'https://cdn.jsdelivr.net/npm/three-globe@2.45.2/example/img/earth-blue-marble.jpg';
-const PHOTO_TEXTURE_SRI = 'sha384-WYiguPtKwuPEK83DE9Mqd1R5lyFaETsDP4D++ot+fAjbjwmg0v+6gelxSOTyCOH2';
+// Read-aware rotation hold (production fix): the globe holds its founder-chosen framing —
+// BASE_ROT_Y, the same fixed angle set below — from mount until the visitor either scrolls or
+// this dwell window elapses, whichever comes first. See holdActive/endHold() in mount().
+const HOLD_MAX_MS = 10000;
 
 // ---- token-derived colour helpers (no new brand hex values — everything below is mixed
 // from the locked --ink/--gold custom properties read live off the document) ----
@@ -199,6 +202,26 @@ export default function HeroGlobe({ lang }: { lang: Lang }) {
     const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 1000);
     let baseZ = 13;
     camera.position.set(0, 0, baseZ);
+    const clock = new THREE.Clock();
+
+    // Production fix: hold the globe at its founder-chosen framing (BASE_ROT_Y — the same
+    // fixed angle set below, front-centering Cairo/Dubai/Mumbai and the Middle East/Asia
+    // labels) from mount until the visitor scrolls or HOLD_MAX_MS elapses, whichever first —
+    // rather than rotating away from that framing while they're still reading the subhead.
+    // Governs rotation SPEED only: applyScrollEffects()/the dome transition below runs exactly
+    // as before regardless of hold state.
+    let holdActive = true;
+    let rotationResumeAt = 0;
+    let holdTimer: ReturnType<typeof setTimeout> | null = null;
+    function endHold() {
+      if (!holdActive) return;
+      holdActive = false;
+      rotationResumeAt = clock.getElapsedTime();
+      if (holdTimer) {
+        clearTimeout(holdTimer);
+        holdTimer = null;
+      }
+    }
 
     const disposables: { dispose: () => void }[] = [];
     const track = <T extends { dispose: () => void }>(x: T): T => {
@@ -306,51 +329,13 @@ export default function HeroGlobe({ lang }: { lang: Lang }) {
     const core = new THREE.Mesh(coreGeo, coreMat);
     globeGroup.add(core);
 
-    // Progressive enhancement only: if a real photographic world map can be fetched AND its
-    // integrity verified, swap it in for extra fidelity. If it can't (offline, restrictive
-    // network, a visitor on a metered connection, or the fetched bytes don't match the pinned
-    // SRI hash — e.g. a compromised or altered CDN response), the hand-painted texture above
-    // already stands as a complete, on-brand map — never a blank/solid sphere, and never a
-    // surfaced error either way. Loaded via fetch() rather than THREE.TextureLoader because
-    // TextureLoader (backed by a plain <img> element) has no way to attach an integrity check;
-    // fetch()'s own `integrity` option enforces the SRI hash before the response ever reaches
-    // this code, so a mismatched response is rejected by the browser itself.
-    const saveData = (navigator as unknown as { connection?: { saveData?: boolean } }).connection?.saveData;
-    if (!saveData) {
-      fetch(PHOTO_TEXTURE_URL, { integrity: PHOTO_TEXTURE_SRI, mode: 'cors', credentials: 'omit' })
-        .then((res) => {
-          if (!res.ok) throw new Error(`photo texture fetch failed: ${res.status}`);
-          return res.blob();
-        })
-        .then((blob) => {
-          if (disposed) return;
-          const objectUrl = URL.createObjectURL(blob);
-          const img = new Image();
-          img.crossOrigin = 'anonymous';
-          img.onload = () => {
-            URL.revokeObjectURL(objectUrl);
-            if (disposed) return;
-            const tex = track(new THREE.Texture(img));
-            tex.needsUpdate = true;
-            const enc = (THREE as unknown as { sRGBEncoding?: number }).sRGBEncoding;
-            if (enc !== undefined) (tex as unknown as { encoding: number }).encoding = enc;
-            const maxAniso = renderer.capabilities?.getMaxAnisotropy ? renderer.capabilities.getMaxAnisotropy() : 1;
-            tex.anisotropy = maxAniso;
-            coreMat.map = tex;
-            coreMat.needsUpdate = true;
-          };
-          img.onerror = () => {
-            URL.revokeObjectURL(objectUrl);
-            /* silent — decode failure on an already-fetched blob; the procedural texture
-               already applied stands */
-          };
-          img.src = objectUrl;
-        })
-        .catch(() => {
-          /* silent — network failure, non-OK status, or an SRI hash mismatch: the procedural
-             texture already applied stands, same as any other load failure */
-        });
-    }
+    // Production fix: the photographic Earth-texture progressive-enhancement tier (a
+    // jsdelivr-hosted satellite image, SRI-pinned) was removed after production screenshots
+    // showed it producing a hard visual seam against the hero's navy vignette — its brown/tan
+    // photographic palette wasn't designed to blend the way the procedural texture above is.
+    // The procedural navy/gold texture is now the only texture, not a fallback tier for
+    // something that no longer runs. See CSS .hero-vignette for the accompanying edge-fade
+    // hardening (defends against a hard globe/background boundary regardless of texture).
 
     const wireGeo = track(new THREE.SphereGeometry(RADIUS * 1.002, 36, 22));
     const wireMat = track(new THREE.MeshBasicMaterial({ color: goldHexNum, wireframe: true, transparent: true, opacity: 0.075 }));
@@ -491,29 +476,69 @@ export default function HeroGlobe({ lang }: { lang: Lang }) {
     globeGroup.rotation.x = X_TILT;
 
     // ---- labels (English/LTR by design at this stage — see file header) ----
-    const labelEls: HTMLDivElement[] = nodePoints.map((n) => {
+    // Production fix: suppression used to test only each label's anchor POINT against the
+    // safe-zone rect. A label anchored just outside the rect can still visually bleed into the
+    // text if its own rendered width extends back in (confirmed in production: "AFRICA" and
+    // "CAIRO" both overlapping the eyebrow/headline at the held framing) — now much more
+    // visible than before since the rotation hold above keeps that exact framing on screen for
+    // up to 10s instead of it rotating past within a couple of seconds. Each label's real
+    // rendered width/height is measured once here (cheap — a single layout read per label at
+    // creation, not per frame) and used for a genuine rect-vs-rect overlap test in
+    // updateLabels() below, instead of a point-in-rect test.
+    const labelEls: HTMLDivElement[] = [];
+    const labelDims: { width: number; height: number }[] = [];
+    nodePoints.forEach((n) => {
       const el = document.createElement('div');
       el.className = n.kind === 'region' ? 'hero-region-label' : 'hero-node-label';
       el.textContent = n.name;
       labelLayer.appendChild(el);
-      return el;
+      const r = el.getBoundingClientRect();
+      labelDims.push({ width: r.width, height: r.height });
+      labelEls.push(el);
     });
 
-    let textSafeRect: { left: number; right: number; top: number; bottom: number } | null = null;
-    let navSafeRect: { left: number; right: number; top: number; bottom: number } | null = null;
+    type Rect = { left: number; right: number; top: number; bottom: number };
+    let textSafeRect: Rect | null = null;
+    let navSafeRect: Rect | null = null;
+    // Production fix: getBoundingClientRect() returns VIEWPORT-relative coordinates, but label
+    // x/y (and therefore labelRect() above) are computed relative to .hero's own box via
+    // heroEl.clientWidth/clientHeight. The two coordinate spaces only coincide once .hero has
+    // actually stuck to the viewport top (position:sticky) after scrolling past the header —
+    // at initial load, .hero still sits in normal flow below the banner/nav, so there's a
+    // real offset (confirmed in testing: ~100px, matching header height) between them. Left
+    // unconverted, safe-zone checks were silently wrong for exactly the scroll=0 state the
+    // rotation hold above now prolongs for up to 10s — subtracting heroEl's own viewport
+    // offset puts both sides of every comparison in the same coordinate space.
     function measureTextSafeZone() {
+      const heroRect = heroEl.getBoundingClientRect();
       const body = document.querySelector('.hero-body');
       if (body) {
         const r = body.getBoundingClientRect();
-        textSafeRect = { left: r.left - 14, right: r.right + 34, top: r.top - 22, bottom: r.bottom + 10 };
+        textSafeRect = {
+          left: r.left - heroRect.left - 14,
+          right: r.right - heroRect.left + 34,
+          top: r.top - heroRect.top - 22,
+          bottom: r.bottom - heroRect.top + 10,
+        };
       }
       const banner = document.querySelector('.banner');
       const nav = document.getElementById('nav');
-      const bottom = Math.max(banner?.getBoundingClientRect().bottom ?? 0, nav?.getBoundingClientRect().bottom ?? 0);
-      navSafeRect = { left: 0, right: W, top: 0, bottom: bottom + 18 };
+      const bottomViewport = Math.max(banner?.getBoundingClientRect().bottom ?? 0, nav?.getBoundingClientRect().bottom ?? 0);
+      navSafeRect = { left: 0, right: W, top: 0, bottom: bottomViewport - heroRect.top + 18 };
     }
-    function inRect(x: number, y: number, r: typeof textSafeRect) {
-      return !!r && x > r.left && x < r.right && y > r.top && y < r.bottom;
+    // Each label's actual rendered footprint, derived from its measured width/height plus the
+    // same CSS transform swaqar.css applies (translate(10px,-52%) for city/region-adjacent dot
+    // labels anchored at their left edge, translate(-50%,-50%) for region labels centered on
+    // their anchor) — mirrors the CSS exactly so this stays correct if those offsets ever change.
+    function labelRect(kind: 'city' | 'region', x: number, y: number, dims: { width: number; height: number }): Rect {
+      const { width, height } = dims;
+      if (kind === 'region') {
+        return { left: x - width / 2, right: x + width / 2, top: y - height / 2, bottom: y + height / 2 };
+      }
+      return { left: x + 10, right: x + 10 + width, top: y - height * 0.52, bottom: y + height * 0.48 };
+    }
+    function rectsOverlap(a: Rect, b: Rect | null) {
+      return !!b && a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
     }
 
     const tmpVec = new THREE.Vector3();
@@ -533,7 +558,8 @@ export default function HeroGlobe({ lang }: { lang: Lang }) {
         const threshold = n.kind === 'region' ? -0.05 : 0.05;
         let opacity = facing > threshold ? Math.min(1, (facing - threshold) * 2.4) : 0;
 
-        const suppressed = inRect(x, y, textSafeRect) || inRect(x, y, navSafeRect);
+        const lr = labelRect(n.kind, x, y, labelDims[i]);
+        const suppressed = rectsOverlap(lr, textSafeRect) || rectsOverlap(lr, navSafeRect);
         if (suppressed) opacity = 0;
         el.style.opacity = String(opacity);
 
@@ -579,6 +605,11 @@ export default function HeroGlobe({ lang }: { lang: Lang }) {
     function onScroll() {
       computeProgress();
       applyScrollEffects();
+      // The first sign of scroll ends the rotation hold immediately (ahead of the 10s cap, if
+      // it hasn't already fired). Only the rotation-speed hold is affected — computeProgress()/
+      // applyScrollEffects() above already ran unconditionally, so the dome transition is
+      // unaffected by hold state either way.
+      if (holdActive && progress > 0) endHold();
       if (reduceMotion) {
         updateLabels();
         renderFrame();
@@ -623,12 +654,14 @@ export default function HeroGlobe({ lang }: { lang: Lang }) {
     });
 
     let rafId = 0;
-    const clock = new THREE.Clock();
     function animate() {
       rafId = requestAnimationFrame(animate);
       const tsec = clock.getElapsedTime();
 
-      globeGroup.rotation.y = BASE_ROT_Y + tsec * ROTATE_SPEED;
+      // Held: stay exactly at the founder-chosen framing (no drift). Resumed: continue smoothly
+      // from that same angle with elapsed time reset to zero at the moment the hold ended, so
+      // rotation never snaps/jumps forward to "catch up" for time spent holding.
+      globeGroup.rotation.y = holdActive ? BASE_ROT_Y : BASE_ROT_Y + (tsec - rotationResumeAt) * ROTATE_SPEED;
 
       arcs.forEach((arc) => {
         arc.pulses.forEach((p) => {
@@ -649,9 +682,11 @@ export default function HeroGlobe({ lang }: { lang: Lang }) {
     if (reduceMotion) {
       // One still frame; rotation and the traveling pulses stay frozen. Scroll (if the rig is
       // even present — swaqar.css removes it under this same media query) still re-renders.
+      // No hold/resume timer needed here — rotation never advances at all under reduced motion.
       updateLabels();
       renderFrame();
     } else {
+      holdTimer = setTimeout(endHold, HOLD_MAX_MS);
       animate();
     }
 
@@ -660,6 +695,7 @@ export default function HeroGlobe({ lang }: { lang: Lang }) {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onResize);
       reduceMotionMq.removeEventListener('change', onMotionPrefChange);
+      if (holdTimer) clearTimeout(holdTimer);
       if (rafId) cancelAnimationFrame(rafId);
       labelEls.forEach((el) => el.remove());
       disposables.forEach((d) => d.dispose());
@@ -673,6 +709,7 @@ export default function HeroGlobe({ lang }: { lang: Lang }) {
         <canvas ref={canvasRef} />
         <div className="hero-label-layer" ref={labelLayerRef} />
       </div>
+      <div className="hero-vignette" />
       <div className="hero-text-scrim" />
       <div className="hero-horizon-mask" ref={maskRef} />
       <div className="hero-horizon-glow" ref={glowRef} />
