@@ -1,76 +1,84 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import type * as ThreeNS from 'three';
 import { t, tx, type Lang } from '@/lib/translations';
 
-// Hero background — Stage 5 hero rebuild (brand exception, hero-only per founder approval):
-// a full-bleed, rotating 3D globe with the Africa/Middle-East/Asia trade-corridor network
-// traced in gold, city/region labels, and a scroll-tied "sunrise dome" that lets the globe
-// sink behind a rising horizon as the visitor scrolls past the hero. Ported from the approved
-// preview (swaqar-hero-preview.html) — the preview is the literal source of truth for the
-// motion/behaviour here; this file adapts it to React's mount/unmount lifecycle, the real
-// header/hero DOM this site actually has, and this site's own locked navy/gold tokens (no new
-// brand colours were introduced — every hue below is derived from --ink/--gold at runtime).
+// Hero/page background — Stage 6: static map rebuild (brand exception, still hero-only in
+// spirit, but the resulting IMAGE is applied as a fixed backdrop behind the whole home page —
+// see .hero-map-frame in swaqar.css). The live Three.js globe (WebGL rendering, rotation,
+// texture fetch/SRI hardening, 3D-specific reduced-motion handling) has been removed entirely,
+// not paused — this component now renders a single pre-rendered image (exported from that same
+// scene at a fixed camera/rotation, see the export tooling notes in the implementation summary)
+// plus two lightweight overlays on top of it:
+//   - a percent-positioned DOM label layer, so city/region names stay LIVE and localized
+//     through lib/translations.ts (unchanged from the previous round) instead of being baked
+//     into the image;
+//   - a percent-coordinate SVG overlay tracing the exact same corridor curves and node
+//     positions baked into the image (captured from the same export pass, not re-traced by
+//     eye), animating the traveling gold pulses (SMIL <animateMotion>, no JS per-frame cost)
+//     and a CSS-keyframe pulsing halo on each city dot.
+// Both overlays sit inside .hero-map-surface, which is sized with the same object-fit:cover
+// math as the image itself (see swaqar.css) so everything stays pixel-aligned at any viewport
+// size without a resize handler.
 //
-// Everywhere else on the site the flat/no-3D/no-map convention from frontend-design/SKILL.md
-// and swaqar-web/SKILL.md still applies untouched (nav, diagrams, other sections) — see the
-// approval notes for this change; this is a scoped exception for the hero only.
+// Reduced motion: the CSS media query alone disables the SMIL pulses (display:none) and the
+// halo keyframe animation (swaqar.css) — no JS branching needed, unlike the old 3D version.
 //
-// Three.js is dynamically imported inside the mount effect so its ~600KB payload never enters
-// the initial bundle and never runs during SSR. `prefers-reduced-motion` is honoured twice:
-// swaqar.css collapses the scroll-pin/rising-horizon rig back to the original static
-// min-height:92vh hero via a media query (so a reduced-motion visitor never has to scroll
-// further than before), and this component itself renders one still frame with rotation and
-// the traveling corridor pulses frozen, re-rendering only in response to the visitor's own
-// scroll (never on a timer) rather than looping requestAnimationFrame.
-//
-// City/region labels localize through lib/translations.ts (t.hero.globe.*, plus the region
-// names reused verbatim from t.corridors.map.* — same real-world places, already localized for
-// the Corridor Architecture diagram) — see nodeName() in mount() below. Per founder decision,
-// this is no longer an English-only exception. The label's spatial offset relative to its dot
-// (translate(10px,-52%) in swaqar.css) stays fixed regardless of locale/direction: this is a
-// map-style point label, not flowing text, so it follows the same precedent already documented
-// in CorridorArchitectureDiagram.tsx ("RTL... deliberately fixed... only <text> label content
-// localizes") rather than mirroring under dir="rtl". The globe canvas itself (rotation, camera,
-// geometry) is likewise unmirrored, consistent with that same precedent.
-
-type Vec3 = ThreeNS.Vector3;
+// Label suppression: unlike the old live-projected version, label positions are fixed percent
+// constants (they don't need per-frame recomputation), but .hero-body is normal in-flow text
+// that scrolls away while this layer stays position:fixed — so whether a given label overlaps
+// the (currently on-screen) hero copy is checked on mount/scroll/resize and only ever matters
+// while the hero is still in view.
 
 interface NodeDef {
   id: string;
-  lat: number;
-  lon: number;
+  xPct: number;
+  yPct: number;
   kind: 'city' | 'region';
 }
 
+// Percent-of-image coordinates captured directly from the static export's render pass (same
+// camera/rotation used to bake the image) — not eyeballed. See export config in the
+// implementation summary: fov 40, baseZ 13, rotY -148deg, rotX 23deg, 3200x1800.
 const NODE_DEFS: NodeDef[] = [
-  { id: 'istanbul', lat: 41.01, lon: 28.98, kind: 'city' },
-  { id: 'cairo', lat: 30.04, lon: 31.24, kind: 'city' },
-  { id: 'tehran', lat: 35.7, lon: 51.42, kind: 'city' },
-  { id: 'dubai', lat: 25.2, lon: 55.27, kind: 'city' },
-  { id: 'mumbai', lat: 19.08, lon: 72.88, kind: 'city' },
-  { id: 'nairobi', lat: -1.29, lon: 36.82, kind: 'city' },
-  { id: 'shanghai', lat: 31.23, lon: 121.47, kind: 'city' },
-  { id: 'singapore', lat: 1.35, lon: 103.82, kind: 'city' },
-  { id: 'europe', lat: 34, lon: 36, kind: 'region' },
-  { id: 'middleEast', lat: 28, lon: 58, kind: 'region' },
-  { id: 'asia', lat: 28, lon: 82, kind: 'region' },
-  { id: 'africa', lat: 12, lon: 30, kind: 'region' },
+  { id: 'istanbul', xPct: 35.585, yPct: 25.764, kind: 'city' },
+  { id: 'cairo', xPct: 34.305, yPct: 38.633, kind: 'city' },
+  { id: 'tehran', xPct: 46.125, yPct: 33.569, kind: 'city' },
+  { id: 'dubai', xPct: 48.178, yPct: 47.085, kind: 'city' },
+  { id: 'mumbai', xPct: 60.095, yPct: 54.140, kind: 'city' },
+  { id: 'nairobi', xPct: 35.880, yPct: 76.753, kind: 'city' },
+  { id: 'shanghai', xPct: 76.021, yPct: 30.166, kind: 'city' },
+  { id: 'singapore', xPct: 75.465, yPct: 65.820, kind: 'city' },
+  { id: 'jeddah', xPct: 37.611, yPct: 50.439, kind: 'city' },
+  { id: 'abuja', xPct: 23.045, yPct: 56.260, kind: 'city' },
+  { id: 'douala', xPct: 23.711, yPct: 62.224, kind: 'city' },
+  { id: 'johannesburg', xPct: 34.838, yPct: 92.735, kind: 'city' },
+  { id: 'europe', xPct: 37.370, yPct: 34.499, kind: 'region' },
+  { id: 'middleEast', xPct: 50.000, yPct: 43.457, kind: 'region' },
+  { id: 'asia', xPct: 64.604, yPct: 41.543, kind: 'region' },
+  { id: 'africa', xPct: 31.801, yPct: 60.291, kind: 'region' },
 ];
 
-const CORRIDORS: [string, string][] = [
-  ['istanbul', 'cairo'],
-  ['cairo', 'nairobi'],
-  ['istanbul', 'tehran'],
-  ['tehran', 'dubai'],
-  ['dubai', 'mumbai'],
-  ['nairobi', 'mumbai'],
-  ['nairobi', 'singapore'],
-  ['mumbai', 'shanghai'],
-  ['mumbai', 'singapore'],
-  ['shanghai', 'singapore'],
-  ['istanbul', 'shanghai'],
-];
+// Each corridor's exact curve, sampled at 21 points from the same export pass (percent-of-
+// image [x,y] pairs) — the SVG path below draws straight segments between them, which at this
+// sample density reproduces the original quadratic-bezier arc with no visible faceting.
+const CORRIDOR_PATHS: Record<string, [number, number][]> = {
+  istanbul_cairo: [[35.585,25.764],[35.274,25.842],[34.962,25.954],[34.649,26.106],[34.337,26.309],[34.027,26.574],[33.725,26.919],[33.437,27.366],[33.174,27.946],[32.957,28.685],[32.813,29.586],[32.759,30.598],[32.792,31.644],[32.891,32.667],[33.036,33.645],[33.211,34.575],[33.407,35.46],[33.618,36.304],[33.84,37.112],[34.07,37.887],[34.305,38.633]],
+  cairo_nairobi: [[34.305,38.633],[33.887,40.36],[33.49,42.181],[33.122,44.098],[32.788,46.111],[32.498,48.217],[32.26,50.409],[32.084,52.671],[31.98,54.983],[31.955,57.315],[32.013,59.631],[32.155,61.893],[32.377,64.068],[32.67,66.128],[33.024,68.055],[33.429,69.84],[33.873,71.483],[34.347,72.987],[34.844,74.361],[35.357,75.613],[35.88,76.753]],
+  istanbul_tehran: [[35.585,25.764],[35.724,25.559],[35.895,25.383],[36.103,25.243],[36.354,25.145],[36.656,25.103],[37.018,25.128],[37.448,25.237],[37.952,25.444],[38.532,25.764],[39.182,26.202],[39.886,26.751],[40.621,27.391],[41.368,28.099],[42.109,28.851],[42.834,29.629],[43.539,30.42],[44.221,31.214],[44.878,32.006],[45.513,32.792],[46.125,33.569]],
+  tehran_dubai: [[46.125,33.569],[46.134,33.8],[46.148,34.066],[46.169,34.374],[46.198,34.733],[46.237,35.154],[46.29,35.653],[46.359,36.249],[46.45,36.967],[46.568,37.825],[46.713,38.811],[46.877,39.862],[47.047,40.9],[47.213,41.878],[47.372,42.784],[47.523,43.624],[47.666,44.404],[47.803,45.135],[47.933,45.821],[48.058,46.47],[48.178,47.085]],
+  dubai_mumbai: [[48.178,47.085],[48.693,47.346],[49.238,47.626],[49.818,47.928],[50.434,48.253],[51.089,48.604],[51.786,48.982],[52.524,49.39],[53.297,49.825],[54.092,50.282],[54.889,50.749],[55.661,51.211],[56.385,51.654],[57.046,52.069],[57.642,52.451],[58.174,52.8],[58.649,53.118],[59.072,53.408],[59.45,53.673],[59.79,53.916],[60.095,54.14]],
+  nairobi_mumbai: [[35.88,76.753],[36.637,76.564],[37.467,76.291],[38.376,75.923],[39.367,75.448],[40.444,74.853],[41.607,74.128],[42.854,73.264],[44.178,72.257],[45.567,71.108],[47.002,69.826],[48.465,68.427],[49.934,66.931],[51.386,65.364],[52.805,63.751],[54.176,62.114],[55.49,60.474],[56.74,58.845],[57.925,57.241],[59.043,55.671],[60.095,54.14]],
+  nairobi_singapore: [[35.88,76.753],[37.871,77.682],[39.972,78.524],[42.179,79.258],[44.485,79.863],[46.879,80.314],[49.341,80.586],[51.848,80.659],[54.368,80.514],[56.866,80.14],[59.301,79.538],[61.637,78.716],[63.84,77.695],[65.888,76.502],[67.763,75.167],[69.459,73.725],[70.979,72.204],[72.328,70.632],[73.517,69.033],[74.558,67.424],[75.465,65.82]],
+  mumbai_shanghai: [[60.095,54.14],[61.663,52.629],[63.222,51.083],[64.761,49.508],[66.267,47.911],[67.726,46.304],[69.118,44.698],[70.427,43.11],[71.632,41.559],[72.715,40.064],[73.662,38.644],[74.463,37.317],[75.115,36.096],[75.62,34.988],[75.987,33.995],[76.227,33.116],[76.356,32.344],[76.386,31.672],[76.332,31.091],[76.206,30.592],[76.021,30.166]],
+  mumbai_singapore: [[60.095,54.14],[61.43,55.029],[62.769,55.927],[64.105,56.831],[65.428,57.736],[66.728,58.633],[67.988,59.515],[69.194,60.371],[70.326,61.189],[71.367,61.957],[72.299,62.662],[73.11,63.296],[73.795,63.852],[74.352,64.328],[74.788,64.726],[75.112,65.052],[75.336,65.311],[75.472,65.51],[75.532,65.657],[75.526,65.758],[75.465,65.82]],
+  shanghai_singapore: [[76.021,30.166],[76.737,31.448],[77.423,32.818],[78.07,34.28],[78.669,35.841],[79.207,37.503],[79.673,39.266],[80.052,41.126],[80.33,43.074],[80.495,45.094],[80.537,47.162],[80.454,49.252],[80.247,51.337],[79.924,53.391],[79.497,55.393],[78.979,57.328],[78.384,59.188],[77.724,60.967],[77.011,62.664],[76.255,64.281],[75.465,65.82]],
+  istanbul_shanghai: [[35.585,25.764],[37.771,24.38],[40.066,23.076],[42.462,21.874],[44.949,20.8],[47.512,19.883],[50.129,19.151],[52.77,18.632],[55.401,18.348],[57.981,18.317],[60.471,18.543],[62.832,19.02],[65.033,19.73],[67.051,20.646],[68.875,21.736],[70.502,22.965],[71.938,24.3],[73.194,25.712],[74.282,27.173],[75.22,28.663],[76.021,30.166]],
+  cairo_jeddah: [[34.305,38.633],[34.148,38.894],[34.0,39.186],[33.865,39.513],[33.746,39.883],[33.648,40.304],[33.579,40.79],[33.551,41.356],[33.579,42.019],[33.685,42.79],[33.885,43.655],[34.174,44.557],[34.524,45.433],[34.905,46.246],[35.299,46.991],[35.695,47.675],[36.089,48.306],[36.478,48.892],[36.862,49.439],[37.24,49.953],[37.611,50.439]],
+  jeddah_dubai: [[37.611,50.439],[37.802,50.302],[38.023,50.157],[38.279,50.003],[38.577,49.837],[38.924,49.659],[39.33,49.469],[39.804,49.264],[40.353,49.045],[40.981,48.817],[41.677,48.586],[42.415,48.36],[43.166,48.149],[43.903,47.958],[44.611,47.787],[45.286,47.635],[45.927,47.499],[46.533,47.378],[47.109,47.27],[47.657,47.173],[48.178,47.085]],
+  douala_abuja: [[23.711,62.224],[23.351,62.174],[22.99,62.112],[22.628,62.036],[22.265,61.941],[21.902,61.824],[21.541,61.677],[21.184,61.486],[20.84,61.228],[20.531,60.856],[20.343,60.295],[20.397,59.651],[20.602,59.099],[20.866,58.631],[21.154,58.216],[21.457,57.838],[21.768,57.487],[22.083,57.158],[22.402,56.845],[22.723,56.547],[23.045,56.26]],
+  abuja_nairobi: [[23.045,56.26],[22.911,57.419],[22.828,58.617],[22.803,59.854],[22.849,61.127],[22.975,62.43],[23.194,63.757],[23.518,65.096],[23.956,66.431],[24.515,67.743],[25.196,69.009],[25.991,70.209],[26.889,71.324],[27.874,72.342],[28.928,73.257],[30.033,74.068],[31.175,74.778],[32.339,75.395],[33.517,75.924],[34.699,76.374],[35.88,76.753]],
+  nairobi_johannesburg: [[35.88,76.753],[35.434,78.418],[35.004,80.072],[34.595,81.709],[34.212,83.315],[33.862,84.876],[33.551,86.374],[33.288,87.785],[33.081,89.084],[32.937,90.244],[32.861,91.239],[32.854,92.055],[32.913,92.684],[33.032,93.135],[33.201,93.42],[33.412,93.559],[33.656,93.573],[33.926,93.482],[34.216,93.302],[34.521,93.049],[34.838,92.735]],
+};
 
 function nodeName(id: string, lang: Lang): string {
   switch (id) {
@@ -82,6 +90,10 @@ function nodeName(id: string, lang: Lang): string {
     case 'nairobi': return tx(t.hero.globe.nairobi, lang);
     case 'shanghai': return tx(t.hero.globe.shanghai, lang);
     case 'singapore': return tx(t.hero.globe.singapore, lang);
+    case 'jeddah': return tx(t.hero.globe.jeddah, lang);
+    case 'abuja': return tx(t.hero.globe.abuja, lang);
+    case 'douala': return tx(t.hero.globe.douala, lang);
+    case 'johannesburg': return tx(t.hero.globe.johannesburg, lang);
     case 'europe': return tx(t.hero.globe.europe, lang);
     case 'middleEast': return tx(t.corridors.map.middleEast, lang);
     case 'asia': return tx(t.corridors.map.asia, lang);
@@ -90,629 +102,112 @@ function nodeName(id: string, lang: Lang): string {
   }
 }
 
-const RADIUS = 4.6;
-// Retuned (production fix, round 2): searched -180..165 in a coarse then 1deg-precision sweep
-// for the angle maximizing simultaneously-visible, non-overlapping labels among Cairo/Dubai/
-// Mumbai/Middle East/Asia during the hold — the confirmed working window (all 5 visible, no
-// text-column overlap) was -121deg to -111deg; -116deg is its center, with a comfortable
-// ~53% opacity margin on the weakest label at that point (vs. the ~0% margin right at either
-// edge). The original -150deg only kept Mumbai/Asia clear of the text column.
-const BASE_ROT_Y = (-116 * Math.PI) / 180;
-const ROTATE_SPEED = (2 * Math.PI) / 150; // one full turn every ~150s
-const X_TILT = (23 * Math.PI) / 180;
-// Read-aware rotation hold (production fix): the globe holds its founder-chosen framing —
-// BASE_ROT_Y, the same fixed angle set below — from mount until the visitor either scrolls or
-// this dwell window elapses, whichever comes first. See holdActive/endHold() in mount().
-const HOLD_MAX_MS = 10000;
-
-// ---- token-derived colour helpers (no new brand hex values — everything below is mixed
-// from the locked --ink/--gold custom properties read live off the document) ----
-function readToken(name: string, fallback: string): string {
-  if (typeof window === 'undefined') return fallback;
-  const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-  return v || fallback;
-}
-function hexToRgb(hex: string): [number, number, number] {
-  const h = hex.replace('#', '');
-  const n = h.length === 3 ? h.split('').map((c) => c + c).join('') : h;
-  const int = parseInt(n, 16);
-  return [(int >> 16) & 255, (int >> 8) & 255, int & 255];
-}
-function rgbToHexNum(r: number, g: number, b: number): number {
-  return (Math.round(r) << 16) + (Math.round(g) << 8) + Math.round(b);
-}
-function mix(hex: string, toward: 'white' | 'black', amount: number): [number, number, number] {
-  const [r, g, b] = hexToRgb(hex);
-  const t = toward === 'white' ? 255 : 0;
-  return [r + (t - r) * amount, g + (t - g) * amount, b + (t - b) * amount];
-}
-function rgbaStr(rgb: [number, number, number], a: number): string {
-  return `rgba(${Math.round(rgb[0])},${Math.round(rgb[1])},${Math.round(rgb[2])},${a})`;
+function pathD(points: [number, number][]): string {
+  return points.map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x},${y}`).join(' ');
 }
 
 export default function HeroGlobe({ lang }: { lang: Lang }) {
-  const stageRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const labelLayerRef = useRef<HTMLDivElement>(null);
-  const maskRef = useRef<HTMLDivElement>(null);
-  const glowRef = useRef<HTMLDivElement>(null);
+  const labelRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  // Label suppression against the hero copy: this layer is position:fixed (it doesn't scroll),
+  // while .hero-body is normal in-flow text that scrolls away — so a label only ever risks
+  // overlapping the copy while the hero is still in view. Recomputed on mount/scroll/resize;
+  // cheap (a few getBoundingClientRect reads), no per-frame cost.
+  //
+  // Found during validation: once the map image/pulses became a whole-page backdrop (founder
+  // decision), the bright uppercase city/region labels — a hero-specific annotation layer —
+  // started bleeding through the now-transparent .gap section with no scrim, clashing directly
+  // with that section's own heading. The quieter image/corridor-lines/pulses working as an
+  // ambient backdrop everywhere is exactly what was asked for; the labels specifically were
+  // never meant to float behind unrelated page copy. Fix: hide the whole label layer once the
+  // hero has scrolled out of view, not just the per-label hero-body/nav overlap check below.
   useEffect(() => {
-    let cancelled = false;
-    let cleanup: (() => void) | undefined;
+    function update() {
+      const hero = document.querySelector('.hero');
+      const heroVisible = hero ? hero.getBoundingClientRect().bottom > 0 : true;
+      if (labelLayerRef.current) labelLayerRef.current.style.opacity = heroVisible ? '1' : '0';
+      if (!heroVisible) return;
 
-    import('three').then((THREE) => {
-      if (cancelled) return;
-      cleanup = mount(THREE);
-    });
-
-    return () => {
-      cancelled = true;
-      cleanup?.();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  function mount(THREE: typeof ThreeNS): () => void {
-    const canvas = canvasRef.current;
-    const stage = stageRef.current;
-    const labelLayer = labelLayerRef.current;
-    const mask = maskRef.current;
-    const glow = glowRef.current;
-    const heroSection = canvas?.closest('.hero') as HTMLElement | null;
-    if (!canvas || !stage || !labelLayer || !mask || !glow || !heroSection) return () => {};
-    // Re-bound as definitely-non-null so nested closures below (applyScrollEffects, onResize)
-    // don't need repeated `!` assertions — TS narrowing from the guard above doesn't persist
-    // into those nested function bodies.
-    const stageEl = stage;
-    const maskEl = mask;
-    const glowEl = glow;
-    const heroEl = heroSection;
-    let disposed = false;
-
-    const reduceMotionMq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let reduceMotion = reduceMotionMq.matches;
-    const isMobile = window.innerWidth < 768;
-
-    const navyHex = readToken('--ink', '#0B1F3A');
-    const goldHex = readToken('--gold', '#B8923A');
-    const [goldR, goldG, goldB] = hexToRgb(goldHex);
-    const goldLightRgb = mix(goldHex, 'white', 0.55);
-    const goldLightHex = rgbToHexNum(...goldLightRgb);
-    const goldHexNum = rgbToHexNum(goldR, goldG, goldB);
-    const navyDeepRgb = mix(navyHex, 'black', 0.45);
-    const navyMidRgb = mix(navyHex, 'black', 0.18);
-    const navyLightRgb = mix(navyHex, 'white', 0.18);
-
-    let W = heroEl.clientWidth;
-    let H = heroEl.clientHeight;
-
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2));
-    renderer.setSize(W, H);
-    if ((THREE as unknown as { sRGBEncoding?: number }).sRGBEncoding !== undefined) {
-      // r128 colour-management API — deliberately matching the pinned three@0.128.0 the
-      // preview targets, not a newer colour-space API.
-      (renderer as unknown as { outputEncoding: number }).outputEncoding = (
-        THREE as unknown as { sRGBEncoding: number }
-      ).sRGBEncoding;
-    }
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 1000);
-    let baseZ = 13;
-    camera.position.set(0, 0, baseZ);
-    const clock = new THREE.Clock();
-
-    // Production fix: hold the globe at its founder-chosen framing (BASE_ROT_Y — the same
-    // fixed angle set below, front-centering Cairo/Dubai/Mumbai and the Middle East/Asia
-    // labels) from mount until the visitor scrolls or HOLD_MAX_MS elapses, whichever first —
-    // rather than rotating away from that framing while they're still reading the subhead.
-    // Governs rotation SPEED only: applyScrollEffects()/the dome transition below runs exactly
-    // as before regardless of hold state.
-    let holdActive = true;
-    let rotationResumeAt = 0;
-    let holdTimer: ReturnType<typeof setTimeout> | null = null;
-    function endHold() {
-      if (!holdActive) return;
-      holdActive = false;
-      rotationResumeAt = clock.getElapsedTime();
-      if (holdTimer) {
-        clearTimeout(holdTimer);
-        holdTimer = null;
-      }
-    }
-
-    const disposables: { dispose: () => void }[] = [];
-    const track = <T extends { dispose: () => void }>(x: T): T => {
-      disposables.push(x);
-      return x;
-    };
-
-    // ---- starfield ----
-    (function stars() {
-      const count = isMobile ? 140 : 260;
-      const positions = new Float32Array(count * 3);
-      for (let i = 0; i < count; i++) {
-        const r = 40 + Math.random() * 40;
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.acos(Math.random() * 2 - 1);
-        positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-        positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta) * 0.6;
-        positions[i * 3 + 2] = r * Math.cos(phi) - 10;
-      }
-      const geo = track(new THREE.BufferGeometry());
-      geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      const mat = track(
-        new THREE.PointsMaterial({ color: 0xbfd0ea, size: 0.06, transparent: true, opacity: 0.55 })
-      );
-      scene.add(new THREE.Points(geo, mat));
-    })();
-
-    // ---- globe group ----
-    const globeGroup = new THREE.Group();
-    scene.add(globeGroup);
-
-    function fitCameraToWidth() {
-      const halfV = ((camera.fov / 2) * Math.PI) / 180;
-      const halfH = Math.atan(Math.tan(halfV) * camera.aspect);
-      const halfBinding = Math.max(halfV, halfH);
-      const exactFitZ = RADIUS / Math.sin(halfBinding);
-      const overflow = 1.0;
-      baseZ = exactFitZ * overflow;
-      baseZ = Math.max(baseZ, RADIUS * 1.45);
-    }
-
-    function makeEarthTexture() {
-      const texW = 2048,
-        texH = 1024;
-      const c = document.createElement('canvas');
-      c.width = texW;
-      c.height = texH;
-      const ctx = c.getContext('2d')!;
-
-      const ocean = ctx.createLinearGradient(0, 0, 0, texH);
-      ocean.addColorStop(0, rgbaStr(navyLightRgb, 1));
-      ocean.addColorStop(0.5, navyHex);
-      ocean.addColorStop(1, rgbaStr(navyDeepRgb, 1));
-      ctx.fillStyle = ocean;
-      ctx.fillRect(0, 0, texW, texH);
-
-      const sheen = ctx.createRadialGradient(texW * 0.5, texH * 0.46, texH * 0.05, texW * 0.5, texH * 0.46, texH * 0.75);
-      sheen.addColorStop(0, 'rgba(159,190,232,0.10)');
-      sheen.addColorStop(1, 'rgba(159,190,232,0)');
-      ctx.fillStyle = sheen;
-      ctx.fillRect(0, 0, texW, texH);
-
-      function uv(lat: number, lon: number): [number, number] {
-        return [((lon + 180) / 360) * texW, ((90 - lat) / 180) * texH];
-      }
-      function landmass(lat: number, lon: number, rx: number, ry: number, alpha: number, rot?: number) {
-        const [x, y] = uv(lat, lon);
-        ctx.save();
-        ctx.filter = 'blur(3px)';
-        ctx.translate(x, y);
-        if (rot) ctx.rotate((rot * Math.PI) / 180);
-        ctx.scale(1, ry / rx);
-        const g = ctx.createRadialGradient(0, 0, 0, 0, 0, rx);
-        g.addColorStop(0, `rgba(179,165,132,${alpha})`);
-        g.addColorStop(0.78, `rgba(168,154,120,${alpha * 0.96})`);
-        g.addColorStop(0.94, `rgba(150,138,108,${alpha * 0.7})`);
-        g.addColorStop(1, `rgba(150,138,108,0)`);
-        ctx.beginPath();
-        ctx.arc(0, 0, rx, 0, Math.PI * 2);
-        ctx.fillStyle = g;
-        ctx.fill();
-        ctx.restore();
-      }
-
-      landmass(50, -105, 95, 62, 0.85, -18);
-      landmass(58, -75, 46, 30, 0.8, 20);
-      landmass(-14, -58, 42, 78, 0.85, 8);
-      landmass(50, 12, 46, 34, 0.85);
-      landmass(3, 20, 62, 92, 0.88);
-      landmass(58, 90, 108, 46, 0.82);
-      landmass(38, 100, 62, 36, 0.85);
-      landmass(24, 78, 34, 34, 0.85, -12);
-      landmass(36, 45, 30, 24, 0.85);
-      landmass(10, 112, 46, 30, 0.78, -6);
-      landmass(-25, 134, 48, 34, 0.85);
-
-      const tex = track(new THREE.CanvasTexture(c));
-      const enc = (THREE as unknown as { sRGBEncoding?: number }).sRGBEncoding;
-      if (enc !== undefined) (tex as unknown as { encoding: number }).encoding = enc;
-      return tex;
-    }
-
-    const coreGeo = track(new THREE.SphereGeometry(RADIUS, isMobile ? 40 : 64, isMobile ? 40 : 64));
-    const coreMat = track(new THREE.MeshBasicMaterial({ map: makeEarthTexture() }));
-    const core = new THREE.Mesh(coreGeo, coreMat);
-    globeGroup.add(core);
-
-    // Production fix: the photographic Earth-texture progressive-enhancement tier (a
-    // jsdelivr-hosted satellite image, SRI-pinned) was removed after production screenshots
-    // showed it producing a hard visual seam against the hero's navy vignette — its brown/tan
-    // photographic palette wasn't designed to blend the way the procedural texture above is.
-    // The procedural navy/gold texture is now the only texture, not a fallback tier for
-    // something that no longer runs. See CSS .hero-vignette for the accompanying edge-fade
-    // hardening (defends against a hard globe/background boundary regardless of texture).
-
-    const wireGeo = track(new THREE.SphereGeometry(RADIUS * 1.002, 36, 22));
-    const wireMat = track(new THREE.MeshBasicMaterial({ color: goldHexNum, wireframe: true, transparent: true, opacity: 0.075 }));
-    globeGroup.add(new THREE.Mesh(wireGeo, wireMat));
-
-    const edgeGeo = track(new THREE.SphereGeometry(RADIUS * 1.006, 48, 48));
-    const edgeMat = track(new THREE.MeshBasicMaterial({ color: goldLightHex, transparent: true, opacity: 0.05 }));
-    globeGroup.add(new THREE.Mesh(edgeGeo, edgeMat));
-
-    (function glowSprite() {
-      const size = 256;
-      const c = document.createElement('canvas');
-      c.width = c.height = size;
-      const ctx = c.getContext('2d')!;
-      const g = ctx.createRadialGradient(size / 2, size / 2, size * 0.28, size / 2, size / 2, size / 2);
-      g.addColorStop(0, rgbaStr(goldLightRgb, 0.55));
-      g.addColorStop(0.5, rgbaStr([goldR, goldG, goldB], 0.18));
-      g.addColorStop(1, rgbaStr([goldR, goldG, goldB], 0));
-      ctx.fillStyle = g;
-      ctx.fillRect(0, 0, size, size);
-      const tex = track(new THREE.CanvasTexture(c));
-      const mat = track(new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }));
-      const sprite = new THREE.Sprite(mat);
-      sprite.scale.set(RADIUS * 3.4, RADIUS * 3.4, 1);
-      globeGroup.add(sprite);
-    })();
-
-    const haloTexture = (function () {
-      const size = 64;
-      const c = document.createElement('canvas');
-      c.width = c.height = size;
-      const ctx = c.getContext('2d')!;
-      const g = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
-      g.addColorStop(0, 'rgba(255,244,222,0.9)');
-      g.addColorStop(0.4, rgbaStr(goldLightRgb, 0.4));
-      g.addColorStop(1, rgbaStr(goldLightRgb, 0));
-      ctx.fillStyle = g;
-      ctx.fillRect(0, 0, size, size);
-      return track(new THREE.CanvasTexture(c));
-    })();
-
-    function latLonToVec3(lat: number, lon: number, r: number): Vec3 {
-      const phi = ((90 - lat) * Math.PI) / 180;
-      const theta = ((lon + 180) * Math.PI) / 180;
-      return new THREE.Vector3(-r * Math.sin(phi) * Math.cos(theta), r * Math.cos(phi), r * Math.sin(phi) * Math.sin(theta));
-    }
-
-    interface RuntimeNode extends NodeDef {
-      name: string;
-      vec: Vec3;
-      mesh?: ThreeNS.Mesh;
-      dotMat?: ThreeNS.MeshBasicMaterial;
-      haloMat?: ThreeNS.SpriteMaterial;
-      baseDotOpacity?: number;
-      baseHaloOpacity?: number;
-    }
-    const nodePoints: RuntimeNode[] = NODE_DEFS.map((n) => ({
-      ...n,
-      name: nodeName(n.id, lang),
-      vec: latLonToVec3(n.lat, n.lon, RADIUS),
-    }));
-    const byId: Record<string, RuntimeNode> = {};
-    nodePoints.forEach((n) => {
-      byId[n.id] = n;
-    });
-
-    nodePoints.forEach((n) => {
-      if (n.kind === 'region') return;
-      const isCity = n.kind === 'city';
-      const dotMat = track(
-        new THREE.MeshBasicMaterial({ color: isCity ? 0xfff4de : goldLightHex, transparent: true, opacity: isCity ? 1 : 0.7 })
-      );
-      const dot = new THREE.Mesh(track(new THREE.SphereGeometry(isCity ? 0.05 : 0.028, 14, 14)), dotMat);
-      dot.position.copy(n.vec);
-      globeGroup.add(dot);
-      n.mesh = dot;
-      n.dotMat = dotMat;
-      n.baseDotOpacity = dotMat.opacity;
-      if (isCity) {
-        const haloMat = track(
-          new THREE.SpriteMaterial({ map: haloTexture, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.55 })
-        );
-        const halo = new THREE.Sprite(haloMat);
-        halo.position.copy(n.vec);
-        halo.scale.set(0.22, 0.22, 1);
-        globeGroup.add(halo);
-        n.haloMat = haloMat;
-        n.baseHaloOpacity = haloMat.opacity;
-      }
-    });
-
-    const pulseTexture = (function () {
-      const size = 64;
-      const c = document.createElement('canvas');
-      c.width = c.height = size;
-      const ctx = c.getContext('2d')!;
-      const g = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
-      g.addColorStop(0, 'rgba(255,248,224,1)');
-      g.addColorStop(0.32, 'rgba(255,236,180,0.95)');
-      g.addColorStop(1, rgbaStr(goldLightRgb, 0));
-      ctx.fillStyle = g;
-      ctx.fillRect(0, 0, size, size);
-      return track(new THREE.CanvasTexture(c));
-    })();
-
-    interface Arc {
-      curve: ThreeNS.QuadraticBezierCurve3;
-      pulses: { sprite: ThreeNS.Sprite; mat: ThreeNS.SpriteMaterial; offset: number }[];
-      period: number;
-    }
-    function makeArc(p1: Vec3, p2: Vec3, weight: number): Arc {
-      const mid = p1.clone().add(p2).multiplyScalar(0.5);
-      mid.setLength(RADIUS * (1.16 + Math.min(p1.distanceTo(p2) / RADIUS, 1.9) * 0.11));
-      const curve = new THREE.QuadraticBezierCurve3(p1, mid, p2);
-      const tube = new THREE.Mesh(
-        track(new THREE.TubeGeometry(curve, 72, weight, 6, false)),
-        track(new THREE.MeshBasicMaterial({ color: goldLightHex, transparent: true, opacity: 0.58 }))
-      );
-      globeGroup.add(tube);
-
-      const pulseCount = 2;
-      const pulses = Array.from({ length: pulseCount }, (_, i) => {
-        const mat = track(
-          new THREE.SpriteMaterial({ map: pulseTexture, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0 })
-        );
-        const sprite = new THREE.Sprite(mat);
-        sprite.scale.set(0.12, 0.12, 1);
-        globeGroup.add(sprite);
-        return { sprite, mat, offset: i / pulseCount + Math.random() * 0.12 };
-      });
-
-      return { curve, pulses, period: 6.5 + Math.random() * 2.5 };
-    }
-
-    const arcs = CORRIDORS.map(([a, b]) => makeArc(byId[a].vec, byId[b].vec, a === 'istanbul' && b === 'shanghai' ? 0.007 : 0.01));
-
-    globeGroup.rotation.y = BASE_ROT_Y;
-    globeGroup.rotation.x = X_TILT;
-
-    // ---- labels (English/LTR by design at this stage — see file header) ----
-    // Production fix: suppression used to test only each label's anchor POINT against the
-    // safe-zone rect. A label anchored just outside the rect can still visually bleed into the
-    // text if its own rendered width extends back in (confirmed in production: "AFRICA" and
-    // "CAIRO" both overlapping the eyebrow/headline at the held framing) — now much more
-    // visible than before since the rotation hold above keeps that exact framing on screen for
-    // up to 10s instead of it rotating past within a couple of seconds. Each label's real
-    // rendered width/height is measured once here (cheap — a single layout read per label at
-    // creation, not per frame) and used for a genuine rect-vs-rect overlap test in
-    // updateLabels() below, instead of a point-in-rect test.
-    const labelEls: HTMLDivElement[] = [];
-    const labelDims: { width: number; height: number }[] = [];
-    nodePoints.forEach((n) => {
-      const el = document.createElement('div');
-      el.className = n.kind === 'region' ? 'hero-region-label' : 'hero-node-label';
-      el.textContent = n.name;
-      labelLayer.appendChild(el);
-      const r = el.getBoundingClientRect();
-      labelDims.push({ width: r.width, height: r.height });
-      labelEls.push(el);
-    });
-
-    type Rect = { left: number; right: number; top: number; bottom: number };
-    let textSafeRect: Rect | null = null;
-    let navSafeRect: Rect | null = null;
-    // Production fix: getBoundingClientRect() returns VIEWPORT-relative coordinates, but label
-    // x/y (and therefore labelRect() above) are computed relative to .hero's own box via
-    // heroEl.clientWidth/clientHeight. The two coordinate spaces only coincide once .hero has
-    // actually stuck to the viewport top (position:sticky) after scrolling past the header —
-    // at initial load, .hero still sits in normal flow below the banner/nav, so there's a
-    // real offset (confirmed in testing: ~100px, matching header height) between them. Left
-    // unconverted, safe-zone checks were silently wrong for exactly the scroll=0 state the
-    // rotation hold above now prolongs for up to 10s — subtracting heroEl's own viewport
-    // offset puts both sides of every comparison in the same coordinate space.
-    function measureTextSafeZone() {
-      const heroRect = heroEl.getBoundingClientRect();
       const body = document.querySelector('.hero-body');
-      if (body) {
-        const r = body.getBoundingClientRect();
-        textSafeRect = {
-          left: r.left - heroRect.left - 14,
-          right: r.right - heroRect.left + 34,
-          top: r.top - heroRect.top - 22,
-          bottom: r.bottom - heroRect.top + 10,
-        };
-      }
       const banner = document.querySelector('.banner');
       const nav = document.getElementById('nav');
-      const bottomViewport = Math.max(banner?.getBoundingClientRect().bottom ?? 0, nav?.getBoundingClientRect().bottom ?? 0);
-      navSafeRect = { left: 0, right: W, top: 0, bottom: bottomViewport - heroRect.top + 18 };
-    }
-    // Each label's actual rendered footprint, derived from its measured width/height plus the
-    // same CSS transform swaqar.css applies (translate(10px,-52%) for city/region-adjacent dot
-    // labels anchored at their left edge, translate(-50%,-50%) for region labels centered on
-    // their anchor) — mirrors the CSS exactly so this stays correct if those offsets ever change.
-    function labelRect(kind: 'city' | 'region', x: number, y: number, dims: { width: number; height: number }): Rect {
-      const { width, height } = dims;
-      if (kind === 'region') {
-        return { left: x - width / 2, right: x + width / 2, top: y - height / 2, bottom: y + height / 2 };
-      }
-      return { left: x + 10, right: x + 10 + width, top: y - height * 0.52, bottom: y + height * 0.48 };
-    }
-    function rectsOverlap(a: Rect, b: Rect | null) {
-      return !!b && a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
-    }
+      const bodyRect = body?.getBoundingClientRect() ?? null;
+      const navBottom = Math.max(banner?.getBoundingClientRect().bottom ?? 0, nav?.getBoundingClientRect().bottom ?? 0);
 
-    const tmpVec = new THREE.Vector3();
-    function updateLabels() {
-      nodePoints.forEach((n, i) => {
-        const worldPos = n.mesh ? n.mesh.getWorldPosition(tmpVec.clone()) : n.vec.clone().applyMatrix4(globeGroup.matrixWorld);
-        const toCam = new THREE.Vector3().subVectors(camera.position, worldPos).normalize();
-        const normal = worldPos.clone().sub(globeGroup.position).normalize();
-        const facing = normal.dot(toCam);
+      const textSafe = bodyRect
+        ? { left: bodyRect.left - 14, right: bodyRect.right + 34, top: bodyRect.top - 22, bottom: bodyRect.bottom + 10 }
+        : null;
+      const navSafe = { left: 0, right: window.innerWidth, top: 0, bottom: navBottom + 18 };
 
-        const proj = worldPos.clone().project(camera);
-        const x = (proj.x * 0.5 + 0.5) * W;
-        const y = (1 - (proj.y * 0.5 + 0.5)) * H;
-        const el = labelEls[i];
-        el.style.left = x + 'px';
-        el.style.top = y + 'px';
-        const threshold = n.kind === 'region' ? -0.05 : 0.05;
-        let opacity = facing > threshold ? Math.min(1, (facing - threshold) * 2.4) : 0;
-
-        const lr = labelRect(n.kind, x, y, labelDims[i]);
-        const suppressed = rectsOverlap(lr, textSafeRect) || rectsOverlap(lr, navSafeRect);
-        if (suppressed) opacity = 0;
-        el.style.opacity = String(opacity);
-
-        if (n.dotMat && n.baseDotOpacity !== undefined) n.dotMat.opacity = suppressed ? n.baseDotOpacity * 0.4 : n.baseDotOpacity;
-        if (n.haloMat && n.baseHaloOpacity !== undefined) n.haloMat.opacity = suppressed ? n.baseHaloOpacity * 0.25 : n.baseHaloOpacity;
+      labelRefs.current.forEach((el) => {
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        const overlapsText = !!textSafe && r.left < textSafe.right && r.right > textSafe.left && r.top < textSafe.bottom && r.bottom > textSafe.top;
+        const overlapsNav = r.left < navSafe.right && r.right > navSafe.left && r.top < navSafe.bottom && r.bottom > navSafe.top;
+        el.style.opacity = overlapsText || overlapsNav ? '0' : '1';
       });
     }
-
-    // ---- scroll-driven progress (0 at hero start, 1 once the pinned hero fully resolves) ----
-    const wrapper = heroSection.closest('.hero-scroll-wrapper') as HTMLElement | null;
-    let progress = 0;
-    function computeProgress() {
-      if (!wrapper) {
-        progress = 0;
-        return;
-      }
-      const wrapRect = wrapper.getBoundingClientRect();
-      const total = wrapper.offsetHeight - window.innerHeight;
-      const scrolled = -wrapRect.top;
-      progress = total > 0 ? Math.min(1, Math.max(0, scrolled / total)) : 0;
-    }
-
-    const heroBody = document.querySelector<HTMLElement>('.hero-body');
-    function applyScrollEffects() {
-      if (!wrapper) return; // reduced-motion fallback: no pin, no rig — nothing to animate
-      const driftPx = progress * 0.48 * H;
-      stageEl.style.transform = `translateY(${driftPx}px)`;
-
-      const maskTop = 100 - progress * 50;
-      maskEl.style.top = maskTop + '%';
-      glowEl.style.top = maskTop + '%';
-      glowEl.style.opacity = String(Math.min(1, progress * 1.6));
-      glowEl.style.filter = `blur(${4 + progress * 10}px)`;
-
-      camera.position.z = baseZ - progress * (baseZ * 0.14);
-      if (heroBody) heroBody.style.opacity = String(1 - progress * 0.55);
-    }
-
-    function renderFrame() {
-      renderer.render(scene, camera);
-    }
-
-    function onScroll() {
-      computeProgress();
-      applyScrollEffects();
-      // The first sign of scroll ends the rotation hold immediately (ahead of the 10s cap, if
-      // it hasn't already fired). Only the rotation-speed hold is affected — computeProgress()/
-      // applyScrollEffects() above already ran unconditionally, so the dome transition is
-      // unaffected by hold state either way.
-      if (holdActive && progress > 0) endHold();
-      if (reduceMotion) {
-        updateLabels();
-        renderFrame();
-      }
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-
-    function onResize() {
-      W = heroEl.clientWidth;
-      H = heroEl.clientHeight;
-      camera.aspect = W / H;
-      fitCameraToWidth();
-      camera.updateProjectionMatrix();
-      renderer.setSize(W, H);
-      measureTextSafeZone();
-      applyScrollEffects();
-      if (reduceMotion) {
-        updateLabels();
-        renderFrame();
-      }
-    }
-    window.addEventListener('resize', onResize);
-
-    function onMotionPrefChange() {
-      reduceMotion = reduceMotionMq.matches;
-    }
-    reduceMotionMq.addEventListener('change', onMotionPrefChange);
-
-    fitCameraToWidth();
-    camera.position.z = baseZ;
-    measureTextSafeZone();
-    computeProgress();
-    applyScrollEffects();
-
-    // The headline renders in Playfair Display (a webfont loaded via a Google Fonts <link>,
-    // not next/font) and can reflow once it swaps in after this first synchronous measurement
-    // — re-measure once it's actually settled so the label safe-zone matches the final layout,
-    // not a pre-swap approximation.
-    document.fonts?.ready?.then(() => {
-      if (disposed) return;
-      measureTextSafeZone();
-    });
-
-    let rafId = 0;
-    function animate() {
-      rafId = requestAnimationFrame(animate);
-      const tsec = clock.getElapsedTime();
-
-      // Held: stay exactly at the founder-chosen framing (no drift). Resumed: continue smoothly
-      // from that same angle with elapsed time reset to zero at the moment the hold ended, so
-      // rotation never snaps/jumps forward to "catch up" for time spent holding.
-      globeGroup.rotation.y = holdActive ? BASE_ROT_Y : BASE_ROT_Y + (tsec - rotationResumeAt) * ROTATE_SPEED;
-
-      arcs.forEach((arc) => {
-        arc.pulses.forEach((p) => {
-          let u = (tsec / arc.period + p.offset) % 1;
-          if (u < 0) u += 1;
-          const pos = arc.curve.getPointAt(u);
-          p.sprite.position.copy(pos);
-          const edgeT = Math.min(u, 1 - u);
-          const fade = Math.min(1, edgeT * 9);
-          p.mat.opacity = fade * 0.85;
-        });
-      });
-
-      updateLabels();
-      renderFrame();
-    }
-
-    if (reduceMotion) {
-      // One still frame; rotation and the traveling pulses stay frozen. Scroll (if the rig is
-      // even present — swaqar.css removes it under this same media query) still re-renders.
-      // No hold/resume timer needed here — rotation never advances at all under reduced motion.
-      updateLabels();
-      renderFrame();
-    } else {
-      holdTimer = setTimeout(endHold, HOLD_MAX_MS);
-      animate();
-    }
-
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    document.fonts?.ready?.then(update);
     return () => {
-      disposed = true;
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onResize);
-      reduceMotionMq.removeEventListener('change', onMotionPrefChange);
-      if (holdTimer) clearTimeout(holdTimer);
-      if (rafId) cancelAnimationFrame(rafId);
-      labelEls.forEach((el) => el.remove());
-      disposables.forEach((d) => d.dispose());
-      renderer.dispose();
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
     };
-  }
+  }, [lang]);
+
+  const cityNodes = NODE_DEFS.filter((n) => n.kind === 'city');
 
   return (
-    <div aria-hidden="true">
-      <div className="hero-globe-stage" ref={stageRef}>
-        <canvas ref={canvasRef} />
-        <div className="hero-label-layer" ref={labelLayerRef} />
+    <div className="hero-map-frame" aria-hidden="true">
+      <div className="hero-map-surface">
+        <picture>
+          <source srcSet="/hero-map.webp" type="image/webp" />
+          {/* eslint-disable-next-line @next/next/no-img-element -- fixed decorative background, not a Next/Image-managed content image */}
+          <img src="/hero-map.png" alt="" className="hero-map-img" />
+        </picture>
+
+        <svg className="hero-map-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+          {Object.entries(CORRIDOR_PATHS).map(([key, points]) => (
+            <path key={key} id={`corridor-${key}`} className="hero-map-corridor" d={pathD(points)} />
+          ))}
+          {cityNodes.map((n) => (
+            <g key={n.id}>
+              <circle className="hero-map-halo" cx={n.xPct} cy={n.yPct} r="1.1" />
+              <circle className="hero-map-dot" cx={n.xPct} cy={n.yPct} r="0.35" />
+            </g>
+          ))}
+          {Object.keys(CORRIDOR_PATHS).map((key) => (
+            <g key={key}>
+              <circle className="hero-map-pulse" r="0.45">
+                <animateMotion dur={`${7 + (key.length % 5)}s`} repeatCount="indefinite" begin="0s">
+                  <mpath href={`#corridor-${key}`} />
+                </animateMotion>
+              </circle>
+              <circle className="hero-map-pulse" r="0.45" opacity="0.7">
+                <animateMotion dur={`${7 + (key.length % 5)}s`} repeatCount="indefinite" begin={`${3.5 + (key.length % 3)}s`}>
+                  <mpath href={`#corridor-${key}`} />
+                </animateMotion>
+              </circle>
+            </g>
+          ))}
+        </svg>
+
+        <div className="hero-map-label-layer" ref={labelLayerRef}>
+          {NODE_DEFS.map((n, i) => (
+            <div
+              key={n.id}
+              ref={(el) => { labelRefs.current[i] = el; }}
+              className={n.kind === 'region' ? 'hero-region-label' : 'hero-node-label'}
+              style={{ left: `${n.xPct}%`, top: `${n.yPct}%` }}
+            >
+              {nodeName(n.id, lang)}
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="hero-vignette" />
-      <div className="hero-text-scrim" />
-      <div className="hero-horizon-mask" ref={maskRef} />
-      <div className="hero-horizon-glow" ref={glowRef} />
     </div>
   );
 }

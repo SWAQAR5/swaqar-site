@@ -22,7 +22,11 @@ html[lang="ar"]{--serif:var(--font-ar);--sans:var(--font-ar)}
 html[lang="zh"]{--serif:'Noto Sans SC',sans-serif;--sans:'Noto Sans SC',sans-serif}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--parchment);color:var(--body);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* Transparent by founder decision: the static map (.hero-map-frame, fixed, z-index:-1) reads
+   as a continuous backdrop behind sections with no background of their own (.gap) and in the
+   gaps between sections (.gold-rule dividers etc.), rather than the page defaulting to opaque
+   white everywhere the map isn't explicitly wanted. */
+body{background:transparent;color:var(--body);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 #cur{position:fixed;top:0;left:0;z-index:9999;pointer-events:none}
 #cur-dot{width:7px;height:7px;background:var(--ink);border-radius:50%;position:absolute;transform:translate(-50%,-50%)}
@@ -55,43 +59,59 @@ nav.scrolled{box-shadow:0 2px 24px rgba(11,31,58,.08)}
 .lang-sep{font-size:.58rem;color:var(--rule);line-height:1;user-select:none}
 .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
 .burger span{width:22px;height:1.5px;background:var(--ink);display:block;transition:all .3s}
-/* Stage 5 — hero rebuild (brand exception, hero-only): the hero now pins for 2.6 screen-
-   heights of scroll while a rotating 3D globe (HeroGlobe.tsx, Three.js) sinks behind a rising
-   "horizon", before handing off to .stats below. Ported from the approved preview; everywhere
-   else on the site the flat/no-3D convention is untouched. */
-.hero-scroll-wrapper{position:relative;height:260vh}
-.hero{position:sticky;top:0;height:100vh;background:var(--ink);display:flex;align-items:center;overflow:hidden}
-
-/* Full-bleed globe canvas + its projected city/region labels (HeroGlobe.tsx). */
-.hero-globe-stage{position:absolute;inset:0;width:100%;height:100%;z-index:0;will-change:transform}
-.hero-globe-stage canvas{display:block;width:100%;height:100%}
-.hero-label-layer{position:absolute;inset:0;pointer-events:none;z-index:0;transform:translateZ(0)}
+/* Stage 6 — static map rebuild (brand exception): the live Three.js globe was replaced with a
+   pre-rendered static image (HeroGlobe.tsx renders /public/hero-map.{webp,png} + a percent-
+   positioned label layer + a lightweight animated SVG overlay for the corridor pulses/node
+   glow — no WebGL, no rotation, no per-frame JS). It's applied as a fixed, full-bleed backdrop
+   behind the WHOLE home page (see .hero-map-frame), not just the hero — everywhere else on the
+   site the flat/no-3D convention is still untouched.
+   .hero-map-frame sits at z-index:-1, so it paints behind ordinary page content automatically
+   without needing z-index added to every section. .hero itself has no background of its own
+   (transparent) so the map is directly visible behind the headline; whether OTHER sections
+   (Mission/Identity/Corridors/etc., all currently opaque) should become semi-transparent to
+   keep the map visible as a running backdrop is a pending founder decision — see the audit in
+   the implementation notes, not decided here. */
+.hero-map-frame{position:fixed;inset:0;z-index:-1;overflow:hidden;background:var(--ink)}
+/* Sized to always cover the viewport at the image's exact native aspect ratio (3200x1800 = 16:9
+   = 1.77778), centered — replicates CSS object-fit:cover sizing/cropping in pure CSS so the
+   image, the label layer, and the SVG overlay all scale and crop identically at every viewport
+   size without any JS resize handling. */
+.hero-map-surface{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:max(100vw,177.78vh);height:max(100vh,56.25vw)}
+/* Founder decision: rather than a second image variant, shift the cover crop's focal point on
+   narrow viewports toward the Dubai/Jeddah/Middle East cluster (~45%,47% of the image — the
+   cities that matter most for the Africa/Middle East/Asia claim), instead of the image's raw
+   geometric center (50%,50%). Istanbul/Johannesburg clipping further at the edges on phones is
+   an accepted tradeoff. Desktop keeps the validated centered crop above untouched. */
+@media(max-width:768px){
+  .hero-map-surface{
+    top:calc(50vh - 0.47 * max(100vh, 56.25vw));
+    left:calc(50vw - 0.45 * max(100vw, 177.78vh));
+    transform:none;
+  }
+}
+.hero-map-img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+.hero-map-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero-map-corridor{fill:none;stroke:var(--gold);stroke-width:.12;stroke-opacity:.5;vector-effect:non-scaling-stroke}
+.hero-map-pulse{fill:#fff4de}
+.hero-map-dot{fill:#fff4de}
+.hero-map-halo{fill:var(--gold);opacity:.35;animation:heroMapHaloPulse 3.2s ease-in-out infinite}
+.hero-map-halo:nth-of-type(3n+1){animation-delay:-.6s}
+.hero-map-halo:nth-of-type(3n+2){animation-delay:-1.4s}
+@keyframes heroMapHaloPulse{0%,100%{opacity:.22;transform:scale(1)}50%{opacity:.5;transform:scale(1.35)}}
+@media(prefers-reduced-motion:reduce){
+  .hero-map-halo{animation:none;opacity:.3}
+  .hero-map-pulse{display:none}
+}
+.hero-map-label-layer{position:absolute;inset:0;pointer-events:none;transition:opacity .3s ease}
 .hero-node-label{position:absolute;transform:translate(10px,-52%);font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#f5f1e4;white-space:nowrap;text-shadow:0 0 3px rgba(0,0,0,.95),0 0 7px rgba(0,0,0,.85),0 1px 2px rgba(0,0,0,1);transition:opacity .25s ease}
 .hero-region-label{position:absolute;transform:translate(-50%,-50%);font-family:var(--sans);font-size:13px;font-weight:500;letter-spacing:.34em;text-transform:uppercase;color:rgba(224,230,241,.6);white-space:nowrap;text-shadow:0 1px 4px rgba(0,0,0,.85),0 0 10px rgba(0,0,0,.5);transition:opacity .2s ease}
-/* Production fix: a defensive radial fade so the globe disk always blends into the surrounding
-   navy at every edge/corner, at rest as well as mid-scroll, regardless of exactly how tightly
-   the sphere fills the frame at a given viewport size — independent of which texture is on the
-   sphere (belt-and-suspenders alongside dropping the photographic tier below). Transparent
-   through the center band where the corridor labels sit, fading to --ink only in the outer
-   quarter, so it never visibly competes with the globe or the copy. */
-.hero-vignette{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at 50% 50%, transparent 55%, var(--ink) 100%)}
-/* Scrim: keeps the corridor network from ever competing with the hero copy for legibility —
-   dark toward the copy, fading to transparent toward the globe. .hero-body sits on the LEFT
-   in LTR and the RIGHT under RTL (see that rule below), so the scrim mirrors to match. */
+.hero{position:relative;min-height:92vh;background:transparent;display:flex;align-items:center;overflow:hidden}
+/* Scrim: keeps the map's busiest area from ever competing with the hero copy for legibility —
+   dark toward the copy, fading to transparent toward the open map. .hero-body sits on the LEFT
+   in LTR and the RIGHT under RTL (see that rule below), so the scrim mirrors to match. Lives
+   inside .hero (not the fixed map layer) so it scrolls away together with the text it protects. */
 .hero-text-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(100deg,rgba(8,17,36,.74) 0%,rgba(8,17,36,.54) 30%,rgba(8,17,36,.24) 52%,rgba(8,17,36,0) 68%),linear-gradient(to bottom,rgba(6,15,34,.30) 0%,rgba(6,15,34,0) 14%,rgba(6,15,34,0) 78%,rgba(6,15,34,.45) 100%)}
 html[dir="rtl"] .hero-text-scrim{background:linear-gradient(260deg,rgba(8,17,36,.74) 0%,rgba(8,17,36,.54) 30%,rgba(8,17,36,.24) 52%,rgba(8,17,36,0) 68%),linear-gradient(to bottom,rgba(6,15,34,.30) 0%,rgba(6,15,34,0) 14%,rgba(6,15,34,0) 78%,rgba(6,15,34,.45) 100%)}
-/* Rising "horizon" floor that swallows the lower globe as the visitor scrolls, and the
-   glowing seam where globe meets it — both driven by scroll progress in HeroGlobe.tsx. */
-.hero-horizon-mask{position:absolute;left:0;right:0;bottom:0;top:100%;background:var(--ink);z-index:1;will-change:top}
-.hero-horizon-glow{position:absolute;left:0;right:0;top:100%;height:2px;z-index:1;pointer-events:none;background:linear-gradient(90deg,transparent 0%,rgba(184,146,58,.05) 12%,rgba(184,146,58,.9) 50%,rgba(184,146,58,.05) 88%,transparent 100%);box-shadow:0 0 40px 10px rgba(184,146,58,.55),0 0 120px 40px rgba(184,146,58,.25);opacity:0;will-change:top,opacity}
-/* Reduced motion: collapse back to the original plain single-viewport hero — no scroll-pin,
-   no rising horizon. HeroGlobe.tsx checks the same media query and renders one still frame
-   (rotation and the traveling corridor pulses frozen) instead of looping. */
-@media(prefers-reduced-motion:reduce){
-  .hero-scroll-wrapper{height:auto}
-  .hero{position:relative;top:auto;height:auto;min-height:92vh}
-  .hero-horizon-mask,.hero-horizon-glow{display:none}
-}
 .hero-body{position:relative;z-index:2;padding:0 60px;max-width:700px}
 .eyebrow{display:inline-flex;align-items:center;gap:14px;margin-bottom:30px}
 .eyebrow-line{width:36px;height:1px;background:var(--gold)}
@@ -116,7 +136,10 @@ html[dir="rtl"] .hero-text-scrim{background:linear-gradient(260deg,rgba(8,17,36,
 .stat:last-child{border-right:none}
 .stat-n{font-family:var(--serif);font-size:2.2rem;font-weight:700;color:var(--ink);letter-spacing:-.02em}
 .stat-l{font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
-.marquee{background:var(--ink);border-bottom:1px solid var(--gold-a18);padding:15px 0;overflow:hidden}
+/* Semi-transparent by founder decision: lets the fixed map (.hero-map-frame) show through —
+   tonally close to the map already (both navy), so the section reads as part of the same
+   backdrop rather than a separate opaque band. */
+.marquee{background:rgba(11,31,58,.85);border-bottom:1px solid var(--gold-a18);padding:15px 0;overflow:hidden}
 .marquee-track{display:flex;animation:mq 24s linear infinite;width:max-content}
 @keyframes mq{to{transform:translateX(-50%)}}
 .mq-item{display:inline-flex;align-items:center;gap:16px;padding:0 38px;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.35);border-right:1px solid var(--gold-a18);white-space:nowrap}
@@ -218,7 +241,10 @@ section{position:relative;padding:104px 0}
   .id-diagram-mobile-caption .id-diagram-rail-label,.id-diagram-mobile-caption .id-diagram-rail-caption,.id-diagram-mobile-caption .id-diagram-corridor-caption{text-align:left;margin:0}
 }
 /* ── CORRIDORS ── */
-.corridors{background:var(--stone);padding:88px 0}
+/* Semi-transparent by founder decision (thematically the corridor-network section, connected
+   to the map). --stone is light, so it needs a higher opacity than the navy sections below to
+   keep its own dark text readable against a dark map bleeding through underneath. */
+.corridors{background:rgba(247,248,250,.92);padding:88px 0}
 .cor-head{display:flex;flex-direction:column;margin-bottom:52px;gap:16px}
 /* Corridor Architecture diagram (Stage 4 batch 2, item 2) — replaces the old .cor-map-box
    literal-map SVG (confirmed unused anywhere else before removing its CSS). Fixed, non-
@@ -344,7 +370,8 @@ section{position:relative;padding:104px 0}
 .partners-track{display:flex;animation:mq 30s linear infinite;width:max-content}
 .partner{padding:0 44px;font-family:var(--serif);font-size:.96rem;color:var(--muted);letter-spacing:.06em;border-right:1px solid var(--rule);white-space:nowrap;transition:color .3s}
 .partner:hover{color:var(--ink)}
-.contact{background:var(--ink)}
+/* Semi-transparent by founder decision — see .marquee above. */
+.contact{background:rgba(11,31,58,.85)}
 .contact .sec-h{color:var(--white)}
 .contact .sec-tag-txt{color:var(--gold)}
 .contact .sec-tag-line{background:var(--gold)}
@@ -399,7 +426,8 @@ footer{background:var(--ink-deep);border-top:1px solid var(--gold-a18);padding:7
 }
 @media(max-width:900px){.pillars{grid-template-columns:1fr 1fr}}
 @media(max-width:500px){.pillars{grid-template-columns:1fr}}
-.mission{background:var(--ink);position:relative;overflow:hidden}
+/* Semi-transparent by founder decision — see .marquee above. */
+.mission{background:rgba(11,31,58,.85);position:relative;overflow:hidden}
 .mission::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(184,146,58,.06) 0%,transparent 70%);pointer-events:none}
 .mv-inner{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08);margin-top:52px}
 .mv-block{padding:48px 40px;background:var(--ink);border-left:3px solid transparent;transition:border-color .4s}

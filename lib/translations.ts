@@ -112,6 +112,19 @@ export const t = {
       shanghai: { en: 'Shanghai', ar: 'شنغهاي', fr: 'Shanghai', zh: '上海' },
       singapore: { en: 'Singapore', ar: 'سنغافورة', fr: 'Singapour', zh: '新加坡' },
       europe: { en: 'Europe', ar: 'أوروبا', fr: 'Europe', zh: '欧洲' },
+      // Added for the static-map node set. Jeddah's ar/fr/zh reuse corridors.map.middleEastSub
+      // verbatim (same real place, already localized elsewhere) with fr normalized from
+      // uppercase "DJEDDAH" to title case to match this list's convention.
+      jeddah: { en: 'Jeddah', ar: 'جدة', fr: 'Djeddah', zh: '吉达' },
+      abuja: { en: 'Abuja', ar: 'أبوجا', fr: 'Abuja', zh: '阿布贾' },
+      // Douala: no distinct French exonym — Cameroon is Francophone and "Douala" is already
+      // the name used in French.
+      douala: { en: 'Douala', ar: 'دوالا', fr: 'Douala', zh: '杜阿拉' },
+      // FLAG for founder/brand review, same pattern as the earlier Shanghai flag: French has
+      // two forms in current use for Johannesburg — "Johannesburg" (unchanged, the more common
+      // current usage, e.g. Le Monde/France24) and the older adapted "Johannesbourg". Used the
+      // former; surfacing rather than guessing since the two aren't interchangeable-obviously.
+      johannesburg: { en: 'Johannesburg', ar: 'جوهانسبرغ', fr: 'Johannesburg', zh: '约翰内斯堡' },
     },
   },
 
