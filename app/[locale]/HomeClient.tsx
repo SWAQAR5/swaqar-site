@@ -34,6 +34,16 @@ export default function HomeClient({ locale }: { locale: string }) {
 
   useSiteChrome(lang);
 
+  // Production fix — scope leak: the fixed map background (.hero-map-frame) needs <body> to be
+  // transparent so it shows through .gap and the gaps between sections, but that must only
+  // apply on THIS page — /model and /arms share swaqar.css but render no map at all. Toggling
+  // a class here (removed on unmount) keeps every other route's body at its normal opaque
+  // background, same classList.add/remove-on-body pattern useSiteChrome already uses for `.hov`.
+  useEffect(() => {
+    document.body.classList.add('home-map-bg');
+    return () => document.body.classList.remove('home-map-bg');
+  }, []);
+
   // Stage 3 old-link safety: The Model and Strategic Arms moved off the home page onto their
   // own routes (/model, /arms). #model and #arms were never separate crawlable URLs (nothing
   // for search engines to redirect), but a real person with an old bookmarked or shared

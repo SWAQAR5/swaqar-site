@@ -175,7 +175,7 @@ export default function HeroGlobe({ lang }: { lang: Lang }) {
           ))}
           {cityNodes.map((n) => (
             <g key={n.id}>
-              <circle className="hero-map-halo" cx={n.xPct} cy={n.yPct} r="1.1" />
+              <circle className="hero-map-halo" cx={n.xPct} cy={n.yPct} r="0.5" />
               <circle className="hero-map-dot" cx={n.xPct} cy={n.yPct} r="0.35" />
             </g>
           ))}

@@ -22,11 +22,14 @@ html[lang="ar"]{--serif:var(--font-ar);--sans:var(--font-ar)}
 html[lang="zh"]{--serif:'Noto Sans SC',sans-serif;--sans:'Noto Sans SC',sans-serif}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-/* Transparent by founder decision: the static map (.hero-map-frame, fixed, z-index:-1) reads
-   as a continuous backdrop behind sections with no background of their own (.gap) and in the
-   gaps between sections (.gold-rule dividers etc.), rather than the page defaulting to opaque
-   white everywhere the map isn't explicitly wanted. */
-body{background:transparent;color:var(--body);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{background:var(--parchment);color:var(--body);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* Production fix — scope leak: this used to be a plain `body{background:transparent}` rule,
+   which applied to EVERY route (swaqar.css loads sitewide via app/[locale]/layout.tsx), not
+   just the home page — /model and /arms inherited a transparent body too, even though neither
+   renders the map. Scoped to a class HomeClient.tsx alone adds to <body> on mount and removes
+   on unmount (same classList.add/remove-on-body pattern useSiteChrome already uses for `.hov`),
+   so every other route keeps its normal opaque background with zero trace of the map. */
+body.home-map-bg{background:transparent}
 a{color:inherit;text-decoration:none}
 #cur{position:fixed;top:0;left:0;z-index:9999;pointer-events:none}
 #cur-dot{width:7px;height:7px;background:var(--ink);border-radius:50%;position:absolute;transform:translate(-50%,-50%)}
