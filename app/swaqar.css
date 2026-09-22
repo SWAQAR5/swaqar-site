@@ -78,7 +78,8 @@ nav.scrolled{box-shadow:0 2px 24px rgba(11,31,58,.08)}
 /* Sized to always cover the viewport at the image's exact native aspect ratio (3200x1800 = 16:9
    = 1.77778), centered — replicates CSS object-fit:cover sizing/cropping in pure CSS so the
    image, the label layer, and the SVG overlay all scale and crop identically at every viewport
-   size without any JS resize handling. */
+   size without any JS resize handling. Mobile (<=768px) keeps this exact centered box, with its
+   own focal-point override below — untouched by the desktop enlargement further down. */
 .hero-map-surface{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:max(100vw,177.78vh);height:max(100vh,56.25vw)}
 /* Founder decision: rather than a second image variant, shift the cover crop's focal point on
    narrow viewports toward the Dubai/Jeddah/Middle East cluster (~45%,47% of the image — the
@@ -90,6 +91,31 @@ nav.scrolled{box-shadow:0 2px 24px rgba(11,31,58,.08)}
     top:calc(50vh - 0.47 * max(100vh, 56.25vw));
     left:calc(50vw - 0.45 * max(100vw, 177.78vh));
     transform:none;
+  }
+}
+/* Production fix — close the navy gap on wide viewports: on tablet/laptop/desktop the cover box
+   above was sized to the SMALLEST rectangle that still fully covers the viewport, which left a
+   visible margin of navy padding around the sphere on any screen wider than the image's own
+   16:9 aspect ratio (the sphere itself doesn't reach the edges of the 3200x1800 export — it was
+   deliberately zoomed out in an earlier round to fit all 12 cities in frame). Enlarging the same
+   box and re-anchoring its LEFT and BOTTOM edges (instead of centering) makes it grow only
+   rightward and upward — closing the gap on the right without the globe creeping toward the
+   headline column, and bleeding further off the top the same way it already bled off the bottom.
+   --map-scale is a plain custom property (not a breakpoint-driven value) so it can be tuned in
+   one place; it was picked empirically (Playwright sweep across 1024-2560px at real device
+   aspect ratios) as the largest value that keeps every city label — Shanghai/Singapore are the
+   rightmost, so the binding constraint — fully on-screen with comfortable margin everywhere,
+   including 1024x768 (iPad landscape). Labels need no changes at all here — they're percent-of-
+   surface-box, so they stay pinned to their markers automatically as the surface box resizes. */
+:root{--map-scale:1.2}
+@media(min-width:769px){
+  .hero-map-surface{
+    top:auto;
+    transform:none;
+    width:calc(max(100vw, 177.78vh) * var(--map-scale));
+    height:calc(max(100vh, 56.25vw) * var(--map-scale));
+    left:calc(50vw - max(100vw, 177.78vh) / 2);
+    bottom:calc(50vh - max(100vh, 56.25vw) / 2);
   }
 }
 .hero-map-img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
