@@ -105,22 +105,34 @@ nav.scrolled{box-shadow:0 2px 24px rgba(11,31,58,.08)}
    space between the sticky nav (102px) and the viewport bottom. Nothing bleeds off any edge —
    the surrounding navy is .hero-map-frame's own solid background (same navy as the image's own
    padding), so the globe reads as a floating, framed element rather than an escaping backdrop.
-   `min(calc(100vw - 528px), 1100px)` guarantees the box's LEFT edge is never closer than 480px
-   from the viewport's left edge (440px hero-body max-width + 40px clearance) at ANY width from
+   `min(calc(100vw - 484px), 1250px)` guarantees the box's LEFT edge is never closer than 460px
+   from the viewport's left edge (440px hero-body max-width + 20px clearance) at ANY width from
    769px up, by construction — not by testing specific widths and hoping nothing in between
-   breaks, unlike both previous attempts. Capped at 1100px so it doesn't become oversized on
-   very wide monitors. Height is derived from the same width via the image's exact native aspect
-   ratio (3200x1800 = 16:9 = 1.77778), so object-fit:contain (see .hero-map-img below) never has
-   to crop OR letterbox — the whole image, and therefore every city/region label, is always
-   fully visible inside the box, independent of viewport size. Labels need no changes at all
-   here — they're percent-of-surface-box, so they stay pinned to their markers automatically. */
+   breaks, unlike both previous attempts. Height is derived from the same width via the image's
+   exact native aspect ratio (3200x1800 = 16:9 = 1.77778), so object-fit:contain (see
+   .hero-map-img below) never has to crop OR letterbox — the whole image, and therefore every
+   city/region label, is always fully visible inside the box, independent of viewport size.
+   Labels need no changes at all here — they're percent-of-surface-box, so they stay pinned to
+   their markers automatically.
+   Production fix — modest size increase (~12-15%): at typical widths (1440 and narrower) the
+   box was ALREADY using ~91% of the theoretical maximum width available between the headline
+   and the viewport's own right edge (912px used out of a 1000px ceiling with literally zero
+   margin anywhere) — there is no room left there for a genuine 12-15% increase without either
+   shrinking the margins to nothing (touching the headline and/or the viewport edge) or
+   encroaching on the locked 440px headline column. Reduced the margins from 40px/48px down to a
+   still-clearly-intentional 20px/24px (not zero), which buys ~5% more width at 1440 specifically
+   — that's the honest ceiling there. The other lever, the CAP (was 1100px, unused slack existed
+   above it on wide screens since 100vw-reserved regularly exceeded it), raised to 1250px
+   (+13.6%) — widescreen viewports (roughly 1730px+, where the cap rather than the headline-gap
+   is what binds) get the full requested increase; 1440 gets the smaller, geometrically honest
+   ~5% instead. */
 @media(min-width:769px){
   .hero-map-surface{
     bottom:auto;left:auto;transform:none;
-    --gw:min(calc(100vw - 528px), 1100px);
+    --gw:min(calc(100vw - 484px), 1250px);
     width:var(--gw);
     height:calc(var(--gw) / 1.77778);
-    right:48px;
+    right:24px;
     top:calc(51px + 50vh - (var(--gw) / 1.77778) / 2);
   }
   /* Production fix — RTL overlap: .hero-body flips to sit flush-right under dir=rtl (see the
@@ -129,7 +141,7 @@ nav.scrolled{box-shadow:0 2px 24px rgba(11,31,58,.08)}
      landed on top of each other. Mirror the ANCHOR SIDE only (right->left) — never the image
      content itself, which stays geography-accurate in both directions, same principle as the
      percent-coordinate labels already not mirroring under RTL. */
-  html[dir="rtl"] .hero-map-surface{right:auto;left:48px}
+  html[dir="rtl"] .hero-map-surface{right:auto;left:24px}
 }
 .hero-map-img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
 /* object-fit:contain on tablet/laptop/desktop only, placed AFTER the base rule above so it wins
