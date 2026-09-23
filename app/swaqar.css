@@ -98,24 +98,38 @@ nav.scrolled{box-shadow:0 2px 24px rgba(11,31,58,.08)}
    visible margin of navy padding around the sphere on any screen wider than the image's own
    16:9 aspect ratio (the sphere itself doesn't reach the edges of the 3200x1800 export — it was
    deliberately zoomed out in an earlier round to fit all 12 cities in frame). Enlarging the same
-   box and re-anchoring its LEFT and BOTTOM edges (instead of centering) makes it grow only
-   rightward and upward — closing the gap on the right without the globe creeping toward the
-   headline column, and bleeding further off the top the same way it already bled off the bottom.
+   box and re-anchoring its LEFT edge (instead of centering) makes it grow rightward — closing
+   the gap on the right without the globe creeping toward the headline column.
    --map-scale is a plain custom property (not a breakpoint-driven value) so it can be tuned in
-   one place; it was picked empirically (Playwright sweep across 1024-2560px at real device
-   aspect ratios) as the largest value that keeps every city label — Shanghai/Singapore are the
-   rightmost, so the binding constraint — fully on-screen with comfortable margin everywhere,
-   including 1024x768 (iPad landscape). Labels need no changes at all here — they're percent-of-
-   surface-box, so they stay pinned to their markers automatically as the surface box resizes. */
-:root{--map-scale:1.2}
+   one place; it was picked empirically (Playwright sweep across every width from 1024-2560px,
+   each tested across a RANGE of heights, not just one "realistic" pairing per width — see the
+   note below on why that range matters) as the largest value that keeps every city label —
+   Shanghai/Singapore are the rightmost, so the binding constraint — fully on-screen with
+   comfortable margin everywhere, including narrower/taller windows at 1024px width. Labels need
+   no changes at all here — they're percent-of-surface-box, so they stay pinned to their markers
+   automatically as the surface box resizes.
+   Production fix — regression found post-deploy: the first version of this also re-anchored the
+   BOTTOM edge (to bleed the extra height off the top, matching "bleeds off the top" from the
+   original ask), but that amount of top-bleed is driven by image width alone in the common case
+   (viewport wider than 16:9), independent of actual viewport HEIGHT — on a browser window with a
+   shorter-than-tested height at the same width (very common: non-maximized windows, browser
+   chrome eating vertical space), the same top-bleed pushed Istanbul/Tehran/Shanghai up behind
+   the sticky nav (102px tall) entirely. The validation sweep that shipped it only tested fixed
+   full-screen (width,height) pairs and never varied height independently of width, so it never
+   exercised this. Fixed by anchoring TOP directly with a hard floor instead of deriving it from
+   a fixed bottom: `max(132px, ...)` guarantees the box can never start higher than 132px below
+   the nav (well below Istanbul, the topmost city at 30% down the box) no matter how short the
+   viewport is — any "excess" height from a big scale factor bleeds further off the BOTTOM
+   instead, which was already an accepted, purely-decorative crop. */
+:root{--map-scale:1.15}
 @media(min-width:769px){
   .hero-map-surface{
-    top:auto;
+    bottom:auto;
     transform:none;
     width:calc(max(100vw, 177.78vh) * var(--map-scale));
     height:calc(max(100vh, 56.25vw) * var(--map-scale));
     left:calc(50vw - max(100vw, 177.78vh) / 2);
-    bottom:calc(50vh - max(100vh, 56.25vw) / 2);
+    top:max(132px, calc(50vh - max(100vh, 56.25vw) * (var(--map-scale) - 0.5)));
   }
 }
 .hero-map-img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
