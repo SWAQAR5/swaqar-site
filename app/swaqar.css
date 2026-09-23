@@ -93,46 +93,51 @@ nav.scrolled{box-shadow:0 2px 24px rgba(11,31,58,.08)}
     transform:none;
   }
 }
-/* Production fix — close the navy gap on wide viewports: on tablet/laptop/desktop the cover box
-   above was sized to the SMALLEST rectangle that still fully covers the viewport, which left a
-   visible margin of navy padding around the sphere on any screen wider than the image's own
-   16:9 aspect ratio (the sphere itself doesn't reach the edges of the 3200x1800 export — it was
-   deliberately zoomed out in an earlier round to fit all 12 cities in frame). Enlarging the same
-   box and re-anchoring its LEFT edge (instead of centering) makes it grow rightward — closing
-   the gap on the right without the globe creeping toward the headline column.
-   --map-scale is a plain custom property (not a breakpoint-driven value) so it can be tuned in
-   one place; it was picked empirically (Playwright sweep across every width from 1024-2560px,
-   each tested across a RANGE of heights, not just one "realistic" pairing per width — see the
-   note below on why that range matters) as the largest value that keeps every city label —
-   Shanghai/Singapore are the rightmost, so the binding constraint — fully on-screen with
-   comfortable margin everywhere, including narrower/taller windows at 1024px width. Labels need
-   no changes at all here — they're percent-of-surface-box, so they stay pinned to their markers
-   automatically as the surface box resizes.
-   Production fix — regression found post-deploy: the first version of this also re-anchored the
-   BOTTOM edge (to bleed the extra height off the top, matching "bleeds off the top" from the
-   original ask), but that amount of top-bleed is driven by image width alone in the common case
-   (viewport wider than 16:9), independent of actual viewport HEIGHT — on a browser window with a
-   shorter-than-tested height at the same width (very common: non-maximized windows, browser
-   chrome eating vertical space), the same top-bleed pushed Istanbul/Tehran/Shanghai up behind
-   the sticky nav (102px tall) entirely. The validation sweep that shipped it only tested fixed
-   full-screen (width,height) pairs and never varied height independently of width, so it never
-   exercised this. Fixed by anchoring TOP directly with a hard floor instead of deriving it from
-   a fixed bottom: `max(132px, ...)` guarantees the box can never start higher than 132px below
-   the nav (well below Istanbul, the topmost city at 30% down the box) no matter how short the
-   viewport is — any "excess" height from a big scale factor bleeds further off the BOTTOM
-   instead, which was already an accepted, purely-decorative crop. */
-:root{--map-scale:1.15}
+/* Production fix — redesigned as a deliberately-composed, contained graphic instead of a
+   full-bleed crop: the previous two rounds both tried to close the right-side navy gap by
+   enlarging the cover-crop box and letting the extra size bleed off an edge (right+top, then
+   right+bottom) — each fix traded one edge's overflow for another (right-edge label clipping,
+   then nav occlusion, on unusually short or tall/narrow windows). Replaced the whole cover-crop
+   mechanism on tablet/laptop/desktop with a simple, self-contained box: sized as a plain
+   fraction of viewport width (independent of viewport HEIGHT or aspect ratio entirely — this is
+   what actually fixes the earlier bugs at the root, not just at the tested widths/heights),
+   positioned with a fixed margin from the viewport's right edge, and vertically centered in the
+   space between the sticky nav (102px) and the viewport bottom. Nothing bleeds off any edge —
+   the surrounding navy is .hero-map-frame's own solid background (same navy as the image's own
+   padding), so the globe reads as a floating, framed element rather than an escaping backdrop.
+   `min(calc(100vw - 528px), 1100px)` guarantees the box's LEFT edge is never closer than 480px
+   from the viewport's left edge (440px hero-body max-width + 40px clearance) at ANY width from
+   769px up, by construction — not by testing specific widths and hoping nothing in between
+   breaks, unlike both previous attempts. Capped at 1100px so it doesn't become oversized on
+   very wide monitors. Height is derived from the same width via the image's exact native aspect
+   ratio (3200x1800 = 16:9 = 1.77778), so object-fit:contain (see .hero-map-img below) never has
+   to crop OR letterbox — the whole image, and therefore every city/region label, is always
+   fully visible inside the box, independent of viewport size. Labels need no changes at all
+   here — they're percent-of-surface-box, so they stay pinned to their markers automatically. */
 @media(min-width:769px){
   .hero-map-surface{
-    bottom:auto;
-    transform:none;
-    width:calc(max(100vw, 177.78vh) * var(--map-scale));
-    height:calc(max(100vh, 56.25vw) * var(--map-scale));
-    left:calc(50vw - max(100vw, 177.78vh) / 2);
-    top:max(132px, calc(50vh - max(100vh, 56.25vw) * (var(--map-scale) - 0.5)));
+    bottom:auto;left:auto;transform:none;
+    --gw:min(calc(100vw - 528px), 1100px);
+    width:var(--gw);
+    height:calc(var(--gw) / 1.77778);
+    right:48px;
+    top:calc(51px + 50vh - (var(--gw) / 1.77778) / 2);
   }
+  /* Production fix — RTL overlap: .hero-body flips to sit flush-right under dir=rtl (see the
+     rule near the bottom of this file), but the box above was still unconditionally anchored to
+     the right edge regardless of direction, so in Arabic the globe box and the headline column
+     landed on top of each other. Mirror the ANCHOR SIDE only (right->left) — never the image
+     content itself, which stays geography-accurate in both directions, same principle as the
+     percent-coordinate labels already not mirroring under RTL. */
+  html[dir="rtl"] .hero-map-surface{right:auto;left:48px}
 }
 .hero-map-img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+/* object-fit:contain on tablet/laptop/desktop only, placed AFTER the base rule above so it wins
+   the cascade (equal specificity, media queries don't add any) — belt-and-suspenders alongside
+   the box's aspect ratio already matching the image exactly; contain guarantees zero cropping
+   even if a sub-pixel rounding difference ever creeps in. Mobile keeps object-fit:cover from the
+   base rule, matching its own full-bleed focal-crop design further up. */
+@media(min-width:769px){.hero-map-img{object-fit:contain}}
 .hero-map-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 /* Production fix — removed .hero-map-pulse (a pair of small dots per corridor animated along
    the line via SMIL <animateMotion>): read as generic leftover placeholder motion rather than

@@ -159,6 +159,28 @@ export default function HeroGlobe({ lang }: { lang: Lang }) {
         const overlapsNav = r.left < navSafe.right && r.right > navSafe.left && r.top < navSafe.bottom && r.bottom > navSafe.top;
         el.style.opacity = overlapsText || overlapsNav ? '0' : '1';
       });
+
+      // Second pass — label-vs-label overlap: the "contained, whole image always visible" hero
+      // layout (no more cropping/zooming into a sub-region) means the full 16-label spread can
+      // render small enough that neighboring labels collide (Dubai/Jeddah/Middle East/Tehran/
+      // Europe sit close together in real geography, hence in percent-space too). Rather than
+      // force the box bigger (which would either shrink the headline's clearance or make the
+      // globe bleed off an edge again — the exact thing this round moved away from), hide a
+      // later label if it collides with one already kept visible. NODE_DEFS order is the
+      // priority: cities first, region labels last, so a region label only ever yields to a
+      // city, never the other way around. Runs after the text/nav pass above so only labels
+      // still visible at this point are considered.
+      const keptRects: { left: number; right: number; top: number; bottom: number }[] = [];
+      labelRefs.current.forEach((el) => {
+        if (!el || el.style.opacity === '0') return;
+        const r = el.getBoundingClientRect();
+        const overlapsKept = keptRects.some((k) => r.left < k.right && r.right > k.left && r.top < k.bottom && r.bottom > k.top);
+        if (overlapsKept) {
+          el.style.opacity = '0';
+        } else {
+          keptRects.push({ left: r.left, right: r.right, top: r.top, bottom: r.bottom });
+        }
+      });
     }
     update();
     window.addEventListener('scroll', update, { passive: true });
