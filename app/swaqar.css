@@ -323,14 +323,80 @@ section{position:relative;padding:104px 0}
 /* Production fix — hero-only map: reverted to fully opaque, see .marquee above. */
 .corridors{background:var(--stone);padding:88px 0}
 .cor-head{display:flex;flex-direction:column;margin-bottom:52px;gap:16px}
-/* Corridor Architecture diagram (Stage 4 batch 2, item 2) — replaces the old .cor-map-box
-   literal-map SVG (confirmed unused anywhere else before removing its CSS). Fixed, non-
-   mirrored SVG coordinates (see the component's own comment for why), so no dir-based rules
-   are needed here — only sizing/visibility per breakpoint. */
-.cor-arch-diagram{background:var(--parchment);border:1px solid var(--rule);border-top:3px solid var(--ink);padding:32px}
-.cor-arch-desktop{display:block;width:100%;height:auto}
-.cor-arch-mobile{display:none;width:100%;height:auto}
-@media(max-width:700px){.cor-arch-desktop{display:none}.cor-arch-mobile{display:block}}
+
+/* ── CORRIDORS GLOBE (full rebuild — replaces the deleted CorridorArchitectureDiagram.tsx,
+   a three-anchor line diagram, entirely) ── Full-width navy band reusing the SAME globe image/
+   palette already shipped in the homepage hero (/public/hero-map.{webp,png}) — approved as
+   "Option A" over two alternatives (a framed card, a circular inset) that both clipped
+   Shanghai/Singapore at a readable size; the full band gives every one of the 12 labels room
+   to breathe. Unlike the hero, this is a normal in-flow graphic sized to its own section, not
+   a page-wide fixed backdrop — no scope-leak or scroll-position concerns apply here. */
+.cor-globe-section{background:var(--navy);padding:88px 0 64px}
+.cor-globe-head{text-align:center;margin-bottom:44px}
+.cor-globe-head .sec-tag{justify-content:center}
+.cor-globe-head .sec-tag-txt{color:var(--gold)}
+.cor-globe-head .sec-h{color:var(--white)}
+.cor-globe-head .sec-h em{color:var(--gold-hi)}
+.cor-globe-head .sec-p{color:rgba(255,255,255,.6);max-width:640px;margin:0 auto}
+
+/* The frame's own aspect ratio matches the image exactly (3200x1800=16:9), so there's no
+   viewport-relative cover-math needed the way the hero's fixed full-bleed backdrop requires —
+   object-fit:contain never has to crop or letterbox, the whole image is always fully visible. */
+.cor-globe-frame{position:relative;width:100%;max-width:1040px;margin:0 auto}
+.cor-globe-surface{position:absolute;inset:0}
+.cor-globe-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block}
+.cor-globe-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+@supports (aspect-ratio: 16 / 9) { .cor-globe-frame{aspect-ratio:3200/1800} }
+@supports not (aspect-ratio: 16 / 9) { .cor-globe-frame{height:0;padding-bottom:56.25%} }
+
+.cor-globe-route{fill:none;stroke:var(--gold-hi);stroke-width:.14;stroke-opacity:.45;vector-effect:non-scaling-stroke}
+/* MovingParticle: a short bright dash within an otherwise near-empty dasharray, animated via
+   stroke-dashoffset (not SMIL animateMotion) for a continuous "flow" — the RouteArc above is
+   the always-visible static line; this is a purely decorative overlay on top of it. */
+.cor-globe-particle{fill:none;stroke:#fff4de;stroke-width:.22;stroke-opacity:.9;stroke-linecap:round;stroke-dasharray:1 9;vector-effect:non-scaling-stroke;animation:corDashFlow 2.6s linear infinite}
+@keyframes corDashFlow{to{stroke-dashoffset:-10}}
+
+.cor-globe-halo{fill:var(--gold);opacity:.3}
+.cor-globe-halo--hub{opacity:.4}
+.cor-globe-dot{fill:#fff4de}
+.cor-globe-dot--hub{fill:var(--gold-hi)}
+
+/* PulseRing: expands + fades on hub/core only (secondary nodes stay static, matching their
+   lower-emphasis treatment everywhere else in this component). */
+.cor-globe-pulse{fill:none;stroke:var(--gold-hi);stroke-width:.1;opacity:0;transform-box:fill-box;transform-origin:center;animation:corPulseRing 3s ease-out infinite}
+.cor-globe-pulse--core{animation-duration:3.6s}
+@keyframes corPulseRing{0%{opacity:.55;transform:scale(0.55)}80%{opacity:0}100%{opacity:0;transform:scale(1.9)}}
+
+.cor-globe-label-layer{position:absolute;inset:0;pointer-events:none}
+.cor-globe-label{position:absolute;transform:translate(10px,-50%);display:flex;flex-direction:column;gap:1px;white-space:nowrap;transition:opacity .25s ease}
+.cor-globe-label-name{font-family:var(--sans);text-transform:uppercase;letter-spacing:.08em;color:#fff;text-shadow:0 0 3px rgba(0,0,0,.9),0 0 7px rgba(0,0,0,.8)}
+.cor-globe-label--hub .cor-globe-label-name{font-size:14px;font-weight:700}
+.cor-globe-label--core .cor-globe-label-name{font-size:11.5px;font-weight:600}
+.cor-globe-label--secondary .cor-globe-label-name{font-size:9.5px;font-weight:500;color:#c9d2e0}
+.cor-globe-label-region{font-family:var(--sans);font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-hi);text-shadow:0 0 3px rgba(0,0,0,.9)}
+.cor-globe-label-desc{font-family:var(--sans);font-size:8px;letter-spacing:.02em;color:rgba(230,235,245,.65);text-shadow:0 0 3px rgba(0,0,0,.9)}
+
+/* Macro-region background labels — muted, sit behind/among the node cluster they describe. */
+.cor-globe-region-label{position:absolute;transform:translate(-50%,-50%);font-family:var(--sans);font-size:13px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:rgba(224,230,241,.35);white-space:nowrap;text-shadow:0 1px 4px rgba(0,0,0,.6);pointer-events:none}
+
+/* Bottom strap, flanking rule lines — reuses the already-approved "SWAQAR — Trade Coordination
+   Layer" phrase (translations.identity.isItems[0]) rather than inventing new copy. */
+.cor-globe-strap{display:flex;align-items:center;gap:18px;justify-content:center;margin-top:36px;padding:0 24px}
+.cor-globe-strap-line{flex:1 1 160px;max-width:160px;height:1px;background:linear-gradient(to right,transparent,var(--gold-a28))}
+.cor-globe-strap-line.r{background:linear-gradient(to left,transparent,var(--gold-a28))}
+.cor-globe-strap-txt{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-hi);font-weight:600;white-space:nowrap}
+
+/* Zero animation under reduced motion — RouteArc, labels, and node positions stay fully
+   visible either way; only the two purely-decorative motions turn off. */
+@media(prefers-reduced-motion:reduce){
+  .cor-globe-particle{display:none}
+  .cor-globe-pulse{animation:none;opacity:0}
+}
+
+@media(max-width:768px){
+  .cor-globe-section{padding:64px 0 48px}
+}
+
 .cor-phase-label{display:inline-flex;align-items:center;gap:10px;margin-bottom:24px}
 .cor-phase-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;flex-shrink:0;animation:pulse 2s ease-in-out infinite}
 .cor-phase-txt{font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--ink);font-weight:600}

@@ -8,7 +8,7 @@ import SiteFooter from './SiteFooter';
 import HeroGlobe from './HeroGlobe';
 import CoordinationGapDiagram from './CoordinationGapDiagram';
 import IdentityCorridorDiagram from './IdentityCorridorDiagram';
-import CorridorArchitectureDiagram from './CorridorArchitectureDiagram';
+import CorridorGlobe from './CorridorGlobe';
 
 const SUPPORTED_LOCALES: Lang[] = ['en', 'ar', 'fr', 'zh'];
 
@@ -209,18 +209,28 @@ export default function HomeClient({ locale }: { locale: string }) {
 
       <div className="gold-rule" />
 
-      <section className="corridors" id="corridors">
+      <section className="cor-globe-section" id="corridors">
         <div className="wrap">
-          <div className="cor-head">
-            <div>
-              <div className="sec-tag r"><div className="sec-tag-line" /><span className="sec-tag-txt">{tx(t.corridors.sectionTag, lang)}</span></div>
-              <h2 className="sec-h r" data-d="1">{tx(t.corridors.heading, lang)} <em>{tx(t.corridors.headingEm, lang)}</em></h2>
-            </div>
+          <div className="cor-globe-head">
+            <div className="sec-tag r"><div className="sec-tag-line" /><span className="sec-tag-txt">{tx(t.corridors.sectionTag, lang)}</span></div>
+            <h2 className="sec-h r" data-d="1">{tx(t.corridors.heading, lang)} <em>{tx(t.corridors.headingEm, lang)}</em></h2>
             <p className="sec-p r" data-d="2">{tx(t.corridors.subDesc, lang)}</p>
           </div>
+        </div>
 
-          <CorridorArchitectureDiagram locale={locale} />
+        <div className="cor-globe-frame">
+          <CorridorGlobe lang={lang} />
+        </div>
 
+        <div className="cor-globe-strap">
+          <div className="cor-globe-strap-line"></div>
+          <span className="cor-globe-strap-txt">SWAQAR — {(t.identity.isItems[lang] ?? t.identity.isItems['en'])[0]}</span>
+          <div className="cor-globe-strap-line r"></div>
+        </div>
+      </section>
+
+      <section className="corridors">
+        <div className="wrap">
           <div className="cor-tier r" data-d="1">
             <div className="cor-tier-head">
               <span className="cor-tier-num">01</span>

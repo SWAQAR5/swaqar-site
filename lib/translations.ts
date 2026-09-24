@@ -125,6 +125,10 @@ export const t = {
       // current usage, e.g. Le Monde/France24) and the older adapted "Johannesbourg". Used the
       // former; surfacing rather than guessing since the two aren't interchangeable-obviously.
       johannesburg: { en: 'Johannesburg', ar: 'جوهانسبرغ', fr: 'Johannesburg', zh: '约翰内斯堡' },
+      // FLAG for founder/brand review, same pattern as the Johannesburg fr flag above — new
+      // city for the Corridors globe rebuild, ar/fr/zh not yet run past professional reviewers
+      // (see the file-level TRANSLATION STATUS note; everything else in this file was).
+      lagos: { en: 'Lagos', ar: 'لاغوس', fr: 'Lagos', zh: '拉各斯' },
     },
   },
 
@@ -656,6 +660,39 @@ export const t = {
       ar: ['الزراعة والأمن الغذائي', 'تحت حوكمة التحقق', 'غير وصائي', 'بوابات الحوكمة'],
       fr: ['Agriculture & Sécurité Alimentaire', 'Gouverné par la Vérification', 'Non-Dépositaire', 'Portes de Gouvernance'],
       zh: ['农业与粮食安全', '核验治理', '非托管', '治理关口'],
+    },
+  },
+
+  // ── CORRIDORS GLOBE (rebuild) ── FLAG: draft copy, not yet run past professional reviewers
+  // (see file-level TRANSLATION STATUS note at the top of this file — this block postdates that
+  // review pass). Kept deliberately short/abstract and role-based rather than city-specific, to
+  // stay inside the category lock: no per-city operational claim is made, only a generic
+  // coordination role shared by every node in that region. Founder should treat these four
+  // descriptor lines as a first draft to correct/replace, not final approved copy.
+  corridorsGlobe: {
+    hubDescriptor: {
+      en: 'Coordination Hub · Verification',
+      ar: 'مركز التنسيق · التحقق',
+      fr: 'Pôle de Coordination · Vérification',
+      zh: '协调枢纽 · 核验',
+    },
+    africaDescriptor: {
+      en: 'Origin · Supply Readiness',
+      ar: 'المنشأ · جاهزية التوريد',
+      fr: 'Origine · Préparation de l\'Approvisionnement',
+      zh: '货源地 · 供应就绪',
+    },
+    middleEastDescriptor: {
+      en: 'Verification · Governance',
+      ar: 'التحقق · الحوكمة',
+      fr: 'Vérification · Gouvernance',
+      zh: '核验 · 治理',
+    },
+    asiaDescriptor: {
+      en: 'Distribution · Demand Readiness',
+      ar: 'التوزيع · جاهزية الطلب',
+      fr: 'Distribution · Préparation de la Demande',
+      zh: '分销 · 需求就绪',
     },
   },
 
