@@ -5,12 +5,19 @@ import { t, tx, type Lang } from '@/lib/translations';
 import { useSiteChrome } from '@/lib/useSiteChrome';
 import SiteHeader from './SiteHeader';
 import SiteFooter from './SiteFooter';
-import HeroGlobe from './HeroGlobe';
+import CorridorGlobe from './CorridorGlobe';
+import CorridorsDiagram from './CorridorsDiagram';
 import CoordinationGapDiagram from './CoordinationGapDiagram';
 import IdentityCorridorDiagram from './IdentityCorridorDiagram';
-import CorridorGlobe from './CorridorGlobe';
 
 const SUPPORTED_LOCALES: Lang[] = ['en', 'ar', 'fr', 'zh'];
+
+// Module-level constant (not recreated per render) so CorridorGlobe's overlap-suppression effect
+// doesn't needlessly re-run every render just because a new inline array was passed. The hero has
+// TWO competing-text zones (headline column AND the CTA buttons below it).
+// The hero (CorridorGlobe.tsx) and Corridors (CorridorsDiagram.tsx) are deliberately separate,
+// independent components — see each file's header comment. Not merged, not sharing code.
+const HERO_TEXT_SAFE = ['.hero-body', '.hero-btns'];
 
 export default function HomeClient({ locale }: { locale: string }) {
   // Derive lang from the URL locale prop. Only fall back to 'en' if `locale` isn't one of the
@@ -62,9 +69,21 @@ export default function HomeClient({ locale }: { locale: string }) {
     <>
       <SiteHeader locale={locale} />
 
-      {/* Rendered once, fixed behind the whole page (see .hero-map-frame in swaqar.css) —
-          no longer scoped to just the hero section. */}
-      <HeroGlobe lang={lang} />
+      {/* Rendered once, fixed behind the whole page (see .hero-map-frame in swaqar.css) — no
+          longer scoped to just the hero section. CorridorGlobe.tsx is the hero's OWN dedicated
+          component, independent of whatever Corridors renders further down — see that file's
+          header comment for why they're deliberately not sharing code. */}
+      {/* Unmasked solid-ink layer behind the frame — see .hero-map-backdrop in swaqar.css. The
+          mobile no-overlap mask below makes .hero-map-frame transparent past the text column, and
+          since mask-image affects an element's whole composited output (its own background
+          included, not just its children), that would otherwise reveal the page's actual <body>
+          background (parchment) through the masked-out area instead of solid navy. */}
+      <div className="hero-map-backdrop" aria-hidden="true" />
+      <div className="hero-map-frame" aria-hidden="true">
+        <div className="hero-map-surface">
+          <CorridorGlobe lang={lang} textSafeSelectors={HERO_TEXT_SAFE} />
+        </div>
+      </div>
 
       <section className="hero" id="home">
         <div className="hero-text-scrim" />
@@ -218,15 +237,7 @@ export default function HomeClient({ locale }: { locale: string }) {
           </div>
         </div>
 
-        <div className="cor-globe-frame">
-          <CorridorGlobe lang={lang} />
-        </div>
-
-        <div className="cor-globe-strap">
-          <div className="cor-globe-strap-line"></div>
-          <span className="cor-globe-strap-txt">SWAQAR — {(t.identity.isItems[lang] ?? t.identity.isItems['en'])[0]}</span>
-          <div className="cor-globe-strap-line r"></div>
-        </div>
+        <CorridorsDiagram lang={lang} />
       </section>
 
       <section className="corridors">

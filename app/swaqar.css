@@ -74,6 +74,7 @@ nav.scrolled{box-shadow:0 2px 24px rgba(11,31,58,.08)}
    (Mission/Identity/Corridors/etc., all currently opaque) should become semi-transparent to
    keep the map visible as a running backdrop is a pending founder decision — see the audit in
    the implementation notes, not decided here. */
+.hero-map-backdrop{position:fixed;inset:0;z-index:-2;background:var(--ink)}
 .hero-map-frame{position:fixed;inset:0;z-index:-1;overflow:hidden;background:var(--ink)}
 /* Sized to always cover the viewport at the image's exact native aspect ratio (3200x1800 = 16:9
    = 1.77778), centered — replicates CSS object-fit:cover sizing/cropping in pure CSS so the
@@ -133,7 +134,15 @@ nav.scrolled{box-shadow:0 2px 24px rgba(11,31,58,.08)}
     width:var(--gw);
     height:calc(var(--gw) / 1.77778);
     right:24px;
-    top:calc(51px + 50vh - (var(--gw) / 1.77778) / 2);
+    /* Production fix — re-derived nav-occlusion floor for the shared-component swap: the OLD
+       hero regressed on this exact formula once before (short-viewport windows pushed Istanbul/
+       Tehran/Shanghai up behind the 102px nav, since the top offset here is driven by --gw, which
+       is a function of WIDTH alone, not height — at the widest --gw (1250px, only reached on very
+       wide viewports) combined with an unusually SHORT viewport, this same calc can still go
+       negative enough to start hiding the topmost label behind the nav). Don't assume swapping
+       to the richer shared component makes that automatically fine — same hard floor as before,
+       132px, verified again below at short heights. */
+    top:max(132px, calc(51px + 50vh - (var(--gw) / 1.77778) / 2));
   }
   /* Production fix — RTL overlap: .hero-body flips to sit flush-right under dir=rtl (see the
      rule near the bottom of this file), but the box above was still unconditionally anchored to
@@ -143,29 +152,16 @@ nav.scrolled{box-shadow:0 2px 24px rgba(11,31,58,.08)}
      percent-coordinate labels already not mirroring under RTL. */
   html[dir="rtl"] .hero-map-surface{right:auto;left:24px}
 }
-.hero-map-img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
-/* object-fit:contain on tablet/laptop/desktop only, placed AFTER the base rule above so it wins
-   the cascade (equal specificity, media queries don't add any) — belt-and-suspenders alongside
-   the box's aspect ratio already matching the image exactly; contain guarantees zero cropping
-   even if a sub-pixel rounding difference ever creeps in. Mobile keeps object-fit:cover from the
-   base rule, matching its own full-bleed focal-crop design further up. */
-@media(min-width:769px){.hero-map-img{object-fit:contain}}
-.hero-map-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-/* Production fix — removed .hero-map-pulse (a pair of small dots per corridor animated along
-   the line via SMIL <animateMotion>): read as generic leftover placeholder motion rather than
-   a deliberate design choice. The gold corridor arcs are 3D tube meshes baked directly into the
-   export image, retraced here only as a static, non-animated stroke — no dots along any line. */
-.hero-map-corridor{fill:none;stroke:var(--gold);stroke-width:.12;stroke-opacity:.5;vector-effect:non-scaling-stroke}
-.hero-map-dot{fill:#fff4de}
-/* Production fix — zero animation on the map, no exceptions: the halo used to breathe via a
-   scale+opacity keyframe. Removed entirely — a fixed, static glow behind each city dot instead.
-   The whole hero visual (image, corridor lines, dots, halos, labels) is now identical at every
-   point in time; nothing here needs a prefers-reduced-motion override anymore because there is
-   no animation left to disable. */
-.hero-map-halo{fill:var(--gold);opacity:.35}
-.hero-map-label-layer{position:absolute;inset:0;pointer-events:none;transition:opacity .3s ease}
-.hero-node-label{position:absolute;transform:translate(10px,-52%);font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#f5f1e4;white-space:nowrap;text-shadow:0 0 3px rgba(0,0,0,.95),0 0 7px rgba(0,0,0,.85),0 1px 2px rgba(0,0,0,1);transition:opacity .25s ease}
-.hero-region-label{position:absolute;transform:translate(-50%,-50%);font-family:var(--sans);font-size:13px;font-weight:500;letter-spacing:.34em;text-transform:uppercase;color:rgba(224,230,241,.6);white-space:nowrap;text-shadow:0 1px 4px rgba(0,0,0,.85),0 0 10px rgba(0,0,0,.5);transition:opacity .2s ease}
+/* Production fix — shared-component swap: the hero now renders the SAME IlluminatedGlobe
+   component as Corridors (.cor-globe-img/.cor-globe-svg/.cor-globe-label-layer etc. — see
+   IlluminatedGlobe.tsx), so the hero's old standalone .hero-map-img/.hero-map-svg/.hero-map-
+   corridor/.hero-map-dot/.hero-map-halo/.hero-map-label-layer/.hero-node-label/.hero-region-
+   label rules are dead and removed. .cor-globe-img itself defaults to object-fit:contain
+   (Corridors' own need — the whole image always visible, nothing cropped); mobile hero still
+   wants the ORIGINAL cover+focal-crop treatment (a tight, zoomed-in background behind the
+   stacked text, not the whole contained globe), so it's restored here, scoped to .hero-map-
+   frame specifically — this does not affect Corridors' own mobile behavior at all. */
+@media(max-width:768px){.hero-map-frame .cor-globe-img{object-fit:cover}}
 .hero{position:relative;min-height:92vh;background:transparent;display:flex;align-items:center;overflow:hidden}
 /* Scrim: keeps the map's busiest area from ever competing with the hero copy for legibility —
    dark toward the copy, fading to transparent toward the open map. .hero-body sits on the LEFT
@@ -181,6 +177,30 @@ nav.scrolled{box-shadow:0 2px 24px rgba(11,31,58,.08)}
    which the narrower alternative caused. */
 .hero-text-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(100deg,rgba(8,17,36,.74) 0%,rgba(8,17,36,.54) 22%,rgba(8,17,36,.2) 38%,rgba(8,17,36,0) 50%),linear-gradient(to bottom,rgba(6,15,34,.30) 0%,rgba(6,15,34,0) 14%,rgba(6,15,34,0) 78%,rgba(6,15,34,.45) 100%)}
 html[dir="rtl"] .hero-text-scrim{background:linear-gradient(260deg,rgba(8,17,36,.74) 0%,rgba(8,17,36,.54) 22%,rgba(8,17,36,.2) 38%,rgba(8,17,36,0) 50%),linear-gradient(to bottom,rgba(6,15,34,.30) 0%,rgba(6,15,34,0) 14%,rgba(6,15,34,0) 78%,rgba(6,15,34,.45) 100%)}
+/* A translucent scrim tint can't fully hide the route strokes now that they actually render at
+   real contrast (stroke-width .4/.34, the whole point of the fix above) — a gold line stays
+   visibly a gold line under even .8 opacity of navy. So instead of tinting, this masks the whole
+   fixed frame (image + SVG together) fully transparent out past the text column, with a 48px
+   feather, guaranteeing zero line/dot ever renders under the headline/CTA at any mobile width,
+   not just a dimmed one.
+   Masking .cor-globe-svg directly (tried first) does NOT work: .cor-globe-svg inherits
+   .hero-map-surface's box, which is centered and can be WIDER than the viewport itself
+   (width:max(100vw,177.78vh) — it over-sizes to preserve the 16:9 image's aspect ratio, then
+   recenters via translate(-50%,-50%) and lets .hero-map-frame's overflow:hidden clip the
+   excess). A fixed-px mask on that element is measured against ITS OWN (shifted, oversized) box,
+   not the viewport. .hero-map-frame itself is `position:fixed;inset:0` — pinned exactly to the
+   viewport with no such offset — so masking it instead makes pixel/calc stops mean what they say.
+   A single fixed-px or single percentage cutoff doesn't work across 375-768px either: .hero-body
+   is a fixed-pixel column (24px pad + min(440px, 100vw-48px)), so the FRACTION of viewport it
+   occupies shrinks as the viewport grows past 488px (94% at 375, only 60% at 768) while staying
+   pinned to the same absolute edge below that. calc(min()) reproduces that exact edge so the
+   mask tracks it at every width instead of guessing a value that's wrong at one end or the other.
+   Scoped to .hero-map-frame only (Corridors' own frame is untouched) and to <=768px (desktop's
+   surface sits clear of hero-body already, confirmed by the breakpoint sweep). */
+@media(max-width:768px){
+  .hero-map-frame{-webkit-mask-image:linear-gradient(to right,transparent 0,transparent calc(min(440px, 100vw - 48px) + 40px),#000 calc(min(440px, 100vw - 48px) + 88px));mask-image:linear-gradient(to right,transparent 0,transparent calc(min(440px, 100vw - 48px) + 40px),#000 calc(min(440px, 100vw - 48px) + 88px))}
+  html[dir="rtl"] .hero-map-frame{-webkit-mask-image:linear-gradient(to left,transparent 0,transparent calc(min(440px, 100vw - 48px) + 40px),#000 calc(min(440px, 100vw - 48px) + 88px));mask-image:linear-gradient(to left,transparent 0,transparent calc(min(440px, 100vw - 48px) + 40px),#000 calc(min(440px, 100vw - 48px) + 88px))}
+}
 .hero-body{position:relative;z-index:2;padding:0 60px;max-width:440px}
 .eyebrow{display:inline-flex;align-items:center;gap:14px;margin-bottom:30px}
 .eyebrow-line{width:36px;height:1px;background:var(--gold)}
@@ -339,21 +359,34 @@ section{position:relative;padding:104px 0}
 .cor-globe-head .sec-h em{color:var(--gold-hi)}
 .cor-globe-head .sec-p{color:rgba(255,255,255,.6);max-width:640px;margin:0 auto}
 
-/* The frame's own aspect ratio matches the image exactly (3200x1800=16:9), so there's no
-   viewport-relative cover-math needed the way the hero's fixed full-bleed backdrop requires —
-   object-fit:contain never has to crop or letterbox, the whole image is always fully visible. */
-.cor-globe-frame{position:relative;width:100%;max-width:1040px;margin:0 auto}
-.cor-globe-surface{position:absolute;inset:0}
+/* .cor-globe-frame/.cor-globe-surface (the old Corridors-only wrapper box) were removed here —
+   Corridors no longer renders them (see CorridorsDiagram.tsx / .cor-diagram-* below instead).
+   .cor-globe-img/.cor-globe-svg stay: the hero's CorridorGlobe.tsx still renders these exact
+   class names inside its own .hero-map-frame/.hero-map-surface wrapper. */
 .cor-globe-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block}
 .cor-globe-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-@supports (aspect-ratio: 16 / 9) { .cor-globe-frame{aspect-ratio:3200/1800} }
-@supports not (aspect-ratio: 16 / 9) { .cor-globe-frame{height:0;padding-bottom:56.25%} }
 
-.cor-globe-route{fill:none;stroke:var(--gold-hi);stroke-width:.14;stroke-opacity:.45;vector-effect:non-scaling-stroke}
+/* Production fix — route lines were nearly invisible standalone: this stroke was always faint
+   by design, because the corridor arcs used to ALSO be baked directly into hero-map.png/webp as
+   lit 3D tube meshes (real geometry with actual shading) — this SVG retrace was only ever a
+   secondary reinforcement on top of that, never the primary visual. Now that the image export
+   is clean (sphere + terrain only, see hero_export.html) and this live stroke is the ONLY route
+   visualization for both placements, it has to read clearly on its own — and the widened value
+   alone didn't fix it: `vector-effect:non-scaling-stroke` makes stroke-width a literal CSS-pixel
+   count, not a viewBox-space unit, so "0.26" rendered as ~0.26px (near-invisible) regardless of
+   the box's actual on-screen size — found by re-screenshotting after the "fix" and seeing almost
+   no change. Removed non-scaling-stroke entirely so the stroke scales naturally with the box
+   (proportionally consistent across the ~240px mobile-corridors box up to the ~1250px wide-
+   desktop-hero box, rather than a fixed pixel width that would look jarringly thick on mobile or
+   a hairline on a huge screen), and picked a viewBox-space width that reads clearly at the
+   typical (~700-1000px) box sizes both placements mostly render at. */
+.cor-globe-route{fill:none;stroke:var(--gold-hi);stroke-width:.4;stroke-opacity:.85}
 /* MovingParticle: a short bright dash within an otherwise near-empty dasharray, animated via
    stroke-dashoffset (not SMIL animateMotion) for a continuous "flow" — the RouteArc above is
-   the always-visible static line; this is a purely decorative overlay on top of it. */
-.cor-globe-particle{fill:none;stroke:#fff4de;stroke-width:.22;stroke-opacity:.9;stroke-linecap:round;stroke-dasharray:1 9;vector-effect:non-scaling-stroke;animation:corDashFlow 2.6s linear infinite}
+   the always-visible static line; this is a purely decorative overlay on top of it. Same non-
+   scaling-stroke fix as .cor-globe-route above — the dasharray values scale with it too now,
+   which is fine/expected (the dash pattern stays proportionally sized to the route line itself). */
+.cor-globe-particle{fill:none;stroke:#fff4de;stroke-width:.34;stroke-opacity:.95;stroke-linecap:round;stroke-dasharray:1.4 8.6;animation:corDashFlow 2.6s linear infinite}
 @keyframes corDashFlow{to{stroke-dashoffset:-10}}
 
 .cor-globe-halo{fill:var(--gold);opacity:.3}
@@ -379,13 +412,6 @@ section{position:relative;padding:104px 0}
 /* Macro-region background labels — muted, sit behind/among the node cluster they describe. */
 .cor-globe-region-label{position:absolute;transform:translate(-50%,-50%);font-family:var(--sans);font-size:13px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:rgba(224,230,241,.35);white-space:nowrap;text-shadow:0 1px 4px rgba(0,0,0,.6);pointer-events:none}
 
-/* Bottom strap, flanking rule lines — reuses the already-approved "SWAQAR — Trade Coordination
-   Layer" phrase (translations.identity.isItems[0]) rather than inventing new copy. */
-.cor-globe-strap{display:flex;align-items:center;gap:18px;justify-content:center;margin-top:36px;padding:0 24px}
-.cor-globe-strap-line{flex:1 1 160px;max-width:160px;height:1px;background:linear-gradient(to right,transparent,var(--gold-a28))}
-.cor-globe-strap-line.r{background:linear-gradient(to left,transparent,var(--gold-a28))}
-.cor-globe-strap-txt{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-hi);font-weight:600;white-space:nowrap}
-
 /* Zero animation under reduced motion — RouteArc, labels, and node positions stay fully
    visible either way; only the two purely-decorative motions turn off. */
 @media(prefers-reduced-motion:reduce){
@@ -395,6 +421,75 @@ section{position:relative;padding:104px 0}
 
 @media(max-width:768px){
   .cor-globe-section{padding:64px 0 48px}
+}
+
+/* ══════ CORRIDORS DIAGRAM (Part B) — self-contained 3-node diagram. Deliberately does not
+   reuse or extend any .cor-globe-* rule above (that's the hero's dense-globe styling, owned by
+   CorridorGlobe.tsx now). Tokens below are scoped to .cor-diagram only and match the exact
+   values given for this component — --navy here (#09213f) is a hair darker than the site's
+   locked :root --navy (#0B1F3A) and --muted/--rule also differ slightly from their :root
+   counterparts; kept local rather than touching the global palette so no other section is
+   affected. See the AA-contrast note further down before assuming the gold eyebrow/strap text
+   is finished — flagged, not silently "fixed", per the swaqar-web skill's contrast rule. */
+.cor-diagram{
+  --navy:#09213f;--navy-2:#183656;--gold:#b8923a;--gold-bright:#d7b75c;
+  --paper:#fbfcfd;--map:#b8d3e8;--muted:#445a74;--rule:#d6dee6;
+  /* AA-contrast fix (founder-approved): --gold (#b8923a) measures ~2.8:1 against --paper, below
+     the 4.5:1 normal-text floor. --gold-aa (#8a6a22) is the same hue/family, darkened until it
+     clears 4.5:1 (~4.9:1 measured) — used ONLY for the eyebrow/strap TEXT below. The arc and
+     pulse-dot fills stay on --gold/--gold-bright unchanged: those are decorative graphics, not
+     text, so WCAG's text-contrast rule doesn't apply to them and the visual spec's exact colors
+     are kept there. */
+  --gold-aa:#8a6a22;
+  background-color:var(--paper);
+  background-image:radial-gradient(circle,var(--map) 1px,transparent 1.6px);
+  background-size:22px 22px;
+  padding:56px 24px 44px;
+}
+.cor-diagram-eyebrow{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:28px}
+.cor-diagram-eyebrow-line{flex:1 1 80px;max-width:120px;height:1px;background:var(--rule)}
+.cor-diagram-eyebrow-txt{font-size:.62rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-aa);font-weight:600;white-space:nowrap}
+
+.cor-diagram-panel{position:relative;max-width:900px;margin:0 auto;background:rgba(255,255,255,.86);border:1px solid var(--rule);border-top:3px solid var(--navy);padding:48px 32px 64px}
+.cor-diagram-stage{position:relative}
+.cor-diagram-svg{width:100%;height:auto;aspect-ratio:2/1;display:block;overflow:visible}
+.cor-diagram-arc{fill:none;stroke:var(--gold-bright);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:22 38;animation:corDiagDashFlow 2.4s linear infinite}
+@keyframes corDiagDashFlow{to{stroke-dashoffset:-120}}
+
+.cor-diagram-waypoint-dot{fill:var(--gold-bright)}
+.cor-diagram-waypoint-pulse{--peak:.6;fill:none;stroke:var(--gold-bright);stroke-width:1.6;transform-box:fill-box;transform-origin:center;animation:corDiagPulse 2s ease-out infinite}
+
+.cor-diagram-dot{fill:var(--navy)}
+.cor-diagram-pulse{--peak:.72;fill:none;stroke:var(--navy-2);stroke-width:1.4;transform-box:fill-box;transform-origin:center;animation:corDiagPulse 1.8s ease-out infinite}
+.cor-diagram-pulse--outer{--peak:.52;animation-duration:2.5s}
+@keyframes corDiagPulse{0%{transform:scale(.55);opacity:var(--peak)}100%{transform:scale(2.1);opacity:0}}
+
+.cor-diagram-labels{position:absolute;inset:0}
+.cor-diagram-label{position:absolute;transform:translate(-50%,calc(-100% - 14px));text-align:center;white-space:nowrap;display:flex;flex-direction:column;gap:3px;pointer-events:none}
+.cor-diagram-label--hub{transform:translate(-50%,16px)}
+.cor-diagram-label-name{font-size:.72rem;letter-spacing:.16em;font-weight:700;color:var(--navy);text-transform:uppercase}
+.cor-diagram-label--hub .cor-diagram-label-name{font-size:.88rem}
+.cor-diagram-label-desc{font-size:.62rem;color:var(--muted);letter-spacing:.01em}
+
+.cor-diagram-strap{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:40px;padding:0 24px}
+.cor-diagram-strap-line{flex:1 1 100px;max-width:140px;height:1px;background:var(--rule)}
+.cor-diagram-strap-text{display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center}
+.cor-diagram-strap-text span{font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-aa);font-weight:600;white-space:nowrap}
+
+@media(prefers-reduced-motion:reduce){
+  .cor-diagram-arc{animation:none}
+  .cor-diagram-pulse,.cor-diagram-waypoint-pulse{animation:none;opacity:0}
+}
+
+@media(max-width:768px){
+  .cor-diagram{padding:40px 16px 32px}
+  .cor-diagram-panel{padding:36px 16px 56px}
+  .cor-diagram-label{max-width:84px;white-space:normal}
+  .cor-diagram-label-name{font-size:.6rem;letter-spacing:.1em}
+  .cor-diagram-label--hub .cor-diagram-label-name{font-size:.7rem}
+  .cor-diagram-label-desc{font-size:.54rem;line-height:1.35}
+  .cor-diagram-strap-text span{font-size:.56rem;letter-spacing:.18em;white-space:normal}
+  .cor-diagram-eyebrow-txt{font-size:.54rem;letter-spacing:.22em;white-space:normal;text-align:center}
 }
 
 .cor-phase-label{display:inline-flex;align-items:center;gap:10px;margin-bottom:24px}

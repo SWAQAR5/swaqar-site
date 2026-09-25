@@ -2,37 +2,32 @@
 import { useEffect, useRef } from 'react';
 import { t, tx, type Lang } from '@/lib/translations';
 
-// Corridors section rebuild — replaces the old three-anchor CorridorArchitectureDiagram.tsx
-// entirely (deleted, not kept as a fallback) with an illuminated-globe visualization reusing
-// the SAME image asset/palette already shipped in the homepage hero (/public/hero-map.{webp,
-// png}, navy/gold tokens) — not a new map, not a new render. See swaqar.css's .cor-globe-*
-// rules for the surrounding navy band and the "contained, not cropped" sizing approach, which
-// deliberately mirrors the hero's own (see the hero's swaqar.css comments) rather than
-// reinventing a different technique.
+// Hero-dedicated globe visualization — the full 11/12-node corridor globe (Jeddah hub, core +
+// secondary cities, animated routes, descriptor labels), owned exclusively by the homepage hero.
+// Deliberately NOT shared with the Corridors section: Corridors renders its own, independent,
+// simpler diagram component so the two never fork from a common file or drift into needing
+// coordinated edits. If a city, a route, or the hero's descriptor copy changes, this is the only
+// file that needs it — Corridors is untouched by definition, not by convention.
 //
-// Node positions are percent-of-image coordinates from the EXACT same camera projection used
-// to render hero-map.webp itself (fov 40, baseZ 18, rotY -153deg, rotX 17deg) — proper
+// Node positions are percent-of-image coordinates from the EXACT camera projection used to
+// render hero-map.webp/png itself (fov 40, baseZ 18, rotY -153deg, rotX 17deg) — proper
 // perspective projection matching the sphere's actual rotation, not a naive equirectangular
-// lat/lon->x/y formula (which would be wrong for a perspective-rendered globe, not an
-// equirectangular map). Cities shared with the hero (Istanbul, Cairo, Tehran, Dubai, Mumbai,
-// Nairobi, Shanghai, Singapore, Jeddah, Douala, Johannesburg) reuse HeroGlobe.tsx's exact
-// figures for consistency; Lagos is new to this component.
+// lat/lon->x/y formula (which would be wrong for a perspective-rendered globe).
 //
-// Region + descriptor label pattern: hub/core nodes show city name + a smaller region tag +
-// a one-line role descriptor beneath (translations.corridorsGlobe.* — flagged there as draft
-// copy, not yet professionally reviewed, since no existing approved copy covered this).
-// Secondary nodes show name only, staying genuinely lower-emphasis rather than repeating the
-// full 3-line stack 12 times over. Region descriptors are shared across every node in that
-// region (not city-specific) to stay inside the category lock — no per-city operational claim
-// is made, only a generic role.
+// Region + descriptor label pattern: hub/core nodes show city name + a smaller region tag + a
+// one-line role descriptor beneath (translations.corridorsGlobe.* — flagged there as draft
+// copy). Secondary nodes show name only, staying lower-emphasis rather than repeating the full
+// 3-line stack 12 times over.
 //
 // Animation: RouteArc renders the always-visible static gold line (base geometry, motionless).
-// MovingParticle is a SEPARATE overlay per route — a short bright dash within an otherwise
-// near-invisible dasharray, animated via stroke-dashoffset (not SMIL animateMotion, which the
-// hero explicitly moved away from) for a continuous "flow" effect. PulseRing expands+fades on
-// hub/core nodes only (secondary nodes stay static, matching their lower-emphasis treatment).
-// Both purely-decorative animations are removed entirely under prefers-reduced-motion via CSS
-// (swaqar.css) — RouteArc and every label/node position stay fully visible either way.
+// MovingParticle is a separate overlay per route — a short bright dash within an otherwise
+// near-invisible dasharray, animated via stroke-dashoffset (not SMIL animateMotion) for a
+// continuous "flow" effect. PulseRing expands+fades on hub/core nodes only. Both purely-
+// decorative animations are removed entirely under prefers-reduced-motion via CSS.
+//
+// Collision zones: this component doesn't know or care WHERE it's placed — the caller passes
+// `textSafeSelectors`, a list of CSS selectors whose bounding boxes (padded) every label must
+// clear. The hero passes its headline column AND its CTA buttons as two separate zones.
 
 type Region = 'africa' | 'middle-east' | 'asia';
 type Priority = 'hub' | 'core' | 'secondary';
@@ -69,9 +64,6 @@ const NODE_COORDS: NodeCoord[] = [
   { id: 'johannesburg', x: 38.104, y: 76.220, region: 'africa', priority: 'secondary' },
 ];
 
-// Curated arcs: Jeddah (hub) to every core node, plus a small number of illustrative core-to-
-// core / core-to-secondary arcs — deliberately NOT a fully connected mesh (this represents
-// coordinated corridors, not literal shipping lanes; readability over completeness).
 const HUB_ROUTES: [string, string][] = ['douala', 'lagos', 'dubai', 'mumbai', 'singapore', 'shanghai'].map(
   (id) => ['jeddah', id] as [string, string]
 );
@@ -145,10 +137,6 @@ function CityNode({ x, y, priority }: { x: number; y: number; priority: Priority
   );
 }
 
-// Macro-region background labels (AFRICA / MIDDLE EAST / ASIA) — the other half of the
-// "region + descriptor label pattern" the corridors task asked to carry over: a large, muted
-// backdrop label per region cluster, same visual role the hero's own region labels play,
-// separate from each city's own small region tag rendered by CityLabel above each dot.
 const REGION_CENTROIDS: Record<Region, { x: number; y: number }> = {
   'africa': { x: 34.72, y: 61.23 },
   'middle-east': { x: 42.18, y: 38.43 },
@@ -182,10 +170,6 @@ function CityLabel({
   lang: Lang;
   labelRef: (el: HTMLDivElement | null) => void;
 }) {
-  // Secondary nodes stay genuinely lower-emphasis (name only) — the region+descriptor lines
-  // are reserved for hub/core, otherwise 12 nodes x 3 lines each reads as dense/cluttered
-  // rather than restrained. "At city granularity" (the original ask) is satisfied by every
-  // node getting its OWN name label; it doesn't require every node to carry the full stack.
   const showDetail = node.priority !== 'secondary';
   return (
     <div
@@ -200,11 +184,25 @@ function CityLabel({
   );
 }
 
-export default function CorridorGlobe({ lang }: { lang: Lang }) {
+export default function CorridorGlobe({
+  lang,
+  textSafeSelectors,
+  showSecondary = true,
+}: {
+  lang: Lang;
+  /** CSS selectors whose (padded) bounding boxes every label must clear. The hero passes its
+   * headline column AND its CTA buttons as two separate zones. */
+  textSafeSelectors: string[];
+  /** false = hub+core only (7 nodes) — a reduced-density option for a placement with a
+   * competing text column, rather than relying on overlap-suppression alone to thin out
+   * secondary nodes. Defaults to true (all 12), the hero's current density. */
+  showSecondary?: boolean;
+}) {
   const labelLayerRef = useRef<HTMLDivElement>(null);
   const labelRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const nodes: CityNode[] = NODE_COORDS.map((c) => ({
+  const visibleCoords = showSecondary ? NODE_COORDS : NODE_COORDS.filter((c) => c.priority !== 'secondary');
+  const nodes: CityNode[] = visibleCoords.map((c) => ({
     id: c.id,
     name: cityName(c.id, lang),
     region: c.region,
@@ -213,32 +211,35 @@ export default function CorridorGlobe({ lang }: { lang: Lang }) {
     priority: c.priority,
   }));
   const byId = Object.fromEntries(NODE_COORDS.map((c) => [c.id, c]));
+  const visibleIds = new Set(visibleCoords.map((c) => c.id));
+  const visibleRoutes = ALL_ROUTES.filter(([a, b]) => visibleIds.has(a) && visibleIds.has(b));
 
-  // Overlap suppression — same two-pass approach as HeroGlobe.tsx: (1) hide a label if it
-  // collides with adjacent section copy (here, the heading/descriptor block above the globe,
-  // since this band has no side-by-side headline column the way the hero does); (2) hide a
-  // label if it collides with another label already kept visible, processing nodes in
-  // priority order (hub, then core, then secondary) so a lower-priority label always yields.
+  // Overlap suppression — two passes: (1) hide a label if it collides with ANY of the caller's
+  // text-safe zones; (2) hide a label if it collides with another label already kept visible,
+  // processing nodes in priority order (hub, then core, then secondary; region labels last) so
+  // a lower-priority label always yields, never the reverse.
   useEffect(() => {
     function update() {
-      const head = document.querySelector('.cor-globe-head');
-      const headRect = head?.getBoundingClientRect() ?? null;
-      const textSafe = headRect
-        ? { left: headRect.left - 14, right: headRect.right + 14, top: headRect.top - 10, bottom: headRect.bottom + 24 }
-        : null;
+      const textSafeZones = textSafeSelectors
+        .map((sel) => document.querySelector(sel))
+        .filter((el): el is Element => !!el)
+        .map((el) => {
+          const r = el.getBoundingClientRect();
+          return { left: r.left - 14, right: r.right + 14, top: r.top - 10, bottom: r.bottom + 14 };
+        });
 
       labelRefs.current.forEach((el) => {
         if (!el) return;
         const r = el.getBoundingClientRect();
-        const overlapsText = !!textSafe && r.left < textSafe.right && r.right > textSafe.left && r.top < textSafe.bottom && r.bottom > textSafe.top;
+        const overlapsText = textSafeZones.some((z) => r.left < z.right && r.right > z.left && r.top < z.bottom && r.bottom > z.top);
         el.style.opacity = overlapsText ? '0' : '1';
       });
 
       // Padded by a few px on every side, not a bare rect intersection — two labels only 3-5px
       // apart pass a strict "do these rects touch" test but still read as visually cluttered
-      // (confirmed on /ar, where shorter Arabic text let Jeddah's and Dubai's region-tag lines
-      // land close enough to blur together under their own text-shadow glow even though their
-      // raw boxes didn't technically intersect). This margin is what actually fixes that.
+      // (confirmed on /ar, where shorter Arabic text let two region-tag lines land close enough
+      // to blur together under their own text-shadow glow even though their raw boxes didn't
+      // technically intersect). This margin is what actually fixes that.
       const LABEL_MARGIN = 6;
       const keptRects: { left: number; right: number; top: number; bottom: number }[] = [];
       labelRefs.current.forEach((el) => {
@@ -261,48 +262,41 @@ export default function CorridorGlobe({ lang }: { lang: Lang }) {
       window.removeEventListener('scroll', update);
       window.removeEventListener('resize', update);
     };
-  }, [lang]);
+  }, [lang, textSafeSelectors]);
 
   return (
-    <div className="cor-globe-frame" aria-hidden="true">
-      <div className="cor-globe-surface">
-        <picture>
-          <source srcSet="/hero-map.webp" type="image/webp" />
-          {/* eslint-disable-next-line @next/next/no-img-element -- fixed decorative background, reusing the hero's own asset, not a Next/Image-managed content image */}
-          <img src="/hero-map.png" alt="" className="cor-globe-img" />
-        </picture>
+    <>
+      <picture>
+        <source srcSet="/hero-map.webp" type="image/webp" />
+        {/* eslint-disable-next-line @next/next/no-img-element -- fixed decorative background, not a Next/Image-managed content image */}
+        <img src="/hero-map.png" alt="" className="cor-globe-img" />
+      </picture>
 
-        <svg className="cor-globe-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-          {ALL_ROUTES.map(([a, b]) => {
-            const d = pathD(byId[a], byId[b]);
-            const id = `${a}-${b}`;
-            return <RouteArc key={id} id={id} d={d} />;
-          })}
-          {ALL_ROUTES.map(([a, b], i) => (
-            <MovingParticle key={`p-${a}-${b}`} d={pathD(byId[a], byId[b])} delay={i * 0.4} />
-          ))}
-          {nodes.map((n) => (
-            <PulseRing key={`pulse-${n.id}`} x={n.x} y={n.y} priority={n.priority} />
-          ))}
-          {nodes.map((n) => (
-            <CityNode key={`dot-${n.id}`} x={n.x} y={n.y} priority={n.priority} />
-          ))}
-        </svg>
+      <svg className="cor-globe-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+        {visibleRoutes.map(([a, b]) => {
+          const d = pathD(byId[a], byId[b]);
+          const id = `${a}-${b}`;
+          return <RouteArc key={id} id={id} d={d} />;
+        })}
+        {visibleRoutes.map(([a, b], i) => (
+          <MovingParticle key={`p-${a}-${b}`} d={pathD(byId[a], byId[b])} delay={i * 0.4} />
+        ))}
+        {nodes.map((n) => (
+          <PulseRing key={`pulse-${n.id}`} x={n.x} y={n.y} priority={n.priority} />
+        ))}
+        {nodes.map((n) => (
+          <CityNode key={`dot-${n.id}`} x={n.x} y={n.y} priority={n.priority} />
+        ))}
+      </svg>
 
-        <div className="cor-globe-label-layer" ref={labelLayerRef}>
-          {/* City labels first, region labels last — the ref array order IS the collision
-              priority order (see the overlap-suppression effect above), so region labels
-              (lowest priority) always yield to any city label they collide with, never the
-              reverse. Region labels never got their own ref before this fix, so they never
-              participated in suppression at all — a real gap, not a stylistic choice. */}
-          {nodes.map((n, i) => (
-            <CityLabel key={n.id} node={n} lang={lang} labelRef={(el) => { labelRefs.current[i] = el; }} />
-          ))}
-          {REGIONS.map((r, i) => (
-            <RegionLabel key={r} region={r} lang={lang} labelRef={(el) => { labelRefs.current[nodes.length + i] = el; }} />
-          ))}
-        </div>
+      <div className="cor-globe-label-layer" ref={labelLayerRef}>
+        {nodes.map((n, i) => (
+          <CityLabel key={n.id} node={n} lang={lang} labelRef={(el) => { labelRefs.current[i] = el; }} />
+        ))}
+        {REGIONS.map((r, i) => (
+          <RegionLabel key={r} region={r} lang={lang} labelRef={(el) => { labelRefs.current[nodes.length + i] = el; }} />
+        ))}
       </div>
-    </div>
+    </>
   );
 }

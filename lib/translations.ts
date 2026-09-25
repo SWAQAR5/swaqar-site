@@ -696,6 +696,49 @@ export const t = {
     },
   },
 
+  // ── CORRIDORS DIAGRAM (3-node) ── FLAG: English is the locked, already-settled copy given for
+  // this component; ar/fr/zh are a first-pass translation alongside it, not yet reviewed — same
+  // status as corridorsGlobe above. Region labels (AFRICA / MIDDLE EAST / ASIA) reuse
+  // corridors.map.* rather than duplicating identical strings here.
+  corridorsDiagram: {
+    africaDesc: {
+      en: 'Origin · Supply · Verification',
+      ar: 'المنشأ · التوريد · التحقق',
+      fr: 'Origine · Approvisionnement · Vérification',
+      zh: '货源 · 供应 · 核验',
+    },
+    middleEastDesc: {
+      en: 'Coordination · Verification · Market Access',
+      ar: 'التنسيق · التحقق · الوصول إلى السوق',
+      fr: 'Coordination · Vérification · Accès au Marché',
+      zh: '协调 · 核验 · 市场准入',
+    },
+    asiaDesc: {
+      en: 'Processing · Supply Chains · Demand',
+      ar: 'المعالجة · سلاسل التوريد · الطلب',
+      fr: 'Transformation · Chaînes d\'Approvisionnement · Demande',
+      zh: '加工 · 供应链 · 需求',
+    },
+    eyebrow: {
+      en: 'SWAQAR — TRADE COORDINATION LAYER',
+      ar: 'سواقر — طبقة تنسيق التجارة',
+      fr: 'SWAQAR — COUCHE DE COORDINATION COMMERCIALE',
+      zh: 'SWAQAR — 贸易协调层',
+    },
+    strapLine1: {
+      en: 'ONE GOVERNED COORDINATION LAYER',
+      ar: 'طبقة تنسيق واحدة تخضع للحوكمة',
+      fr: 'UNE COUCHE DE COORDINATION GOUVERNÉE',
+      zh: '统一治理协调层',
+    },
+    strapLine2: {
+      en: 'ACROSS THREE REGIONS',
+      ar: 'عبر ثلاث مناطق',
+      fr: 'À TRAVERS TROIS RÉGIONS',
+      zh: '跨越三大区域',
+    },
+  },
+
   // ── GATES ── // reviewed
   gates: {
     sectionTag: { en: 'Corridor Entry Protocol', ar: 'بروتوكول دخول الممر', fr: 'Protocole d\'Entrée du Corridor', zh: '通道准入协议' },
