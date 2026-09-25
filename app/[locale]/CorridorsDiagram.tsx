@@ -1,49 +1,43 @@
 'use client';
+import { useMemo } from 'react';
+import DottedMap from 'dotted-map';
 import { t, tx, type Lang } from '@/lib/translations';
+import { WorldMap, WORLD_MAP_SETTINGS, type WorldMapDot } from '@/components/ui/world-map';
 
 // Corridors' own 3-node diagram — self-contained, deliberately NOT built on or sharing any code
 // with CorridorGlobe.tsx (the hero's dense 12-node globe). Three fixed region nodes (Africa,
-// Middle East as the larger/dominant hub, Asia) joined by one continuous gold arc, no per-
-// viewport overlap suppression needed (unlike the hero) since three non-competing labels at
-// fixed, well-spaced positions never collide with each other or with any surrounding text at
-// any width — the whole reason this component doesn't need the hero's JS collision-detection
-// machinery at all.
+// Middle East as the larger/dominant hub, Asia), no per-viewport overlap suppression needed
+// (unlike the hero) since three non-competing labels at fixed, well-spaced positions never
+// collide with each other or with any surrounding text at any width.
 //
-// Node/waypoint coordinates below are hand-placed points on a single continuous path
-// (M72,128 Q136,56 200,72 Q264,56 328,128) rather than data-driven, since there are only ever
-// these three fixed regions — no future "add a city" edit is expected here the way there is on
-// the hero's dense globe.
-//
-// viewBox is 400x200, not the more usual 0-100 percentage grid: the spec's exact
-// stroke-dasharray:22 38 / dashoffset:-120 values are a matched set (120 = 2 x (22+38), for a
-// seamless loop) sized for a path with real length in the hundreds of units. On a 0-100 grid
-// this arc is only ~80-90 units long, so a 60-unit dash-repeat leaves most of it sitting in the
-// "off" phase at any given moment — it read as a broken, disconnected line rather than a flowing
-// arc (caught by screenshot, not assumed). Scaling the whole coordinate space up 4x instead of
-// rescaling the given dasharray/dashoffset numbers keeps those exact spec values intact.
-const NODES = [
-  { id: 'africa', x: 72, y: 128, hub: false },
-  { id: 'middle-east', x: 200, y: 72, hub: true },
-  { id: 'asia', x: 328, y: 128, hub: false },
+// Background dot-grid and the Africa->hub->Asia connecting line are rendered by WorldMap (see
+// components/ui/world-map.tsx) — a real dotted-map + framer-motion world map, replacing an
+// earlier hand-built version whose stroke-dasharray flow-line read as a broken, disconnected arc
+// in a static view instead of a continuous connection. Node positions below are REAL lat/lng
+// (Douala/Jeddah/Mumbai as stand-ins for Africa/Middle East/Asia) run through the exact same
+// dotted-map projection WorldMap uses internally, rather than hand-placed abstract coordinates —
+// otherwise the custom node circles/labels here would land in different spots than where
+// WorldMap's own line actually starts/ends/passes through, which would look just as broken as
+// what this replaces.
+const NODE_COORDS = [
+  { id: 'africa', lat: 4.0511, lng: 9.7679, hub: false }, // Douala
+  { id: 'middle-east', lat: 21.4858, lng: 39.1925, hub: true }, // Jeddah
+  { id: 'asia', lat: 19.0760, lng: 72.8777, hub: false }, // Mumbai
 ] as const;
 
-const WAYPOINTS = [
-  { x: 136, y: 78 },
-  { x: 264, y: 78 },
+const MAP_DOTS: WorldMapDot[] = [
+  { start: { lat: NODE_COORDS[0].lat, lng: NODE_COORDS[0].lng }, end: { lat: NODE_COORDS[1].lat, lng: NODE_COORDS[1].lng } },
+  { start: { lat: NODE_COORDS[1].lat, lng: NODE_COORDS[1].lng }, end: { lat: NODE_COORDS[2].lat, lng: NODE_COORDS[2].lng } },
 ];
 
-const ARC_D = 'M72,128 Q136,56 200,72 Q264,56 328,128';
+// Matches the site's existing gold tokens (see the --gold-bright/--map values on .cor-diagram in
+// swaqar.css) — passed as literal hex here rather than read from CSS, since WorldMap's colors are
+// React props (baked into the generated SVG string / framer-motion stroke), not a CSS cascade.
+// Keep these in sync with .cor-diagram's token block if that block ever changes.
+const LINE_COLOR = '#d7b75c';
+const DOT_COLOR = '#b8d3e8';
 
-// Node x/y above are in raw SVG viewBox units (0-400 / 0-200), not percent — the label layer is
-// a plain HTML overlay sized to match the panel's own box, so it needs a real unit conversion,
-// not the viewBox numbers used directly as CSS percentages (that bug shipped once already here:
-// with a non-square viewBox, y=128 became "top:128%", pushing the label below the whole panel).
-const VIEWBOX_W = 400;
-const VIEWBOX_H = 200;
-const pctX = (x: number) => `${(x / VIEWBOX_W) * 100}%`;
-const pctY = (y: number) => `${(y / VIEWBOX_H) * 100}%`;
-
-function nodeLabel(id: (typeof NODES)[number]['id'], lang: Lang): string {
+function nodeLabel(id: (typeof NODE_COORDS)[number]['id'], lang: Lang): string {
   switch (id) {
     case 'africa': return tx(t.corridors.map.africa, lang);
     case 'middle-east': return tx(t.corridors.map.middleEast, lang);
@@ -51,7 +45,7 @@ function nodeLabel(id: (typeof NODES)[number]['id'], lang: Lang): string {
   }
 }
 
-function nodeDesc(id: (typeof NODES)[number]['id'], lang: Lang): string {
+function nodeDesc(id: (typeof NODE_COORDS)[number]['id'], lang: Lang): string {
   switch (id) {
     case 'africa': return tx(t.corridorsDiagram.africaDesc, lang);
     case 'middle-east': return tx(t.corridorsDiagram.middleEastDesc, lang);
@@ -60,6 +54,17 @@ function nodeDesc(id: (typeof NODES)[number]['id'], lang: Lang): string {
 }
 
 export default function CorridorsDiagram({ lang }: { lang: Lang }) {
+  const { width, height, positions } = useMemo(() => {
+    const map = new DottedMap(WORLD_MAP_SETTINGS);
+    const positions = Object.fromEntries(
+      NODE_COORDS.map((n) => [n.id, map.addPin({ lat: n.lat, lng: n.lng, svgOptions: { radius: 0 } })])
+    ) as Record<(typeof NODE_COORDS)[number]['id'], { x: number; y: number }>;
+    return { width: map.image.width, height: map.image.height, positions };
+  }, []);
+
+  const pctX = (x: number) => `${(x / width) * 100}%`;
+  const pctY = (y: number) => `${(y / height) * 100}%`;
+
   return (
     <div className="cor-diagram">
       <div className="cor-diagram-eyebrow">
@@ -70,39 +75,47 @@ export default function CorridorsDiagram({ lang }: { lang: Lang }) {
 
       <div className="cor-diagram-panel">
         {/* .cor-diagram-stage has no padding of its own — it's the exact box the label layer's
-            percent positions and the svg's viewBox share. Padding lives on .cor-diagram-panel
-            instead: putting it on this element too would put the svg and the label layer in two
-            different coordinate spaces (svg = padded content box, labels = whole panel including
-            padding), skewing every label off its dot by the padding amount. */}
+            percent positions, WorldMap's own box, and the node svg's viewBox all share. Padding
+            lives on .cor-diagram-panel instead: putting it here too would put these layers in
+            different coordinate spaces, skewing every label/node off WorldMap's line by the
+            padding amount (the exact bug that shipped once already on the old hand-built arc). */}
         <div className="cor-diagram-stage">
-          <svg className="cor-diagram-svg" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-            <path className="cor-diagram-arc" d={ARC_D} />
-            {WAYPOINTS.map((w, i) => (
-              <circle key={i} className="cor-diagram-waypoint-pulse" cx={w.x} cy={w.y} r={4} />
-            ))}
-            {WAYPOINTS.map((w, i) => (
-              <circle key={`dot-${i}`} className="cor-diagram-waypoint-dot" cx={w.x} cy={w.y} r={2.5} />
-            ))}
-            {NODES.map((n) => (
-              <g key={n.id} className={`cor-diagram-node${n.hub ? ' cor-diagram-node--hub' : ''}`}>
-                <circle className="cor-diagram-pulse cor-diagram-pulse--outer" cx={n.x} cy={n.y} r={n.hub ? 11 : 7} />
-                <circle className="cor-diagram-pulse cor-diagram-pulse--inner" cx={n.x} cy={n.y} r={n.hub ? 11 : 7} />
-                <circle className="cor-diagram-dot" cx={n.x} cy={n.y} r={n.hub ? 11 : 7} />
-              </g>
-            ))}
+          <WorldMap dots={MAP_DOTS} lineColor={LINE_COLOR} dotColor={DOT_COLOR} showPoints={false} />
+
+          <svg className="cor-diagram-svg" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            {NODE_COORDS.map((n) => {
+              const p = positions[n.id];
+              // Adjacent points sit only ~14 units apart in this projection (real geographic
+              // distance, not the old hand-placed layout's ~128-unit spacing) — radii this small
+              // are deliberate, not a typo. The first attempt reused the old layout's height*0.11/
+              // 0.07 fractions and the three circles rendered on top of each other (caught by
+              // screenshot: verified the actual projected distance is ~14 units before picking
+              // these numbers, rather than guessing a second time).
+              const r = n.hub ? height * 0.037 : height * 0.026;
+              return (
+                <g key={n.id} className={`cor-diagram-node${n.hub ? ' cor-diagram-node--hub' : ''}`}>
+                  <circle className="cor-diagram-pulse cor-diagram-pulse--outer" cx={p.x} cy={p.y} r={r} />
+                  <circle className="cor-diagram-pulse cor-diagram-pulse--inner" cx={p.x} cy={p.y} r={r} />
+                  <circle className="cor-diagram-dot" cx={p.x} cy={p.y} r={r} />
+                </g>
+              );
+            })}
           </svg>
 
           <div className="cor-diagram-labels">
-            {NODES.map((n) => (
-              <div
-                key={n.id}
-                className={`cor-diagram-label${n.hub ? ' cor-diagram-label--hub' : ''}`}
-                style={{ left: pctX(n.x), top: pctY(n.y) }}
-              >
-                <span className="cor-diagram-label-name">{nodeLabel(n.id, lang)}</span>
-                <span className="cor-diagram-label-desc">{nodeDesc(n.id, lang)}</span>
-              </div>
-            ))}
+            {NODE_COORDS.map((n) => {
+              const p = positions[n.id];
+              return (
+                <div
+                  key={n.id}
+                  className={`cor-diagram-label${n.hub ? ' cor-diagram-label--hub' : ''}`}
+                  style={{ left: pctX(p.x), top: pctY(p.y) }}
+                >
+                  <span className="cor-diagram-label-name">{nodeLabel(n.id, lang)}</span>
+                  <span className="cor-diagram-label-desc">{nodeDesc(n.id, lang)}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

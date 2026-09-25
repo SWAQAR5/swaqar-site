@@ -452,12 +452,17 @@ section{position:relative;padding:104px 0}
 
 .cor-diagram-panel{position:relative;max-width:900px;margin:0 auto;background:rgba(255,255,255,.86);border:1px solid var(--rule);border-top:3px solid var(--navy);padding:48px 32px 64px}
 .cor-diagram-stage{position:relative}
-.cor-diagram-svg{width:100%;height:auto;aspect-ratio:2/1;display:block;overflow:visible}
-.cor-diagram-arc{fill:none;stroke:var(--gold-bright);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:22 38;animation:corDiagDashFlow 2.4s linear infinite}
-@keyframes corDiagDashFlow{to{stroke-dashoffset:-120}}
-
-.cor-diagram-waypoint-dot{fill:var(--gold-bright)}
-.cor-diagram-waypoint-pulse{--peak:.6;fill:none;stroke:var(--gold-bright);stroke-width:1.6;transform-box:fill-box;transform-origin:center;animation:corDiagPulse 2s ease-out infinite}
+/* .cor-worldmap (WorldMap's own root, see components/ui/world-map.tsx) is the normal-flow
+   element that now establishes the stage's height via aspect-ratio — .cor-diagram-svg (node
+   circles) and .cor-diagram-labels both become absolute overlays matching that exact box,
+   instead of .cor-diagram-svg establishing the height itself like it did with the old hand-built
+   arc. All three (WorldMap's own box, the node svg, the label layer) share one coordinate space
+   this way — the same fix already applied once for the label layer specifically, now generalized
+   to the whole stage. */
+.cor-worldmap{position:relative;width:100%;aspect-ratio:2/1;display:block;overflow:hidden}
+.cor-worldmap-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;pointer-events:none}
+.cor-worldmap-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.cor-diagram-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 
 .cor-diagram-dot{fill:var(--navy)}
 .cor-diagram-pulse{--peak:.72;fill:none;stroke:var(--navy-2);stroke-width:1.4;transform-box:fill-box;transform-origin:center;animation:corDiagPulse 1.8s ease-out infinite}
@@ -476,9 +481,10 @@ section{position:relative;padding:104px 0}
 .cor-diagram-strap-text{display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center}
 .cor-diagram-strap-text span{font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-aa);font-weight:600;white-space:nowrap}
 
+/* WorldMap's own connecting-line animation (framer-motion pathLength) reduces itself via
+   useReducedMotion() in components/ui/world-map.tsx — no CSS override needed for that part. */
 @media(prefers-reduced-motion:reduce){
-  .cor-diagram-arc{animation:none}
-  .cor-diagram-pulse,.cor-diagram-waypoint-pulse{animation:none;opacity:0}
+  .cor-diagram-pulse{animation:none;opacity:0}
 }
 
 @media(max-width:768px){
