@@ -16,16 +16,18 @@ import DottedMap from 'dotted-map';
 // rather than always-on: a caller that already draws its own node circles/pulse rings (like
 // CorridorsDiagram) needs to suppress these, not layer a second set on top.
 //
-// region is cropped to West Africa - South Asia rather than the full world: a full world map
-// compresses Africa/Middle East/Asia (all fairly close together in real geography) into a small
-// central cluster, leaving their node circles and labels overlapping (caught by screenshot — at
-// full-world scale Africa and Middle East were only ~14 units apart, less than the two circles'
-// combined radius). This crop widens that to ~45 units apart while still being a real,
-// recognizable regional map, not an abstract/cropped-looking fragment.
+// Full world (no region crop) per explicit direction — a regional crop was tried in an earlier
+// round to solve Africa/Middle East/Asia compressing together at full-world scale, but that's
+// the wrong lever: it stops looking like "the world," just a fragment. The actual fix lives on
+// the caller's side (CorridorsDiagram's panel width + label sizing), not here. height:90 (rather
+// than dotted-map's own resolution) is chosen for a real, measured reason: generation time scales
+// badly — 70=~0.5s, 90=~0.8s, 100=~1.1s, 130=~8s, 160=~16s (measured directly, not the README's
+// vague "1 to 30s" estimate) — and this runs synchronously on every page load (SSR and again on
+// client hydration), so 90 is close to the practical ceiling before it becomes a real perceived-
+// performance cost, not just a cosmetic one.
 export const WORLD_MAP_SETTINGS = {
-  height: 70,
+  height: 90,
   grid: 'diagonal' as const,
-  region: { lat: { min: -12, max: 38 }, lng: { min: -12, max: 88 } },
 };
 
 export interface WorldMapDot {

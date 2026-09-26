@@ -450,7 +450,11 @@ section{position:relative;padding:104px 0}
 .cor-diagram-eyebrow-line{flex:1 1 80px;max-width:120px;height:1px;background:var(--rule)}
 .cor-diagram-eyebrow-txt{font-size:.62rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-aa);font-weight:600;white-space:nowrap}
 
-.cor-diagram-panel{position:relative;max-width:900px;margin:0 auto;background:rgba(255,255,255,.86);border:1px solid var(--rule);border-top:3px solid var(--navy);padding:48px 32px 64px}
+/* max-width widened from 900 to 1180 (this site's usual container ceiling) specifically to give
+   the full-world map (not a regional crop — see WORLD_MAP_SETTINGS in world-map.tsx) more real
+   screen pixels between Africa/Middle East/Asia, since their lat/lng distance alone compresses
+   them close together at any dotted-map resolution cheap enough to compute on every page load. */
+.cor-diagram-panel{position:relative;max-width:1180px;margin:0 auto;background:rgba(255,255,255,.86);border:1px solid var(--rule);border-top:3px solid var(--navy);padding:48px 32px 64px}
 .cor-diagram-stage{position:relative}
 /* .cor-worldmap (WorldMap's own root, see components/ui/world-map.tsx) is the normal-flow
    element that now establishes the stage's height via aspect-ratio — .cor-diagram-svg (node
@@ -470,8 +474,14 @@ section{position:relative;padding:104px 0}
 @keyframes corDiagPulse{0%{transform:scale(.55);opacity:var(--peak)}100%{transform:scale(2.1);opacity:0}}
 
 .cor-diagram-labels{position:absolute;inset:0}
-.cor-diagram-label{position:absolute;transform:translate(-50%,calc(-100% - 14px));text-align:center;white-space:nowrap;display:flex;flex-direction:column;gap:3px;pointer-events:none}
-.cor-diagram-label--hub{transform:translate(-50%,16px)}
+/* white-space:normal + max-width at every breakpoint, not just mobile: at full-world map scale
+   (see WORLD_MAP_SETTINGS) the three nodes sit far closer together in real pixels than the old
+   regional-crop version did, so a nowrap desktop label (this got as wide as ~220px for the
+   longest descriptor line) would run into its neighbor well before the panel-widening above
+   closes the gap on its own. Wrapping the text is the other half of the fix, not a mobile-only
+   concern anymore. */
+.cor-diagram-label{position:absolute;transform:translate(-50%,calc(-100% - 14px));text-align:center;white-space:normal;max-width:74px;display:flex;flex-direction:column;gap:3px;pointer-events:none}
+.cor-diagram-label--hub{transform:translate(-50%,16px);max-width:92px}
 .cor-diagram-label-name{font-size:.72rem;letter-spacing:.16em;font-weight:700;color:var(--navy);text-transform:uppercase}
 .cor-diagram-label--hub .cor-diagram-label-name{font-size:.88rem}
 .cor-diagram-label-desc{font-size:.62rem;color:var(--muted);letter-spacing:.01em}
@@ -487,13 +497,27 @@ section{position:relative;padding:104px 0}
   .cor-diagram-pulse{animation:none;opacity:0}
 }
 
+/* Full-world map (see WORLD_MAP_SETTINGS) puts real screen-pixel distance between the three
+   nodes roughly proportional to viewport width. Measured directly (not guessed) at every width
+   from 375 to 1920 rather than assuming the pattern holds: below ~1100px the gap is too narrow
+   for BOTH a name and a 3-word descriptor line next to every node, at any font size still
+   legible — descriptor text moves off the map here rather than shrinking further. The exact
+   boundary was found by testing, not calculated up front: 1024px still overlapped with the
+   desktop-width labels (74px/92px caps hit their full width with descriptor text at that size),
+   so the cutoff sits at 1099px, one full breakpoint step above the 1024 failure, not at a
+   guessed number. Name-only text at max-width 62px/70px fits with real margin at every width
+   from 375 up through 1099 (also measured, not assumed uniform just because two sample points
+   happened to work). */
+@media(max-width:1099px){
+  .cor-diagram-label-desc{display:none}
+  .cor-diagram-label{max-width:62px;white-space:normal}
+  .cor-diagram-label--hub{max-width:70px}
+}
 @media(max-width:768px){
   .cor-diagram{padding:40px 16px 32px}
   .cor-diagram-panel{padding:36px 16px 56px}
-  .cor-diagram-label{max-width:84px;white-space:normal}
   .cor-diagram-label-name{font-size:.6rem;letter-spacing:.1em}
   .cor-diagram-label--hub .cor-diagram-label-name{font-size:.7rem}
-  .cor-diagram-label-desc{font-size:.54rem;line-height:1.35}
   .cor-diagram-strap-text span{font-size:.56rem;letter-spacing:.18em;white-space:normal}
   .cor-diagram-eyebrow-txt{font-size:.54rem;letter-spacing:.22em;white-space:normal;text-align:center}
 }
