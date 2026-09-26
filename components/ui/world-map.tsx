@@ -50,9 +50,19 @@ export function WorldMap({
 
   const { svgMap, width, height, projected } = useMemo(() => {
     const map = new DottedMap(WORLD_MAP_SETTINGS);
+    // getPin (not addPin) — addPin's ONLY purpose is registering a permanently-rendered marker
+    // in this.pins, which getSVG() below draws into the background image unconditionally,
+    // completely outside this component's own showPoints prop. That's the actual stray-marker
+    // bug: addPin(..., { svgOptions: { radius: 0 } }) was meant to add an "invisible" tracking
+    // pin just to read back its projected x/y, but dotted-map's getSVG() computes
+    // `svgOptions.radius || radius` — 0 is falsy in JS, so it silently fell back to the default
+    // radius (0.22) instead of actually being zero, baking a visible dot into the image at every
+    // one of these "invisible" pins (Jeddah appears twice, once as each segment's shared
+    // midpoint, doubling up there). getPin() returns the identical projected coordinate without
+    // ever touching this.pins, so nothing extra reaches the rendered image.
     const proj = dots.map(({ start, end }) => ({
-      start: map.addPin({ lat: start.lat, lng: start.lng, svgOptions: { radius: 0 } }),
-      end: map.addPin({ lat: end.lat, lng: end.lng, svgOptions: { radius: 0 } }),
+      start: map.getPin({ lat: start.lat, lng: start.lng })!,
+      end: map.getPin({ lat: end.lat, lng: end.lng })!,
     }));
     const svg = map.getSVG({
       radius: 0.22,
@@ -70,7 +80,16 @@ export function WorldMap({
   };
 
   return (
-    <div className="cor-worldmap">
+    // aspectRatio is set from the ACTUAL computed width/height (varies with WORLD_MAP_SETTINGS'
+    // region — mercator projection doesn't scale latitude/longitude 1:1, so a lat/lng box picked
+    // to visually read as "roughly 2:1" doesn't actually come out to exactly 2/1; this region
+    // computes to 132x70, ~1.89:1) rather than a hardcoded 2/1. A mismatched hardcoded ratio
+    // would letterbox the image/svg (object-fit:contain / preserveAspectRatio both center-fit
+    // within the box, leaving blank margin on whichever axis doesn't match), while the label
+    // layer's plain CSS percentages assume the box has NO margin — silently shifting every label
+    // and this component's own path/points away from where the caller's percent-positioned
+    // overlay (CorridorsDiagram's node circles) actually expects them.
+    <div className="cor-worldmap" style={{ aspectRatio: `${width} / ${height}` }}>
       {/* eslint-disable-next-line @next/next/no-img-element -- generated data: URI SVG, not a Next/Image-managed content image */}
       <img
         src={`data:image/svg+xml;utf8,${encodeURIComponent(svgMap)}`}

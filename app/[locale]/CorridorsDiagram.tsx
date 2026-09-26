@@ -55,9 +55,14 @@ function nodeDesc(id: (typeof NODE_COORDS)[number]['id'], lang: Lang): string {
 
 export default function CorridorsDiagram({ lang }: { lang: Lang }) {
   const { width, height, positions } = useMemo(() => {
+    // getPin, not addPin — this instance never calls .getSVG() so addPin's extra "register a
+    // permanent marker" side effect wouldn't visibly matter here, but getPin is the semantically
+    // correct call for a pure coordinate lookup (see the matching fix + explanation in
+    // components/ui/world-map.tsx, where that side effect was the actual cause of a stray marker
+    // baked into the background image).
     const map = new DottedMap(WORLD_MAP_SETTINGS);
     const positions = Object.fromEntries(
-      NODE_COORDS.map((n) => [n.id, map.addPin({ lat: n.lat, lng: n.lng, svgOptions: { radius: 0 } })])
+      NODE_COORDS.map((n) => [n.id, map.getPin({ lat: n.lat, lng: n.lng })!])
     ) as Record<(typeof NODE_COORDS)[number]['id'], { x: number; y: number }>;
     return { width: map.image.width, height: map.image.height, positions };
   }, []);
