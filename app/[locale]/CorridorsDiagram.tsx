@@ -126,6 +126,15 @@ export default function CorridorsDiagram({ lang }: { lang: Lang }) {
       </div>
 
       <div className="cor-diagram-strap">
+        {/* Full-bleed dome arc, sized to the strap's own box (which already spans the full
+            viewport width minus its 24px side padding, wider than the 1180px map panel above) —
+            not scaled to the panel, since the strap was never panel-width to begin with.
+            preserveAspectRatio="none" so a single flat viewBox stretches correctly to whatever
+            the strap's actual rendered width is at any breakpoint, rather than needing a
+            per-width pixel value like the node labels did. */}
+        <svg className="cor-diagram-strap-arc" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0,58 Q500,2 1000,58" />
+        </svg>
         <span className="cor-diagram-strap-line" />
         <div className="cor-diagram-strap-text">
           <span>{tx(t.corridorsDiagram.strapLine1, lang)}</span>
