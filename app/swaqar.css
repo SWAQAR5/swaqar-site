@@ -492,7 +492,15 @@ section{position:relative;padding:104px 0}
    reads as a background element without needing a z-index hack. overflow visible on the strap
    (no rule needed — nothing clips by default) lets the dome's peak rise above the flat text row
    without being cut off. */
-.cor-diagram-strap-arc{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
+/* Height deliberately much taller than the strap's own ~71px box (not 100%): the underlying path
+   geometry is already provably symmetric (verified via getPointAtLength sampling, raw pixel
+   scanning, and DOM measurement, all matching left/right within antialiasing noise), but at 71px
+   tall stretched across ~1870px wide, the rise is only ~33px — visually so shallow against the
+   dot-grid backdrop that a symmetric curve still reads as ambiguous/tilted to the eye. Deepening
+   it removes that ambiguity outright rather than re-arguing the math. Centered via
+   top:50%/translateY so the extra height grows evenly up and down from the strap's existing
+   vertical center, keeping the fix purely about depth, not about re-introducing an offset. */
+.cor-diagram-strap-arc{position:absolute;left:0;top:50%;transform:translateY(-50%);width:100%;height:170px;pointer-events:none}
 .cor-diagram-strap-arc path{fill:none;stroke:var(--gold);stroke-width:1;stroke-opacity:.22}
 .cor-diagram-strap-line{flex:1 1 100px;max-width:140px;height:1px;background:var(--rule)}
 .cor-diagram-strap-text{display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center}
