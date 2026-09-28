@@ -858,10 +858,43 @@ export const t = {
   },
 
   // ── THE COORDINATION GAP (V2.0 copy lock) ── // reviewed
+  // Rebuilt round: heading/headingEm/closing changed to the newly-approved copy (was "The
+  // Coordination Gap." / "SWAQAR coordinates the institutional layer between them.") — English
+  // is locked/approved as given; ar/fr/zh below are a first-pass translation alongside it, not
+  // yet run past professional reviewers, same status as the corridorsGlobe/corridorsDiagram
+  // blocks. sectionTag and items[].name/.state are UNCHANGED from the existing locked copy (the
+  // new spec's condition list — Verification/Repeated, Documentation/Misaligned, Stakeholders/
+  // Disconnected, Trust/Harder to sustain — matches exactly what was already here). items[].desc
+  // is kept in the data (still valid, still translated) even though the new diagram doesn't
+  // render it — removing translated data that might still be wanted elsewhere isn't this
+  // change's call to make.
   gap: {
     sectionTag: { en: 'The Coordination Gap', ar: 'فجوة التنسيق', fr: 'La Faille de Coordination', zh: '协调缺口' },
-    heading: { en: 'The Coordination', ar: 'فجوة', fr: 'La Faille de', zh: '协调' },
-    headingEm: { en: 'Gap.', ar: 'التنسيق.', fr: 'Coordination.', zh: '缺口。' },
+    heading: { en: 'Fragmented conditions.', ar: 'ظروف مجزأة.', fr: 'Des conditions fragmentées.', zh: '条件分散。' },
+    headingEm: { en: 'One coordination layer.', ar: 'طبقة تنسيق واحدة.', fr: 'Une couche de coordination unique.', zh: '统一协调层。' },
+    description: {
+      en: 'Verification, documentation, stakeholders and trust often operate separately. SWAQAR coordinates across these conditions without replacing the licensed institutions involved.',
+      ar: 'غالباً ما يعمل التحقق والتوثيق وأصحاب المصلحة والثقة بشكل منفصل. تنسق سواقر بين هذه الظروف دون أن تحل محل المؤسسات المرخصة المعنية.',
+      fr: 'La vérification, la documentation, les parties prenantes et la confiance opèrent souvent séparément. SWAQAR coordonne ces conditions sans se substituer aux institutions agréées concernées.',
+      zh: '核验、单证、相关方与信任往往各自独立运作。SWAQAR 在不取代相关持牌机构的前提下，协调这些条件。',
+    },
+    withoutLabel: { en: 'Without coordination', ar: 'دون تنسيق', fr: 'Sans coordination', zh: '无协调时' },
+    fragmentedLabel: { en: 'Fragmented', ar: 'مجزأة', fr: 'Fragmentées', zh: '分散' },
+    withLabel: { en: 'With SWAQAR coordination', ar: 'مع تنسيق سواقر', fr: 'Avec la coordination SWAQAR', zh: '在 SWAQAR 协调下' },
+    coordinatedLabel: { en: 'Coordinated', ar: 'منسقة', fr: 'Coordonnées', zh: '已协调' },
+    coordinatesAcross: { en: 'coordinates across', ar: 'تنسق بين', fr: 'coordonne entre', zh: '协调' },
+    coordinatedCaption: {
+      en: 'Four conditions operating in greater alignment',
+      ar: 'أربعة ظروف تعمل بمزيد من الاتساق',
+      fr: 'Quatre conditions opérant en plus grand alignement',
+      zh: '四项条件实现更高程度的一致性',
+    },
+    diagramAriaLabel: {
+      en: 'Without coordination the four corridor conditions are fragmented. SWAQAR coordinates across them so they operate in greater alignment while licensed institutions retain their roles.',
+      ar: 'دون تنسيق، تكون ظروف الممر الأربعة مجزأة. تنسق سواقر بينها لتعمل بمزيد من الاتساق بينما تحتفظ المؤسسات المرخصة بأدوارها.',
+      fr: 'Sans coordination, les quatre conditions du corridor sont fragmentées. SWAQAR les coordonne afin qu\'elles opèrent en plus grand alignement, tandis que les institutions agréées conservent leurs rôles.',
+      zh: '在无协调的情况下，通道的四项条件是分散的。SWAQAR 对其进行协调，使其实现更高程度的一致性，同时持牌机构保留其职责。',
+    },
     items: {
       en: [
         { name: 'Verification', state: 'Repeated', desc: 'Counterparties may be verified separately by multiple institutions.' },
@@ -889,10 +922,16 @@ export const t = {
       ],
     },
     closing: {
-      en: 'SWAQAR coordinates the institutional layer between them.',
-      ar: 'تنسق سواقر الطبقة المؤسسية التي تربط بينها.',
-      fr: 'SWAQAR coordonne la couche institutionnelle qui les relie.',
-      zh: 'SWAQAR 协调连接这些环节的机构层。',
+      en: 'SWAQAR coordinates the conditions around the corridor.',
+      ar: 'تُنسّق سواقر الظروف المحيطة بالممر.',
+      fr: 'SWAQAR coordonne les conditions autour du corridor.',
+      zh: 'SWAQAR 协调通道周边的各项条件。',
+    },
+    closingSupport: {
+      en: 'Licensed institutions retain their respective roles.',
+      ar: 'تحتفظ المؤسسات المرخصة بأدوارها الخاصة.',
+      fr: 'Les institutions agréées conservent leurs rôles respectifs.',
+      zh: '持牌机构保留其各自职责。',
     },
   },
 

@@ -124,15 +124,25 @@ export default function HomeClient({ locale }: { locale: string }) {
         </div>
       </div>
 
-      {/* NEW — V2.0 copy lock: "The Coordination Gap". Built from existing sitewide components
-          (.sec-tag/.sec-h/.pillars/.gov-note) per instruction — no new styling invented. */}
+      {/* Coordination Gap — rebuilt round. Eyebrow/heading still built from the existing sitewide
+          .sec-tag/.sec-h primitives (unchanged pattern); the lede paragraph is new (the approved
+          copy for this round adds supporting copy that wasn't here before) using the existing
+          .sec-p primitive rather than inventing new type styling. The closing changed from the
+          old bordered .gov-note disclaimer box to a plain gold-rule "lockup" (two lines, no
+          border/background) per the new spec — .gov-note is still used elsewhere on the page
+          (contact section) so it's untouched there, just no longer used here. */}
       <section className="gap" id="gap">
         <div className="wrap">
           <div className="sec-tag r"><div className="sec-tag-line"></div><span className="sec-tag-txt">{tx(t.gap.sectionTag, lang)}</span></div>
           <h2 className="sec-h r" data-d="1">{tx(t.gap.heading, lang)} <em>{tx(t.gap.headingEm, lang)}</em></h2>
+          <p className="sec-p r" data-d="2">{tx(t.gap.description, lang)}</p>
           <CoordinationGapDiagram locale={locale} />
-          <div className="gov-note r" data-d="3" style={{marginTop:'32px'}}>
-            <p className="gov-note-txt">{tx(t.gap.closing, lang)}</p>
+          <div className="gap-lockup r" data-d="3">
+            <span className="gap-lockup-rule" aria-hidden="true" />
+            <div>
+              <strong>{tx(t.gap.closing, lang)}</strong>
+              <span>{tx(t.gap.closingSupport, lang)}</span>
+            </div>
           </div>
         </div>
       </section>

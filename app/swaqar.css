@@ -276,16 +276,83 @@ section{position:relative;padding:104px 0}
 .gap{background:var(--parchment)}
 .reality{background:var(--parchment)}
 
-/* Coordination Gap diagram (Stage 4 batch 1) */
+/* Coordination Gap diagram — before/after grid comparison (rebuilt; replaces the old fragmented-
+   strand SVG). See CoordinationGapDiagram.tsx for the RTL/adaptation rationale. Uses the site's
+   existing locked tokens throughout (var(--navy)/var(--gold)/var(--muted)/var(--rule)/var(--ink)
+   /var(--serif)) rather than a parallel token set — no new hex values introduced. 900px
+   desktop/mobile breakpoint matches the old diagram's own precedent for this exact switch, which
+   also satisfies "no cramped desktop diagram at 768/820 tablet portrait" for free, since both
+   fall inside the spacious mobile-stack layout rather than a squeezed desktop grid. */
 .gap-diagram{margin-top:44px}
-.gap-diagram-desktop{display:block;width:100%;height:auto}
-.gap-diagram-mobile{display:none;width:100%;height:auto}
-.gap-diagram-captions{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:28px}
-.gap-diagram-caption{display:flex;flex-direction:column;gap:4px}
-.gap-diagram-caption-state{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:600}
-.gap-diagram-caption-desc{font-size:.78rem;color:var(--muted);line-height:1.55}
-@media(max-width:900px){.gap-diagram-desktop{display:none}.gap-diagram-mobile{display:block}.gap-diagram-captions{grid-template-columns:1fr 1fr;gap:20px}}
-@media(max-width:500px){.gap-diagram-captions{grid-template-columns:1fr}}
+.gap-desktop-only{display:block}
+
+.gap-rail{position:relative;width:min(540px,54%);margin:0 auto 24px;padding:13px 18px 11px;background:var(--navy);border-top:1px solid var(--gold);text-align:center;box-shadow:0 10px 28px rgba(11,31,58,.08)}
+.gap-rail strong{display:block;color:#dcc078;font-size:.6875rem;letter-spacing:.2em;text-transform:uppercase}
+.gap-rail span{display:block;margin-top:4px;color:#d3dbe5;font-size:.5625rem;letter-spacing:.16em;text-transform:uppercase}
+
+.gap-cmp-head{display:grid;grid-template-columns:1fr 90px 1fr;gap:22px;align-items:end;margin-bottom:12px}
+.gap-cmp-head-end{text-align:end}
+.gap-kicker{font-size:.5625rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.gap-state{margin-top:5px;font-family:var(--serif);font-size:26px;line-height:1.1;color:var(--navy)}
+.gap-cmp-mid-note{text-align:center;color:var(--gold);font-size:.5625rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;padding-bottom:4px}
+
+.gap-cmp-rows{position:relative}
+.gap-cmp-row{display:grid;grid-template-columns:1fr 90px 1fr;gap:22px;min-height:76px;border-top:1px solid var(--rule);align-items:center}
+.gap-cmp-row:first-child{border-top:none}
+.gap-cmp-side{display:grid;grid-template-columns:160px 1fr;gap:20px;align-items:center}
+.gap-cmp-name{font-size:.625rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.gap-cmp-state{margin-top:4px;font-size:.6875rem;letter-spacing:.07em;text-transform:uppercase;font-weight:800;color:var(--ink)}
+
+/* Broken vs continuous is the ONLY thing that has to carry the meaning (no relying on gold vs
+   grey alone, per the accessibility requirement) — border-style:dashed vs solid, not the
+   reference's six-<i>-per-row absolutely-positioned markup. Simpler, and correct under RTL for
+   free since a horizontal border doesn't care about inline direction. */
+.gap-broken,.gap-solid{position:relative;height:18px}
+.gap-broken::before{content:"";position:absolute;inset-inline:0;top:8px;border-top:2px dashed var(--rule)}
+.gap-solid::before{content:"";position:absolute;inset-inline:0;top:8px;border-top:2px solid var(--muted)}
+.gap-solid::after{content:"";position:absolute;inset-inline-end:6px;top:4px;width:10px;height:10px;border:1px solid var(--gold);background:var(--white);border-radius:50%}
+
+.gap-cmp-mid{position:relative;height:54px}
+.gap-cmp-mid::before{content:"";position:absolute;inset-inline-start:50%;top:2px;bottom:2px;width:1px;background:linear-gradient(to bottom,transparent,var(--gold),transparent)}
+.gap-cmp-mid::after{content:"";position:absolute;inset-inline-start:50%;top:50%;transform:translate(-50%,-50%);width:7px;height:7px;border:1px solid var(--gold);background:var(--white);border-radius:50%}
+
+/* No line is drawn through the rail above, and nothing is drawn through this bracket either —
+   strands end at one edge and resume, realigned, past it. Nothing here reads as goods, funds or
+   a transaction passing through SWAQAR. */
+.gap-cmp-bracket{position:absolute;inset-inline-end:0;top:12px;bottom:12px;width:16px;border-inline-end:1px solid var(--gold);border-block:1px solid var(--gold)}
+.gap-cmp-caption{display:flex;justify-content:flex-end;margin-top:14px;padding-inline-end:24px;font-size:.5625rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:800}
+
+.gap-mobile{display:none}
+.gap-mobile-state{padding:14px 0 18px;border-top:1px solid var(--rule)}
+.gap-mobile-state:first-child{border-top:none}
+.gap-mobile-title{margin-top:5px;font-family:var(--serif);font-size:25px;color:var(--navy)}
+.gap-mobile-list{display:grid;gap:14px;margin-top:15px}
+.gap-mobile-item{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:end}
+.gap-mobile-label{font-size:.625rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.gap-mobile-state-txt{font-size:.625rem;letter-spacing:.07em;text-transform:uppercase;font-weight:800;color:var(--ink)}
+.gap-mobile-line{height:8px;margin-top:7px}
+.gap-mobile-line::before{top:3px}
+.gap-mobile-line.gap-solid::after{display:none}
+.gap-mobile-rail{margin:16px 0;width:100%}
+
+@media(max-width:900px){
+  .gap-desktop-only{display:none}
+  .gap-mobile{display:block}
+}
+
+/* One-time, restrained entrance, gated on the SAME .up class the sitewide scroll-reveal
+   IntersectionObserver already toggles on this element (see .r/.r.up in this file) — not an
+   unconditional on-mount animation like the reference, which would finish playing while the
+   section is still below the fold and invisible (opacity:0 via .r) on a full scrolling page,
+   defeating the point of a visible entrance. Reduced motion needs no separate handling here: the
+   sitewide `*{animation-duration:.01ms!important}` rule already collapses this (and every other
+   animation on the site) to its end state near-instantly with nothing lost. */
+.gap-diagram.up .gap-rail{animation:gapRailIn .55s var(--ease) both}
+.gap-diagram.up .gap-solid::before{animation:gapAlignIn .7s .25s var(--ease) both}
+.gap-diagram.up .gap-cmp-bracket{animation:gapBracketIn .35s .75s var(--ease) both}
+@keyframes gapRailIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+@keyframes gapAlignIn{from{opacity:0;transform:scaleX(.82)}to{opacity:1;transform:scaleX(1)}}
+@keyframes gapBracketIn{from{opacity:0}to{opacity:1}}
 .id-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:56px;background:var(--rule);border:1px solid var(--rule)}
 .id-col{padding:36px 32px}
 .id-col-yes{background:var(--charcoal)}
@@ -644,6 +711,15 @@ section{position:relative;padding:104px 0}
 .gov-note{margin-top:44px;padding:22px 28px;background:var(--parchment);border:1px solid var(--rule);border-left:3px solid var(--gold)}
 .gov-note-tag{font-size:.54rem;letter-spacing:.28em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:7px}
 .gov-note-txt{font-size:.88rem;line-height:1.75;color:var(--body);text-align:justify;max-width:70ch}
+
+/* Coordination Gap closing — deliberately NOT .gov-note (no border/background box): the new
+   spec explicitly removes "the large bordered disclaimer-style closing box" this section used
+   to end on, replacing it with a plain gold-rule two-line lockup instead. */
+.gap-lockup{margin-top:32px;display:flex;gap:16px;align-items:flex-start}
+.gap-lockup-rule{width:2px;height:58px;background:var(--gold);flex:0 0 auto}
+.gap-lockup strong{display:block;font-family:var(--serif);font-size:clamp(21px,2vw,27px);line-height:1.22;color:var(--navy);font-weight:600}
+.gap-lockup span{display:block;margin-top:6px;color:var(--body);font-size:13px}
+@media(max-width:768px){.gap-lockup{margin-top:24px}.gap-lockup strong{font-size:19px}.gap-lockup span{font-size:12px}}
 .partners{background:var(--parchment);padding:64px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
 .partners-lbl{text-align:center;font-size:.56rem;letter-spacing:.36em;text-transform:uppercase;color:var(--muted);margin-bottom:40px}
 .partners-wrap{overflow:hidden;position:relative}
