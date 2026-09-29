@@ -101,6 +101,26 @@ export default function HomeClient({ locale }: { locale: string }) {
             <a href="#contact" className="btn-gold"><span>{tx(t.hero.btnInquiry, lang)}</span><svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></a>
             <a href="#corridors" className="btn-ghost-light">{tx(t.hero.btnExplore, lang)}</a>
           </div>
+          {/* Mobile-only corner globe (Option C, ≤768px) — the existing full-bleed .hero-map-frame
+              above is masked to near-zero opacity at these widths already (built to guarantee zero
+              overlap with hero-body, at the cost of reading as completely absent on phones — see
+              fix/hero-globe-mobile branch notes). Rather than reshape that mask, this adds a
+              second, deliberately smaller, corner-anchored instance, hidden above 768px via CSS.
+              showSecondary={false} drops to hub+core (~7 nodes) — at this size, full label density
+              reads as clutter, not detail; the label text layer itself is hidden entirely (see
+              .hero-corner-globe-surface in swaqar.css) rather than risk clipped words at this
+              scale. The zero-height anchor div places the globe in NORMAL FLOW right after the
+              actual rendered CTA buttons (not at a guessed fixed offset from .hero's own edges) —
+              so it sits below them by construction, regardless of viewport height or how many
+              lines the buttons wrap to, rather than a pixel offset that only happened to work at
+              one tested height. */}
+          <div className="hero-corner-globe-anchor">
+            <div className="hero-corner-globe" aria-hidden="true">
+              <div className="hero-corner-globe-surface">
+                <CorridorGlobe lang={lang} textSafeSelectors={HERO_TEXT_SAFE} showSecondary={false} />
+              </div>
+            </div>
+          </div>
         </div>
         <div className="hero-scroll"><div className="hero-scroll-line"></div><span className="hero-scroll-txt">{tx(t.hero.scroll, lang)}</span></div>
       </section>
