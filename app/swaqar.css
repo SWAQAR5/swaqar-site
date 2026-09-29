@@ -201,6 +201,49 @@ html[dir="rtl"] .hero-text-scrim{background:linear-gradient(260deg,rgba(8,17,36,
   .hero-map-frame{-webkit-mask-image:linear-gradient(to right,transparent 0,transparent calc(min(440px, 100vw - 48px) + 40px),#000 calc(min(440px, 100vw - 48px) + 88px));mask-image:linear-gradient(to right,transparent 0,transparent calc(min(440px, 100vw - 48px) + 40px),#000 calc(min(440px, 100vw - 48px) + 88px))}
   html[dir="rtl"] .hero-map-frame{-webkit-mask-image:linear-gradient(to left,transparent 0,transparent calc(min(440px, 100vw - 48px) + 40px),#000 calc(min(440px, 100vw - 48px) + 88px));mask-image:linear-gradient(to left,transparent 0,transparent calc(min(440px, 100vw - 48px) + 40px),#000 calc(min(440px, 100vw - 48px) + 88px))}
 }
+/* Mobile-only corner globe (Option C) — a SEPARATE, additional CorridorGlobe instance, not a
+   modification of the sitewide .hero-map-frame/.hero-map-surface backdrop above (that stays
+   exactly as-is; its own mask already renders it near-invisible below 768px, which is the bug
+   this fixes). Lives inside .hero-body, right after .hero-btns in markup, specifically so its
+   anchor point tracks the ACTUAL rendered bottom of the CTA buttons (which wrap to 1 or 2 lines
+   depending on locale/width) rather than a fixed offset guessed from one tested viewport height —
+   confirmed via Playwright across the 360x800/390x844/430x932 device pairs that a fixed-offset-
+   from-.hero approach overlapped the buttons at 2 of the 3 required widths; this anchor-in-flow
+   approach overlaps at none, by construction, at any height.
+   .hero-corner-globe-anchor has height:0 so it adds no visible gap/space to .hero-body's own
+   flow (doesn't push hero-body taller or shift its vertical centering) — it exists purely to give
+   .hero-corner-globe (position:absolute) a top:0 reference point that equals "right after the
+   buttons," full stop.
+   .hero itself provides the overflow:hidden that clips whatever bleeds past its right/bottom
+   edge — no separate clip math needed here.
+   showSecondary={false} on the React side drops to hub+core (~7 nodes); the label layer is
+   hidden here entirely (not just thinned) — at this box's small rendered size, full name/region/
+   descriptor text stacks would either clutter or get clipped by the circular mask, and the
+   checklist calls for "hide labels, show only the graphic" over any truncated text. */
+.hero-corner-globe-anchor{position:relative;height:0;display:none}
+@media(max-width:768px){.hero-corner-globe-anchor{display:block}}
+.hero-corner-globe{
+  --cg-d:clamp(150px,44vw,210px);
+  position:absolute;
+  z-index:0;
+  top:22px;
+  right:calc(var(--cg-d) * -0.12);
+  width:var(--cg-d);
+  height:var(--cg-d);
+  border-radius:50%;
+  overflow:hidden;
+  pointer-events:none;
+  border:1px solid rgba(212,175,90,.3);
+}
+.hero-corner-globe-surface{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:calc(var(--cg-d) * 16 / 9);
+  height:var(--cg-d);
+}
+.hero-corner-globe-surface .cor-globe-label-layer{display:none}
+html[dir="rtl"] .hero-corner-globe{right:auto;left:calc(var(--cg-d) * -0.12)}
 .hero-body{position:relative;z-index:2;padding:0 60px;max-width:440px}
 .eyebrow{display:inline-flex;align-items:center;gap:14px;margin-bottom:30px}
 .eyebrow-line{width:36px;height:1px;background:var(--gold)}
