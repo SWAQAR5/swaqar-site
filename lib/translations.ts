@@ -43,11 +43,21 @@ export const t = {
 
   // ── HERO ── // reviewed
   hero: {
-    eyebrow: {
-      en: 'Trade Coordination · Africa · Middle East · Asia',
-      ar: 'تنسيق التجارة · أفريقيا · الشرق الأوسط · آسيا',
-      fr: 'Coordination Commerciale · Afrique · Moyen-Orient · Asie',
-      zh: '贸易协调 · 非洲 · 中东 · 亚洲',
+    // Split into two explicit lines (was one string relying on wrap) so the break always falls
+    // after the first term, not wherever the browser happens to wrap it — confirmed consistent
+    // at 360/390/430px. Same words as before in every locale, just a fixed line break instead of
+    // a natural-wrap one.
+    eyebrowLine1: {
+      en: 'Trade Coordination ·',
+      ar: 'تنسيق التجارة ·',
+      fr: 'Coordination Commerciale ·',
+      zh: '贸易协调 ·',
+    },
+    eyebrowLine2: {
+      en: 'Africa · Middle East · Asia',
+      ar: 'أفريقيا · الشرق الأوسط · آسيا',
+      fr: 'Afrique · Moyen-Orient · Asie',
+      zh: '非洲 · 中东 · 亚洲',
     },
     // RESOLVED (was REVIEW): "Corridors of Trust" is the flagship brand name — kept verbatim in
     // English across every locale, matching the English headline exactly. No JSX change was

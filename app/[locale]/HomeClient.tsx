@@ -88,7 +88,7 @@ export default function HomeClient({ locale }: { locale: string }) {
       <section className="hero" id="home">
         <div className="hero-text-scrim" />
         <div className="hero-body">
-          <div className="eyebrow r"><div className="eyebrow-line"></div><span className="eyebrow-text">{tx(t.hero.eyebrow, lang)}</span></div>
+          <div className="eyebrow r"><div className="eyebrow-line"></div><span className="eyebrow-text"><span className="eyebrow-text-l1">{tx(t.hero.eyebrowLine1, lang)}</span> <span className="eyebrow-text-l2">{tx(t.hero.eyebrowLine2, lang)}</span></span></div>
           <h1 className="hero-h1 r" data-d="1">{tx(t.hero.h1line1, lang)}<br/>{tx(t.hero.h1line2, lang)} <em>{tx(t.hero.h1em, lang)}</em></h1>
           {/* Stage 4 batch 1 — .hero-sub already existed in swaqar.css (italic serif, gold-
               tinted, generous margin) but was never wired to any JSX until now: exactly the
