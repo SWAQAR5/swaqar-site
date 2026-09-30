@@ -48,11 +48,6 @@ export default function SiteHeader({ locale }: { locale: string }) {
     <>
       <div id="cur"><div id="cur-dot"></div><div id="cur-ring"></div></div>
 
-      <div className="banner">
-        <div className="banner-dot"></div>
-        <p className="banner-txt">{tx(t.banner, lang)}</p>
-      </div>
-
       <nav id="nav">
         <a className="nav-brand" href={`/${locale}#home`}>
           <svg className="nav-mark" viewBox="508 252 1024 900" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
