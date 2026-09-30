@@ -159,6 +159,15 @@ nav.scrolled{box-shadow:0 2px 24px rgba(11,31,58,.08)}
    frame specifically — this does not affect Corridors' own mobile behavior at all. */
 @media(max-width:768px){.hero-map-frame .cor-globe-img{object-fit:cover}}
 .hero{position:relative;min-height:92vh;background:transparent;display:flex;align-items:center;overflow:hidden}
+/* Mobile-only top-spacing fix — .hero centers .hero-body vertically (align-items:center) inside
+   a min-height:92vh box, which is fine on desktop/tablet (plenty of width for the copy to breathe
+   into) but on mobile leaves a large, empty-looking gap between the header and the eyebrow line,
+   since the content block itself is much shorter than 92vh. Switches to align-items:flex-start
+   with a small, deliberate padding-top instead, mobile only (<=768px) — this does NOT touch
+   .hero's own height (min-height:92vh is untouched, so the corner globe's available space below
+   the buttons only gets LARGER, never smaller, confirmed by measurement) or any shared/default
+   value; desktop and tablet keep the exact centered layout unchanged. */
+@media(max-width:768px){.hero{align-items:flex-start;padding-top:28px}}
 /* Scrim: keeps the map's busiest area from ever competing with the hero copy for legibility —
    dark toward the copy, fading to transparent toward the open map. .hero-body sits on the LEFT
    in LTR and the RIGHT under RTL (see that rule below), so the scrim mirrors to match. Lives
