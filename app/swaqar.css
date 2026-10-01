@@ -206,41 +206,35 @@ html[dir="rtl"] .hero-text-scrim{background:linear-gradient(260deg,rgba(8,17,36,
   .hero-map-frame{-webkit-mask-image:linear-gradient(to right,transparent 0,transparent calc(min(440px, 100vw - 48px) + 40px),#000 calc(min(440px, 100vw - 48px) + 88px));mask-image:linear-gradient(to right,transparent 0,transparent calc(min(440px, 100vw - 48px) + 40px),#000 calc(min(440px, 100vw - 48px) + 88px))}
   html[dir="rtl"] .hero-map-frame{-webkit-mask-image:linear-gradient(to left,transparent 0,transparent calc(min(440px, 100vw - 48px) + 40px),#000 calc(min(440px, 100vw - 48px) + 88px));mask-image:linear-gradient(to left,transparent 0,transparent calc(min(440px, 100vw - 48px) + 40px),#000 calc(min(440px, 100vw - 48px) + 88px))}
 }
-/* Mobile-only corner globe (Option C) — a SEPARATE, additional CorridorGlobe instance, not a
+/* Mobile-only headline-adjacent globe — a SEPARATE, additional CorridorGlobe instance, not a
    modification of the sitewide .hero-map-frame/.hero-map-surface backdrop above (that stays
    exactly as-is; its own mask already renders it near-invisible below 768px, which is the bug
-   this fixes). Lives inside .hero-body, right after .hero-btns in markup, specifically so its
-   anchor point tracks the ACTUAL rendered bottom of the CTA buttons (which wrap to 1 or 2 lines
-   depending on locale/width) rather than a fixed offset guessed from one tested viewport height —
-   confirmed via Playwright across the 360x800/390x844/430x932 device pairs that a fixed-offset-
-   from-.hero approach overlapped the buttons at 2 of the 3 required widths; this anchor-in-flow
-   approach overlaps at none, by construction, at any height.
-   .hero-corner-globe-anchor has height:0 so it adds no visible gap/space to .hero-body's own
-   flow (doesn't push hero-body taller or shift its vertical centering) — it exists purely to give
-   .hero-corner-globe (position:absolute) a top:0 reference point that equals "right after the
-   buttons," full stop.
-   .hero itself provides the overflow:hidden that clips whatever bleeds past its right/bottom
-   edge — no separate clip math needed here.
-   showSecondary={false} on the React side drops to hub+core (~7 nodes); the label layer is
-   hidden here entirely (not just thinned) — at this box's small rendered size, full name/region/
-   descriptor text stacks would either clutter or get clipped by the circular mask, and the
-   checklist calls for "hide labels, show only the graphic" over any truncated text. */
-.hero-corner-globe-anchor{position:relative;height:0;display:none}
-@media(max-width:768px){.hero-corner-globe-anchor{display:block}}
-/* Full-visibility revision — the earlier version deliberately let the circle bleed/clip past
-   .hero's own bottom edge; per follow-up feedback the WHOLE circle must now fit fully inside the
-   hero section at every required width, not just be "more than half" visible. Available vertical
-   room (anchor position to .hero's own bottom) is tightest at 360px specifically (~90px there vs
-   ~110-150px at 390/430, since 390/844 and 430/932 are both taller canonical heights) — sized off
-   that worst case, confirmed by direct Playwright measurement, not assumed. Right bleed removed
-   too (right:8px instead of a negative offset) so the circle is also fully inside the viewport
-   horizontally, not just vertically. */
+   this originally fixed).
+   Re-anchored (was previously positioned after .hero-btns, near the bottom of the content block)
+   to sit beside the headline's own "of Trust" lines instead, per design confirmation — this is
+   the deliberate, current design, not an accident of the top-spacing fix.
+   Positioned with a FIXED top/right offset from .hero-body rather than a flow-anchor-after-an-
+   element trick. That trick existed originally because .hero vertically centered .hero-body
+   (align-items:center) inside a min-height:92vh box, making every descendant's position shift
+   with viewport HEIGHT. The mobile top-spacing fix changed .hero to align-items:flex-start,
+   which removed that height-dependency entirely — confirmed via measurement that .hero-h1/
+   .hero-desc/.hero-btns all land within a fraction of a pixel of each other across
+   360x800/390x844/430x932. A fixed offset is therefore safe and no longer needs the flow trick.
+   Size/position were derived from character-level Range measurement of "of" and "Trust" (NOT
+   the h1 element's own box, which spans the full column width regardless of how short those
+   words are) and of .hero-desc's actual first-line glyph position (not just its box, which has
+   a few px of line-height leading above the visible text) — the available vertical gap between
+   the "of"/"Trust" lines and the desc paragraph's real text is only ~88-98px depending on width,
+   which is what actually bounds the diameter here, not an arbitrary choice. Verified via
+   Playwright bounding-box overlap checks against "Corridors"/"of"/"Trust" and hero-desc's first
+   line at all three required widths: zero overlap. */
 .hero-corner-globe{
-  --cg-d:clamp(78px,25vw,116px);
+  display:none;
+  --cg-d:98px;
   position:absolute;
   z-index:0;
-  top:14px;
-  right:8px;
+  top:80px;
+  right:16px;
   width:var(--cg-d);
   height:var(--cg-d);
   border-radius:50%;
@@ -248,6 +242,7 @@ html[dir="rtl"] .hero-text-scrim{background:linear-gradient(260deg,rgba(8,17,36,
   pointer-events:none;
   border:1px solid rgba(212,175,90,.3);
 }
+@media(max-width:768px){.hero-corner-globe{display:block}}
 .hero-corner-globe-surface{
   position:absolute;
   top:50%;left:50%;
@@ -256,7 +251,7 @@ html[dir="rtl"] .hero-text-scrim{background:linear-gradient(260deg,rgba(8,17,36,
   height:var(--cg-d);
 }
 .hero-corner-globe-surface .cor-globe-label-layer{display:none}
-html[dir="rtl"] .hero-corner-globe{right:auto;left:8px}
+html[dir="rtl"] .hero-corner-globe{right:auto;left:16px}
 .hero-body{position:relative;z-index:2;padding:0 60px;max-width:440px}
 .eyebrow{display:inline-flex;align-items:center;gap:14px;margin-bottom:30px}
 .eyebrow-line{width:36px;height:1px;background:var(--gold)}

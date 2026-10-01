@@ -90,6 +90,30 @@ export default function HomeClient({ locale }: { locale: string }) {
         <div className="hero-body">
           <div className="eyebrow r"><div className="eyebrow-line"></div><span className="eyebrow-text"><span className="eyebrow-text-l1">{tx(t.hero.eyebrowLine1, lang)}</span> <span className="eyebrow-text-l2">{tx(t.hero.eyebrowLine2, lang)}</span></span></div>
           <h1 className="hero-h1 r" data-d="1">{tx(t.hero.h1line1, lang)}<br/>{tx(t.hero.h1line2, lang)} <em>{tx(t.hero.h1em, lang)}</em></h1>
+          {/* Mobile-only headline-adjacent globe (≤768px) — the existing full-bleed .hero-map-frame
+              above is masked to near-zero opacity at these widths already (built to guarantee zero
+              overlap with hero-body, at the cost of reading as completely absent on phones — see
+              fix/hero-globe-mobile branch notes). Rather than reshape that mask, this adds a
+              second, deliberately smaller instance, hidden above 768px via CSS.
+              Positioned via a FIXED top/right offset from .hero-body (not a flow-anchor-after-an-
+              element trick, unlike the previous iteration) — safe to do now specifically because
+              the mobile top-spacing fix changed .hero to align-items:flex-start, which made every
+              hero-body descendant's vertical position height-independent (confirmed via
+              measurement: h1/eyebrow/desc all land within a fraction of a pixel of each other
+              across 360x800/390x844/430x932). Sized/positioned to sit beside "of Trust" (the
+              headline's own 2nd/3rd lines) without overlapping the glyphs — verified via
+              character-level Range measurement of those two words, not the h1 box as a whole
+              (the h1 element's own box spans the full column width even though "of"/"Trust" only
+              occupy the left ~130px of it).
+              showSecondary={false} drops to hub+core (~7 nodes) — at this size, full label density
+              reads as clutter, not detail; the label text layer itself is hidden entirely (see
+              .hero-corner-globe-surface in swaqar.css) rather than risk clipped words at this
+              scale. */}
+          <div className="hero-corner-globe" aria-hidden="true">
+            <div className="hero-corner-globe-surface">
+              <CorridorGlobe lang={lang} textSafeSelectors={HERO_TEXT_SAFE} showSecondary={false} />
+            </div>
+          </div>
           {/* Stage 4 batch 1 — .hero-sub already existed in swaqar.css (italic serif, gold-
               tinted, generous margin) but was never wired to any JSX until now: exactly the
               "clearly secondary" treatment this subtitle needs, so reused rather than
@@ -100,26 +124,6 @@ export default function HomeClient({ locale }: { locale: string }) {
           <div className="hero-btns r" data-d="4">
             <a href="#contact" className="btn-gold"><span>{tx(t.hero.btnInquiry, lang)}</span><svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></a>
             <a href="#corridors" className="btn-ghost-light">{tx(t.hero.btnExplore, lang)}</a>
-          </div>
-          {/* Mobile-only corner globe (Option C, ≤768px) — the existing full-bleed .hero-map-frame
-              above is masked to near-zero opacity at these widths already (built to guarantee zero
-              overlap with hero-body, at the cost of reading as completely absent on phones — see
-              fix/hero-globe-mobile branch notes). Rather than reshape that mask, this adds a
-              second, deliberately smaller, corner-anchored instance, hidden above 768px via CSS.
-              showSecondary={false} drops to hub+core (~7 nodes) — at this size, full label density
-              reads as clutter, not detail; the label text layer itself is hidden entirely (see
-              .hero-corner-globe-surface in swaqar.css) rather than risk clipped words at this
-              scale. The zero-height anchor div places the globe in NORMAL FLOW right after the
-              actual rendered CTA buttons (not at a guessed fixed offset from .hero's own edges) —
-              so it sits below them by construction, regardless of viewport height or how many
-              lines the buttons wrap to, rather than a pixel offset that only happened to work at
-              one tested height. */}
-          <div className="hero-corner-globe-anchor">
-            <div className="hero-corner-globe" aria-hidden="true">
-              <div className="hero-corner-globe-surface">
-                <CorridorGlobe lang={lang} textSafeSelectors={HERO_TEXT_SAFE} showSecondary={false} />
-              </div>
-            </div>
           </div>
         </div>
         <div className="hero-scroll"><div className="hero-scroll-line"></div><span className="hero-scroll-txt">{tx(t.hero.scroll, lang)}</span></div>
