@@ -230,10 +230,10 @@ html[dir="rtl"] .hero-text-scrim{background:linear-gradient(260deg,rgba(8,17,36,
    line at all three required widths: zero overlap. */
 .hero-corner-globe{
   display:none;
-  --cg-d:clamp(94px,27vw,112px);
+  --cg-d:98px;
   position:absolute;
   z-index:0;
-  top:96px;
+  top:80px;
   right:16px;
   width:var(--cg-d);
   height:var(--cg-d);
